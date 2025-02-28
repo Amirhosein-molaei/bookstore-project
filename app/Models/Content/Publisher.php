@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models\Content;
+
+use App\Models\Market\Product;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Publisher extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $guarded = ['id'];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+}

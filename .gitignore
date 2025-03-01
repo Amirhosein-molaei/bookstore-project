@@ -7,6 +7,7 @@
 /storage/pail
 /vendor
 .env
+.env.example
 .editorconfig
 .env.backup
 .env.production

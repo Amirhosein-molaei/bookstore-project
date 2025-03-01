@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Content\FaqController;
 use App\Http\Controllers\Admin\Content\MenuController;
+use App\Http\Controllers\Admin\Setting\SettingController;
 
 Route::get('/', function () {
     $purchases = Auth::user()->purchases;
@@ -35,6 +36,14 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::prefix('content')->name('content.')->group(function () {
         Route::resource('menu', MenuController::class);
         Route::resource('faq', FaqController::class);
+    });
+    
+    Route::prefix('setting')->name('setting.')->group(function () {
+        Route::get('/',[SettingController::class,'index']);
+        Route::get('set',[SettingController::class,'set'])->name('set');
+        Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
+
+
     });
 
 });

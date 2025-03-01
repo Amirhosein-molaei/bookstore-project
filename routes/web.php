@@ -1,15 +1,21 @@
 <?php
 
+use App\Http\Controllers\Admin\Content\WriterController;
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
-    $purchases = Auth::user()->purchases;
-    foreach($purchases as $purchase)
-    {
-        echo $purchase->product->title . '<br/>';
-    }
+    return view('welcome');
+});
+
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('/', DashboardController::class);
+
+    Route::prefix('content')->name('content.')->group(function(){
+        Route::resource('writer', WriterController::class);
+    });
 });
 
 Route::get('/dashboard', function () {

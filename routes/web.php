@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Content\FaqController;
 use App\Http\Controllers\Admin\Content\MenuController;
 
 Route::get('/', function () {
@@ -33,6 +34,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
 
     Route::prefix('content')->name('content.')->group(function () {
         Route::resource('menu', MenuController::class);
+        Route::resource('faq', FaqController::class);
     });
 
 });

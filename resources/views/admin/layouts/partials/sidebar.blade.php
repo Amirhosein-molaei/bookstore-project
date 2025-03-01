@@ -17,6 +17,11 @@
                         <i class="fas fa-bars"></i>
                         <span>منو ها  </span>
                     </a>
+                    <a href="{{route('admin.content.faq.index')}}" class="sidebar-link">
+                        <i class="fas fa-question"></i>
+                        <span> سوالات متداول  </span>
+                    </a>
+                    
                     
                    
                    

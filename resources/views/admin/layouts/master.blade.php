@@ -3,31 +3,21 @@
 
 <head>
     @include('admin.layouts.head-tag')
-
-   
 </head>
 
 <body dir="rtl">
 
 
-    
     @include('admin.layouts.partials.header')
 
-
     <section class="body-container">
-        
+
         @include('admin.layouts.partials.sidebar')
-
-
 
 
         <section id="main-body" class="main-body">
 
-         @yield('content')
-       
-
-
-
+            @yield('content')
 
         </section>
     </section>
@@ -45,8 +35,4 @@
 
 </body>
 
-<<<<<<< Updated upstream
 </html>
-=======
-</html>
->>>>>>> Stashed changes

@@ -1,25 +1,19 @@
 <?php
 
-<<<<<<< Updated upstream
 use Illuminate\Support\Facades\Auth;
-=======
-use App\Http\Controllers\Admin\Content\WriterController;
->>>>>>> Stashed changes
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Content\FaqController;
 use App\Http\Controllers\Admin\Content\MenuController;
-use App\Http\Controllers\Admin\Setting\SettingController;
+use App\Http\Controllers\Admin\Content\WriterController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 
+
 Route::get('/', function () {
-    $purchases = Auth::user()->purchases;
-    foreach($purchases as $purchase)
-    {
-        echo $purchase->product->title . '<br/>';
-    }
+    return view('welcome');
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -34,13 +28,14 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/',DashboardController::class);
 
     Route::prefix('content')->name('content.')->group(function () {
         Route::resource('menu', MenuController::class);
         Route::resource('faq', FaqController::class);
+        Route::resource('writer', WriterController::class);
     });
     
     Route::prefix('setting')->name('setting.')->group(function () {

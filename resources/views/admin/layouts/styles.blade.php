@@ -5,8 +5,4 @@
     <link rel="stylesheet" href="{{asset('admin-assets/assets/css/grid.css')}}">
     <link rel="stylesheet" href="{{asset('admin-assets/assets/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('sweetalert/sweetalert2.css') }}">
-<<<<<<< Updated upstream
     @show
-=======
-    @show
->>>>>>> Stashed changes

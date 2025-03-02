@@ -1,15 +1,9 @@
 @extends('admin.layouts.master')
-<<<<<<< Updated upstream
 
 @section('title', 'داشبورد')
 
 @section('content')
 
-=======
-@section('title', 'پنل ادمین')
-
-@section('content')
->>>>>>> Stashed changes
     <section class="row">
 
         <section class="col-lg-3 col-md-6 col-12">
@@ -224,8 +218,4 @@
             </section>
         </section>
     </section>
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 @endsection

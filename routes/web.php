@@ -29,3 +29,15 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
+
+    Route::get('/',DashboardController::class);
+
+    Route::prefix('content')->name('content.')->group(function () {
+        Route::resource('menu', MenuController::class);
+        Route::resource('faq', FaqController::class);
+    });
+
+});

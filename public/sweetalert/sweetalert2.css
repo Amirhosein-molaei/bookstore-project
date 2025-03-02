@@ -15,6 +15,9 @@
   -webkit-box-direction: normal;
           flex-direction: row;
 }
+#swal2-content{
+  text-align: center;
+}
 .swal2-popup.swal2-toast .swal2-title {
   -webkit-box-flex: 1;
           flex-grow: 1;

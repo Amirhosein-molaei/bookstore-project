@@ -1,15 +1,7 @@
 @extends('admin.layouts.master')
-<<<<<<< HEAD
 @section('title', 'پنل ادمین')
 
 @section('content')
-=======
-
-@section('title', 'داشبورد')
-
-@section('content')
-
->>>>>>> menu-management
     <section class="row">
 
         <section class="col-lg-3 col-md-6 col-12">
@@ -224,8 +216,4 @@
             </section>
         </section>
     </section>
-<<<<<<< HEAD
-=======
-
->>>>>>> menu-management
 @endsection

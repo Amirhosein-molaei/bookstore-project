@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Content\FaqController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Content\WriterController;
+use App\Http\Controllers\Admin\Market\ProductCategoryController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +36,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('menu', MenuController::class);
         Route::resource('faq', FaqController::class);
         Route::resource('writer', WriterController::class);
+    });
+    
+    Route::prefix('setting')->name('setting.')->group(function () {
+        Route::get('/',[SettingController::class,'index']);
+        Route::get('set',[SettingController::class,'set'])->name('set');
+        Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
+
+    });
+
+    Route::prefix('market')->name('market.')->group(function () {
+        Route::resource('product-category', ProductCategoryController::class);
     });
 
 });

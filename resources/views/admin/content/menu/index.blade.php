@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', '  سوالات متداول')
+@section('title', '  منوها ')
 
 @section('content')
 

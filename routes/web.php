@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< Updated upstream
 use Illuminate\Support\Facades\Auth;
+=======
+use App\Http\Controllers\Admin\Content\WriterController;
+>>>>>>> Stashed changes
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;

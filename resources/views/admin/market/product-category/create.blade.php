@@ -43,6 +43,21 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="parent_id" class="form-label">دسته والد</label>
+                            <select class="form-control" name="parent_id" id="parent_id">
+                                <option value="">دسته اصلی</option>
+                                @foreach ($parents as $parent)
+                                    <option value="{{ $parent->id }}" @if (old('parent_id') == $parent->id) selected @endif>
+                                        {{ $parent->name }}</option>
+                                @endforeach
+
+                            </select>
+                            @error('parent_id')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                       
 
 
                         <div class="col-12">

@@ -5,4 +5,8 @@
     <title>
         @yield('title','عنوان صفحه')
     </title>
+<<<<<<< Updated upstream
  @show
+=======
+ @show
+>>>>>>> Stashed changes

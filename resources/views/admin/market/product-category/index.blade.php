@@ -26,6 +26,8 @@
                         <th scope="col">#</th>
                         <th scope="col">نام</th>
                         <th scope="col">اسلاگ</th>
+                        <th scope="col"> پدر </th>
+
                         <th scope="col">وضعیت</th>
                         <th scope="col">تنظیمات</th>
                     </tr>
@@ -36,6 +38,11 @@
                             <th>{{ $loop->iteration }}</th>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->slug }}</td>
+                            <td>
+                                @if($category->parent){{ $category->parent->name }}
+                                @else دسته اصلی
+                                @endif
+                            </td>
                             <td>
                                 @if ($category->status)
                                     <span> فعال</span>

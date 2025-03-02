@@ -15,8 +15,8 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        $categories=ProductCategory::all();
-        return view('admin.market.product-category.index',compact('categories'));
+        $categories = ProductCategory::all();
+        return view('admin.market.product-category.index', compact('categories'));
     }
 
     /**
@@ -24,8 +24,8 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.market.product-category.create');
-
+        $parents = ProductCategory::where('parent_id', null)->get();
+        return view('admin.market.product-category.create', compact('parents'));
     }
 
     /**
@@ -33,7 +33,7 @@ class ProductCategoryController extends Controller
      */
     public function store(StoreProductCategoryRequest $request)
     {
-        $inputs=$request->all();
+        $inputs = $request->all();
         ProductCategory::create($inputs);
         return to_route('admin.market.product-category.index')->with('swal-success', 'دسته بندی با موفقیت ساخته شد');
     }
@@ -51,21 +51,21 @@ class ProductCategoryController extends Controller
      */
     public function edit(ProductCategory $productCategory)
     {
-        return view('admin.market.product-category.edit',compact('productCategory'));
+        $parents = ProductCategory::where('parent_id', null)->get()->except($productCategory->id);
+
+        return view('admin.market.product-category.edit', compact('productCategory','parents'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductCategoryRequest $request,ProductCategory $productCategory )
+    public function update(UpdateProductCategoryRequest $request, ProductCategory $productCategory)
     {
-        $inputs=$request->all();
+        $inputs = $request->all();
 
 
         $productCategory->update($inputs);
         return to_route('admin.market.product-category.index')->with('swal-success', 'دسته بندی با موفقیت ویرایش شد');
-
-       
     }
 
     /**
@@ -75,6 +75,5 @@ class ProductCategoryController extends Controller
     {
         $productCategory->delete();
         return back()->with('swal-success', 'دسته بندی با موفقیت حذف شد');
-
     }
 }

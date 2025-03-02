@@ -2,28 +2,31 @@
 
 namespace App\Models\Market;
 
+use Cocur\Slugify\Slugify;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProductCategory extends Model
 {
-    use HasFactory, SoftDeletes;
+   use SoftDeletes;
+    use Sluggable;
 
     protected $guarded = ['id'];
-
-    public function parent()
+    public function sluggable(): array
     {
-        return $this->belongsTo($this, 'parent_id');
+        return [
+            'slug' => [
+                'source' => 'name',
+                'onUpdate' => true ,
+                'separator' => '-', 
+               
+            ]
+        ];
     }
+   
 
-    public function subMenus()
-    {
-        return $this->hasMany($this, 'parent_id');
-    }
-
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
+  
 }
+

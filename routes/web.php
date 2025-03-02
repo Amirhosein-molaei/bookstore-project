@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Content\FaqController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Setting\SettingController;
+use App\Http\Controllers\Admin\Market\ProductCategoryController;
 
 Route::get('/', function () {
     $purchases = Auth::user()->purchases;
@@ -43,7 +44,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
         Route::get('set',[SettingController::class,'set'])->name('set');
         Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
 
+    });
 
+    Route::prefix('market')->name('market.')->group(function () {
+        Route::resource('product-category', ProductCategoryController::class);
     });
 
 });

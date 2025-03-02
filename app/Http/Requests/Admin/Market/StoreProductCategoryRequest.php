@@ -24,6 +24,7 @@ class StoreProductCategoryRequest extends FormRequest
         return [
             'name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
             'status' => 'required|in:0,1',
+            'parent_id' => 'nullable|numeric|exists:product_categories,id'
         ];
     }
 }

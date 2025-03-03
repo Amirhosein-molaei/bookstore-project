@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\Content\PublisherController;
 use App\Http\Controllers\Admin\Content\WriterController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
-
+use App\Http\Controllers\Admin\User\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,6 +33,10 @@ require __DIR__.'/auth.php';
 Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/',DashboardController::class);
+
+    Route::get('/users', [UserController::class, 'index'])->name('user.');
+    Route::post('/user/change-access/{user}', [UserController::class, 'changeAccess'])->name('user.change-access');
+    Route::post('/user/change-ticket-admin/{user}', [UserController::class, 'changeTicketAdmin'])->name('user.change-ticket-admin');
 
     Route::prefix('content')->name('content.')->group(function () {
         Route::resource('menu', MenuController::class);

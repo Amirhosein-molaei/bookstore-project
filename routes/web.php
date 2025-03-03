@@ -6,7 +6,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Content\FaqController;
 use App\Http\Controllers\Admin\Content\MenuController;
+use App\Http\Controllers\Admin\Content\PublisherController;
 use App\Http\Controllers\Admin\Content\WriterController;
+use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 
 
@@ -36,6 +38,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('menu', MenuController::class);
         Route::resource('faq', FaqController::class);
         Route::resource('writer', WriterController::class);
+        Route::resource('publisher', PublisherController::class);
+
     });
     
     Route::prefix('setting')->name('setting.')->group(function () {

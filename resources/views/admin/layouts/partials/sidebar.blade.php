@@ -23,6 +23,11 @@
                 <i class="fas fa-question"></i>
                 <span> سوالات متداول  </span>
             </a>
+            <a href="{{route('admin.content.publisher.index')}}" class="sidebar-link">
+                <i class="fas fa-pen"></i>
+                <span>  ناشران  </span>
+            </a>
+            
             
             
             
@@ -70,12 +75,14 @@
             <section class="sidebar-group-link">
                 <section class="sidebar-dropdown-toggle">
                     <i class="fas fa-cogs icon"></i>
-                    <span>تنظیمات منو</span>
+                    <span>تنظیمات </span>
                     <i class="fas fa-angle-left angle"></i>
                 </section>
                 <section class="sidebar-dropdown">
                     <a href="#">منوی هدر</a>
                     <a href="#">منوی فوتر</a>
+                    <a href="{{route('admin.setting.')}}"> تنظیمات اصلی سایت</a>
+
                 </section>
             </section>
 

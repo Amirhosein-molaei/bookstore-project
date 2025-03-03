@@ -8,9 +8,10 @@ use App\Http\Controllers\Admin\Content\FaqController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Content\PublisherController;
 use App\Http\Controllers\Admin\Content\WriterController;
+use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
-
+use App\Models\Market\Payment;
 
 Route::get('/', function () {
     return view('welcome');
@@ -51,6 +52,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::prefix('market')->name('market.')->group(function () {
         Route::resource('product-category', ProductCategoryController::class);
+        Route::resource('payment', PaymentController::class);
+
     });
 
 });

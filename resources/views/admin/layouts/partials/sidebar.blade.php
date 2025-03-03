@@ -38,6 +38,11 @@
                 <i class="fas fa-shopping-bag"></i>
                 <span>دسته بندی محصولات</span>
             </a>
+            <a href="{{ route('admin.market.payment.index') }}" class="sidebar-link">
+                <i class="fas fa-key"></i>
+                <span>پرداخت ها</span>
+            </a>
+
 
 
 

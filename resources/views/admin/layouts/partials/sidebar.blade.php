@@ -8,27 +8,31 @@
             </a>
 
             <section class="sidebar-part-title">بخش محتوی</section>
-            
+
             <a href="{{ route('admin.content.writer.index') }}" class="sidebar-link">
                 <i class="fa fa-pen"></i>
                 <span>نویسندگان</span>
             </a>
-            
+
             <a href="{{route('admin.content.menu.index')}}" class="sidebar-link">
                 <i class="fas fa-bars"></i>
                 <span>منو ها  </span>
             </a>
-            
+            <a href="{{ route('admin.content.tags.index') }}" class="sidebar-link">
+                <i class="fas fa-tag"></i>
+                <span>تگ ها</span>
+            </a>
+
             <a href="{{route('admin.content.faq.index')}}" class="sidebar-link">
                 <i class="fas fa-question"></i>
                 <span> سوالات متداول  </span>
             </a>
-            
-            
-            
-            
+
+
+
+
             <section class="sidebar-part-title">بخش فروشگاه</section>
-            
+
             <a href="{{route('admin.market.product-category.index')}}" class="sidebar-link">
                 <i class="fas fa-shopping-bag"></i>
                 <span>دسته بندی محصولات</span>

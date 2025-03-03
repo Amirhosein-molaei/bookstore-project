@@ -23,6 +23,11 @@
                 <i class="fas fa-question"></i>
                 <span> سوالات متداول  </span>
             </a>
+            <a href="{{route('admin.content.publisher.index')}}" class="sidebar-link">
+                <i class="fas fa-pen"></i>
+                <span>  ناشران  </span>
+            </a>
+            
             
             
             
@@ -56,6 +61,7 @@
                 <i class="fas fa-users"></i>
                 <span>لیست کاربران</span>
             </a>
+
 
 
             <section class="sidebar-part-title">بخش تنظیمات</section>

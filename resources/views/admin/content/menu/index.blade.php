@@ -8,7 +8,7 @@
         <section class="main-body-container-header d-flex justify-content-between align-items-center">
             <div>
                 <h5>
-                       منوها 
+                       منوها
                 </h5>
                 <p>
                     در این بخش اطلاعاتی در مورد   منوها به شما داده می شود
@@ -46,7 +46,7 @@
                                 <div class="d-flex">
                                     <div class="mx-2">
                                         <form action="{{route('admin.content.menu.destroy',$menu)}}" method="post">
-                                        @csrf 
+                                        @csrf
                                         @method('DELETE')
                                         <button  type="submit"
                                             class="text-danger">
@@ -68,7 +68,7 @@
 
                 </tbody>
             </table>
-          
+
 
         </section>
     </section>

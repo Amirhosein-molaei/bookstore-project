@@ -41,9 +41,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::prefix('setting')->name('setting.')->group(function () {
-        Route::get('/',[SettingController::class,'index']);
-        Route::get('set',[SettingController::class,'set'])->name('set');
-        Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
+        Route::get('/',[\App\Http\Controllers\Admin\Setting\SettingController::class,'index']);
+        Route::get('set',[\App\Http\Controllers\Admin\Setting\SettingController::class,'set'])->name('set');
+        Route::post('/set/store', [\App\Http\Controllers\Admin\Setting\SettingController::class, 'setStore'])->name('set.store');
 
     });
 
@@ -51,4 +51,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('product-category', ProductCategoryController::class);
     });
 
+
+//    blogs
+Route::prefix('blogs')->name('blogs.')->group(function (){
+        Route::resource('blogs',\App\Http\Controllers\Admin\Blogs\BlogController::class);
 });
+
+});
+Auth::loginUsingId(1);

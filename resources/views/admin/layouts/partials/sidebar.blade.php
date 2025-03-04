@@ -68,7 +68,10 @@
                     <a href="#">دانشجو </a>
                 </section>
             </section>
-
+            <a href="{{ route('admin.blogs.blogs.index') }}" class="sidebar-link">
+                <i class="fas fa-blog"></i>
+                <span> مدیریت بلاگ ها</span>
+            </a>
             <section class="sidebar-part-title">بخش کاربران</section>
 
             <section class="sidebar-group-link">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Content\CommentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -46,7 +47,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('faq', FaqController::class);
         Route::resource('writer', WriterController::class);
         Route::resource('writer', WriterController::class);
-        Route::resource('tags', TagController::class);
+        Route::resource('tag', TagController::class);
         Route::resource('publisher', PublisherController::class);
     });
 

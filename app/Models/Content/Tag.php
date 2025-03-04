@@ -14,14 +14,17 @@ class Tag extends Model
   protected $table ='tags';
   protected $guarded =[];
 
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
-    }
+  public function sluggable(): array
+  {
+      return [
+          'slug' => [
+              'source' => 'name',
+              'onUpdate' => true,
+              'unique' => true,
+              'separator' => '-',
+          ]
+      ];
+  }
     public function getStatusAttribute($status)
     {
         return $status ? 'فعال' : 'غیرفعال' ;

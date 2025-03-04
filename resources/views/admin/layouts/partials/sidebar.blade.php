@@ -18,7 +18,7 @@
                 <i class="fas fa-bars"></i>
                 <span>منو ها  </span>
             </a>
-            <a href="{{ route('admin.content.tags.index') }}" class="sidebar-link">
+            <a href="{{ route('admin.content.tag.index') }}" class="sidebar-link">
                 <i class="fas fa-tag"></i>
                 <span>تگ ها</span>
             </a>

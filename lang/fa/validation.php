@@ -166,7 +166,7 @@ return [
         'keywords' => 'کلمات کلمات کلیدی سایت',
         'logo' => 'لوگو',
         'icon' => 'آیکون',
-        'amount' => 'هزینه',
+        'amount' => 'میزان',
         'delivery_time' => 'زمان ارسال',
         'delivery_time_unit' => 'واحد زمان ارسال',
         'original_name' => 'نام اصلی',

@@ -13,7 +13,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments=Payment::paginate(1);
+        $payments=Payment::paginate(10);
         return view('admin.market.payment.index',compact('payments'));
 
     }

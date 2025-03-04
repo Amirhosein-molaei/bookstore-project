@@ -14,7 +14,7 @@ class TagController extends Controller
     public function index()
     {
         $tags =Tag::latest()->paginate(10);
-        return view('admin.content.tags.index',compact('tags'));
+        return view('admin.content.tag.index',compact('tags'));
     }
 
     /**
@@ -22,7 +22,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('admin.content.tags.create');
+        return view('admin.content.tag.create');
     }
 
     /**
@@ -38,7 +38,7 @@ class TagController extends Controller
             'name'=>$request->name,
             'status'=>$request->status,
         ]);
-        return redirect()->route('admin.content.tags.index')->with('swal-success','تگ مورد نظر شما ذخیره شد');
+        return redirect()->route('admin.content.tag.index')->with('swal-success','تگ مورد نظر شما ذخیره شد');
     }
 
     /**
@@ -54,7 +54,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        return view('admin.content.tags.edit',compact('tag'));
+        return view('admin.content.tag.edit',compact('tag'));
     }
 
     /**
@@ -69,7 +69,7 @@ class TagController extends Controller
             'name'=>$request->name,
             'status'=>$request->status,
         ]);
-        return redirect()->route('admin.content.tags.index')->with('swal-success','تگ مورد نظر شما ویرایش شد');
+        return redirect()->route('admin.content.tag.index')->with('swal-success','تگ مورد نظر شما ویرایش شد');
     }
 
     /**

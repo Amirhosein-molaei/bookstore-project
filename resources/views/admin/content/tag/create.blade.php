@@ -17,11 +17,11 @@
 
                     </div>
                     <div>
-                        <a href="{{route('admin.content.tags.index')}}" class="btn btn-warning">بازگشت</a>
+                        <a href="{{route('admin.content.tag.index')}}" class="btn btn-warning">بازگشت</a>
                     </div>
                 </section>
                 <section class="body-content">
-                    <form class="row g-3" action="{{route('admin.content.tags.store')}}" method="POST">
+                    <form class="row g-3" action="{{route('admin.content.tag.store')}}" method="POST">
                         @csrf
                         <div class="col-12 mb-2">
                             <label for="name" class="form-label">تگ</label>
@@ -34,14 +34,15 @@
 
                         <div class="col-12 mb-2">
                             <label for="status" class="form-label">تگ</label>
-                            <select class="flex-grow"  id="status" name="status">
+                            <select class="form-control"  id="status" name="status">
                                 <option value="1" selected>فعال</option>
                                 <option value="0">غیرفعال</option>
                             </select>
+                        </div>
+
                         <div class="col-12">
                             <button type="submit" class="btn btn-success">ثبت</button>
                         </div>
-                    </div>
                     </form>
             </section>
           </section>

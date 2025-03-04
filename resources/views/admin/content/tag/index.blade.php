@@ -11,11 +11,11 @@
                     تگ
                 </h5>
                 <p>
-                    در این بخش اطلاعاتی در مورد تگ به شما داده می شود
+                    در این بخش اطلاعاتی در مورد تگ ها به شما داده می شود
                 </p>
             </div>
             <div>
-                <a href="{{route('admin.content.tags.create')}}" class="btn btn-success">ایجاد</a>
+                <a href="{{route('admin.content.tag.create')}}" class="btn btn-success">ایجاد</a>
             </div>
         </section>
         <section class="body-content">
@@ -24,8 +24,9 @@
                 <thead class="table-info">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">سوال</th>
-                        <th scope="col">پاسخ</th>
+                        <th scope="col">تگ</th>
+                        <th scope="col">اسلاگ</th>
+                        <th scope="col">وضعیت</th>
                         <th scope="col">عملیات</th>
                     </tr>
                 </thead>
@@ -34,13 +35,14 @@
                     <tr>
                         <td>{{ $tags->firstItem() + $key }}</td>
                         <td>{{ $tag->name }}</td>
+                        <td>{{ $tag->slug }}</td>
                         <td class="{{ $tag->getRawOriginal('status') ? 'text-success' : 'text-danger' }}">
                             {{ $tag->status }}
                         </td>
                         <td>
                             <div class="d-flex">
                                 <div class="mx-2">
-                                    <form action="{{ route('admin.content.tags.destroy', ['tag' => $tag->id]) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('admin.content.tag.destroy', ['tag' => $tag->id]) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-danger">
@@ -49,7 +51,7 @@
                                     </form>
                                 </div>
                                 <div class="mx-2">
-                                    <a href="{{ route('admin.content.tags.edit', ['tag' => $tag->id]) }}" class="text-warning">
+                                    <a href="{{ route('admin.content.tag.edit', ['tag' => $tag->id]) }}" class="text-warning">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                 </div>

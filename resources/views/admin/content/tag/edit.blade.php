@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', '  منوها ')
+@section('title', '  تگ ها')
 
 @section('content')
 
@@ -17,17 +17,17 @@
 
                     </div>
                     <div>
-                        <a href="{{route('admin.content.tags.index')}}" class="btn btn-warning">بازگشت</a>
+                        <a href="{{route('admin.content.tag.index')}}" class="btn btn-warning">بازگشت</a>
                     </div>
                 </section>
                 <section class="body-content">
-                    <form class="row g-3" action="{{route('admin.content.tags.update',['tag'=>$tag->id])}}" method="POST">
+                    <form class="row g-3" action="{{route('admin.content.tag.update',['tag'=>$tag->id])}}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="col-12 mb-2">
                             <label for="name" class="form-label">تگ</label>
                             <input type="text" name="name" class="form-control" id="name"
-                                   value="{{ old('name') }}">
+                                   value="{{ old('name', $tag->name) }}">
                             @error('name')
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -35,13 +35,14 @@
 
                         <div class="col-12 mb-2">
                             <label for="status" class="form-label">تگ</label>
-                            <select class="flex-grow"  id="status" name="status">
-                                <option value="1" selected>فعال</option>
-                                <option value="0">غیرفعال</option>
+                            <select class="form-control"  id="status" name="status">
+                                <option value="1" @if($tag->status == 1) selected @endif>فعال</option>
+                                <option value="0" @if($tag->status == 0) selected @endif>غیرفعال</option>
                             </select>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-success">ویرایش</button>
-                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success">ویرایش</button>
                         </div>
                     </form>
                 </section>

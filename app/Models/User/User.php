@@ -7,6 +7,7 @@ use App\Models\Favorite;
 use App\Models\Content\Writer;
 use App\Models\Market\Order;
 use App\Models\Market\Product;
+use App\Models\Ticket\TicketAdmin;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -25,6 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
+        'activated'
     ];
 
     /**
@@ -53,6 +56,11 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function ticketAdmin()
+    {
+        return $this->hasOne(TicketAdmin::class);
     }
 
     public function favorites()

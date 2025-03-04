@@ -12,7 +12,7 @@
                 <section class="main-body-container-header d-flex justify-content-between align-items-center">
                     <div>
                         <h5>
-                             تنظیمات
+                            تنظیمات
                         </h5>
 
                     </div>
@@ -29,28 +29,16 @@
                         <div class="col-md-12 mb-2">
                             <label for="title" class="form-label">عنوان</label>
                             <input type="text" name="title" class="form-control" id="title"
-                                value="
-                                @if($setting) {{old('title',$setting->
-                                title) }}
-                                @else
-                                {{old('title')}}
-                                @endif
-                                  ">
+                                value="@if($setting){{ old('title', $setting->title)}}@else{{ old('title')}}@endif">
                             @error('title')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        
+
                         <div class="col-md-12 mb-2">
                             <label for="description" class="form-label">توضیحات</label>
                             <input type="text" name="description" class="form-control" id="description"
-                                value="
-                                @if($setting) {{old('description',$setting->
-                                description) }}
-                                @else
-                                {{old('description')}}
-                                @endif
-                                  ">
+                                value="@if ($setting) {{ old('description', $setting->description) }}@else{{ old('description') }} @endif">
                             @error('description')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -58,8 +46,7 @@
                         <div class="col-md-12 mb-2">
                             <label for="keywords" class="form-label">کلمات کلیدی</label>
                             <input type="text" name="keywords" class="form-control" id="keywords"
-                                value="
-                                 {{old('keywords',$setting->keywords ?? '' ) }}">
+                                value="{{ old('keywords', $setting->keywords ?? '') }}">
                             @error('keywords')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -67,8 +54,8 @@
                         <div class="col-12 mb-2">
                             <label>لوگو</label>
                             <input type="file" class="form-control-file" name="logo">
-                            @if($setting)
-                            <img src="{{asset($setting->logo)}}" alt="" width="50" height="50">
+                            @if ($setting)
+                                <img src="{{ asset($setting->logo) }}" alt="" width="50" height="50">
                             @endif
                             @error('logo')
                                 <small class="text-danger">{{ $message }}</small>
@@ -77,17 +64,17 @@
                         <div class="col-12 mb-2">
                             <label>آیکون</label>
                             <input type="file" class="form-control-file" name="icon">
-                            @if($setting)
-                            <img src="{{asset($setting->icon)}}" alt="" width="50" height="50">
+                            @if ($setting)
+                                <img src="{{ asset($setting->icon) }}" alt="" width="50" height="50">
                             @endif
                             @error('icon')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        
-                       
 
-                    
+
+
+
 
                         <div class="col-12">
                             <button type="submit" class="btn btn-success">ثبت</button>

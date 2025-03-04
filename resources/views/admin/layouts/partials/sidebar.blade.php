@@ -27,9 +27,15 @@
                 <i class="fas fa-question"></i>
                 <span> سوالات متداول  </span>
             </a>
-
-
-
+            <a href="{{route('admin.content.publisher.index')}}" class="sidebar-link">
+                <i class="fas fa-pen"></i>
+                <span>  ناشران  </span>
+            </a>
+            
+            
+            
+            
+            
 
             <section class="sidebar-part-title">بخش فروشگاه</section>
 
@@ -37,6 +43,11 @@
                 <i class="fas fa-shopping-bag"></i>
                 <span>دسته بندی محصولات</span>
             </a>
+            <a href="{{ route('admin.market.payment.index') }}" class="sidebar-link">
+                <i class="fas fa-key"></i>
+                <span>پرداخت ها</span>
+            </a>
+
 
 
 
@@ -56,32 +67,20 @@
 
             <section class="sidebar-part-title">بخش کاربران</section>
 
-            <section class="sidebar-group-link">
-                <section class="sidebar-dropdown-toggle">
-                    <i class="fas fa-users icon"></i>
-                    <span>کاربران</span>
-                    <i class="fas fa-angle-left angle"></i>
-                </section>
-                <section class="sidebar-dropdown">
-                    <a href="#">ادمین</a>
-                    <a href="#">مدرس ها</a>
-                    <a href="#">دانشجو </a>
-                </section>
-            </section>
+            <a href="{{ route('admin.user.')}}" class="sidebar-link">
+                <i class="fas fa-users"></i>
+                <span>لیست کاربران</span>
+            </a>
 
-            <section class="sidebar-part-title">بخش کاربران</section>
 
-            <section class="sidebar-group-link">
-                <section class="sidebar-dropdown-toggle">
-                    <i class="fas fa-cogs icon"></i>
-                    <span>تنظیمات منو</span>
-                    <i class="fas fa-angle-left angle"></i>
-                </section>
-                <section class="sidebar-dropdown">
-                    <a href="#">منوی هدر</a>
-                    <a href="#">منوی فوتر</a>
-                </section>
-            </section>
+
+            <section class="sidebar-part-title">بخش تنظیمات</section>
+
+            <a href="{{ route('admin.setting.')}}" class="sidebar-link">
+                <i class="fas fa-cogs"></i>
+                <span>مدیریت تنظیمات</span>
+            </a>
+
 
 
         </section>

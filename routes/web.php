@@ -49,6 +49,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('writer', WriterController::class);
         Route::resource('tag', TagController::class);
         Route::resource('publisher', PublisherController::class);
+        Route::resource('comment', CommentController::class);
+        // for change comment status
+        Route::put('/comment/{comment}/change-status', [CommentController::class, 'changeStatus'])->name('comment.change-status');
     });
 
     Route::prefix('setting')->name('setting.')->group(function () {

@@ -31,6 +31,11 @@
                 <i class="fas fa-pen"></i>
                 <span>  ناشران  </span>
             </a>
+            </a>
+            <a href="{{route('admin.content.comment.index')}}" class="sidebar-link">
+                <i class="fas fa-comment"></i>
+                <span>  نظرات  </span>
+            </a>
             
             
             

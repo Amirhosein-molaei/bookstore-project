@@ -48,6 +48,11 @@
                                         تایید شده
                                     </span>
                                 @endif
+                                @if ($comment->status == 3)
+                                    <span class="p-2 text-white bg-danger rounded">
+                                        رد شده
+                                    </span>
+                                @endif
                             </td>
                             <td>
                                 @if ($comment->commentable_type == 'App\Models\Market\Product')
@@ -70,7 +75,7 @@
                                         <form action="{{ route('admin.content.comment.change-status', $comment) }}" class="p-0 m-0" method="post">
                                             @csrf
                                             @method('PUT')
-                                            @if ($comment->status == 1)
+                                            @if ($comment->status == 1 or $comment->status == 3)
                                                 <button type="submit" class="p-2 rounded text-white bg-primary">تایید</button>
                                             @else
                                                 <button type="submit" class="p-2 rounded text-white bg-danger">رد تایید</button>

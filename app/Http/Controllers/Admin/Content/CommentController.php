@@ -15,7 +15,7 @@ class CommentController extends Controller
     {
         //change useen status to seen for new comments before returning the view
         $unseenComments = Comment::where('status', 0)->get();
-        // hint : status = 0 : unseen  /  status = 1 : seen  / status = 2 : approved
+        // hint : status = 0 : unseen  /  status = 1 : seen  / status = 2 : approved / status = 3 : rejected
         foreach ($unseenComments as $unseenComment) {
             $unseenComment->status = 1;
             $unseenComment->save();
@@ -28,17 +28,20 @@ class CommentController extends Controller
 
     public function changeStatus(Comment $comment)
     {
-        if ($comment->status == 1) {
+        if ($comment->status == 1 or $comment->status == 3) {
+            // approving a comment for first time or re-approving a rejected comment
             $comment->update(['status' => 2]);
             return to_route('admin.content.comment.index')->with('swal-success', 'نظر تایید شد');
-        } else {
-            $comment->update(['status' => 1]);
+
+        } elseif ($comment->status == 2) {
+            
+            $comment->update(['status' => 3]);
             // when comment's status changes to seen, it's answers should do the same
             foreach ($comment->answers as $answer) {
-                $answer->update(['status' => 1]);
+                $answer->update(['status' => 3]);
                 // status for second answers will be changed like first answers to seen
                 foreach ($answer->answers as $secondAnswer) {
-                    $secondAnswer->update(['status' => 1]);
+                    $secondAnswer->update(['status' => 3]);
                 }
             }
             return to_route('admin.content.comment.index')->with('swal-success', 'نظر و پاسخ های آن رد تایید شدند!');

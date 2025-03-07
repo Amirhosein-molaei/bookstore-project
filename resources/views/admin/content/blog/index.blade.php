@@ -15,7 +15,7 @@
                 </p>
             </div>
             <div>
-                <a href="{{route('admin.content.blogs.create')}}" class="btn btn-success">ایجاد</a>
+                <a href="{{route('admin.content.blog.create')}}" class="btn btn-success">ساخت</a>
             </div>
         </section>
         <section class="body-content">
@@ -37,18 +37,16 @@
                     <tr>
                         <td>{{ $blogs->firstItem() + $key }}</td>
                         <td>{{ $blog->title }}</td>
-                        <td>{{ $blog->body }}</td>
+                        <td>{{ Str::limit($blog->body, 20, '...') }}</td>
                         <td>
-                            <p class="text-muted">
-                                <i class="fas fa-eye"></i> تعداد بازدید: {{ $blog->view_count }}
-                            </p>
+                            {{ $blog->view_count }}
                         </td>
                         <td>{{ \Morilog\Jalali\Jalalian::fromDateTime($blog->created_at)->format('Y/m/d') }}</td>
 
                         <td>
                             <div class="d-flex">
                                 <div class="mx-2">
-                                    <form action="{{ route('admin.content.blogs.destroy', ['blog' => $blog->id])  }}" method="POST" class="d-inline">
+                                    <form action="{{ route('admin.content.blog.destroy', $blog)  }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-danger">
@@ -57,7 +55,7 @@
                                     </form>
                                 </div>
                                 <div class="mx-2">
-                                    <a href="{{ route('admin.content.blogs.edit', ['blog' => $blog->id])  }}" class="text-warning">
+                                    <a href="{{ route('admin.content.blog.edit', $blog)  }}" class="text-warning">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                 </div>
@@ -80,4 +78,3 @@
     </section>
 
 @endsection
-

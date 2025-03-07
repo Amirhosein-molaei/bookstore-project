@@ -23,9 +23,9 @@
                 <span>تگ ها</span>
             </a>
 
-            <a href="{{ route('admin.content.blogs.index') }}" class="sidebar-link">
+            <a href="{{ route('admin.content.blog.index') }}" class="sidebar-link">
                 <i class="fas fa-blog"></i>
-                <span> مدیریت بلاگ ها</span>
+                <span>بلاگ ها</span>
             </a>
 
             <a href="{{route('admin.content.faq.index')}}" class="sidebar-link">

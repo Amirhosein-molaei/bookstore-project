@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Models\Blog;
+namespace App\Models\Content;
 
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Blogs extends Model
+class Blog extends Model
 {
-    protected $table= "blogs";
-    protected $guarded = [];
+    use SoftDeletes;
+    protected $guarded = ['id'];
 
     public function user()
     {

@@ -5,8 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Content\FaqController;
+use App\Http\Controllers\Admin\Content\TagController;
+use App\Http\Controllers\Admin\Content\BlogController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Content\WriterController;
+use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 
 
@@ -36,15 +39,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('menu', MenuController::class);
         Route::resource('faq', FaqController::class);
         Route::resource('writer', WriterController::class);
-        Route::resource('writer', WriterController::class);
-        Route::resource('tags', \App\Http\Controllers\Admin\Content\TagController::class);
-        Route::resource('blogs', \App\Http\Controllers\Admin\Blogs\BlogController::class);
+        Route::resource('tags', TagController::class);
+        Route::resource('blog', BlogController::class);
     });
 
     Route::prefix('setting')->name('setting.')->group(function () {
-        Route::get('/',[\App\Http\Controllers\Admin\Setting\SettingController::class,'index']);
-        Route::get('set',[\App\Http\Controllers\Admin\Setting\SettingController::class,'set'])->name('set');
-        Route::post('/set/store', [\App\Http\Controllers\Admin\Setting\SettingController::class, 'setStore'])->name('set.store');
+        Route::get('/',[SettingController::class,'index']);
+        Route::get('set',[SettingController::class,'set'])->name('set');
+        Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
 
     });
 

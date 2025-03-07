@@ -40,7 +40,7 @@
                         <div class="col-12">
                             <button type="submit" class="btn btn-success">ثبت</button>
                         </div>
-                    </div>
+
                     </form>
             </section>
           </section>

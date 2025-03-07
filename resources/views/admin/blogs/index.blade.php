@@ -43,7 +43,7 @@
                                 <i class="fas fa-eye"></i> تعداد بازدید: {{ $blog->view_count }}
                             </p>
                         </td>
-                        <td>{{ $blog->created_at->format('Y-m-d') }}</td>
+                        <td>{{ \Morilog\Jalali\Jalalian::fromDateTime($blog->created_at)->format('Y/m/d') }}</td>
 
                         <td>
                             <div class="d-flex">

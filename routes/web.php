@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Content\CommentController;
+use App\Http\Controllers\Admin\Market\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -65,7 +66,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('product-category', ProductCategoryController::class);
         Route::resource('payment', PaymentController::class);
         Route::resource('copan', CopanController::class);
-
+        Route::resource('product', ProductController::class);
 
     });
 

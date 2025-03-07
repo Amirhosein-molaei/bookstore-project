@@ -52,10 +52,11 @@
                 <i class="fas fa-key"></i>
                 <span>پرداخت ها</span>
             </a>
-            <a href="{{ route('admin.market.copan.index') }}" class="sidebar-link">
-                <i class="fas fa-dollar-sign"></i>
-                <span>تخفیفات</span>
+            <a href="{{ route('admin.market.product.index') }}" class="sidebar-link">
+                <i class="fas fa-shopping-bag"></i>
+                <span>محصولات</span>
             </a>
+            
 
 
 

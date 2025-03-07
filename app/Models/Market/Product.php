@@ -3,6 +3,8 @@
 namespace App\Models\Market;
 
 use App\Models\Content\Comment;
+use App\Models\Content\Publisher;
+use App\Models\Content\Writer;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +15,18 @@ class Product extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title',
+                'onUpdate' => true,
+                'unique' => true,
+                'separator' => '-',
+            ]
+        ];
+    }
     
     public function favoritedByUsers()
     {
@@ -22,6 +36,21 @@ class Product extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+    }
+
+    public function writer()
+    {
+        return $this->belongsTo(Writer::class);
+    }
+
+    public function publisher()
+    {
+        return $this->belongsTo(Publisher::class);
     }
 
 }

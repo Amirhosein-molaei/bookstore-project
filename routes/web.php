@@ -38,6 +38,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('writer', WriterController::class);
         Route::resource('writer', WriterController::class);
         Route::resource('tags', \App\Http\Controllers\Admin\Content\TagController::class);
+        Route::resource('blogs', \App\Http\Controllers\Admin\Blogs\BlogController::class);
     });
 
     Route::prefix('setting')->name('setting.')->group(function () {
@@ -51,11 +52,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('product-category', ProductCategoryController::class);
     });
 
-
-//    blogs
-Route::prefix('blogs')->name('blogs.')->group(function (){
-        Route::resource('blogs',\App\Http\Controllers\Admin\Blogs\BlogController::class);
-});
 
 });
 Auth::loginUsingId(1);

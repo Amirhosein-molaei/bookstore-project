@@ -15,7 +15,7 @@
                 </p>
             </div>
             <div>
-                <a href="{{route('admin.blogs.blogs.create')}}" class="btn btn-success">ایجاد</a>
+                <a href="{{route('admin.content.blogs.create')}}" class="btn btn-success">ایجاد</a>
             </div>
         </section>
         <section class="body-content">
@@ -48,7 +48,7 @@
                         <td>
                             <div class="d-flex">
                                 <div class="mx-2">
-                                    <form action="{{ route('admin.blogs.blogs.destroy', ['blog' => $blog->id])  }}" method="POST" class="d-inline">
+                                    <form action="{{ route('admin.content.blogs.destroy', ['blog' => $blog->id])  }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-danger">
@@ -57,7 +57,7 @@
                                     </form>
                                 </div>
                                 <div class="mx-2">
-                                    <a href="{{ route('admin.blogs.blogs.edit', ['blog' => $blog->id])  }}" class="text-warning">
+                                    <a href="{{ route('admin.content.blogs.edit', ['blog' => $blog->id])  }}" class="text-warning">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                 </div>

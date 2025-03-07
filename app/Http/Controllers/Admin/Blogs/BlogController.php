@@ -42,7 +42,7 @@ class BlogController extends Controller
             'user_id'=>auth()->id(),
 
         ]);
-        return redirect()->route('admin.blogs.blogs.index')->with('swal-success','با موفقیت ثبت شد');
+        return redirect()->route('admin.content.blogs.index')->with('swal-success','با موفقیت ثبت شد');
     }
 
     /**
@@ -73,7 +73,7 @@ class BlogController extends Controller
             'body' => $request->body,
         ]);
 
-        return redirect()->route('admin.blogs.blogs.index')->with('swal-success','با موفقیت ویرایش شد');
+        return redirect()->route('admin.content.blogs.index')->with('swal-success','با موفقیت ویرایش شد');
     }
 
     /**

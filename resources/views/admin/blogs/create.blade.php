@@ -17,11 +17,11 @@
 
                     </div>
                     <div>
-                        <a href="{{route('admin.blogs.blogs.index')}}" class="btn btn-warning">بازگشت</a>
+                        <a href="{{route('admin.content.blogs.index')}}" class="btn btn-warning">بازگشت</a>
                     </div>
                 </section>
                 <section class="body-content">
-                    <form class="row g-3" action="{{route('admin.blogs.blogs.store')}}" method="POST">
+                    <form class="row g-3" action="{{route('admin.content.blogs.store')}}" method="POST">
                         @csrf
                         <div class="col-12 mb-2">
                             <label for="title" class="form-label">عنوان</label>

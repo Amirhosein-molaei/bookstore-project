@@ -8,7 +8,7 @@
         <section class="main-body-container-header d-flex justify-content-between align-items-center">
             <div>
                 <h5>
-                    تگ
+                    تیکت
                 </h5>
                 <p>
                     در این بخش اطلاعاتی در مورد تیکت دسته بندی ها به شما داده می شود

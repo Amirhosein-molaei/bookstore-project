@@ -16,7 +16,8 @@ use App\Http\Controllers\Admin\Content\CommentController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Content\PublisherController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
-
+use App\Http\Controllers\Admin\Ticket\TicketFileController;
+use App\Models\Market\Payment;
 
 Route::get('/', function () {
     return view('welcome');
@@ -73,6 +74,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::prefix('ticekt')->name('ticket.')->group(function(){
         
+    });
+    Route::prefix('ticket')->name('ticket.')->group(function () {
+        Route::resource('ticket-file', TicketFileController::class);
+        Route::get('ticket-file/download/{ticketFile}', [TicketFileController::class, 'download'])->name('ticket-file.download');
     });
 
 

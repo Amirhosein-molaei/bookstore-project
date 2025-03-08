@@ -8,17 +8,26 @@
             </a>
 
             <section class="sidebar-part-title">بخش محتوی</section>
-            
+
             <a href="{{ route('admin.content.writer.index') }}" class="sidebar-link">
                 <i class="fa fa-pen"></i>
                 <span>نویسندگان</span>
             </a>
-            
+
             <a href="{{route('admin.content.menu.index')}}" class="sidebar-link">
                 <i class="fas fa-bars"></i>
                 <span>منو ها  </span>
             </a>
-            
+            <a href="{{ route('admin.content.tag.index') }}" class="sidebar-link">
+                <i class="fas fa-tag"></i>
+                <span>تگ ها</span>
+            </a>
+
+            <a href="{{ route('admin.content.blog.index') }}" class="sidebar-link">
+                <i class="fas fa-blog"></i>
+                <span>بلاگ ها</span>
+            </a>
+
             <a href="{{route('admin.content.faq.index')}}" class="sidebar-link">
                 <i class="fas fa-question"></i>
                 <span> سوالات متداول  </span>
@@ -27,13 +36,19 @@
                 <i class="fas fa-pen"></i>
                 <span>  ناشران  </span>
             </a>
+            </a>
+            <a href="{{route('admin.content.comment.index')}}" class="sidebar-link">
+                <i class="fas fa-comment"></i>
+                <span>  نظرات  </span>
+            </a>
             
             
             
             
             
+
             <section class="sidebar-part-title">بخش فروشگاه</section>
-            
+
             <a href="{{route('admin.market.product-category.index')}}" class="sidebar-link">
                 <i class="fas fa-shopping-bag"></i>
                 <span>دسته بندی محصولات</span>
@@ -83,34 +98,20 @@
 
             <section class="sidebar-part-title">بخش کاربران</section>
 
-            <section class="sidebar-group-link">
-                <section class="sidebar-dropdown-toggle">
-                    <i class="fas fa-users icon"></i>
-                    <span>کاربران</span>
-                    <i class="fas fa-angle-left angle"></i>
-                </section>
-                <section class="sidebar-dropdown">
-                    <a href="#">ادمین</a>
-                    <a href="#">مدرس ها</a>
-                    <a href="#">دانشجو </a>
-                </section>
-            </section>
+            <a href="{{ route('admin.user.')}}" class="sidebar-link">
+                <i class="fas fa-users"></i>
+                <span>لیست کاربران</span>
+            </a>
 
-            <section class="sidebar-part-title">بخش کاربران</section>
 
-            <section class="sidebar-group-link">
-                <section class="sidebar-dropdown-toggle">
-                    <i class="fas fa-cogs icon"></i>
-                    <span>تنظیمات </span>
-                    <i class="fas fa-angle-left angle"></i>
-                </section>
-                <section class="sidebar-dropdown">
-                    <a href="#">منوی هدر</a>
-                    <a href="#">منوی فوتر</a>
-                    <a href="{{route('admin.setting.')}}"> تنظیمات اصلی سایت</a>
 
-                </section>
-            </section>
+            <section class="sidebar-part-title">بخش تنظیمات</section>
+
+            <a href="{{ route('admin.setting.')}}" class="sidebar-link">
+                <i class="fas fa-cogs"></i>
+                <span>مدیریت تنظیمات</span>
+            </a>
+
 
 
         </section>

@@ -69,8 +69,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('product-category', ProductCategoryController::class);
         Route::resource('payment', PaymentController::class);
         Route::resource('copan', CopanController::class);
+    });
 
-
+    Route::prefix('ticekt')->name('ticket.')->group(function(){
+        
     });
 
 

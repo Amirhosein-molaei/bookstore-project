@@ -9,6 +9,7 @@
         "php": "^8.2",
         "cviebrock/eloquent-sluggable": "^11.0",
         "dyrynda/laravel-cascade-soft-deletes": "^4.5",
+        "hekmatinasser/verta": "^8.4",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
         "morilog/jalali": "^3.4"
@@ -28,7 +29,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "vendor/morilog/jalali/src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

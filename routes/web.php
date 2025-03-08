@@ -71,8 +71,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('copan', CopanController::class);
     });
 
-    Route::prefix('ticekt')->name('ticket.')->group(function(){
-        
+        Route::prefix('ticket')->name('ticket.')->group(function (){
+       Route::resource('ticket-category',\App\Http\Controllers\Admin\Ticket\TicketCategoryController::class);
     });
 
 

@@ -1,19 +1,20 @@
 <?php
 
+use App\Models\Market\Payment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Content\FaqController;
 use App\Http\Controllers\Admin\Content\MenuController;
-use App\Http\Controllers\Admin\Content\PublisherController;
-use App\Http\Controllers\Admin\Content\WriterController;
 use App\Http\Controllers\Admin\Market\CopanController;
+use App\Http\Controllers\Admin\Content\SlideController;
+use App\Http\Controllers\Admin\Content\WriterController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Setting\SettingController;
-use App\Http\Controllers\Admin\Market\ProductCategoryController;
+use App\Http\Controllers\Admin\Content\PublisherController;
 use App\Http\Controllers\Admin\Ticket\TicketFileController;
-use App\Models\Market\Payment;
+use App\Http\Controllers\Admin\Market\ProductCategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,38 +31,34 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('/',DashboardController::class);
+    Route::get('/', DashboardController::class);
 
     Route::prefix('content')->name('content.')->group(function () {
         Route::resource('menu', MenuController::class);
         Route::resource('faq', FaqController::class);
         Route::resource('writer', WriterController::class);
         Route::resource('publisher', PublisherController::class);
-
+        Route::resource('slide', SlideController::class);
     });
-    
-    Route::prefix('setting')->name('setting.')->group(function () {
-        Route::get('/',[SettingController::class,'index']);
-        Route::get('set',[SettingController::class,'set'])->name('set');
-        Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
 
+    Route::prefix('setting')->name('setting.')->group(function () {
+        Route::get('/', [SettingController::class, 'index']);
+        Route::get('set', [SettingController::class, 'set'])->name('set');
+        Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
     });
 
     Route::prefix('market')->name('market.')->group(function () {
         Route::resource('product-category', ProductCategoryController::class);
         Route::resource('payment', PaymentController::class);
         Route::resource('copan', CopanController::class);
-
-
     });
     Route::prefix('ticket')->name('ticket.')->group(function () {
         Route::resource('ticket-file', TicketFileController::class);
         Route::get('ticket-file/download/{ticketFile}', [TicketFileController::class, 'download'])->name('ticket-file.download');
     });
-
 });

@@ -32,11 +32,27 @@
                         <td>{{ $product->category->name }}</td>
                     </tr>
                     <tr>
+                        <td>نویسنده</td>
+                        <td>{{ $product->writer->name }}</td>
+                    </tr>
+                    <tr>
+                        <td>ناشر</td>
+                        <td>{{ $product->publisher->name }}</td>
+                    </tr>
+                    <tr>
                         <td>اسلاگ</td>
                         <td>{{ $product->slug }}</td>
                     </tr>
                     <tr>
-                        <td>تصویر</td>
+                        <td>برچسب ها</td>
+                        <td>
+                            @foreach ($product->tags as $tag)
+                                {{ '#' . $tag->name . '، ' }}
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>تصویر جلد</td>
                         <td><img src="{{ asset($product->image) }}" alt="" width="100" height="100"></td>
                     </tr>
                     <tr>
@@ -45,7 +61,20 @@
                     </tr>
                     <tr>
                         <td>قیمت تخفیفی</td>
-                        <td>{{ number_format($product->discounted_price) }}</td>
+                        <td>{{ number_format($product->discounted_price) ?? 'بدون تخفیف' }}</td>
+                    </tr>
+                    <tr>
+                        <td>تاریخ انقصای تخفیف</td>
+                        <td>{{ jdate($product->discounted_expires_at) ?? 'بدون تخفیف' }}</td>
+                    </tr>
+                    <tr>
+                        <td>تعداد دفعات پیشنهاد شده</td>
+                        <td>{{ $product->suggested_count }}</td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>تعداد دفعات بازدید</td>
+                        <td>{{ $product->view_count }}</td>
                     </tr>
                     <tr>
                         <td>تعداد فروخته شده</td>
@@ -69,6 +98,10 @@
                     </tr>
                 </tbody>
             </table>
+            <h5>توضیحات:</h5>
+            <div>
+                {!! $product->description !!}
+            </div>
         </section>
     </section>
 @endsection

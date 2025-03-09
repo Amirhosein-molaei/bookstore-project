@@ -36,7 +36,7 @@
                         <td>{{ $tags->firstItem() + $key }}</td>
                         <td>{{ $tag->name }}</td>
                         <td>{{ $tag->slug }}</td>
-                        <td class="{{ $tag->getRawOriginal('status') ? 'text-success' : 'text-danger' }}">
+                        <td class="{{ $tag->getRawOriginal('status') ? 'text-danger' : 'text-success' }}">
                             {{ $tag->status }}
                         </td>
                         <td>

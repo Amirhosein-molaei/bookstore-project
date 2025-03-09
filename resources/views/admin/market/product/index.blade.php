@@ -32,7 +32,7 @@
                     <th scope="col">قیمت تخفیفی</th>
                     <th scope="col">نوع</th>
                     <th scope="col">دسته بندی</th>
-                    <th scope="col">نویسنده</th>
+                    <th scope="col">وضعیت فروش</th>
                     <th scope="col">تنظیمات</th>
                 </tr>
             </thead>
@@ -44,20 +44,14 @@
                     <td>{{ Str::limit($product->description, 20, '...') }}</td>
                     <td>{{ Str::limit($product->slug, 20, '...') }}</td>
                     <td>
-                        <img src="{{ asset($product->image) }}" alt="">
+                        <img class="img-fluid w-25" src="{{ asset($product->image) }}" alt="">
                     </td>
 
                     <td>{{ number_format($product->price) }}</td>
-                    <td>{{ $product->discounted_price }}</td>
-                    <td>
-                        @if ($product->type == 0)
-                            متنی
-                        @else
-                            صوتی
-                        @endif
-                    </td>
+                    <td>{{ number_format($product->discounted_price) ?? 'بدون تخفیف' }}</td>
+                    <td>{{ $product->type ? 'صوتی' : 'متنی' }}</td>
                     <td>{{ $product->category->name }}</td>
-                    <td>{{ $product->writer->name }}</td>
+                    <td>{{ $product->marketable ? 'غیر فعال' : 'فعال' }}</td>
                     
                     <td>
                         <div class="d-flex">

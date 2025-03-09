@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="col-md-6 mb-2">
-                            <label for="role" class="form-label">سن</label>
+                            <label for="role" class="form-label">نوع</label>
                             <select class="form-control" name="role" id="role">
                                 <option class="form-control" value="0">نویسنده</option>
                                 <option class="form-control" value="1">مترجم</option>

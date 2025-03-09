@@ -34,10 +34,10 @@
                         </div>
 
                         <div class="col-12 mb-2">
-                            <label for="status" class="form-label">تگ</label>
+                            <label for="status" class="form-label">وضعیت</label>
                             <select class="form-control"  id="status" name="status">
-                                <option value="1" @if($tag->status == 1) selected @endif>فعال</option>
-                                <option value="0" @if($tag->status == 0) selected @endif>غیرفعال</option>
+                                <option value="0" @if($tag->status == 0) selected @endif>فعال</option>
+                                <option value="1" @if($tag->status == 1) selected @endif>غیرفعال</option>
                             </select>
                         </div>
 

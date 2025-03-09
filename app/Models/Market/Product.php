@@ -4,15 +4,17 @@ namespace App\Models\Market;
 
 use App\Models\Content\Comment;
 use App\Models\Content\Publisher;
+use App\Models\Content\Tag;
 use App\Models\Content\Writer;
 use App\Models\User\User;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Sluggable;
 
     protected $guarded = ['id'];
 
@@ -51,6 +53,16 @@ class Product extends Model
     public function publisher()
     {
         return $this->belongsTo(Publisher::class);
+    }
+
+    public function files()
+    {
+        return $this->hasMany(ProductFile::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 
 }

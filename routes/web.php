@@ -54,8 +54,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('comment', CommentController::class);
         // for change comment status
         Route::put('/comment/{comment}/change-status', [CommentController::class, 'changeStatus'])->name('comment.change-status');
+
         Route::resource('tags', TagController::class);
         Route::resource('blog', BlogController::class);
+        //   banners
+        Route::resource('/banners',\App\Http\Controllers\Admin\Content\BannerController::class);
+        Route::post('banners/{banner}/select', [\App\Http\Controllers\Admin\Content\BannerController::class, 'select'])->name('banners.select');
     });
 
     Route::prefix('setting')->name('setting.')->group(function () {

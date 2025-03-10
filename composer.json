@@ -31,7 +31,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "vendor/morilog/jalali/src/helpers.php"
+            "vendor/morilog/jalali/src/helpers.php",
+            "app/helpers.php"
         ]
     },
     "autoload-dev": {

@@ -36,6 +36,18 @@ class SlideController extends Controller
     public function store(StoreSlideRequest $request,ImageUploadService $imageUploadService)
     {
         $inputs=$request->all();
+        $leftTopSlide=Slider::where('position','2')->first();
+        $leftDownSlide=Slider::where('position','3')->first();
+
+        if($leftTopSlide && $inputs['position'] == '2')
+        {
+            return to_route('admin.content.slide.index')->with('swal-error', 'اسلاید با موقعیت بالا سمت چپ وجود دارد لطفا یا آن را حذف کرده و دوباره اقدام به ساخت نمایید یا همان را ویرایش کنید.');
+
+        }
+        if($leftDownSlide && $inputs['position'] == '3')
+        {
+            return to_route('admin.content.slide.index')->with('swal-error', 'اسلاید با موقعیت پایین سمت چپ وجود دارد لطفا یا آن را حذف کرده و دوباره اقدام به ساخت نمایید یا همان را ویرایش کنید.');
+        }
 
         if($request->hasFile('image'))
         {
@@ -75,6 +87,20 @@ class SlideController extends Controller
     public function update(UpdateSlideRequest $request,Slider $slide,ImageUploadService $imageUploadService)
     {
         $inputs=$request->all();
+
+        $leftTopSlide=Slider::where('position','2')->first();
+        $leftDownSlide=Slider::where('position','3')->first();
+
+
+        if ($request['position'] == '2' && $leftTopSlide && $leftTopSlide->id != $slide->id)
+        {
+                return to_route('admin.content.slide.index')->with('swal-error', 'اسلاید با موقعیت  سمت چپ بالا وجود دارد لطفا یا آن را حذف کرده و دوباره اقدام به ساخت نمایید یا همان را ویرایش کنید.');
+        }
+        if ($request['position'] == '3' && $leftDownSlide && $leftDownSlide->id != $slide->id)
+        {  
+                return to_route('admin.content.slide.index')->with('swal-error', 'اسلاید با موقعیت  سمت چپ پایین وجود دارد لطفا یا آن را حذف کرده و دوباره اقدام به ساخت نمایید یا همان را ویرایش کنید.'); 
+        }
+
         if($request->hasFile('image'))
         {
             if(!empty($slide->image))
@@ -88,6 +114,7 @@ class SlideController extends Controller
 
             }
             $inputs['image']=$result;
+    
         }
         $slide->update($inputs);
         return to_route('admin.content.slide.index')->with('swal-success', ' اسلاید با موفقیت ویرایش شد');

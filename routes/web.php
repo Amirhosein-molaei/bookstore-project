@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\Content\CommentController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;

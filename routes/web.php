@@ -6,16 +6,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\Content\FaqController;
-use App\Http\Controllers\Admin\Content\MenuController;
-use App\Http\Controllers\Admin\Content\PublisherController;
-use App\Http\Controllers\Admin\Content\WriterController;
-use App\Http\Controllers\Admin\Market\CopanController;
-use App\Http\Controllers\Admin\Market\PaymentController;
-use App\Http\Controllers\Admin\Setting\SettingController;
-use App\Http\Controllers\Admin\Market\ProductCategoryController;
-use App\Http\Controllers\Admin\Content\TagController;
 use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Controllers\Admin\Content\FaqController;
+use App\Http\Controllers\Admin\Content\TagController;
+use App\Http\Controllers\Admin\Content\BlogController;
+use App\Http\Controllers\Admin\Content\MenuController;
+use App\Http\Controllers\Admin\Market\CopanController;
+use App\Http\Controllers\Admin\Content\WriterController;
+use App\Http\Controllers\Admin\Market\PaymentController;
+use App\Http\Controllers\Admin\Content\CommentController;
+use App\Http\Controllers\Admin\Setting\SettingController;
+use App\Http\Controllers\Admin\Content\PublisherController;
+use App\Http\Controllers\Admin\Market\ProductCategoryController;
+use App\Http\Controllers\Admin\Ticket\TicketFileController;
+use App\Models\Market\Payment;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,6 +57,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('comment', CommentController::class);
         // for change comment status
         Route::put('/comment/{comment}/change-status', [CommentController::class, 'changeStatus'])->name('comment.change-status');
+        Route::resource('tags', TagController::class);
+        Route::resource('blog', BlogController::class);
     });
 
     Route::prefix('setting')->name('setting.')->group(function () {
@@ -67,7 +73,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('payment', PaymentController::class);
         Route::resource('copan', CopanController::class);
         Route::resource('product', ProductController::class);
-
     });
+
+    Route::prefix('ticket')->name('ticket.')->group(function () {
+        Route::resource('ticket-file', TicketFileController::class);
+        Route::get('ticket-file/download/{ticketFile}', [TicketFileController::class, 'download'])->name('ticket-file.download');
+    });
+
 
 });

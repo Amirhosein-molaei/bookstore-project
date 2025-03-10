@@ -23,6 +23,11 @@
                 <span>تگ ها</span>
             </a>
 
+            <a href="{{ route('admin.content.blog.index') }}" class="sidebar-link">
+                <i class="fas fa-blog"></i>
+                <span>بلاگ ها</span>
+            </a>
+
             <a href="{{route('admin.content.faq.index')}}" class="sidebar-link">
                 <i class="fas fa-question"></i>
                 <span> سوالات متداول  </span>
@@ -57,6 +62,23 @@
                 <span>پرداخت ها</span>
             </a>
             
+
+            <section class="sidebar-part-title">بخش تیکت ها</section>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-dice-five"></i>
+                <span>دسته بندی تیکت ها</span>
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-object-group"></i>
+                <span> تیکت ها</span>
+            </a>
+            <a href="{{route('admin.ticket.ticket-file.index')}}" class="sidebar-link">
+                <i class="fas fa-object-group"></i>
+                <span>  فایل تیکت ها</span>
+            </a>
+
+
 
 
 

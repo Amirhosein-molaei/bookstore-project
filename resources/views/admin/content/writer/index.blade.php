@@ -24,7 +24,9 @@
                         <th scope="col">#</th>
                         <th scope="col">نام</th>
                         <th scope="col">ملیت</th>
-                        <th scope="col">سن</th>
+                        <th scope="col">سال تولد</th>
+                        <th scope="col">سال رحلت</th>
+                        <th scope="col">سال رحلت</th>
                         <th scope="col">نوع</th>
                         <th scope="col">بیوگرافی</th>
                         <th scope="col">تنظیمات</th>
@@ -36,7 +38,8 @@
                             <th>{{ $loop->iteration }}</th>
                             <td>{{ $writer->name }}</td>
                             <td>{{ $writer->nationality }}</td>
-                            <td>{{ $writer->age }}</td>
+                            <td>{{ $writer->birth_year }}</td>
+                            <td>{{ $writer->death_year ?? 'در قید حیات' }}</td>
                             <td>
                                 @if ($writer->role == 0)
                                 نویسنده
@@ -74,6 +77,9 @@
 
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center">
+                {{  $writers->links()  }}
+            </div>
 
         </section>
     </section>

@@ -33,10 +33,10 @@
                         </div>
 
                         <div class="col-12 mb-2">
-                            <label for="status" class="form-label">تگ</label>
+                            <label for="status" class="form-label">وضعیت</label>
                             <select class="form-control"  id="status" name="status">
-                                <option value="1" selected>فعال</option>
-                                <option value="0">غیرفعال</option>
+                                <option value="0" selected>فعال</option>
+                                <option value="1">غیرفعال</option>
                             </select>
                         </div>
 

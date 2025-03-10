@@ -46,9 +46,9 @@
                             @enderror
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="parent_id" class="form-label">منوی والد</label>
+                            <label for="parent_id" class="form-label">دسته والد</label>
                             <select class="form-control" name="parent_id" id="parent_id">
-                                <option value="">منو اصلی</option>
+                                <option value="">دسته اصلی</option>
                                 @foreach ($parents as $parent)
                                     <option value="{{ $parent->id }}" @if (old('parent_id') == $parent->id) selected @endif>
                                         {{ $parent->name }}

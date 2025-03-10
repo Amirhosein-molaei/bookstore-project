@@ -53,14 +53,15 @@
                 <i class="fas fa-shopping-bag"></i>
                 <span>دسته بندی محصولات</span>
             </a>
+            <a href="{{route('admin.market.product.index')}}" class="sidebar-link">
+                <i class="fas fa-book-open"></i>
+                <span>محصولات</span>
+            </a>
             <a href="{{ route('admin.market.payment.index') }}" class="sidebar-link">
                 <i class="fas fa-key"></i>
                 <span>پرداخت ها</span>
             </a>
-            <a href="{{ route('admin.market.copan.index') }}" class="sidebar-link">
-                <i class="fas fa-dollar-sign"></i>
-                <span>تخفیفات</span>
-            </a>
+            
 
             <section class="sidebar-part-title">بخش تیکت ها</section>
             <a href="#" class="sidebar-link">

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', ' تیکت دسته بندی')
+@section('title', ' ساخت دسته بندی تیکت')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                 <section class="main-body-container-header d-flex justify-content-between align-items-center">
                     <div>
                         <h5>
-                            ساخت تیکت دسته بندی
+                            ساخت دسته بندی تیکت
                         </h5>
 
                     </div>

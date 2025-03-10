@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'تیکت دسته بندی')
+@section('title', 'دسته بندی تیکت')
 
 @section('content')
 
@@ -11,7 +11,7 @@
                     تیکت
                 </h5>
                 <p>
-                    در این بخش اطلاعاتی در مورد تیکت دسته بندی ها به شما داده می شود
+                    در این بخش اطلاعاتی در مورد دسته بندی تیکت ها به شما داده می شود
                 </p>
             </div>
             <div>
@@ -24,7 +24,7 @@
                 <thead class="table-info">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">نام تیکت دسته بندی</th>
+                        <th scope="col">نام</th>
                         <th scope="col">وضعیت</th>
                         <th scope="col">عملیات</th>
                     </tr>
@@ -58,7 +58,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center">تگ وجود ندارد</td>
+                        <td colspan="4" class="text-center">دسته بندی وجود ندارد</td>
                     </tr>
                 @endforelse
                 </tbody>

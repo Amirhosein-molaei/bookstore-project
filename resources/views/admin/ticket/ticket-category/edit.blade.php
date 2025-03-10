@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', ' تیکت دسته بندی')
+@section('title', 'ویرایش دسته بندی تیکت')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                 <section class="main-body-container-header d-flex justify-content-between align-items-center">
                     <div>
                         <h5>
-                            ویرایش تیکت دسته بندی
+                            ویرایش دسته بندی تیکت
                         </h5>
 
                     </div>
@@ -25,7 +25,7 @@
                         @csrf
                         @method('PUT')
                         <div class="col-12 mb-2">
-                            <label for="name" class="form-label">تیکت دسته‌بندی</label>
+                            <label for="name" class="form-label">نام</label>
                             <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $ticket_category->name) }}">
                             @error('name')
                             <small class="text-danger">{{ $message }}</small>

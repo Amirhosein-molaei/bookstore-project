@@ -42,18 +42,6 @@
                 <span>  نظرات  </span>
             </a>
 
-            <section class="sidebar-group-link">
-                <section class="sidebar-dropdown-toggle">
-                    <i class="fas fa-ticket-alt icon"></i>
-                    <span>تیکت ها</span>
-                    <i class="fas fa-angle-left angle"></i>
-                </section>
-                <section class="sidebar-dropdown">
-                    <a href="{{route('admin.ticket.ticket-category.index')}}">تیکت دسته بندی</a>
-
-                </section>
-            </section>
-
 
 
 
@@ -72,7 +60,16 @@
                 <span>تخفیفات</span>
             </a>
 
+            <section class="sidebar-part-title">بخش تیکت ها</section>
+            <a href="{{ route('admin.ticket.ticket-category.index') }}" class="sidebar-link">
+                <i class="fas fa-dice-five"></i>
+                <span>دسته بندی تیکت ها</span>
+            </a>
 
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-object-group"></i>
+                <span> تیکت ها</span>
+            </a>
 
 
 

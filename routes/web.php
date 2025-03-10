@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Content\CommentController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Content\PublisherController;
+use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 
 
@@ -71,8 +72,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('copan', CopanController::class);
     });
 
-        Route::prefix('ticket')->name('ticket.')->group(function (){
-       Route::resource('ticket-category',\App\Http\Controllers\Admin\Ticket\TicketCategoryController::class);
+    Route::prefix('ticket')->name('ticket.')->group(function (){
+        Route::resource('ticket-category',TicketCategoryController::class);
     });
 
 

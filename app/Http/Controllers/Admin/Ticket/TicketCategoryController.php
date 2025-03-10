@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin\Ticket;
 
 use App\Http\Controllers\Controller;
-use App\Models\Ticket\Ticket;
+use App\Http\Requests\Admin\Ticket\storeTicketCategoryRequest;
+use App\Http\Requests\Admin\Ticket\updateTicketCategoryRequest;
 use App\Models\Ticket\TicketCategory;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,8 @@ class TicketCategoryController extends Controller
      */
     public function index()
     {
-        $tickets=TicketCategory::latest()->paginate(10);
-        return view('admin.ticket.ticket-category.index',compact('tickets'));
+        $tickets = TicketCategory::latest()->paginate(10);
+        return view('admin.ticket.ticket-category.index', compact('tickets'));
     }
 
     /**
@@ -29,16 +30,11 @@ class TicketCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request )
+    public function store(storeTicketCategoryRequest $request)
     {
-        $request->validate([
-            'name'=>'required',
-        ]);
-        TicketCategory::create([
-            'name'=>$request->name,
-            'status'=>$request->status,
-        ]);
-        return redirect()->route('admin.ticket.ticket-category.index')->with('swal-success','با موفقیت ثبت شد');
+        $inputs = $request->validated();
+        TicketCategory::create($inputs);
+        return redirect()->route('admin.ticket.ticket-category.index')->with('swal-success', 'دسته بندی با موفقیت ثبت شد');
     }
 
     /**
@@ -52,7 +48,7 @@ class TicketCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TicketCategory $ticket_category )
+    public function edit(TicketCategory $ticket_category)
     {
         return view('admin.ticket.ticket-category.edit', compact('ticket_category'));
     }
@@ -60,18 +56,12 @@ class TicketCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TicketCategory $ticket_category )
+    public function update(updateTicketCategoryRequest $request, TicketCategory $ticket_category)
     {
-        $request->validate([
-            'name' => 'required'
-        ]);
+        $inputs = $request->validated();
+        $ticket_category->update($inputs);
 
-        $ticket_category->update([
-            'name' => $request->name,
-            'status' => $request->status,
-        ]);
-
-        return redirect()->route('admin.ticket.ticket-category.index')->with('swal-success', 'با موفقیت ویرایش شد');
+        return redirect()->route('admin.ticket.ticket-category.index')->with('swal-success', 'دسته بندی با موفقیت ویرایش شد');
     }
 
     /**
@@ -81,7 +71,6 @@ class TicketCategoryController extends Controller
     {
         $ticketCategory = TicketCategory::findOrFail($id);
         $ticketCategory->delete();
-        return redirect()->back()->with('swal-success','با موفقیت حذف شد');
-
+        return redirect()->back()->with('swal-success', 'دسته بندی با موفقیت حذف شد');
     }
 }

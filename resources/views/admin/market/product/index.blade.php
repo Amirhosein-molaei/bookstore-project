@@ -25,8 +25,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">عنوان</th>
-                    <th scope="col">توضیحات</th>
-                    <th scope="col">اسلاگ</th>
+                    <th scope="col">ناشر</th>
+                    <th scope="col">نویسنده</th>
                     <th scope="col">تصویر</th>
                     <th scope="col">قیمت</th>
                     <th scope="col">قیمت تخفیفی</th>
@@ -41,8 +41,8 @@
                 <tr>
                     <th>{{ $loop->iteration }}</th>
                     <td>{{ Str::limit($product->title, 20, '...') }}</td>
-                    <td>{{ Str::limit($product->description, 20, '...') }}</td>
-                    <td>{{ Str::limit($product->slug, 20, '...') }}</td>
+                    <td>{{ $product->publisher->name }}</td>
+                    <td>{{ $product->writer->name }}</td>
                     <td>
                         <img class="img-fluid w-25" src="{{ asset($product->image) }}" alt="">
                     </td>

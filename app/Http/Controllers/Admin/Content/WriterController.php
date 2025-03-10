@@ -15,7 +15,7 @@ class WriterController extends Controller
      */
     public function index()
     {
-        $writers = Writer::all();
+        $writers = Writer::paginate(10);
         return view('admin.content.writer.index', compact('writers'));
     }
 

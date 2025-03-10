@@ -24,7 +24,7 @@ class storeProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|min:5|max:255|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
+            'title' => 'required|string|min:5|max:255|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ()]+$/u',
             'image' => 'required|image|mimes:png,jpg,jpeg',
             'price' => 'required|numeric',
             'type' => 'required|in:0,1',

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\Content\CommentController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Content\PublisherController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
+use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketFileController;
 use App\Models\Market\Payment;
 
@@ -72,6 +73,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('payment', PaymentController::class);
         Route::resource('copan', CopanController::class);
         Route::resource('product', ProductController::class);
+        Route::get('product-file/{product}', [ProductFileController::class, 'index'])->name('product-file.index');
+        Route::get('product-file/{product}/create', [ProductFileController::class, 'create'])->name('product-file.create');
+        Route::post('product-file/{product}', [ProductFileController::class, 'store'])->name('product-file.store');
+        Route::get('product-file/{product}/{productFile}/edit', [ProductFileController::class, 'edit'])->name('product-file.edit');
+        Route::put('product-file/{product}/{productFile}', [ProductFileController::class, 'update'])->name('product-file.update');
+        Route::delete('product-file/{product}/{productFile}', [ProductFileController::class, 'destroy'])->name('product-file.destroy');
+        Route::post('product-file/{productFile}/download', [ProductFileController::class, 'download'])->name('product-file.download');
     });
 
     Route::prefix('ticket')->name('ticket.')->group(function () {

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Content\TagController;
 use App\Http\Controllers\Admin\Content\BlogController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Market\CopanController;
+use App\Http\Controllers\Admin\Content\SlideController;
 use App\Http\Controllers\Admin\Content\WriterController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Content\CommentController;
@@ -19,7 +20,6 @@ use App\Http\Controllers\Admin\Content\PublisherController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketFileController;
-use App\Models\Market\Payment;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,12 +36,12 @@ Route::middleware('auth')->group(function () {
    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('/',DashboardController::class);
+    Route::get('/', DashboardController::class);
 
     Route::get('/users', [UserController::class, 'index'])->name('user.');
     Route::post('/user/change-access/{user}', [UserController::class, 'changeAccess'])->name('user.change-access');
@@ -54,6 +54,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('writer', WriterController::class);
         Route::resource('tag', TagController::class);
         Route::resource('publisher', PublisherController::class);
+        Route::resource('slide', SlideController::class);
         Route::resource('comment', CommentController::class);
         // for change comment status
         Route::put('/comment/{comment}/change-status', [CommentController::class, 'changeStatus'])->name('comment.change-status');
@@ -62,10 +63,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::prefix('setting')->name('setting.')->group(function () {
-        Route::get('/',[SettingController::class,'index']);
-        Route::get('set',[SettingController::class,'set'])->name('set');
+        Route::get('/', [SettingController::class, 'index']);
+        Route::get('set', [SettingController::class, 'set'])->name('set');
         Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
-
     });
 
     Route::prefix('market')->name('market.')->group(function () {

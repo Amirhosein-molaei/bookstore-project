@@ -23,10 +23,12 @@ class storeWriterRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2|max:120|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
+            'english_name' => 'nullable|regex:/^[a-zA-z]+$/u',
             'nationality' => 'required|min:2|max:120|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
-            'age' => 'required|numeric|digits_between:2,3',
-            'description' => 'required|min:5|max:2000',
-            'role' => 'in:0,1,2'
+            'birth_year' => 'nullable|numeric|min_digits:3',
+            'death_year' => 'nullable|numeric|min_digits:3',
+            'description' => 'required|min:5',
+            'role' => 'required|in:0,1,2'
         ];
     }
 }

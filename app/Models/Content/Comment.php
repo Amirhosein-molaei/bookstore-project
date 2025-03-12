@@ -15,7 +15,7 @@ class Comment extends Model
 
     public function commentable()
     {
-        $this->morphTo();
+        return $this->morphTo();
     }
 
     public function user()
@@ -30,6 +30,6 @@ class Comment extends Model
     
     public function answers()
     {
-        return $this->belongsTo($this, 'parent_id');
+        return $this->hasMany($this, 'parent_id');
     }
 }

@@ -77,6 +77,12 @@
                                     <i class="fa fa-eye"></i>
                                 </a>
                             </div>
+                            <div class="mx-2">
+                                <a href="{{route('admin.market.product-file.index',$product)}}"
+                                    class="text-success">
+                                    <i class="fa fa-file"></i>
+                                </a>
+                            </div>
                         </div>
                     </td>
                 </tr>

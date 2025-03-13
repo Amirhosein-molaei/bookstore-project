@@ -11,6 +11,9 @@
                 <p>
                     در این بخش اطلاعاتی در مورد تیکت ها به شما داده می شود
                 </p>
+                <p>
+                    <i class="fa fa-info-circle text-warning"></i> برای ثبت پاسخ وارد صفحه تیکت شوید
+                </p>
             </div>
         </section>
         <section class="body-content">
@@ -55,7 +58,7 @@
                             </td>
                             <td>
                                 @if ($ticket->file)
-                                    <a href="{{ asset($ticket->file->file_path) }}">دانلود</a>
+                                    <a href="{{ route('admin.ticket.ticket-file.download', $ticket->file) }}">دانلود</a>
                                 @endif
                             </td>
                             <td>
@@ -98,7 +101,9 @@
 
                 </tbody>
             </table>
-
+            <div class="d-flex justify-content-center">
+                {{ $tickets->links() }}
+            </div>
         </section>
     </section>
 @endsection

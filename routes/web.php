@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Market\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Admin\Content\TagController;
 use App\Http\Controllers\Admin\Content\BlogController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Market\CopanController;
+use App\Http\Controllers\Admin\Content\SlideController;
 use App\Http\Controllers\Admin\Content\WriterController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Content\CommentController;
@@ -17,7 +19,8 @@ use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Content\PublisherController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
-
+use App\Http\Controllers\Admin\Market\ProductFileController;
+use App\Http\Controllers\Admin\Ticket\TicketFileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,12 +37,12 @@ Route::middleware('auth')->group(function () {
    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('/',DashboardController::class);
+    Route::get('/', DashboardController::class);
 
     Route::get('/users', [UserController::class, 'index'])->name('user.');
     Route::post('/user/change-access/{user}', [UserController::class, 'changeAccess'])->name('user.change-access');
@@ -52,6 +55,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('writer', WriterController::class);
         Route::resource('tag', TagController::class);
         Route::resource('publisher', PublisherController::class);
+        Route::resource('slide', SlideController::class);
         Route::resource('comment', CommentController::class);
         // for change comment status
         Route::put('/comment/{comment}/change-status', [CommentController::class, 'changeStatus'])->name('comment.change-status');
@@ -60,20 +64,29 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::prefix('setting')->name('setting.')->group(function () {
-        Route::get('/',[SettingController::class,'index']);
-        Route::get('set',[SettingController::class,'set'])->name('set');
+        Route::get('/', [SettingController::class, 'index']);
+        Route::get('set', [SettingController::class, 'set'])->name('set');
         Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
-
     });
 
     Route::prefix('market')->name('market.')->group(function () {
         Route::resource('product-category', ProductCategoryController::class);
         Route::resource('payment', PaymentController::class);
         Route::resource('copan', CopanController::class);
+        Route::resource('product', ProductController::class);
+        Route::get('product-file/{product}', [ProductFileController::class, 'index'])->name('product-file.index');
+        Route::get('product-file/{product}/create', [ProductFileController::class, 'create'])->name('product-file.create');
+        Route::post('product-file/{product}', [ProductFileController::class, 'store'])->name('product-file.store');
+        Route::get('product-file/{product}/{productFile}/edit', [ProductFileController::class, 'edit'])->name('product-file.edit');
+        Route::put('product-file/{product}/{productFile}', [ProductFileController::class, 'update'])->name('product-file.update');
+        Route::delete('product-file/{product}/{productFile}', [ProductFileController::class, 'destroy'])->name('product-file.destroy');
+        Route::post('product-file/{productFile}/download', [ProductFileController::class, 'download'])->name('product-file.download');
     });
 
-    Route::prefix('ticket')->name('ticket.')->group(function (){
+    Route::prefix('ticket')->name('ticket.')->group(function () {
         Route::resource('ticket-category',TicketCategoryController::class);
+        Route::resource('ticket-file', TicketFileController::class);
+        Route::get('ticket-file/download/{ticketFile}', [TicketFileController::class, 'download'])->name('ticket-file.download');
     });
 
 

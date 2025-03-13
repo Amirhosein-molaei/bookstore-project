@@ -162,10 +162,6 @@
 }
 
 .sidebar-container {
-<<<<<<< HEAD
-=======
-    height: calc(100vh - 3.5rem);
->>>>>>> menu-management
     /* position: fixed; */
     right: 0;
     top: 3.5rem;
@@ -174,10 +170,6 @@
 
 .sidebar-wrapper {
     padding: 1rem 0;
-<<<<<<< HEAD
-=======
-    overflow: auto;
->>>>>>> menu-management
 }
 
 .sidebar-wrapper::-webkit-scrollbar {
@@ -268,13 +260,8 @@ button {
 
 .sidebar-dropdown a::before,
 button::before {
-<<<<<<< HEAD
     /* content: '»'; */
     /* margin: .8rem; */
-=======
-    content: '»';
-    margin: .8rem;
->>>>>>> menu-management
 }
 
 .sidebar-dropdown a:hover,

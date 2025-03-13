@@ -28,6 +28,14 @@
                         </div>
 
                         <div class="col-md-6 mb-2">
+                            <label for="english_name" class="form-label">نام انگلیسی</label>
+                            <input type="text" name="english_name" id="english_name" class="form-control" placeholder="نام انگلیسی" value="{{ old('english_name') }}">
+                            @error('english_name')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6 mb-2">
                             <label for="nationality" class="form-label">ملیت</label>
                             <input type="text" name="nationality" id="nationality" class="form-control" placeholder="ملیت" value="{{ old('nationality') }}">
                             @error('nationality')
@@ -36,15 +44,22 @@
                         </div>
 
                         <div class="col-md-6 mb-2">
-                            <label for="age" class="form-label">سن</label>
-                            <input type="text" name="age" id="age" class="form-control" placeholder="سن" value="{{ old('age') }}">
-                            @error('age')
+                            <label for="birth_year" class="form-label">سال تولد</label>
+                            <input type="text" name="birth_year" id="birth_year" class="form-control" placeholder="سال تولد" value="{{ old('birth_year') }}">
+                            @error('birth_year')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="death_year" class="form-label">سال رحلت</label>
+                            <input type="text" name="death_year" id="death_year" class="form-control" placeholder="سال رحلت" value="{{ old('death_year') }}">
+                            @error('death_year')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
 
                         <div class="col-md-6 mb-2">
-                            <label for="role" class="form-label">سن</label>
+                            <label for="role" class="form-label">نوع</label>
                             <select class="form-control" name="role" id="role">
                                 <option class="form-control" value="0">نویسنده</option>
                                 <option class="form-control" value="1">مترجم</option>

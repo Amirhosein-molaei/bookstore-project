@@ -205,7 +205,8 @@ return [
         'address_id' => 'آدرس',
         'copan' => 'کد تخفیف',
         'subject' => 'عنوان',
-        'amount_type' => 'نوع تخفیف'
-
+        'amount_type' => 'نوع تخفیف',
+        'discount_percentage' => 'درصد تخفیف',
+        'disscount_expires_at' => 'تاریخ اتمام تخفیف'
     ],
 ];

@@ -36,14 +36,21 @@
                 <i class="fas fa-pen"></i>
                 <span>  ناشران  </span>
             </a>
+
+            <a href="{{route('admin.content.slide.index')}}" class="sidebar-link">
+                <i class="fas fa-oil-can"></i>
+                <span>اسلاید ها  </span>
+            </a>
+
             </a>
             <a href="{{route('admin.content.comment.index')}}" class="sidebar-link">
                 <i class="fas fa-comment"></i>
                 <span>  نظرات  </span>
             </a>
-
-
-
+            
+            
+            
+            
 
             <section class="sidebar-part-title">بخش فروشگاه</section>
 
@@ -51,13 +58,29 @@
                 <i class="fas fa-shopping-bag"></i>
                 <span>دسته بندی محصولات</span>
             </a>
+            <a href="{{route('admin.market.product.index')}}" class="sidebar-link">
+                <i class="fas fa-book-open"></i>
+                <span>محصولات</span>
+            </a>
             <a href="{{ route('admin.market.payment.index') }}" class="sidebar-link">
                 <i class="fas fa-key"></i>
                 <span>پرداخت ها</span>
             </a>
-            <a href="{{ route('admin.market.copan.index') }}" class="sidebar-link">
-                <i class="fas fa-dollar-sign"></i>
-                <span>تخفیفات</span>
+            
+
+            <section class="sidebar-part-title">بخش تیکت ها</section>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-dice-five"></i>
+                <span>دسته بندی تیکت ها</span>
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-object-group"></i>
+                <span> تیکت ها</span>
+            </a>
+            <a href="{{route('admin.ticket.ticket-file.index')}}" class="sidebar-link">
+                <i class="fas fa-object-group"></i>
+                <span>  فایل تیکت ها</span>
             </a>
 
             <section class="sidebar-part-title">بخش تیکت ها</section>
@@ -70,6 +93,8 @@
                 <i class="fas fa-object-group"></i>
                 <span> تیکت ها</span>
             </a>
+
+
 
 
 

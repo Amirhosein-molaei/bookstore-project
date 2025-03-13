@@ -47,8 +47,6 @@
                 <i class="fas fa-comment"></i>
                 <span>  نظرات  </span>
             </a>
-
-            
             
             
             
@@ -85,7 +83,16 @@
                 <span>  فایل تیکت ها</span>
             </a>
 
+            <section class="sidebar-part-title">بخش تیکت ها</section>
+            <a href="{{ route('admin.ticket.ticket-category.index') }}" class="sidebar-link">
+                <i class="fas fa-dice-five"></i>
+                <span>دسته بندی تیکت ها</span>
+            </a>
 
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-object-group"></i>
+                <span> تیکت ها</span>
+            </a>
 
 
 

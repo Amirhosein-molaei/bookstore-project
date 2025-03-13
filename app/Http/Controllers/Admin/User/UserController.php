@@ -19,6 +19,10 @@ class UserController extends Controller
     {
         if ($user->activated) {
             if ($user->is_admin) {
+                if ($user->ticketAdmin) {
+                    $ticketAdmin = TicketAdmin::where('user_id', $user->id)->first();
+                    $ticketAdmin->delete();
+                }
                 $user->update(['is_admin' => 0]);
             } else {
                 $user->update(['is_admin' => 1]);
@@ -37,7 +41,7 @@ class UserController extends Controller
             $ticketAdmin = TicketAdmin::where('user_id', $user->id)->first();
             $ticketAdmin->delete();
         } else {
-            TicketAdmin::create(['user_id' => $user->id]);
+            TicketAdmin::restoreOrCreate(['user_id' => $user->id], ['user_id' => $user->id]);
         }
         
         return redirect()->back()->with('swal-success', 'دسترسی تیکت-ادمین با موفقیت تغییر یافت');

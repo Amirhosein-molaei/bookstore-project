@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Content\PublisherController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Market\ProductFileController;
+use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\Ticket\TicketFileController;
 
 Route::get('/', function () {
@@ -86,6 +87,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::prefix('ticket')->name('ticket.')->group(function () {
         Route::resource('ticket-category',TicketCategoryController::class);
         Route::resource('ticket-file', TicketFileController::class);
+        Route::resource('ticket', TicketController::class);
+        Route::post('/change-status/{ticket}', [TicketController::class, 'changeStatus'])->name('ticket.change-status');
         Route::get('ticket-file/download/{ticketFile}', [TicketFileController::class, 'download'])->name('ticket-file.download');
     });
 

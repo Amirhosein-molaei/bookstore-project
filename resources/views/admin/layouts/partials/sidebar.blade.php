@@ -69,47 +69,22 @@
             
 
             <section class="sidebar-part-title">بخش تیکت ها</section>
-            <a href="#" class="sidebar-link">
-                <i class="fas fa-dice-five"></i>
-                <span>دسته بندی تیکت ها</span>
-            </a>
-
-            <a href="#" class="sidebar-link">
-                <i class="fas fa-object-group"></i>
-                <span> تیکت ها</span>
-            </a>
             <a href="{{route('admin.ticket.ticket-file.index')}}" class="sidebar-link">
                 <i class="fas fa-object-group"></i>
                 <span>  فایل تیکت ها</span>
             </a>
 
-            <section class="sidebar-part-title">بخش تیکت ها</section>
             <a href="{{ route('admin.ticket.ticket-category.index') }}" class="sidebar-link">
                 <i class="fas fa-dice-five"></i>
                 <span>دسته بندی تیکت ها</span>
             </a>
 
-            <a href="#" class="sidebar-link">
-                <i class="fas fa-object-group"></i>
+            <a href="{{ route('admin.ticket.ticket.index') }}" class="sidebar-link">
+                <i class="fas fa-ticket-alt"></i>
                 <span> تیکت ها</span>
             </a>
 
 
-
-
-
-            <section class="sidebar-group-link">
-                <section class="sidebar-dropdown-toggle">
-                    <i class="fas fa-chart-bar icon"></i>
-                    <span>نوشته ها</span>
-                    <i class="fas fa-angle-left angle"></i>
-                </section>
-                <section class="sidebar-dropdown">
-                    <a href="#">مقالات</a>
-                    <a href="#">پست ها</a>
-                    <a href="#">دوره ها</a>
-                </section>
-            </section>
 
             <section class="sidebar-part-title">بخش کاربران</section>
 

@@ -3,14 +3,16 @@
 namespace App\Models\Ticket;
 
 use App\Models\User\User;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ticket extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, CascadeSoftDeletes;
     
     protected $guarded = ['id'];
+    protected $cascadeDeletes = ['answers'];
 
     public function user()
     {

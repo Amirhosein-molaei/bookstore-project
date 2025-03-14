@@ -41,13 +41,22 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/', DashboardController::class);
+
+    Route::middleware(['auth','superAdmin'])->group(function () {
 
     Route::get('/users', [UserController::class, 'index'])->name('user.');
     Route::post('/user/change-access/{user}', [UserController::class, 'changeAccess'])->name('user.change-access');
     Route::post('/user/change-ticket-admin/{user}', [UserController::class, 'changeTicketAdmin'])->name('user.change-ticket-admin');
+
+    Route::prefix('setting')->name('setting.')->group(function () {
+        Route::get('/', [SettingController::class, 'index']);
+        Route::get('set', [SettingController::class, 'set'])->name('set');
+        Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
+    });
+});
 
     Route::prefix('content')->name('content.')->group(function () {
         Route::resource('menu', MenuController::class);
@@ -68,11 +77,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('banners/{banner}/select', [\App\Http\Controllers\Admin\Content\BannerController::class, 'select'])->name('banners.select');
     });
 
-    Route::prefix('setting')->name('setting.')->group(function () {
-        Route::get('/', [SettingController::class, 'index']);
-        Route::get('set', [SettingController::class, 'set'])->name('set');
-        Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
-    });
+
 
     Route::prefix('market')->name('market.')->group(function () {
         Route::resource('product-category', ProductCategoryController::class);

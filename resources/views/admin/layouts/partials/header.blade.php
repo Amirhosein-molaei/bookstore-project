@@ -292,9 +292,13 @@
                             <a href="#" class="list-group-item list-group-item-action header-profile-link">
                                 <i class="fas fa-lock"></i>قفل صفحه
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action header-profile-link">
+                            <form action="{{route('logout')}}" method="post">
+                                <button type="submit">
                                 <i class="fas fa-sign-out-alt"></i>خروج
-                            </a>
+
+                                </button>
+                            </form>
+                           
                         </section>
                     </section>
                 </span>

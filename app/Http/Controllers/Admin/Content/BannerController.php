@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
 use App\Models\Content\Banner;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,18 +32,21 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request , ImageUploadService $imageUploadService)
     {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
+        if ($request->hasFile('image')) {
+            $result = $imageUploadService->uploadImage($request->file('image'), 'image');
+            if ($result === false) {
+                return back()->with('swal-error', 'خطا در آپلود فایل');
+            }
+            $inputs['image'] = $result;
+        }
 
-        $bannerImageController =new imageBannerController();
-        $fileNameImage =$bannerImageController->upload($request->image);
-        Banner::create([
-            'image'=>$fileNameImage['fileNameImage'],
-            'is_selected' => false,
-        ]);
+        $setting = Banner::create($inputs);
+
         return redirect()->route('admin.content.banners.index')->with('swal-success', 'داده با موفقیت ذخیره شد!');
 
     }

@@ -38,7 +38,7 @@
                     <tr>
                         <td>{{ $banners->firstItem() + $key }}</td>
                         <td>
-                            <img src="{{ env('BANNER_IMAGE') . $banner->image }}" width="80px">
+                            <img src="{{asset($banner->image) }}" width="80px">
                         </td>
                         <td>
                             <form action="{{ route('admin.content.banners.select', $banner->id) }}" method="POST" class="d-inline">

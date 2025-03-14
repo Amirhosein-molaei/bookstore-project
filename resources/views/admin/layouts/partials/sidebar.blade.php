@@ -22,7 +22,10 @@
                 <i class="fas fa-tag"></i>
                 <span>تگ ها</span>
             </a>
-
+            <a href="{{ route('admin.content.banners.index') }}" class="sidebar-link">
+                <i class="fas fa-flag"></i>
+                <span>بنر ها</span>
+            </a>
             <a href="{{ route('admin.content.blog.index') }}" class="sidebar-link">
                 <i class="fas fa-blog"></i>
                 <span>بلاگ ها</span>

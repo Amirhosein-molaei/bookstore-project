@@ -293,6 +293,7 @@
                                 <i class="fas fa-lock"></i>قفل صفحه
                             </a>
                             <form action="{{route('logout')}}" method="post">
+                                @csrf
                                 <button type="submit">
                                 <i class="fas fa-sign-out-alt"></i>خروج
 

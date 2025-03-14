@@ -19,12 +19,12 @@
 
             <table class="table">
                 <thead class="table-info">
-                    <tr>
+                    <tr class="text-center">
                         <th scope="col">#</th>
                         <th scope="col">نام</th>
                         <th scope="col">ایمیل</th>
                         <th scope="col">موبایل</th>
-                        <th scope="col">وضعیت حساب کاربری</th>
+                        <th scope="col">وضعیت حساب</th>
                         <th scope="col">دسترسی ها</th>
                         <th scope="col">تنظیمات</th>
                     </tr>
@@ -37,60 +37,71 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->mobile }}</td>
                             <td>
-                                @if ($user->activation)
+                                @if ($user->activated)
                                     فعال
                                 @else
                                     غیرفعال
                                 @endif
                             </td>
-                            <td>
-                                @if ($user->is_admin)
-                                    <span class="bg-success p-2 text-white text-center rounded ml-3">ادمین</span>
+                            <td class="text-center">
+                                @if ($user->is_superAdmin)
+                                    <span class="bg-success p-1 text-white text-center rounded ml-1">سوپر ادمین</span>
+                                @elseif ($user->is_admin)
+                                    <span class="bg-primary p-1 text-white text-center rounded ml-1">ادمین</span>
                                 @else
-                                <span class="bg-secondary p-2 text-white text-center rounded ml-3">کاربری عادی</span>
+                                    <span class="text-secondary">کاربری عادی</span>
                                 @endif
                                 @if ($user->ticketAdmin)
-                                    <span class="bg-warning p-2 text-center rounded">تیکت-ادمین</span>
+                                    <span class="bg-warning p-1 text-center rounded">تیکت-ادمین</span>
                                 @endif
                             </td>
 
                             <td>
                                 <div class="d-flex">
+                                    @if (!$user->is_superAdmin)
+                                        <div class="mx-2">
+                                            <form action="{{ route('admin.user.admin-access', $user) }}" method="POST"
+                                                class="d-inline m-0 p-0">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="text-white rounded{{ $user->is_admin ? ' bg-danger' : ' bg-success' }}">
+                                                    ادمین
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @endif
                                     <div class="mx-2">
-                                        <form action="{{ route('admin.user.change-access', $user) }}" method="POST"
-                                            class="d-inline">
+                                        <form action="{{ route('admin.user.super-admin-access', $user) }}" method="POST"
+                                            class="d-inline m-0 p-0">
                                             @csrf
-                                            <button type="submit" class="text-white bg-danger rounded">
-                                                تغییر دسترسی
+                                            <button type="submit"
+                                                class="text-white rounded{{ $user->is_superAdmin ? ' bg-danger' : ' bg-success' }}">
+                                                سوپر ادمین
                                             </button>
                                         </form>
                                     </div>
-                                    <div class="mx-2">
-                                        @if ($user->is_admin)
+                                    @if ($user->is_admin or $user->is_superAdmin)
+                                        <div class="mx-2">
                                             <form action="{{ route('admin.user.change-ticket-admin', $user) }}"
-                                                method="POST" class="d-inline">
+                                                method="POST" class="d-inline m-0 p-0">
                                                 @csrf
-                                                @if ($user->ticketAdmin)
-                                                    <button type="submit" class="text-white bg-danger rounded">
-                                                        حذف تیکت-ادمین
-                                                    </button>
-                                                @else
-                                                    <button type="submit" class="text-white bg-success rounded">
-                                                        افزودن تیکت-ادمین
-                                                    </button>
-                                                @endif
+                                                <button type="submit"
+                                                    class="text-white rounded{{ $user->ticketAdmin ? ' bg-danger' : ' bg-success' }}">
+                                                    تیکت-ادمین
+                                                </button>
                                             </form>
-                                        @endif
-                                    </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
                     @endforeach
-
-
                 </tbody>
             </table>
 
+            <div class="d-flex justify-content-center">
+                {{ $users->links() }}
+            </div>
         </section>
     </section>
 

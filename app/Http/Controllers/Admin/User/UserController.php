@@ -11,14 +11,15 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(10);
         return view('admin.user.index', compact('users'));
     }
 
-    public function changeAccess(Request $request, User $user)
+    public function changeAdminAccess(Request $request, User $user)
     {
         if ($user->activated) {
             if ($user->is_admin) {
+                // with tacking back admin access, ticket-admin access will be taken too
                 if ($user->ticketAdmin) {
                     $ticketAdmin = TicketAdmin::where('user_id', $user->id)->first();
                     $ticketAdmin->delete();
@@ -29,6 +30,23 @@ class UserController extends Controller
             }
 
             return redirect()->back()->with('swal-success', 'دسترسی کاربر با موفقیت تغییر یافت');
+        } else {
+            return redirect()->back()->with('swal-error', 'تغییر دسترسی برای حساب های فعال نشده امکان پذیر نیست!');
+        }
+    
+    }
+
+    public function changeSuperAdminAccess(Request $request, User $user)
+    {
+        if ($user->activated) {
+            // if access is changing from normal user to super-admin, admin access will be given too
+            if (!$user->is_superAdmin and !$user->is_admin) {
+                $user->update(['is_admin' => 1, 'is_superAdmin' => 1]);
+            } else {
+                $user->update(['is_superAdmin' => !$user->is_superAdmin]);
+            }
+
+            return redirect()->back()->with('swal-success', 'دسترسی سوپر ادمین با موفقیت تغییر یافت');
         } else {
             return redirect()->back()->with('swal-error', 'تغییر دسترسی برای حساب های فعال نشده امکان پذیر نیست!');
         }

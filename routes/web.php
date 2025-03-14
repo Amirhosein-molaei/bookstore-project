@@ -48,7 +48,8 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
     Route::middleware(['auth','superAdmin'])->group(function () {
 
     Route::get('/users', [UserController::class, 'index'])->name('user.');
-    Route::post('/user/change-access/{user}', [UserController::class, 'changeAccess'])->name('user.change-access');
+    Route::post('/user/admin-access/{user}', [UserController::class, 'changeAdminAccess'])->name('user.admin-access');
+    Route::post('/user/super-admin-access/{user}', [UserController::class, 'changeSuperAdminAccess'])->name('user.super-admin-access');
     Route::post('/user/change-ticket-admin/{user}', [UserController::class, 'changeTicketAdmin'])->name('user.change-ticket-admin');
 
     Route::prefix('setting')->name('setting.')->group(function () {

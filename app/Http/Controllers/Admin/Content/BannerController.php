@@ -38,14 +38,14 @@ class BannerController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
         if ($request->hasFile('image')) {
-            $result = $imageUploadService->uploadImage($request->file('image'), 'image');
+            $result = $imageUploadService->uploadImage($request->file('image'));
             if ($result === false) {
                 return back()->with('swal-error', 'خطا در آپلود فایل');
             }
             $inputs['image'] = $result;
         }
 
-        $setting = Banner::create($inputs);
+        $banner = Banner::create($inputs);
 
         return redirect()->route('admin.content.banners.index')->with('swal-success', 'داده با موفقیت ذخیره شد!');
 
@@ -78,9 +78,9 @@ class BannerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Banner $banner)
+    public function destroy(Banner $banner, ImageUploadService $imageUploadService)
     {
-        Storage::disk('public')->delete($banner->image);
+        $imageUploadService->removeImage($banner->image);
         $banner->delete();
         return redirect()->route('admin.content.banners.index')->with('swal-success', 'بنر با موفقیت حذف شد.');
 

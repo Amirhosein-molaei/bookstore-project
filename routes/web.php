@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\Ticket\TicketFileController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('app.home');
 });
 
 

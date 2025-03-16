@@ -64,5 +64,10 @@ class Product extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+    public function cartItems()
+{
+    return $this->hasMany(CartItem::class, 'product_id');
+}
+
 
 }

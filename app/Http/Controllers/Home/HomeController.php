@@ -45,8 +45,10 @@ class HomeController extends Controller
      */
     public function show(Product $product)
     {
-      
-        return view('app.product',compact('product'));
+        $relatedProducts=Product::where('product_category_id',$product->category->id)->whereNot('id',$product->id)->limit(10)->get();
+        $commentCount = $product->comments()->count();
+        $productFiles=$product->files()->get();
+        return view('app.product',compact('product','relatedProducts','commentCount','productFiles'));
 
     }
 

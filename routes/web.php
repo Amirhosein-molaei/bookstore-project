@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\ProducttController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\Content\FaqController;
@@ -110,3 +111,4 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 // Home
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/product/{product}', [HomeController::class, 'show'])->name('product');
+Route::post('/product/favorit/{product}',[ProducttController::class, 'addFavorit'])->name('product.favorit');

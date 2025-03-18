@@ -25,7 +25,7 @@ use App\Http\Controllers\Admin\Ticket\TicketFileController;
 
 Route::get('/', function () {
     return view('app.home');
-});
+})->name('home');
 
 
 Route::get('/dashboard', function () {

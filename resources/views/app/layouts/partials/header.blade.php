@@ -37,8 +37,8 @@
                                             <div class="swiper-slide">
                                                 <a href="#"
                                                     class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                    <img src="./assets/images/products/p6.png"
-                                                        alt="Product Image" class="w-16" />
+                                                    <img src="./assets/images/products/p6.png" alt="Product Image"
+                                                        class="w-16" />
                                                     <p class="line-clamp-2">
                                                         کفش نایک کفش نایک کفش نایک
                                                     </p>
@@ -47,8 +47,8 @@
                                             <div class="swiper-slide">
                                                 <a href="#"
                                                     class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                    <img src="./assets/images/products/p4.png"
-                                                        alt="Product Image" class="w-16" />
+                                                    <img src="./assets/images/products/p4.png" alt="Product Image"
+                                                        class="w-16" />
                                                     <p class="line-clamp-2">
                                                         کفش نایک کفش نایک کفش نایک
                                                     </p>
@@ -57,8 +57,8 @@
                                             <div class="swiper-slide">
                                                 <a href="#"
                                                     class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                    <img src="./assets/images/products/p5.png"
-                                                        alt="Product Image" class="w-16" />
+                                                    <img src="./assets/images/products/p5.png" alt="Product Image"
+                                                        class="w-16" />
                                                     <p class="line-clamp-2">
                                                         کفش نایک کفش نایک کفش نایک
                                                     </p>
@@ -212,98 +212,109 @@
                         <!-- Account -->
 
                         <div>
-                            <button class=" " data-dropdown-toggle="dropdownAccountDesktop"
-                                id="dropdownDefaultButton" type="button">
-                                <svg class="h-6 w-6">
-                                    <use xlink:href="#user" />
-                                </svg>
-                            </button>
+                            @if (Auth::check())
+                                <button class=" " data-dropdown-toggle="dropdownAccountDesktop"
+                                    id="dropdownDefaultButton" type="button">
+                                    <svg class="h-6 w-6">
+                                        <use xlink:href="#user" />
+                                    </svg>
+                                </button>
 
-                            <div class="z-10 !ml-5 hidden w-60 overflow-hidden rounded-lg border-t-2 border-t-primary bg-muted"
-                                id="dropdownAccountDesktop">
-                                <ul class="space-y-1 p-2">
-                                    <li>
-                                        <a class="flex items-center justify-between gap-x-2 rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
-                                            href="./profile-dashboard.html">
-                                            <span class="flex items-center gap-x-4">
-                                                <span class="min-w-fit">
-                                                    <img alt="profile" class="h-8 w-8 rounded-full"
-                                                        src="./assets/images/user.png" />
+                                <div class="z-10 !ml-5 hidden w-60 overflow-hidden rounded-lg border-t-2 border-t-primary bg-muted"
+                                    id="dropdownAccountDesktop">
+                                    <ul class="space-y-1 p-2">
+                                        <li>
+                                            <a class="flex items-center justify-between gap-x-2 rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
+                                                href="./profile-dashboard.html">
+                                                <span class="flex items-center gap-x-4">
+                                                    <span class="min-w-fit">
+                                                        <img alt="profile" class="h-8 w-8 rounded-full"
+                                                            src="./assets/images/user.png" />
+                                                    </span>
+                                                    <span class="line-clamp-1"> 
+                                                        @if (Auth::user()->name)
+                                                            {{ Auth::user()->name }}
+                                                        @else
+                                                            بدون نام
+                                                        @endif     
+                                                    </span>
                                                 </span>
-                                                <span class="line-clamp-1"> نام تستی تستی </span>
-                                            </span>
-                                            <span>
-                                                <svg class="h-6 w-6">
-                                                    <use xlink:href="#chevron-left" />
-                                                </svg>
-                                            </span>
-                                        </a>
-                                    </li>
+                                                <span>
+                                                    <svg class="h-6 w-6">
+                                                        <use xlink:href="#chevron-left" />
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                        </li>
 
-                                    <li>
-                                        <a class="flex items-center justify-between rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
-                                            href="./profile-orders.html">
-                                            <span class="flex items-center gap-x-2">
-                                                <svg class="h-6 w-6">
-                                                    <use xlink:href="#order" />
-                                                </svg>
-                                                <span> سفارش ها </span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="flex items-center justify-between rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
-                                            href="./profile-favorite.html">
-                                            <span class="flex items-center gap-x-2">
-                                                <svg class="h-6 w-6">
-                                                    <use xlink:href="#heart" />
-                                                </svg>
-                                                <span> علاقه‌مندی ها </span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="flex items-center justify-between rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
-                                            href="./profile-notification.html">
-                                            <span class="flex items-center gap-x-2">
-                                                <svg class="h-6 w-6">
-                                                    <use xlink:href="#notification" />
-                                                </svg>
-                                                <span> پیام ها </span>
-                                            </span>
+                                        <li>
+                                            <a class="flex items-center justify-between rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
+                                                href="./profile-orders.html">
+                                                <span class="flex items-center gap-x-2">
+                                                    <svg class="h-6 w-6">
+                                                        <use xlink:href="#order" />
+                                                    </svg>
+                                                    <span> سفارش ها </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="flex items-center justify-between rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
+                                                href="./profile-favorite.html">
+                                                <span class="flex items-center gap-x-2">
+                                                    <svg class="h-6 w-6">
+                                                        <use xlink:href="#heart" />
+                                                    </svg>
+                                                    <span> علاقه‌مندی ها </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="flex items-center justify-between rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
+                                                href="./profile-notification.html">
+                                                <span class="flex items-center gap-x-2">
+                                                    <svg class="h-6 w-6">
+                                                        <use xlink:href="#notification" />
+                                                    </svg>
+                                                    <span> پیام ها </span>
+                                                </span>
 
-                                            <span class="relative flex h-5 w-5">
-                                                <span
-                                                    class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-                                                <span
-                                                    class="relative inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-btn text-sm text-white">2</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="my-2 h-px w-full rounded-full bg-border"></div>
-                                    </li>
-                                    <li>
-                                        <a class="flex items-center justify-between rounded-lg p-4 text-red-500 hover:bg-warning/10 dark:text-red-400 dark:hover:bg-red-400/10"
-                                            href="#">
-                                            <div class="flex items-center gap-x-2">
-                                                <svg class="h-6 w-6">
-                                                    <use xlink:href="#exit" />
-                                                </svg>
-                                                <span> خروج </span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                                                <span class="relative flex h-5 w-5">
+                                                    <span
+                                                        class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                                                    <span
+                                                        class="relative inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-btn text-sm text-white">2</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="my-2 h-px w-full rounded-full bg-border"></div>
+                                        </li>
+                                        <li>
+                                            <form method="post" action="{{ route('logout') }}" class="flex items-center justify-between rounded-lg p-4 text-red-500 hover:bg-warning/10 dark:text-red-400 dark:hover:bg-red-400/10">
+                                                @csrf
+                                                <div class="flex items-center gap-x-2">
+                                                    <svg class="h-6 w-6">
+                                                        <use xlink:href="#exit" />
+                                                    </svg>
+                                                    <button type="submit"> خروج </span>
+                                                </div>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @else
+                                <a href="{{ route('otp.show') }}">
+                                    <div
+                                        class="flex h-8 cursor-pointer items-center justify-center rounded-lg border  px-4 text-sm font-medium  transition-colors duration-200 hover:bg-primary hover:text-white    dark:hover:bg-primary dark:hover:text-white">
+                                        ورود \ ثبت نام
+                                    </div>
+                                </a>
+                            @endif
 
-                            <!-- <a href="./login.html">
-              <div
-                class="flex h-8 cursor-pointer items-center justify-center rounded-lg border  px-4 text-sm font-medium  transition-colors duration-200 hover:bg-primary hover:text-white    dark:hover:bg-primary dark:hover:text-white"
-              >
-                ورود \ ثبت نام
-              </div>
-            </a> -->
+
+
+
                         </div>
                         <!-- Basket -->
                         <div>
@@ -345,8 +356,7 @@
                                                 <div class="relative min-w-fit">
                                                     <a href="./product-detail.html">
                                                         <img alt="" class="h-[120px] w-[120px]"
-                                                            loading="lazy"
-                                                            src="./assets/images/products/p1.png" />
+                                                            loading="lazy" src="./assets/images/products/p1.png" />
                                                     </a>
                                                     <button
                                                         class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-background"
@@ -364,8 +374,7 @@
                                                         تیشرت اسپورت مردانه
                                                     </a>
                                                     <!-- Product Attribute -->
-                                                    <div
-                                                        class="flex items-center gap-x-2 text-sm text-text/60">
+                                                    <div class="flex items-center gap-x-2 text-sm text-text/60">
                                                         <div>تعداد : 2</div>
                                                         <div class="h-3 w-px rounded-full bg-background"></div>
                                                         <div class="flex items-center gap-x-2">
@@ -391,8 +400,7 @@
                                                             <input value="1" disabled type="number"
                                                                 class="flex h-5 w-full grow select-none items-center justify-center bg-transparent text-center text-sm outline-none" />
                                                             <button type="button" data-action="decrement">
-                                                                <svg
-                                                                    class="h-5 w-5 text-red-600 dark:text-red-500">
+                                                                <svg class="h-5 w-5 text-red-600 dark:text-red-500">
                                                                     <use xlink:href="#minus" />
                                                                 </svg>
                                                             </button>
@@ -408,8 +416,7 @@
                                                 <div class="relative min-w-fit">
                                                     <a href="./product-detail.html">
                                                         <img alt="" class="h-[120px] w-[120px]"
-                                                            loading="lazy"
-                                                            src="./assets/images/products/p2.png" />
+                                                            loading="lazy" src="./assets/images/products/p2.png" />
                                                     </a>
                                                     <button
                                                         class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-background"
@@ -427,8 +434,7 @@
                                                         کلاه اسپورت مردانه
                                                     </a>
                                                     <!-- Product Attribute -->
-                                                    <div
-                                                        class="flex items-center gap-x-2 text-sm text-text/60">
+                                                    <div class="flex items-center gap-x-2 text-sm text-text/60">
                                                         <div>تعداد : 2</div>
                                                         <div class="h-3 w-px rounded-full bg-background"></div>
                                                         <div class="flex items-center gap-x-2">
@@ -454,8 +460,7 @@
                                                             <input value="1" disabled type="number"
                                                                 class="flex h-5 w-full grow select-none items-center justify-center bg-transparent text-center text-sm outline-none" />
                                                             <button type="button" data-action="decrement">
-                                                                <svg
-                                                                    class="h-5 w-5 text-red-600 dark:text-red-500">
+                                                                <svg class="h-5 w-5 text-red-600 dark:text-red-500">
                                                                     <use xlink:href="#trash" />
                                                                 </svg>
                                                             </button>
@@ -542,13 +547,11 @@
                             <!-- Mega menu -->
 
                             <div class="absolute top-full w-full max-w-[1000px]">
-                                <div class="relative hidden rounded-b-lg bg-muted shadow-base"
-                                    id="desktopMegamenu">
+                                <div class="relative hidden rounded-b-lg bg-muted shadow-base" id="desktopMegamenu">
                                     <div
                                         class="flex h-[450px] max-h-[450px] w-full overflow-hidden rounded-b-lg pt-0.5">
                                         <!-- Right side -->
-                                        <div class="main-scroll w-50 overflow-y-auto bg-background"
-                                            dir="ltr">
+                                        <div class="main-scroll w-50 overflow-y-auto bg-background" dir="ltr">
                                             <ul dir="rtl" id="mega-menu-parents">
                                                 <li>
                                                     <a class="flex py-4 pr-4" href="./shop.html">
@@ -591,8 +594,7 @@
 
                                         <div class="main-scroll h-[450px] max-h-[450px] w-full overflow-auto"
                                             dir="ltr">
-                                            <div class="flex flex-grow p-5" dir="rtl"
-                                                id="mega-menu-childs">
+                                            <div class="flex flex-grow p-5" dir="rtl" id="mega-menu-childs">
                                                 <!-- categories Child -->
                                                 <div class="hidden">
                                                     <!-- head -->
@@ -1904,8 +1906,8 @@
                                                 <div class="swiper-slide">
                                                     <a href="#"
                                                         class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                        <img src="./assets/images/products/p6.png"
-                                                            alt="Product Image" class="w-16" />
+                                                        <img src="./assets/images/products/p6.png" alt="Product Image"
+                                                            class="w-16" />
                                                         <p class="line-clamp-2">
                                                             کفش نایک کفش نایک کفش نایک
                                                         </p>
@@ -1914,8 +1916,8 @@
                                                 <div class="swiper-slide">
                                                     <a href="#"
                                                         class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                        <img src="./assets/images/products/p4.png"
-                                                            alt="Product Image" class="w-16" />
+                                                        <img src="./assets/images/products/p4.png" alt="Product Image"
+                                                            class="w-16" />
                                                         <p class="line-clamp-2">
                                                             کفش نایک کفش نایک کفش نایک
                                                         </p>
@@ -1924,8 +1926,8 @@
                                                 <div class="swiper-slide">
                                                     <a href="#"
                                                         class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                        <img src="./assets/images/products/p5.png"
-                                                            alt="Product Image" class="w-16" />
+                                                        <img src="./assets/images/products/p5.png" alt="Product Image"
+                                                            class="w-16" />
                                                         <p class="line-clamp-2">
                                                             کفش نایک کفش نایک کفش نایک
                                                         </p>

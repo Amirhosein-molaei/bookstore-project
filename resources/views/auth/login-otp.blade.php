@@ -73,10 +73,11 @@
                     <img src="./assets/images/logo.svg" class="mx-auto mb-10 w-40" alt="" />
                 </a>
                 <h1 class="mb-10 text-center text-lg">ورود | ثبت نام</h1>
-                <form action="">
+                <form action="{{ route('otp.send') }}" method="POST">
+                    @csrf
                     <div class="mb-4 space-y-4">
-                        <label for="username" class="relative block rounded-lg border shadow-base">
-                            <input type="text" id="username" dir="auto"
+                        <label for="contact" class="relative block rounded-lg border shadow-base">
+                            <input type="text" id="contact" dir="auto" name="contact"
                                 class="peer w-full rounded-lg border-none bg-transparent p-4 text-left placeholder-transparent focus:outline-none focus:ring-0"
                                 placeholder="شماره موبایل یا ایمیل " />
 
@@ -86,7 +87,9 @@
                             </span>
                         </label>
                         <p class="h-5 text-sm text-red-500 dark:text-red-400">
-                            <!-- شماره موبایل و یا ایمیل نامعتبر است -->
+                            @if (session('error'))
+                                {{ session('error') }}
+                            @endif
                         </p>
                     </div>
                     <div class="mb-5">

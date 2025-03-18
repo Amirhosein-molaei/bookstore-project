@@ -25,10 +25,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'mobile',
         'password',
         'is_admin',
         'activated',
-        'is_superAdmin'
+        'is_superAdmin',
+        'otp_method'
     ];
 
     /**

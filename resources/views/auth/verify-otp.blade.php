@@ -33,22 +33,38 @@
                 </a>
                 <h1 class="mb-10 text-lg">کد تایید را وارد کنید</h1>
                 <div class="mb-4 space-y-4">
-                    <form id="otp-form" class="flex items-center justify-between gap-x-2" dir="ltr">
-                        <input type="number" inputmode="numeric"
-                            class="otp-input h-14 w-14 rounded-lg border bg-muted text-center text-lg outline-none xs:h-16 xs:w-16 md:text-xl"
-                            maxlength="1" />
-                        <input type="number" inputmode="numeric"
-                            class="otp-input h-14 w-14 rounded-lg border bg-muted text-center text-lg outline-none xs:h-16 xs:w-16 md:text-xl"
-                            maxlength="1" />
-                        <input type="number" inputmode="numeric"
-                            class="otp-input h-14 w-14 rounded-lg border bg-muted text-center text-lg outline-none xs:h-16 xs:w-16 md:text-xl"
-                            maxlength="1" />
-                        <input type="number" inputmode="numeric"
-                            class="otp-input h-14 w-14 rounded-lg border bg-muted text-center text-lg outline-none xs:h-16 xs:w-16 md:text-xl"
-                            maxlength="1" />
+                    <form action="{{ route('otp.verify') }}" method="post" id="otp-form" dir="ltr">
+                        @csrf
+                        <div class="flex items-center justify-between gap-x-2">
+                            <input type="number" inputmode="numeric"
+                                class="otp-input h-14 w-14 rounded-lg border bg-muted text-center text-lg outline-none xs:h-16 xs:w-16 md:text-xl"
+                                maxlength="1" />
+
+                            <input type="number" inputmode="numeric"
+                                class="otp-input h-14 w-14 rounded-lg border bg-muted text-center text-lg outline-none xs:h-16 xs:w-16 md:text-xl"
+                                maxlength="1" />
+
+                            <input type="number" inputmode="numeric"
+                                class="otp-input h-14 w-14 rounded-lg border bg-muted text-center text-lg outline-none xs:h-16 xs:w-16 md:text-xl"
+                                maxlength="1" />
+
+                            <input type="number" inputmode="numeric"
+                                class="otp-input h-14 w-14 rounded-lg border bg-muted text-center text-lg outline-none xs:h-16 xs:w-16 md:text-xl"
+                                maxlength="1" />
+
+                            <input type="hidden" name="token" value="{{ $token }}">
+                            <input type="hidden" name="otp" id="hiddenInput" value="">
+                        </div>
+                        <div class="mt-6">
+                            <button type="submit" id="verify-btn" class="btn-primary w-full py-3">
+                                تایید
+                            </button>
+                        </div>
                     </form>
                     <p class="h-5 text-sm text-red-500 dark:text-red-400">
-                        <!-- کد تایید اشتباه میباشد -->
+                        @if (session('error'))
+                            {{ session('error') }}
+                        @endif
                     </p>
                 </div>
                 <ul class="mb-8 space-y-4">
@@ -77,11 +93,6 @@
                         </a>
                     </li>
                 </ul>
-                <div>
-                    <button id="verify-btn" class="btn-primary w-full py-3">
-                        تایید
-                    </button>
-                </div>
             </div>
         </div>
     </div>
@@ -151,11 +162,12 @@
             });
             return text;
         };
-
+        
+        let otp = document.getElementById('hiddenInput');
         const verifyOTP = () => {
+            const text = getOtpText();
             if (isAllInputFilled()) {
-                const text = getOtpText();
-                alert(`Your OTP is "${text}". OTP is correct`);
+                otp.value = text;
             }
         };
 

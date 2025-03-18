@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\SendOtpCode;
 use App\Models\User\Otp;
 use App\Models\User\User;
 use Illuminate\Support\Str;
@@ -9,6 +10,7 @@ use App\Services\SmsService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class OTPLoginController extends Controller
 {
@@ -37,12 +39,33 @@ class OTPLoginController extends Controller
         $token = Str::random(32);
         $otpCode = random_int(1000, 9999);
         
+        # send mail
         if (filter_var($contact, FILTER_VALIDATE_EMAIL)) {
-            # send mail
+            // find user by mail or create if it doen't exist
+            $user = User::firstOrCreate(['email' => $contact], ['email' => $contact, 'otp_method' => 1]);
+            // delete user's previous otps
+            Otp::where('user_id', $user->id)->delete();
+            
+            $otp = Otp::create([
+                'token' => $token,
+                'user_id' => $user->id,
+                'otp_code' => $otpCode,
+                'used' => 0,
+                'attempts' => 0,
+            ]);
+
+            try {
+                Mail::to($user->email)->send(new SendOtpCode($otp));
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('error', 'ارسال ایمیل با خطا مواجه شد. لطفا دوباره اقدام کنید');
+            }
+            return to_route('otp.verify.form', ['token' => $token])->with('message', 'کد تایید برای شما ایمیل شد');
+
+        # send sms
         } elseif (preg_match('/^09[0-9]{9}$/', $contact)) {
             // find user by mobile or create it, if it doesn't exsist
             $user = User::firstOrCreate(['mobile' => $contact], ['mobile' => $contact, 'otp_method' => 0]);
-            // dd('g');
+            // delete user's previous otps
             Otp::where('user_id', $user->id)->delete();
 
             Otp::create([
@@ -54,7 +77,11 @@ class OTPLoginController extends Controller
             ]);
 
             // send sms
-            $this->smsService->sendOtpSms($contact, $otpCode);
+            try {
+                $this->smsService->sendOtpSms($contact, $otpCode);
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('error', 'ارسال پیامک با خطا مواجه شد. لطفا دوباره اقدام کنید');
+            }
             return to_route('otp.verify.form', ['token' => $token])->with('message', 'کد تایید برای شما پیامک شد');
         }
     }
@@ -97,6 +124,6 @@ class OTPLoginController extends Controller
         $user = $otp->user;
         Auth::login($user);
 
-        redirect()->route('home');
+        return to_route('home');
     }
 }

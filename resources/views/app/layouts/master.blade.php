@@ -21,6 +21,12 @@
 
         @include('app.layouts.partials.footer')
     </div>
+    <!-- @include('app.layouts.scripts') -->
+
+    @include('alerts.sweetalert.error')
+    @include('alerts.sweetalert.success')
+  
+
 </body>
 
 </html>

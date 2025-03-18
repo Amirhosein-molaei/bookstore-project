@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\FavoritController;
 use App\Http\Controllers\Home\ProducttController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\User\UserController;
@@ -111,4 +113,13 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 // Home
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/product/{product}', [HomeController::class, 'show'])->name('product');
-Route::post('/product/favorit/{product}',[ProducttController::class, 'addFavorit'])->name('product.favorit');
+Route::post('/product/favorit/{product}',[FavoritController::class, 'addProduct'])->name('product.favorit');
+Route::post('product/comment/{product}',[HomeController::class,'sendComment'])->name('product.comment');
+Route::post('product/comment/like/{comment}',[HomeController::class,'likeComment'])->name('product.comment.like');
+Route::post('product/comment/dislike/{comment}',[HomeController::class,'dislikeComment'])->name('product.comment.dislike');
+
+
+// Cart
+Route::middleware('auth')->group(function(){
+ Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+});

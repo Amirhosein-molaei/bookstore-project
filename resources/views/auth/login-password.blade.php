@@ -9,8 +9,6 @@
     <link href=" {{ asset('assets/css/fonts.css') }}" rel="stylesheet" />
     <link href=" {{ asset('assets/css/app.css') }}" rel="stylesheet" />
     <link href=" {{ asset('assets/css/theme.css') }}" rel="stylesheet" />
-
-    <script src=" {{ asset('assets/scripts/mount.js') }}"></script>
 </head>
 
 <body>
@@ -32,50 +30,67 @@
                     <img src="./assets/images/logo.svg" class="mx-auto mb-10 w-40" alt="" />
                 </a>
                 <h1 class="mb-10 text-lg">کلمه عبور را وارد کنید</h1>
-                <form action="">
+                <form action="{{ route('login') }}" method="post" class="my-4">
+                    @csrf
                     <div class="mb-4 space-y-4">
-                        <label for="username" class="relative block rounded-lg border shadow-base">
-                            <input type="password" id="username" dir="auto"
+                        <label for="email" class="relative block rounded-lg border shadow-base">
+                            <input type="email" id="email" name="email" dir="auto"
                                 class="peer w-full rounded-lg border-none bg-transparent p-4 text-left placeholder-transparent focus:outline-none focus:ring-0"
-                                placeholder="کلمه عبور" />
-
+                                placeholder="ایمیل" value="{{ old('email') }}" required autofocus autocomplete="username"/>
+    
                             <span
                                 class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
+                                ایمیل
+                            </span>
+                        </label>
+                        <label for="password" class="relative block rounded-lg border shadow-base">
+                            <input type="password" id="password" name="password" dir="auto"
+                                class="peer w-full rounded-lg border-none bg-transparent p-4 text-left placeholder-transparent focus:outline-none focus:ring-0"
+                                placeholder="کلمه عبور" value="{{ old('password') }}" required autocomplete="current-password"/>
+    
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
+                                کلمه عبور
                             </span>
                         </label>
                         <p class="h-5 text-sm text-red-500 dark:text-red-400">
-                            <!-- کلمه عبور اشتباه میباشد -->
+                            @error('email')
+                                {{ $message }}
+                            @enderror
+                            <br>
+                            @error('password')
+                                {{ $message }}
+                            @enderror
                         </p>
                     </div>
-                    <ul class="mb-8 space-y-4">
-                        <li>
-                            <a href="#" class="btn-primary-nobg text-sm w-fit">
-                                <span>ورود با رمز یک بار مصرف</span>
-                                <span>
-                                    <svg class="h-5 w-5">
-                                        <use xlink:href="#chevron-left" />
-                                    </svg>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn-primary-nobg text-sm w-fit">
-                                <span> فراموشی رمز عبور </span>
-                                <span>
-                                    <svg class="h-5 w-5">
-                                        <use xlink:href="#chevron-left" />
-                                    </svg>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
                     <div>
-                        <button class="btn-primary w-full py-3">ورود</button>
+                        <button type="submit" class="btn-primary w-full py-3">ورود</button>
                     </div>
                 </form>
+                
+                <ul class="mb-8 space-y-4">
+                    <li>
+                        <a href="{{ route('otp.show') }}" class="btn-primary-nobg text-sm w-fit">
+                            <span>ورود با رمز یک بار مصرف</span>
+                            <span>
+                                <svg class="h-5 w-5">
+                                    <use xlink:href="#chevron-left" />
+                                </svg>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('password.request') }}" class="btn-primary-nobg text-sm w-fit">
+                            <span> فراموشی رمز عبور </span>
+                            <span>
+                                <svg class="h-5 w-5">
+                                    <use xlink:href="#chevron-left" />
+                                </svg>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </body>
-
-</html>

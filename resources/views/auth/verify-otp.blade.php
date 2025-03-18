@@ -83,14 +83,16 @@
                         </button>
                     </li>
                     <li>
-                        <a href="#" class="btn-primary-nobg text-sm w-fit">
-                            <span>ورود با کلمه عبور </span>
-                            <span>
-                                <svg class="h-5 w-5">
-                                    <use xlink:href="#chevron-left" />
-                                </svg>
-                            </span>
-                        </a>
+                        @if ($user->password)
+                            <a href="{{ route('login') }}" class="btn-primary-nobg text-sm w-fit">
+                                <span>ورود با کلمه عبور </span>
+                                <span>
+                                    <svg class="h-5 w-5">
+                                        <use xlink:href="#chevron-left" />
+                                    </svg>
+                                </span>
+                            </a>
+                        @endif
                     </li>
                 </ul>
             </div>

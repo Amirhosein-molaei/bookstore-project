@@ -94,7 +94,7 @@ class OTPLoginController extends Controller
             return redirect()->route('login')->with('error', 'کد نامعتبر');
         }
         
-        return view('auth.verify-otp', ['token' => $token]);
+        return view('auth.verify-otp', ['token' => $token, 'user' => $otp->user]);
     }
 
     public function verifyOtp(Request $request)

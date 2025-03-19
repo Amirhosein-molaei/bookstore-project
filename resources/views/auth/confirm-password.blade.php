@@ -1,27 +1,64 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+@extends('auth.layouts.master')
+
+@section('title', 'تأیید رمز عبور')
+
+@section('content')
+    <div class="flex min-h-screen items-center justify-center bg-background">
+        <div class="container">
+            <div class="mx-auto max-w-[450px] rounded-xl bg-muted p-5 shadow-base md:p-10">
+                <!-- Logo -->
+                <a href="{{ url('/') }}">
+                    <img src="{{ asset('assets/images/logo.svg') }}" class="mx-auto mb-10 w-40" alt="لوگو" />
+                </a>
+                <h1 class="mb-5 text-center text-lg">تأیید رمز عبور</h1>
+                <p class="mb-10 text-center text-sm text-text/90">
+                    این بخش امن برنامه است. لطفاً رمز عبور خود را برای ادامه تأیید کنید.
+                </p>
+
+                <form method="POST" action="{{ route('password.confirm') }}">
+                    @csrf
+                    <div class="mb-4 space-y-4">
+                        <!-- رمز عبور -->
+                        <label for="password" class="relative block rounded-lg border shadow-base">
+                            <input type="password" id="password" name="password" dir="auto"
+                                class="peer w-full rounded-lg border-none bg-transparent p-4 text-right placeholder-transparent focus:outline-none focus:ring-0"
+                                placeholder="رمز عبور" required autocomplete="current-password" />
+                            <span class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
+                                رمز عبور
+                            </span>
+                        </label>
+                        @error('password')
+                            <p class="h-5 text-sm text-red-500 dark:text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="flex justify-end mb-5">
+                        <button type="submit" class="btn-primary py-3 px-6">تأیید</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+@endsection
+@section('scripts')
+@parent
+@if (session('swal-success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'موفقیت',
+        text: '{{ session("swal-success") }}',
+    });
+</script>
+@endif
 
-    <form method="POST" action="{{ route('password.confirm') }}">
-        @csrf
-
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+@if (session('swal-error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'خطا',
+        text: '{{ session("swal-error") }}',
+    });
+</script>
+@endif
+@show

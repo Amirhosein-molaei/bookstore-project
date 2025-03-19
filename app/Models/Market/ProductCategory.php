@@ -37,13 +37,16 @@ class ProductCategory extends Model
                 'source' => 'name',
                 'onUpdate' => true ,
                 'unique' => true,
-                'separator' => '-', 
-               
+                'separator' => '-',
+
             ]
         ];
     }
-   
 
-  
+    public function children()
+    {
+        return $this->hasMany(ProductCategory::class, 'parent_id');
+    }
+
 }
 

@@ -4,4 +4,4 @@
 
 @include('app.layouts.styles')
 
-@include('app.layouts.scripts')
+<!-- @include('app.layouts.scripts') -->

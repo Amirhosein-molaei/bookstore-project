@@ -117,7 +117,7 @@ Route::post('/product/favorit/{product}',[FavoritController::class, 'addProduct'
 Route::post('product/comment/{product}',[HomeController::class,'sendComment'])->name('product.comment');
 Route::post('product/comment/like/{comment}',[HomeController::class,'likeComment'])->name('product.comment.like');
 Route::post('product/comment/dislike/{comment}',[HomeController::class,'dislikeComment'])->name('product.comment.dislike');
-
+Route::post('/product/comment/{product}/answer', [HomeController::class, 'answerComment'])->name('product.comment.answer');
 
 // Cart
 Route::middleware('auth')->group(function(){

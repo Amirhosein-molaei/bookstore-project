@@ -2,6 +2,8 @@
 @section('title', 'صفحه اصلی')
 
 @section('content')
+<main class="flex-grow bg-background pb-14 pt-36 xs:pt-36">
+
 <!-- Main Banners section Start -->
 <section class="mb-8">
     <div class="container relative grid grid-cols-12 gap-x-4 gap-y-2">
@@ -1049,4 +1051,6 @@
 </section>
 
 <!-- Blog section End -->
+</main>
+
 @endsection

@@ -1019,9 +1019,7 @@
                 </li>
 
                 <!-- Categories -->
-                @php
-                    $parentCategories = App\Models\Market\ProductCategory::where('parent_id',null)->get();
-                @endphp
+
                 @foreach($parentCategories as $parentCategory)
                 <li class="relative bg-muted border-b" data-accordion-item>
                     <div class="w-full px-4 py-3 text-right cursor-pointer" data-accordion-button>

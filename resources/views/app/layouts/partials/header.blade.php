@@ -546,9 +546,7 @@
                             </div>
 
                             <!-- Mega menu -->
-                            @php
-                                $parentCategories = App\Models\Market\ProductCategory::where('parent_id',null)->get();
-                            @endphp
+
                             <div class="absolute top-full w-full max-w-[1000px]">
                                 <div class="relative hidden rounded-b-lg bg-muted shadow-base" id="desktopMegamenu">
                                     <div class="flex h-[450px] max-h-[450px] w-full overflow-hidden rounded-b-lg pt-0.5">
@@ -611,9 +609,7 @@
                                 </div>
                             </div>
                         </ul>
-                        @php
-                            $menus = App\Models\Content\Menu::where('parent_id', null)->get();
-                        @endphp
+
 
                         @foreach($menus as $menu)
                             <ul class="group relative z-10" id="header-desktop-indicator">
@@ -973,9 +969,7 @@
                     </a>
                 </li>
 
-                @php
-                    $menus=App\Models\Content\Menu::where('parent_id' , null)->get();
-             @endphp
+
                 @foreach($menus as $menu)
                 <li>
                     <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
@@ -988,9 +982,7 @@
                         </span>
                     </a>
                     <ul x-show="open" class="pl-4" x-collapse>
-                        @php
-                            $submenus = App\Models\Content\Menu::where('parent_id', $menu->id)->get();
-                        @endphp
+
                         @foreach($submenus as $submenu)
                         <li>
                             <a

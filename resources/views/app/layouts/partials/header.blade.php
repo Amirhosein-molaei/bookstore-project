@@ -1,5 +1,3 @@
-
-
 <header>
     <!-- Header -->
     <div class="fixed left-0 right-0 top-0 z-30 bg-muted">
@@ -11,11 +9,13 @@
                     class="container relative z-30 flex max-w-[1680px] items-center justify-between gap-x-4 bg-muted py-4">
                     <!-- logo -->
                     <div>
-                        <a href="{{route('app.home')}}">
-                            @if($logo && $logo->logo)
-                                <img src="{{ asset($logo->logo) }}" alt="لوگو سایت" class="w-44 text-red-700"  style="margin-top: -30px">
+                        <a href="{{ route('app.home') }}">
+                            @if ($setting->logo)
+                                <img src="{{ asset($setting->logo) }}" alt="لوگو سایت" class="w-40 text-red-700"
+                                    style="margin-top: -30px; height: 100px;">
                             @else
-                                <img src="{{ asset('upload/2025/3/3/logo.png') }}" alt="لوگو پیش‌فرض"  class="w-44 text-red-700" style="margin-top: -30px">
+                                <img src="{{ asset('upload/2025/3/3/logo.png') }}" alt="لوگو پیش‌فرض"
+                                    class="w-44 text-red-700" style="margin-top: -30px">
                             @endif
                         </a>
                     </div>
@@ -43,8 +43,8 @@
                                             <div class="swiper-slide">
                                                 <a href="#"
                                                     class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                    <img src="./assets/images/products/p6.png"
-                                                        alt="Product Image" class="w-16" />
+                                                    <img src="./assets/images/products/p6.png" alt="Product Image"
+                                                        class="w-16" />
                                                     <p class="line-clamp-2">
                                                         کفش نایک کفش نایک کفش نایک
                                                     </p>
@@ -53,8 +53,8 @@
                                             <div class="swiper-slide">
                                                 <a href="#"
                                                     class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                    <img src="./assets/images/products/p4.png"
-                                                        alt="Product Image" class="w-16" />
+                                                    <img src="./assets/images/products/p4.png" alt="Product Image"
+                                                        class="w-16" />
                                                     <p class="line-clamp-2">
                                                         کفش نایک کفش نایک کفش نایک
                                                     </p>
@@ -63,8 +63,8 @@
                                             <div class="swiper-slide">
                                                 <a href="#"
                                                     class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                    <img src="./assets/images/products/p5.png"
-                                                        alt="Product Image" class="w-16" />
+                                                    <img src="./assets/images/products/p5.png" alt="Product Image"
+                                                        class="w-16" />
                                                     <p class="line-clamp-2">
                                                         کفش نایک کفش نایک کفش نایک
                                                     </p>
@@ -351,8 +351,7 @@
                                                 <div class="relative min-w-fit">
                                                     <a href="./product-detail.html">
                                                         <img alt="" class="h-[120px] w-[120px]"
-                                                            loading="lazy"
-                                                            src="./assets/images/products/p1.png" />
+                                                            loading="lazy" src="./assets/images/products/p1.png" />
                                                     </a>
                                                     <button
                                                         class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-background"
@@ -370,8 +369,7 @@
                                                         تیشرت اسپورت مردانه
                                                     </a>
                                                     <!-- Product Attribute -->
-                                                    <div
-                                                        class="flex items-center gap-x-2 text-sm text-text/60">
+                                                    <div class="flex items-center gap-x-2 text-sm text-text/60">
                                                         <div>تعداد : 2</div>
                                                         <div class="h-3 w-px rounded-full bg-background"></div>
                                                         <div class="flex items-center gap-x-2">
@@ -397,8 +395,7 @@
                                                             <input value="1" disabled type="number"
                                                                 class="flex h-5 w-full grow select-none items-center justify-center bg-transparent text-center text-sm outline-none" />
                                                             <button type="button" data-action="decrement">
-                                                                <svg
-                                                                    class="h-5 w-5 text-red-600 dark:text-red-500">
+                                                                <svg class="h-5 w-5 text-red-600 dark:text-red-500">
                                                                     <use xlink:href="#minus" />
                                                                 </svg>
                                                             </button>
@@ -414,8 +411,7 @@
                                                 <div class="relative min-w-fit">
                                                     <a href="./product-detail.html">
                                                         <img alt="" class="h-[120px] w-[120px]"
-                                                            loading="lazy"
-                                                            src="./assets/images/products/p2.png" />
+                                                            loading="lazy" src="./assets/images/products/p2.png" />
                                                     </a>
                                                     <button
                                                         class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-background"
@@ -433,8 +429,7 @@
                                                         کلاه اسپورت مردانه
                                                     </a>
                                                     <!-- Product Attribute -->
-                                                    <div
-                                                        class="flex items-center gap-x-2 text-sm text-text/60">
+                                                    <div class="flex items-center gap-x-2 text-sm text-text/60">
                                                         <div>تعداد : 2</div>
                                                         <div class="h-3 w-px rounded-full bg-background"></div>
                                                         <div class="flex items-center gap-x-2">
@@ -460,8 +455,7 @@
                                                             <input value="1" disabled type="number"
                                                                 class="flex h-5 w-full grow select-none items-center justify-center bg-transparent text-center text-sm outline-none" />
                                                             <button type="button" data-action="decrement">
-                                                                <svg
-                                                                    class="h-5 w-5 text-red-600 dark:text-red-500">
+                                                                <svg class="h-5 w-5 text-red-600 dark:text-red-500">
                                                                     <use xlink:href="#trash" />
                                                                 </svg>
                                                             </button>
@@ -549,14 +543,16 @@
 
                             <div class="absolute top-full w-full max-w-[1000px]">
                                 <div class="relative hidden rounded-b-lg bg-muted shadow-base" id="desktopMegamenu">
-                                    <div class="flex h-[450px] max-h-[450px] w-full overflow-hidden rounded-b-lg pt-0.5">
+                                    <div
+                                        class="flex h-[450px] max-h-[450px] w-full overflow-hidden rounded-b-lg pt-0.5">
                                         <!-- Right side: Parent Categories -->
                                         <div class="main-scroll w-50 overflow-y-auto bg-background" dir="ltr">
                                             <ul dir="rtl" id="mega-menu-parents">
-                                                @foreach($parentCategories as $parentCategory)
+                                                @foreach ($categories->where('parent_id', null) as $category)
                                                     <li>
-                                                        <a class="flex py-4 pr-4 hover:text-primary" href="./shop.html" data-category-id="{{ $parentCategory->id }}">
-                                                            {{ $parentCategory->name }}
+                                                        <a class="flex py-4 pr-4 hover:text-primary"
+                                                            href="./shop.html" data-category-id="{{ $category->id }}">
+                                                            {{ $category->name }}
                                                         </a>
                                                     </li>
                                                 @endforeach
@@ -564,14 +560,16 @@
                                         </div>
 
                                         <!-- Left side: Child Categories -->
-                                        <div class="main-scroll h-[450px] max-h-[450px] w-full overflow-auto" dir="ltr">
+                                        <div class="main-scroll h-[450px] max-h-[450px] w-full overflow-auto"
+                                            dir="ltr">
                                             <div class="flex flex-grow p-5" dir="rtl" id="mega-menu-childs">
-                                                @foreach($parentCategories as $parentCategory)
-                                                    <div class="hidden" data-category-id="{{ $parentCategory->id }}">
+                                                @foreach ($categories->where('parent_id', null) as $category)
+                                                    <div class="hidden" data-category-id="{{ $category->id }}">
                                                         <!-- Head: Show all link -->
                                                         <div class="mb-4">
-                                                            <a class="flex items-center gap-x-1 py-2 text-sm text-primary" href="./shop.html">
-                                                                <div>مشاهده همه {{ $parentCategory->name }}</div>
+                                                            <a class="flex items-center gap-x-1 py-2 text-sm text-primary"
+                                                                href="./shop.html">
+                                                                <div>مشاهده همه کتاب های {{ $category->name }}</div>
                                                                 <svg class="h-5 w-5">
                                                                     <use xlink:href="#chevron-left"></use>
                                                                 </svg>
@@ -580,19 +578,22 @@
 
                                                         <!-- Child Categories -->
                                                         <div class="flex flex-grow flex-wrap gap-x-14 gap-y-8">
-                                                            @foreach($parentCategory->children ?? [] as $childCategory)
+                                                            @foreach ($category->subCategories as $subCategory)
                                                                 <div class="space-y-2">
-                                                                    <a class="flex items-center gap-x-2 hover:text-primary" href="./shop.html">
-                                                                        <span class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                        <div>{{ $childCategory->name }}</div>
+                                                                    <a class="flex items-center gap-x-2 hover:text-primary"
+                                                                        href="./shop.html">
+                                                                        <span
+                                                                            class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
+                                                                        <div>{{ $subCategory->name }}</div>
                                                                         <svg class="h-5 w-5">
                                                                             <use xlink:href="#chevron-left"></use>
                                                                         </svg>
                                                                     </a>
                                                                     <ul>
-                                                                        @foreach($childCategory->children ?? [] as $subCategory)
+                                                                        @foreach ($subCategory->subCategories ?? [] as $subCategory)
                                                                             <li>
-                                                                                <a class="block py-2 text-sm text-text/90 hover:text-primary" href="./shop.html">
+                                                                                <a class="block py-2 text-sm text-text/90 hover:text-primary"
+                                                                                    href="./shop.html">
                                                                                     {{ $subCategory->name }}
                                                                                 </a>
                                                                             </li>
@@ -611,25 +612,25 @@
                         </ul>
 
 
-                        @foreach($menus as $menu)
+                        @foreach ($menus as $menu)
                             <ul class="group relative z-10" id="header-desktop-indicator">
-                                <div class="flex cursor-pointer items-center gap-x-2 p-2 pt-0">
+                                <a href="{{ url($menu->url) }}"
+                                    class="flex cursor-pointer items-center gap-x-2 p-2 pt-0">
                                     {{ $menu->name }}
-                                    <span class="text-primary">...</span>
-                                </div>
-                                <div class="absolute right-0 top-full hidden w-44 overflow-hidden rounded-b-lg bg-muted group-hover:block">
-                                    <ul class="space-y-1 p-2">
-                                        @php
-                                            $submenus = App\Models\Content\Menu::where('parent_id', $menu->id)->get();
-                                        @endphp
-                                        @foreach($submenus as $submenu)
+                                </a>
+                                <div
+                                    class="absolute right-0 top-full hidden w-44 overflow-hidden rounded-b-lg bg-muted group-hover:block">
+                                    @forelse($menu->subMenus as $subMenu)
+                                        <ul class="space-y-1 p-2">
                                             <li>
-                                                <a class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary" href="{{ $submenu->url }}">
-                                                    {{ $submenu->name }}
+                                                <a class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary"
+                                                    href="{{ url($subMenu->url) }}">
+                                                    {{ $subMenu->name }}
                                                 </a>
                                             </li>
-                                        @endforeach
-                                    </ul>
+                                        </ul>
+                                    @empty
+                                    @endforelse
                                 </div>
                             </ul>
                         @endforeach
@@ -656,12 +657,13 @@
 
                     <!-- logo -->
                     <div>
-                        <a href="{{route('app.home')}}">
-                            @if($logo && $logo->logo)
-                            <img alt="" class="h-6 w-full rounded-lg xs:h-10"
-                                src="{{asset($logo->image)}}" />
+                        <a href="{{ route('app.home') }}">
+                            @if ($setting->logo)
+                                <img alt="" class="h-6 w-full rounded-lg xs:h-10"
+                                    src="{{ asset($setting->image) }}" />
                             @else
-                                <img src="{{ asset('upload/2025/3/3/logo.png') }}" alt="لوگو پیش‌فرض"  class="w-44 text-red-700" style="margin-top: -30px">
+                                <img src="{{ asset('upload/2025/3/3/logo.png') }}" alt="لوگو پیش‌فرض"
+                                    class="w-44 text-red-700" style="margin-top: -30px">
                             @endif
                         </a>
                     </div>
@@ -725,8 +727,8 @@
                                                 <div class="swiper-slide">
                                                     <a href="#"
                                                         class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                        <img src="./assets/images/products/p6.png"
-                                                            alt="Product Image" class="w-16" />
+                                                        <img src="./assets/images/products/p6.png" alt="Product Image"
+                                                            class="w-16" />
                                                         <p class="line-clamp-2">
                                                             کفش نایک کفش نایک کفش نایک
                                                         </p>
@@ -735,8 +737,8 @@
                                                 <div class="swiper-slide">
                                                     <a href="#"
                                                         class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                        <img src="./assets/images/products/p4.png"
-                                                            alt="Product Image" class="w-16" />
+                                                        <img src="./assets/images/products/p4.png" alt="Product Image"
+                                                            class="w-16" />
                                                         <p class="line-clamp-2">
                                                             کفش نایک کفش نایک کفش نایک
                                                         </p>
@@ -745,8 +747,8 @@
                                                 <div class="swiper-slide">
                                                     <a href="#"
                                                         class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                        <img src="./assets/images/products/p5.png"
-                                                            alt="Product Image" class="w-16" />
+                                                        <img src="./assets/images/products/p5.png" alt="Product Image"
+                                                            class="w-16" />
                                                         <p class="line-clamp-2">
                                                             کفش نایک کفش نایک کفش نایک
                                                         </p>
@@ -914,12 +916,13 @@
         <div class="mb-6 flex items-center justify-between gap-x-4 border-b pb-5">
             <!-- Logo -->
             <div>
-                <a href="{{route('app.home')}}">
-                    @if($logo && $logo->logo)
+                <a href="{{ route('app.home') }}">
+                    @if ($setting->logo)
                         <img alt="" class="h-6 w-full rounded-lg xs:h-10"
-                             src="{{asset($logo->image)}}" />
+                            src="{{ asset($setting->logo) }}" />
                     @else
-                        <img src="{{ asset('upload/2025/3/3/logo.png') }}" alt="لوگو پیش‌فرض"  class="w-44 text-red-700" style="margin-top: -30px">
+                        <img src="{{ asset('upload/2025/3/3/logo.png') }}" alt="لوگو پیش‌فرض"
+                            class="w-44 text-red-700" style="margin-top: -30px">
                     @endif
                 </a>
             </div>
@@ -959,7 +962,7 @@
             <ul class="space-y-4">
                 <li>
                     <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
-                        href="{{route('app.home')}}">
+                        href="{{ route('app.home') }}">
                         <span class="flex items-center gap-x-2">
                             <svg class="h-6 w-6">
                                 <use xlink:href="#home" />
@@ -970,37 +973,35 @@
                 </li>
 
 
-                @foreach($menus as $menu)
-                <li>
-                    <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
-                        href="{{$menu->url}}">
-                        <span class="flex items-center gap-x-2">
-                            <svg class="h-6 w-6">
-                                <use xlink:href="#special-sale" />
-                            </svg>
-                            <span>{{$menu->name}} </span>
-                        </span>
-                    </a>
-                    <ul x-show="open" class="pl-4" x-collapse>
+                @foreach ($menus as $menu)
+                    <li>
+                        <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
+                            href="{{ $menu->url }}">
+                            <span class="flex items-center gap-x-2">
+                                <svg class="h-6 w-6">
+                                    <use xlink:href="#special-sale" />
+                                </svg>
+                                <span>{{ $menu->name }} </span>
+                            </span>
+                        </a>
+                        @forelse ($menu->subMenus as $subMenu)
+                            <ul x-show="open" class="pl-4" x-collapse>
 
-                        @foreach($submenus as $submenu)
-                        <li>
-                            <a
-                                class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
-                                href="{{$submenu->url}}"
-                            >
-                    <span class="flex items-center gap-x-2">
-                        <svg class="h-6 w-6">
-                            <use xlink:href="#submenu-icon" />
-                        </svg>
-                        <span>{{$submenu->name}}</span>
-                    </span>
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
-                </li>
-
+                                <li>
+                                    <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
+                                        href="{{ url($subMenu->url) }}">
+                                        <span class="flex items-center gap-x-2">
+                                            <svg class="h-6 w-6">
+                                                <use xlink:href="#submenu-icon" />
+                                            </svg>
+                                            <span>{{ $subMenu->name }}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        @empty
+                        @endforelse
+                    </li>
                 @endforeach
                 <!-- Shop -->
                 <li>
@@ -1020,79 +1021,79 @@
 
                 <!-- Categories -->
 
-                @foreach($parentCategories as $parentCategory)
-                <li class="relative bg-muted border-b" data-accordion-item>
-                    <div class="w-full px-4 py-3 text-right cursor-pointer" data-accordion-button>
-                        <div class="flex items-center justify-between gap-2 text-sm md:text-base">
-                            <span>{{$parentCategory->name}} </span>
-                            <div class="min-w-fit">
-                                <svg data-accordion-chevron class="h-5 w-5 duration-300">
-                                    <use xlink:href="#chevron-left"></use>
-                                </svg>
+                @foreach ($categories as $category)
+                    <li class="relative bg-muted border-b" data-accordion-item>
+                        <div class="w-full px-4 py-3 text-right cursor-pointer" data-accordion-button>
+                            <div class="flex items-center justify-between gap-2 text-sm md:text-base">
+                                <span>{{ $category->name }} </span>
+                                <div class="min-w-fit">
+                                    <svg data-accordion-chevron class="h-5 w-5 duration-300">
+                                        <use xlink:href="#chevron-left"></use>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="relative max-h-0 overflow-hidden transition-all duration-300 mr-6 pb-2"
-                        data-accordion-content>
-                        <ul class="pt-2">
-                            <li>
-                                <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
-                                    href="./shop.html">
-                                    <span class="flex items-center gap-x-2">
-                                        <span class="line-clamp-1">همه</span>
-                                        <svg class="h-5 w-5">
-                                            <use xlink:href="#chevron-left" />
-                                        </svg>
-                                    </span>
-                                </a>
-                            </li>
-                            @foreach($parentCategory->children as $childCategory)
-                            <li class="relative" data-accordion-item>
-                                <div class="w-full py-3 text-right cursor-pointer" data-accordion-button>
-                                    <div class="flex items-center justify-between gap-2 text-sm md:text-base">
-                                        <span> {{$childCategory->name}} </span>
-                                        <div class="min-w-fit">
-                                            <svg data-accordion-chevron class="h-5 w-5 duration-300">
-                                                <use xlink:href="#chevron-left"></use>
+                        <div class="relative max-h-0 overflow-hidden transition-all duration-300 mr-6 pb-2"
+                            data-accordion-content>
+                            <ul class="pt-2">
+                                <li>
+                                    <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
+                                        href="./shop.html">
+                                        <span class="flex items-center gap-x-2">
+                                            <span class="line-clamp-1">همه</span>
+                                            <svg class="h-5 w-5">
+                                                <use xlink:href="#chevron-left" />
                                             </svg>
+                                        </span>
+                                    </a>
+                                </li>
+                                @foreach ($category->subCategories as $subCategory)
+                                    <li class="relative" data-accordion-item>
+                                        <div class="w-full py-3 text-right cursor-pointer" data-accordion-button>
+                                            <div class="flex items-center justify-between gap-2 text-sm md:text-base">
+                                                <span> {{ $subCategory->name }} </span>
+                                                <div class="min-w-fit">
+                                                    <svg data-accordion-chevron class="h-5 w-5 duration-300">
+                                                        <use xlink:href="#chevron-left"></use>
+                                                    </svg>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="relative max-h-0 overflow-hidden transition-all duration-300 mr-4 pb-2"
-                                    data-accordion-content>
-                                    <ul class="pt-2">
-                                        <li>
-                                            <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
-                                                href="./shop.html">
-                                                <span class="flex items-center gap-x-2">
-                                                    <span class="line-clamp-1">همه</span>
-                                                    <svg class="h-5 w-5">
-                                                        <use xlink:href="#chevron-left" />
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </li>
+                                        <div class="relative max-h-0 overflow-hidden transition-all duration-300 mr-4 pb-2"
+                                            data-accordion-content>
+                                            <ul class="pt-2">
+                                                <li>
+                                                    <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
+                                                        href="./shop.html">
+                                                        <span class="flex items-center gap-x-2">
+                                                            <span class="line-clamp-1">همه</span>
+                                                            <svg class="h-5 w-5">
+                                                                <use xlink:href="#chevron-left" />
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                </li>
 
-                                        <li>
-                                            <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
-                                                href="./shop.html">
-                                                <span class="flex items-center gap-x-2">
-                                                    <span class="line-clamp-1">
-                                                        دسته بندی اول
-                                                    </span>
-                                                    <svg class="h-5 w-5">
-                                                        <use xlink:href="#chevron-left" />
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </li>
+                                                <li>
+                                                    <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
+                                                        href="./shop.html">
+                                                        <span class="flex items-center gap-x-2">
+                                                            <span class="line-clamp-1">
+                                                                دسته بندی اول
+                                                            </span>
+                                                            <svg class="h-5 w-5">
+                                                                <use xlink:href="#chevron-left" />
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </li>
                 @endforeach
             </ul>
         </div>
@@ -1123,8 +1124,7 @@
                         href="./profile-dashboard.html">
                         <span class="flex items-center gap-x-4">
                             <span class="min-w-fit">
-                                <img alt="" class="h-10 w-10 rounded-full"
-                                    src="./assets/images/user.png" />
+                                <img alt="" class="h-10 w-10 rounded-full" src="./assets/images/user.png" />
                             </span>
                             <span class="line-clamp-1">تست تست تست تسستست تسست </span>
                         </span>
@@ -1250,8 +1250,7 @@
                                 <div>تعداد : 2</div>
                                 <div class="h-3 w-px rounded-full bg-background"></div>
                                 <div class="flex items-center gap-x-2">
-                                    <span class="h-4 w-4 rounded-full"
-                                        style="background: rgb(128, 128, 128)"></span>
+                                    <span class="h-4 w-4 rounded-full" style="background: rgb(128, 128, 128)"></span>
                                     <span> طوسی</span>
                                 </div>
                             </div>
@@ -1309,8 +1308,7 @@
                                 <div>تعداد : 2</div>
                                 <div class="h-3 w-px rounded-full bg-background"></div>
                                 <div class="flex items-center gap-x-2">
-                                    <span class="h-4 w-4 rounded-full"
-                                        style="background: rgb(128, 128, 128)"></span>
+                                    <span class="h-4 w-4 rounded-full" style="background: rgb(128, 128, 128)"></span>
                                     <span> طوسی</span>
                                 </div>
                             </div>
@@ -1368,8 +1366,7 @@
                                 <div>تعداد : 2</div>
                                 <div class="h-3 w-px rounded-full bg-background"></div>
                                 <div class="flex items-center gap-x-2">
-                                    <span class="h-4 w-4 rounded-full"
-                                        style="background: rgb(128, 128, 128)"></span>
+                                    <span class="h-4 w-4 rounded-full" style="background: rgb(128, 128, 128)"></span>
                                     <span> طوسی</span>
                                 </div>
                             </div>

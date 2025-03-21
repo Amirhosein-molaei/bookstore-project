@@ -12,12 +12,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $logo = Setting::first();
-        $parentCategories =ProductCategory::where('parent_id',null)->get();
-        $menus=Menu::where('parent_id', null)->get();
-        foreach ($menus as $menu) {
-            $submenus = Menu::where('parent_id', $menu->id)->get();
-        }
-        return view('app.home',compact('logo','parentCategories','menus'));
+        // $setting = Setting::first();
+        // $categories =ProductCategory::where('parent_id',null)->get();
+        // $menus=Menu::where('parent_id', null)->get();
+        // foreach ($menus as $menu) {
+        //     $submenus = Menu::where('parent_id', $menu->id)->get();
+        // }
+        return view('app.home');
     }
 }

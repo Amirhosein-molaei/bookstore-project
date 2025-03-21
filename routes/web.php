@@ -23,9 +23,8 @@ use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\Ticket\TicketFileController;
 
-Route::get('/', function () {
-    return view('app.home');
-});
+Route::get('/',[\App\Http\Controllers\Home\HomeController::class ,'index'])->name('app.home');
+
 
 
 Route::get('/dashboard', function () {

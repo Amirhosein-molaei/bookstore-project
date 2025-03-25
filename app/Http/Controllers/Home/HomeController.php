@@ -21,7 +21,7 @@ class HomeController extends Controller
           $query->where('status', 1); // فقط سبدهای خریدی که تکمیل شده‌اند
       })
       ->orderByDesc('cart_items_count')
-      ->limit(10)
+      ->limit(8)
       ->get();
 
         return view('app.home',compact('mosteSelledProducts'));
@@ -48,6 +48,7 @@ class HomeController extends Controller
      */
     public function show(Product $product)
     {
+        $product->increment('view_count');
         $relatedProducts=Product::where('product_category_id',$product->category->id)->whereNot('id',$product->id)->limit(10)->get();
         $commentCount = $product->comments()->where('status',2)->count();
         $productFiles=$product->files()->get();

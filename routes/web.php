@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\ShopController;
 use App\Http\Controllers\Home\FavoritController;
 use App\Http\Controllers\Home\ProducttController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -123,3 +124,8 @@ Route::post('/product/comment/{product}/answer', [HomeController::class, 'answer
 Route::middleware('auth')->group(function(){
  Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
 });
+
+// shop
+Route::get('/shop', action: [ShopController::class, 'index'])->name('shop');
+
+// Route::get('/shop/mosteSelled', action: [ShopController::class, 'mosteSelled'])->name('shop.mosteSelled');

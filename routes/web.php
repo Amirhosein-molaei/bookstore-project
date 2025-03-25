@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\Ticket\TicketFileController;
 use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
+use App\Http\Controllers\Home\HomeFaqController;
 
 // Route::get('/', function () {
 //     return view('app.home');
@@ -126,6 +127,7 @@ Route::middleware('auth')->group(function(){
 });
 
 // shop
-Route::get('/shop', action: [ShopController::class, 'index'])->name('shop');
+Route::get(uri: '/shop', action: [ShopController::class, 'index'])->name('shop');
 
-// Route::get('/shop/mosteSelled', action: [ShopController::class, 'mosteSelled'])->name('shop.mosteSelled');
+// Faq
+Route::get(uri: '/faq', action: [HomeFaqController::class, 'index'])->name('faq');

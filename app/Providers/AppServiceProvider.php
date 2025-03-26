@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Content\Writer;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,7 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Auth::loginUsingId(1);
+        Auth::loginUsingId(11);
+        View::composer('app.shop', function ($view) {
+            $view->with('writers', Writer::all());
+        });
         Paginator::useBootstrap();
     }
 }

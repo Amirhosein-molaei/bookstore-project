@@ -9,8 +9,8 @@
                     class="container relative z-30 flex max-w-[1680px] items-center justify-between gap-x-4 bg-muted py-4">
                     <!-- logo -->
                     <div>
-                        <a href="./index.html">
-                            <img alt="" class="w-44 text-red-700" src="./assets/images/logo.svg" />
+                        <a href="#">
+                            <img alt="" class="w-44 text-red-700" src="{{asset('upload/2025/3/26/logo.jpg')}}" />
                         </a>
                     </div>
                     <!-- Search -->

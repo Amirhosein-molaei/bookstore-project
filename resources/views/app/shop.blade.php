@@ -392,22 +392,46 @@
               <p>مرتب سازی بر اساس</p>
             </div>
             <!-- Sort Buttons -->
-            <button
+             <a href="{{ route('shop') }}">
+            <button 
               class="sort-button-active rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-              جدید ترین
+               همه  کالاها
             </button>
+            </a>
+            
+            <form class="form-controll"  action="{{ route('shop.available-product') }}" method="get">
+              @csrf
+              <button type="submit"
+              class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
+               کالاهای  موجود
+            </button>
+              </form>
+
+              <form class="form-controll"  action="{{ route('shop.with-picture-product') }}" method="get">
+              @csrf
             <button
               class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-              پرفروش ترین
+               کالاهای عکس دار
             </button>
+            </form>
+
+            <form class="form-controll"  action="{{ route('shop.most-expensive-product') }}" method="get">
+            @csrf
             <button
               class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
               گران ترین
             </button>
+            </form>
+
+            <form class="form-controll"  action="{{ route('shop.cheapest-product') }}" method="get">
+            @csrf
             <button
               class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
               ارزان ترین
             </button>
+            </form>
+
+
           </div>
         </div>
 

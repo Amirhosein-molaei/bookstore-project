@@ -18,32 +18,10 @@
             </p>
           </div>
           <div class="mb-16 grid grid-cols-12 gap-y-8 md:gap-x-8">
-            <div class="col-span-12 md:col-span-4">
-              <div class="sticky top-32">
-                <p class="mb-4 text-sm text-text/90">سوال خود را جستجو کنید</p>
-                <div
-                  class="flex items-center justify-between rounded-lg bg-background px-2"
-                >
-                  <div>
-                    <svg class="h-6 w-6">
-                      <use xlink:href="#search" />
-                    </svg>
-                  </div>
-                  <label class="sr-only">search faq </label>
-                  <input
-                    class="flex grow rounded-lg border-none bg-background px-2 py-3 outline-none placeholder:text-sm placeholder:text-text/60 focus:ring-0 placeholder:"
-                    placeholder="دنبال چه سوالی میگردید ؟"
-                    type="text"
-                  />
-                </div>
-              </div>
-            </div>
+           
             <div class="col-span-12 space-y-8 md:col-span-8">
               <div>
-                <!-- <div class="mb-4 flex items-center gap-x-2">
-                  <span class="h-2 w-2 rounded-full bg-primary"></span>
-                  <p class="text-lg font-medium">عنوان اول</p>
-                </div> -->
+             
                 <ul class="mr-2 space-y-4">
                     @foreach ($faqs as $faq)
                     

@@ -10,7 +10,7 @@ class HomeFaqController extends Controller
 {
     public function index()
     {
-     $faqs = Faq::paginate(10);
+     $faqs = Faq::all();
      return view("app.faq", compact("faqs"));
     }
 }

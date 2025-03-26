@@ -12,10 +12,10 @@
                         <a href="{{ route('app.home') }}">
                             @if ($setting->logo)
                                 <img src="{{ asset($setting->logo) }}" alt="لوگو سایت" class="w-40 text-red-700"
-                                    style="margin-top: -30px; height: 100px;">
+                                    style="margin-top: -30px;">
                             @else
                                 <img src="{{ asset('upload/2025/3/3/logo.png') }}" alt="لوگو پیش‌فرض"
-                                    class="w-44 text-red-700" style="margin-top: -30px">
+                                    class="w-44 text-red-700">
                             @endif
                         </a>
                     </div>

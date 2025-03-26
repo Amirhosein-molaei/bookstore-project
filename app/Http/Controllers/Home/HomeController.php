@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\Content\Menu;
+use App\Models\Content\Slider;
 use App\Models\Market\ProductCategory;
 use App\Models\Setting\Setting;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class HomeController extends Controller
         // foreach ($menus as $menu) {
         //     $submenus = Menu::where('parent_id', $menu->id)->get();
         // }
-        return view('app.home');
+        $sliders=Slider::where('status',1)->orderBy('position')->get();
+        return view('app.home',compact('sliders'));
     }
 }

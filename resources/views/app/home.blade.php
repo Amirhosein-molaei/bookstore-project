@@ -9,21 +9,13 @@
                 <!-- Swiper -->
                 <div class="swiper banner-slider rounded-lg shadow-base">
                     <div class="swiper-wrapper">
+                        @foreach($sliders->where('position', 1) as $slider)
                         <div class="swiper-slide">
                             <a href="#">
-                                <img alt="" class="max-h-[450px]" src="./assets/images/banners/main-slider-1.jpg" />
+                                <img alt="" class="max-h-[450px]" src="{{asset($slider->image)}}" style="width: 100%" />
                             </a>
                         </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <img alt="" class="max-h-[450px]" src="./assets/images/banners/main-slider-2.jpg" />
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <img alt="" class="max-h-[450px]" src="./assets/images/banners/main-slider-3.jpg" />
-                            </a>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="swiper-button-next hidden md:flex"></div>
                     <div class="swiper-button-prev hidden md:flex"></div>
@@ -32,18 +24,21 @@
             </div>
             <div class="col-span-12 hidden xs:block lg:col-span-4">
                 <div class="flex h-full flex-row justify-between gap-x-2 lg:flex-col">
+                    @foreach($sliders->where('position', 2) as $slider)
                     <div>
                         <a href="#">
                             <img alt="" class="rounded-lg shadow-base"
-                                src="./assets/images/banners/main-banner-top.jpg" />
+                                src="{{asset($slider->image)}}" />
                         </a>
                     </div>
-
+                    @endforeach
+                        @foreach($sliders->where('position', 3) as $slider)
                     <div>
                         <a href="#">
-                            <img alt="" class="rounded-lg shadow-base" src="./assets/images/banners/main-bot.gif" />
+                            <img alt="" class="rounded-lg shadow-base" src="{{asset($slider->image)}}" />
                         </a>
                     </div>
+                        @endforeach
                 </div>
             </div>
         </div>

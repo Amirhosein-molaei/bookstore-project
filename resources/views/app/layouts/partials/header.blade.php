@@ -1,4 +1,4 @@
-<header>
+<header class="mb-8">
     <!-- Header -->
     <div class="fixed left-0 right-0 top-0 z-30 bg-muted">
         <!-- Header Desktop -->
@@ -12,7 +12,7 @@
                         <a href="{{ route('app.home') }}">
                             @if ($setting->logo)
                                 <img src="{{ asset($setting->logo) }}" alt="لوگو سایت" class="w-40 text-red-700"
-                                    style="margin-top: -30px;">
+                                    style="margin-top: -30px; height: 120px;">
                             @else
                                 <img src="{{ asset('upload/2025/3/3/logo.png') }}" alt="لوگو پیش‌فرض"
                                     class="w-44 text-red-700">

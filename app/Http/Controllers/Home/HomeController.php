@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Home;
 
 use App\Models\Content\Menu;
 use App\Models\Content\Slider;
-use App\Models\Market\ProductCategory;
-use App\Models\Setting\Setting;
 use Illuminate\Http\Request;
 use App\Models\Setting\Setting;
 use App\Http\Controllers\Controller;

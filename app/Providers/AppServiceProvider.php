@@ -25,13 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('*', function($view){
-            $setting = Setting::first();
-            $categories = ProductCategory::with('subCategories')->get();
-            $menus = Menu::with('subMenus')->get();
-
-            $view->with(['setting' => $setting, 'categories' => $categories, 'menus' => $menus]);
-        });
         Auth::loginUsingId(1);
         Paginator::useBootstrap();
     }

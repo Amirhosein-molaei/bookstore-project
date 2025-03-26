@@ -2,24 +2,30 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Controller;
 use App\Models\Content\Menu;
 use App\Models\Content\Slider;
 use App\Models\Market\ProductCategory;
 use App\Models\Setting\Setting;
 use Illuminate\Http\Request;
+use App\Models\Setting\Setting;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
+use App\Models\Market\ProductCategory;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // $setting = Setting::first();
-        // $categories =ProductCategory::where('parent_id',null)->get();
-        // $menus=Menu::where('parent_id', null)->get();
-        // foreach ($menus as $menu) {
-        //     $submenus = Menu::where('parent_id', $menu->id)->get();
-        // }
-        $sliders=Slider::where('status',1)->orderBy('position')->get();
+        $sliders = Slider::where('status',1)->orderBy('position')->get();
+      
+        View::composer('app.layouts.*', function($view){
+            $setting = Setting::first();
+            $categories = ProductCategory::with('subCategories')->get();
+            $menus = Menu::with('subMenus')->get();
+
+            $view->with(['setting' => $setting, 'categories' => $categories, 'menus' => $menus]);
+        });
+      
         return view('app.home',compact('sliders'));
     }
 }

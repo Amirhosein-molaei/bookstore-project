@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\Market\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\Content\FaqController;
@@ -12,19 +12,17 @@ use App\Http\Controllers\Admin\Content\BlogController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Market\CopanController;
 use App\Http\Controllers\Admin\Content\SlideController;
+use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\Content\WriterController;
 use App\Http\Controllers\Admin\Market\PaymentController;
+use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Content\CommentController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Content\PublisherController;
+use App\Http\Controllers\Admin\Ticket\TicketFileController;
+use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
-use App\Http\Controllers\Admin\Market\ProductFileController;
-use App\Http\Controllers\Admin\Ticket\TicketController;
-use App\Http\Controllers\Admin\Ticket\TicketFileController;
-
-Route::get('/',[\App\Http\Controllers\Home\HomeController::class ,'index'])->name('app.home');
-
 
 
 Route::get('/dashboard', function () {
@@ -103,3 +101,8 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 
 
 });
+
+
+// Home
+Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/product/{product}', [HomeController::class, 'show'])->name('product');

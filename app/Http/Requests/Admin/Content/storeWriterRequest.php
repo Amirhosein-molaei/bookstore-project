@@ -23,7 +23,7 @@ class storeWriterRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2|max:120|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
-            'english_name' => 'nullable|regex:/^[a-zA-z]+$/u',
+            'english_name' => 'nullable|regex:/^[a-zA-z  ]+$/u',
             'nationality' => 'required|min:2|max:120|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
             'birth_year' => 'nullable|numeric|min_digits:3',
             'death_year' => 'nullable|numeric|min_digits:3',

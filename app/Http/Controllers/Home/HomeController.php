@@ -1,10 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Home;
-
+  
+use App\Models\Content\Menu;
+use App\Models\Content\Slider;
 use App\Http\Controllers\Controller;
 use App\Models\Market\Product;
 use Illuminate\Http\Request;
+use App\Models\Setting\Setting;
+use Illuminate\Support\Facades\View;
+use App\Models\Market\ProductCategory;
 
 class HomeController extends Controller
 {
@@ -20,24 +25,19 @@ class HomeController extends Controller
       })
       ->orderByDesc('cart_items_count')
       ->limit(10)
-      ->get();;
-        return view('app.home',compact('mosteSelledProducts'));
-    }
+      ->get();
+      
+      $sliders = Slider::where('status',1)->orderBy('position')->get();
+      
+        View::composer('app.layouts.*', function($view){
+            $setting = Setting::first();
+            $categories = ProductCategory::with('subCategories')->get();
+            $menus = Menu::with('subMenus')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+            $view->with(['setting' => $setting, 'categories' => $categories, 'menus' => $menus]);
+        });
+      
+        return view('app.home',compact('sliders', 'mosteSelledProducts'));
     }
 
     /**
@@ -45,32 +45,6 @@ class HomeController extends Controller
      */
     public function show(Product $product)
     {
-      
         return view('app.product',compact('product'));
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

@@ -1,4 +1,4 @@
-<header>
+<header class="mb-8">
     <!-- Header -->
     <div class="fixed left-0 right-0 top-0 z-30 bg-muted">
         <!-- Header Desktop -->
@@ -9,8 +9,14 @@
                     class="container relative z-30 flex max-w-[1680px] items-center justify-between gap-x-4 bg-muted py-4">
                     <!-- logo -->
                     <div>
-                        <a href="./index.html">
-                            <img alt="" class="w-44 text-red-700" src="./assets/images/logo.svg" />
+                        <a href="{{ route('app.home') }}">
+                            @if ($setting->logo)
+                                <img src="{{ asset($setting->logo) }}" alt="لوگو سایت" class="w-40 text-red-700"
+                                    style="margin-top: -30px; height: 120px;">
+                            @else
+                                <img src="{{ asset('upload/2025/3/3/logo.png') }}" alt="لوگو پیش‌فرض"
+                                    class="w-44 text-red-700">
+                            @endif
                         </a>
                     </div>
                     <!-- Search -->
@@ -37,8 +43,8 @@
                                             <div class="swiper-slide">
                                                 <a href="#"
                                                     class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                    <img src="./assets/images/products/p6.png"
-                                                        alt="Product Image" class="w-16" />
+                                                    <img src="./assets/images/products/p6.png" alt="Product Image"
+                                                        class="w-16" />
                                                     <p class="line-clamp-2">
                                                         کفش نایک کفش نایک کفش نایک
                                                     </p>
@@ -47,8 +53,8 @@
                                             <div class="swiper-slide">
                                                 <a href="#"
                                                     class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                    <img src="./assets/images/products/p4.png"
-                                                        alt="Product Image" class="w-16" />
+                                                    <img src="./assets/images/products/p4.png" alt="Product Image"
+                                                        class="w-16" />
                                                     <p class="line-clamp-2">
                                                         کفش نایک کفش نایک کفش نایک
                                                     </p>
@@ -57,8 +63,8 @@
                                             <div class="swiper-slide">
                                                 <a href="#"
                                                     class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                    <img src="./assets/images/products/p5.png"
-                                                        alt="Product Image" class="w-16" />
+                                                    <img src="./assets/images/products/p5.png" alt="Product Image"
+                                                        class="w-16" />
                                                     <p class="line-clamp-2">
                                                         کفش نایک کفش نایک کفش نایک
                                                     </p>
@@ -345,8 +351,7 @@
                                                 <div class="relative min-w-fit">
                                                     <a href="./product-detail.html">
                                                         <img alt="" class="h-[120px] w-[120px]"
-                                                            loading="lazy"
-                                                            src="./assets/images/products/p1.png" />
+                                                            loading="lazy" src="./assets/images/products/p1.png" />
                                                     </a>
                                                     <button
                                                         class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-background"
@@ -364,8 +369,7 @@
                                                         تیشرت اسپورت مردانه
                                                     </a>
                                                     <!-- Product Attribute -->
-                                                    <div
-                                                        class="flex items-center gap-x-2 text-sm text-text/60">
+                                                    <div class="flex items-center gap-x-2 text-sm text-text/60">
                                                         <div>تعداد : 2</div>
                                                         <div class="h-3 w-px rounded-full bg-background"></div>
                                                         <div class="flex items-center gap-x-2">
@@ -391,8 +395,7 @@
                                                             <input value="1" disabled type="number"
                                                                 class="flex h-5 w-full grow select-none items-center justify-center bg-transparent text-center text-sm outline-none" />
                                                             <button type="button" data-action="decrement">
-                                                                <svg
-                                                                    class="h-5 w-5 text-red-600 dark:text-red-500">
+                                                                <svg class="h-5 w-5 text-red-600 dark:text-red-500">
                                                                     <use xlink:href="#minus" />
                                                                 </svg>
                                                             </button>
@@ -408,8 +411,7 @@
                                                 <div class="relative min-w-fit">
                                                     <a href="./product-detail.html">
                                                         <img alt="" class="h-[120px] w-[120px]"
-                                                            loading="lazy"
-                                                            src="./assets/images/products/p2.png" />
+                                                            loading="lazy" src="./assets/images/products/p2.png" />
                                                     </a>
                                                     <button
                                                         class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-background"
@@ -427,8 +429,7 @@
                                                         کلاه اسپورت مردانه
                                                     </a>
                                                     <!-- Product Attribute -->
-                                                    <div
-                                                        class="flex items-center gap-x-2 text-sm text-text/60">
+                                                    <div class="flex items-center gap-x-2 text-sm text-text/60">
                                                         <div>تعداد : 2</div>
                                                         <div class="h-3 w-px rounded-full bg-background"></div>
                                                         <div class="flex items-center gap-x-2">
@@ -454,8 +455,7 @@
                                                             <input value="1" disabled type="number"
                                                                 class="flex h-5 w-full grow select-none items-center justify-center bg-transparent text-center text-sm outline-none" />
                                                             <button type="button" data-action="decrement">
-                                                                <svg
-                                                                    class="h-5 w-5 text-red-600 dark:text-red-500">
+                                                                <svg class="h-5 w-5 text-red-600 dark:text-red-500">
                                                                     <use xlink:href="#trash" />
                                                                 </svg>
                                                             </button>
@@ -542,1228 +542,68 @@
                             <!-- Mega menu -->
 
                             <div class="absolute top-full w-full max-w-[1000px]">
-                                <div class="relative hidden rounded-b-lg bg-muted shadow-base"
-                                    id="desktopMegamenu">
+                                <div class="relative hidden rounded-b-lg bg-muted shadow-base" id="desktopMegamenu">
                                     <div
                                         class="flex h-[450px] max-h-[450px] w-full overflow-hidden rounded-b-lg pt-0.5">
-                                        <!-- Right side -->
-                                        <div class="main-scroll w-50 overflow-y-auto bg-background"
-                                            dir="ltr">
+                                        <!-- Right side: Parent Categories -->
+                                        <div class="main-scroll w-50 overflow-y-auto bg-background" dir="ltr">
                                             <ul dir="rtl" id="mega-menu-parents">
-                                                <li>
-                                                    <a class="flex py-4 pr-4" href="./shop.html">
-                                                        مردانه
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="flex py-4 pr-4" href="./shop.html">
-                                                        زنانه
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="flex py-4 pr-4" href="./shop.html">
-                                                        بچه گانه
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="flex py-4 pr-4" href="./shop.html">
-                                                        ساعت
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="flex py-4 pr-4" href="./shop.html">
-                                                        کیف
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="flex py-4 pr-4" href="./shop.html">
-                                                        آرایشی و بهداشتی
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="flex py-4 pr-4" href="./shop.html">
-                                                        عطر و ادکلن
-                                                    </a>
-                                                </li>
+                                                @foreach ($categories->where('parent_id', null) as $category)
+                                                    <li>
+                                                        <a class="flex py-4 pr-4 hover:text-primary"
+                                                            href="./shop.html" data-category-id="{{ $category->id }}">
+                                                            {{ $category->name }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
                                             </ul>
                                         </div>
-                                        <!-- Left side -->
 
+                                        <!-- Left side: Child Categories -->
                                         <div class="main-scroll h-[450px] max-h-[450px] w-full overflow-auto"
                                             dir="ltr">
-                                            <div class="flex flex-grow p-5" dir="rtl"
-                                                id="mega-menu-childs">
-                                                <!-- categories Child -->
-                                                <div class="hidden">
-                                                    <!-- head -->
-                                                    <div class="mb-4">
-                                                        <a class="flex items-center gap-x-1 py-2 text-sm text-primary"
-                                                            href="./shop.html">
-                                                            <div>مشاهده همه</div>
-                                                            <svg class="h-5 w-5">
-                                                                <use xlink:href="#chevron-left"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex flex-grow flex-wrap gap-x-14 gap-y-8">
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
+                                            <div class="flex flex-grow p-5" dir="rtl" id="mega-menu-childs">
+                                                @foreach ($categories->where('parent_id', null) as $category)
+                                                    <div class="hidden" data-category-id="{{ $category->id }}">
+                                                        <!-- Head: Show all link -->
+                                                        <div class="mb-4">
+                                                            <a class="flex items-center gap-x-1 py-2 text-sm text-primary"
                                                                 href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>لباس مردانه</div>
+                                                                <div>مشاهده همه کتاب های {{ $category->name }}</div>
                                                                 <svg class="h-5 w-5">
                                                                     <use xlink:href="#chevron-left"></use>
                                                                 </svg>
                                                             </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        شلوار
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        لباس زیر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        پیراهن
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جلیقه
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جوراب
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        لباس زیر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        شلوارک
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>کفش مردانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش اسپورت
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش پیاده روی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش ورزشی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش مجلسی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش راحتی
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
                                                         </div>
 
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>اکسسوری</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
+                                                        <!-- Child Categories -->
+                                                        <div class="flex flex-grow flex-wrap gap-x-14 gap-y-8">
+                                                            @foreach ($category->subCategories as $subCategory)
+                                                                <div class="space-y-2">
+                                                                    <a class="flex items-center gap-x-2 hover:text-primary"
                                                                         href="./shop.html">
-                                                                        ساعت
+                                                                        <span
+                                                                            class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
+                                                                        <div>{{ $subCategory->name }}</div>
+                                                                        <svg class="h-5 w-5">
+                                                                            <use xlink:href="#chevron-left"></use>
+                                                                        </svg>
                                                                     </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        عینک
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کمربند
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        زیورآلات
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        چتر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کراوات
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جاکلیدی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کلاه
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
+                                                                    <ul>
+                                                                        @foreach ($subCategory->subCategories ?? [] as $subCategory)
+                                                                            <li>
+                                                                                <a class="block py-2 text-sm text-text/90 hover:text-primary"
+                                                                                    href="./shop.html">
+                                                                                    {{ $subCategory->name }}
+                                                                                </a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            @endforeach
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- categories Child -->
-
-                                                <div class="hidden">
-                                                    <!-- head -->
-                                                    <div class="mb-4">
-                                                        <a class="flex items-center gap-x-1 py-2 text-sm text-primary"
-                                                            href="./shop.html">
-                                                            <div>مشاهده همه</div>
-                                                            <svg class="h-5 w-5">
-                                                                <use xlink:href="#chevron-left"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex flex-grow flex-wrap gap-x-14 gap-y-8">
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>لباس زنانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        شلوار
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        لباس زیر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        پیراهن
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جلیقه
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جوراب
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        لباس زیر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        شلوارک
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>کفش زنانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش اسپورت
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش پیاده روی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش ورزشی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش مجلسی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش راحتی
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>اکسسوری</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        عینک
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کمربند
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        زیورآلات
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        چتر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کراوات
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جاکلیدی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کلاه
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- categories Child -->
-
-                                                <div class="hidden">
-                                                    <!-- head -->
-                                                    <div class="mb-4">
-                                                        <a class="flex items-center gap-x-1 py-2 text-sm text-primary"
-                                                            href="./shop.html">
-                                                            <div>مشاهده همه</div>
-                                                            <svg class="h-5 w-5">
-                                                                <use xlink:href="#chevron-left"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex flex-wrap gap-x-14 gap-y-8">
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>لباس پسرانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        شلوار
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        لباس زیر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        پیراهن
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جلیقه
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جوراب
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        لباس زیر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        شلوارک
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>کفش پسرانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش اسپورت
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش پیاده روی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش ورزشی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش مجلسی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش راحتی
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>اکسسوری پسرانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        عینک
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کمربند
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        زیورآلات
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        چتر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کراوات
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جاکلیدی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کلاه
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>لباس دخترانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        شلوار
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        لباس زیر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        پیراهن
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جلیقه
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جوراب
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        لباس زیر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        شلوارک
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>کفش دخترانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش اسپورت
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش پیاده روی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش ورزشی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش مجلسی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کفش راحتی
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>اکسسوری دخترانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        عینک
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کمربند
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        زیورآلات
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        چتر
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کراوات
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        جاکلیدی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کلاه
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- categories Child -->
-
-                                                <div class="hidden">
-                                                    <!-- head -->
-                                                    <div class="mb-4">
-                                                        <a class="flex items-center gap-x-1 py-2 text-sm text-primary"
-                                                            href="./shop.html">
-                                                            <div>مشاهده همه</div>
-                                                            <svg class="h-5 w-5">
-                                                                <use xlink:href="#chevron-left"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex flex-grow flex-wrap gap-x-14 gap-y-8">
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>ساعت مردانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت رولکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت لوکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت مجلسی
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>ساعت زنانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت رولکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت لوکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت مجلسی
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>ساعت پسرانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت رولکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت لوکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت مجلسی
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>ساعت دخترانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت رولکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت لوکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ساعت مجلسی
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- categories Child -->
-
-                                                <div class="hidden">
-                                                    <!-- head -->
-                                                    <div class="mb-4">
-                                                        <a class="flex items-center gap-x-1 py-2 text-sm text-primary"
-                                                            href="./shop.html">
-                                                            <div>مشاهده همه</div>
-                                                            <svg class="h-5 w-5">
-                                                                <use xlink:href="#chevron-left"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex flex-grow flex-wrap gap-x-14 gap-y-8">
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>کیف مردانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف لوکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف مجلسی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف دانشگاهی
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>کیف زنانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف لوکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف مجلسی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف دانشگاهی
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>کیف پسرانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف لوکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف مجلسی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف مدرسه
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>کیف دخترانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف لوکس
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف مجلسی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        کیف مدرسه
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- categories Child -->
-
-                                                <div class="hidden">
-                                                    <!-- head -->
-                                                    <div class="mb-4">
-                                                        <a class="flex items-center gap-x-1 py-2 text-sm text-primary"
-                                                            href="./shop.html">
-                                                            <div>مشاهده همه</div>
-                                                            <svg class="h-5 w-5">
-                                                                <use xlink:href="#chevron-left"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex flex-grow flex-wrap gap-x-14 gap-y-8">
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>آرایشی</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        آرایش صورت
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        آرایش چشم و ابرو
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        آرایش لب
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ابزار آرایشی
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        آرایش و مراقبت ناخن
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>پوست</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        مرطوب کننده پوست
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        بهداشت پوست
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        مراقبت از پوست
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>مو</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        مراقبت مو
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        بهداشت مو
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        حالت دهنده مو
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        رنگ مو و ملزومات
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- categories Child -->
-
-                                                <div class="hidden p-5">
-                                                    <!-- head -->
-                                                    <div class="mb-4">
-                                                        <a class="flex items-center gap-x-1 py-2 text-sm text-primary"
-                                                            href="./shop.html">
-                                                            <div>مشاهده همه</div>
-                                                            <svg class="h-5 w-5">
-                                                                <use xlink:href="#chevron-left"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex flex-grow flex-wrap gap-x-14 gap-y-8">
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>عطر و ادکلن مردانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        عطر مردانه
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        عطر جیبی مردانه
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ست هدیه مردانه
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-
-                                                        <div class="space-y-2">
-                                                            <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                href="./shop.html">
-                                                                <span
-                                                                    class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
-                                                                <div>عطر و ادکلن زنانه</div>
-                                                                <svg class="h-5 w-5">
-                                                                    <use xlink:href="#chevron-left"></use>
-                                                                </svg>
-                                                            </a>
-                                                            <ul>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        عطر زنانه
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        عطر جیبی زنانه
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                        href="./shop.html">
-                                                                        ست هدیه زنانه
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -1771,51 +611,29 @@
                             </div>
                         </ul>
 
-                        <ul data-color-dark="#f87171" data-color-light="#ef4444">
-                            <a class="group" href="./special-sale.html">
-                                <div class="p-2 pt-0">فروش ویژه</div>
-                            </a>
-                        </ul>
-                        <ul>
-                            <a class="group" href="./why-us.html">
-                                <div class="p-2 pt-0">چرا روتی کالا</div>
-                            </a>
-                        </ul>
-                        <ul>
-                            <a class="group" href="./how-to-buy.html">
-                                <div class="p-2 pt-0">راهنمای خرید</div>
-                            </a>
-                        </ul>
-                        <ul class="group relative z-10" id="header-desktop-indicator">
-                            <div class="flex cursor-pointer items-center gap-x-2 p-2 pt-0">
-                                سایر
-                                <span class="text-primary">...</span>
-                            </div>
-                            <div
-                                class="absolute right-0 top-full hidden w-44 overflow-hidden rounded-b-lg bg-muted group-hover:block">
-                                <ul class="space-y-1 p-2">
-                                    <li>
-                                        <a class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary"
-                                            href="./contact.html">
-                                            تماس با ما
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary"
-                                            href="./about.html">
-                                            درباره ما
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary"
-                                            href="./faq.html">
-                                            سوالات متداول
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </ul>
 
+                        @foreach ($menus as $menu)
+                            <ul class="group relative z-10" id="header-desktop-indicator">
+                                <a href="{{ url($menu->url) }}"
+                                    class="flex cursor-pointer items-center gap-x-2 p-2 pt-0">
+                                    {{ $menu->name }}
+                                </a>
+                                <div
+                                    class="absolute right-0 top-full hidden w-44 overflow-hidden rounded-b-lg bg-muted group-hover:block">
+                                    @forelse($menu->subMenus as $subMenu)
+                                        <ul class="space-y-1 p-2">
+                                            <li>
+                                                <a class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary"
+                                                    href="{{ url($subMenu->url) }}">
+                                                    {{ $subMenu->name }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    @empty
+                                    @endforelse
+                                </div>
+                            </ul>
+                        @endforeach
                         <div id="header-desktop-navbar-indicator"
                             class="absolute bottom-0 h-[0.15625rem] z-0 rounded-2xl end-0 transition-all duration-[350ms] w-0">
                         </div>
@@ -1839,9 +657,14 @@
 
                     <!-- logo -->
                     <div>
-                        <a href="./index.html">
-                            <img alt="" class="h-6 w-full rounded-lg xs:h-10"
-                                src="./assets/images/logo.svg" />
+                        <a href="{{ route('app.home') }}">
+                            @if ($setting->logo)
+                                <img alt="" class="h-6 w-full rounded-lg xs:h-10"
+                                    src="{{ asset($setting->image) }}" />
+                            @else
+                                <img src="{{ asset('upload/2025/3/3/logo.png') }}" alt="لوگو پیش‌فرض"
+                                    class="w-44 text-red-700" style="margin-top: -30px">
+                            @endif
                         </a>
                     </div>
                     <div class="flex gap-x-4">
@@ -1904,8 +727,8 @@
                                                 <div class="swiper-slide">
                                                     <a href="#"
                                                         class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                        <img src="./assets/images/products/p6.png"
-                                                            alt="Product Image" class="w-16" />
+                                                        <img src="./assets/images/products/p6.png" alt="Product Image"
+                                                            class="w-16" />
                                                         <p class="line-clamp-2">
                                                             کفش نایک کفش نایک کفش نایک
                                                         </p>
@@ -1914,8 +737,8 @@
                                                 <div class="swiper-slide">
                                                     <a href="#"
                                                         class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                        <img src="./assets/images/products/p4.png"
-                                                            alt="Product Image" class="w-16" />
+                                                        <img src="./assets/images/products/p4.png" alt="Product Image"
+                                                            class="w-16" />
                                                         <p class="line-clamp-2">
                                                             کفش نایک کفش نایک کفش نایک
                                                         </p>
@@ -1924,8 +747,8 @@
                                                 <div class="swiper-slide">
                                                     <a href="#"
                                                         class="flex items-center gap-x-2 rounded-xl border px-4 py-2 text-text/60 hover:border-border/50">
-                                                        <img src="./assets/images/products/p5.png"
-                                                            alt="Product Image" class="w-16" />
+                                                        <img src="./assets/images/products/p5.png" alt="Product Image"
+                                                            class="w-16" />
                                                         <p class="line-clamp-2">
                                                             کفش نایک کفش نایک کفش نایک
                                                         </p>
@@ -2093,8 +916,14 @@
         <div class="mb-6 flex items-center justify-between gap-x-4 border-b pb-5">
             <!-- Logo -->
             <div>
-                <a href="./index.html">
-                    <img alt="" class="h-10 w-full rounded-lg" src="./assets/images/logo.svg" />
+                <a href="{{ route('app.home') }}">
+                    @if ($setting->logo)
+                        <img alt="" class="h-6 w-full rounded-lg xs:h-10"
+                            src="{{ asset($setting->logo) }}" />
+                    @else
+                        <img src="{{ asset('upload/2025/3/3/logo.png') }}" alt="لوگو پیش‌فرض"
+                            class="w-44 text-red-700" style="margin-top: -30px">
+                    @endif
                 </a>
             </div>
 
@@ -2133,7 +962,7 @@
             <ul class="space-y-4">
                 <li>
                     <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
-                        href="./index.html">
+                        href="{{ route('app.home') }}">
                         <span class="flex items-center gap-x-2">
                             <svg class="h-6 w-6">
                                 <use xlink:href="#home" />
@@ -2142,72 +971,38 @@
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
-                        href="./special-sale.html">
-                        <span class="flex items-center gap-x-2">
-                            <svg class="h-6 w-6">
-                                <use xlink:href="#special-sale" />
-                            </svg>
-                            <span> فروش ویژه </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
-                        href="./why-us.html">
-                        <span class="flex items-center gap-x-2">
-                            <svg class="h-6 w-6">
-                                <use xlink:href="#why-us" />
-                            </svg>
-                            <span> چرا روتی کالا </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
-                        href="./how-to-buy.html">
-                        <span class="flex items-center gap-x-2">
-                            <svg class="h-6 w-6">
-                                <use xlink:href="#how-to-buy" />
-                            </svg>
-                            <span> راهنمای خرید </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
-                        href="./about.html">
-                        <span class="flex items-center gap-x-2">
-                            <svg class="h-6 w-6">
-                                <use xlink:href="#shop" />
-                            </svg>
-                            <span> درباره ما </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
-                        href="./contact.html">
-                        <span class="flex items-center gap-x-2">
-                            <svg class="h-6 w-6">
-                                <use xlink:href="#contact" />
-                            </svg>
-                            <span> تماس با ما </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
-                        href="./faq.html">
-                        <span class="flex items-center gap-x-2">
-                            <svg class="h-6 w-6">
-                                <use xlink:href="#question" />
-                            </svg>
-                            <span> سوالات متداول </span>
-                        </span>
-                    </a>
-                </li>
+
+
+                @foreach ($menus as $menu)
+                    <li>
+                        <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
+                            href="{{ $menu->url }}">
+                            <span class="flex items-center gap-x-2">
+                                <svg class="h-6 w-6">
+                                    <use xlink:href="#special-sale" />
+                                </svg>
+                                <span>{{ $menu->name }} </span>
+                            </span>
+                        </a>
+                        @forelse ($menu->subMenus as $subMenu)
+                            <ul x-show="open" class="pl-4" x-collapse>
+
+                                <li>
+                                    <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
+                                        href="{{ url($subMenu->url) }}">
+                                        <span class="flex items-center gap-x-2">
+                                            <svg class="h-6 w-6">
+                                                <use xlink:href="#submenu-icon" />
+                                            </svg>
+                                            <span>{{ $subMenu->name }}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        @empty
+                        @endforelse
+                    </li>
+                @endforeach
                 <!-- Shop -->
                 <li>
                     <div class="flex items-center">
@@ -2226,76 +1021,80 @@
 
                 <!-- Categories -->
 
-                <li class="relative bg-muted border-b" data-accordion-item>
-                    <div class="w-full px-4 py-3 text-right cursor-pointer" data-accordion-button>
-                        <div class="flex items-center justify-between gap-2 text-sm md:text-base">
-                            <span> مردانه </span>
-                            <div class="min-w-fit">
-                                <svg data-accordion-chevron class="h-5 w-5 duration-300">
-                                    <use xlink:href="#chevron-left"></use>
-                                </svg>
+                @foreach ($categories as $category)
+                    <li class="relative bg-muted border-b" data-accordion-item>
+                        <div class="w-full px-4 py-3 text-right cursor-pointer" data-accordion-button>
+                            <div class="flex items-center justify-between gap-2 text-sm md:text-base">
+                                <span>{{ $category->name }} </span>
+                                <div class="min-w-fit">
+                                    <svg data-accordion-chevron class="h-5 w-5 duration-300">
+                                        <use xlink:href="#chevron-left"></use>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="relative max-h-0 overflow-hidden transition-all duration-300 mr-6 pb-2"
-                        data-accordion-content>
-                        <ul class="pt-2">
-                            <li>
-                                <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
-                                    href="./shop.html">
-                                    <span class="flex items-center gap-x-2">
-                                        <span class="line-clamp-1">همه</span>
-                                        <svg class="h-5 w-5">
-                                            <use xlink:href="#chevron-left" />
-                                        </svg>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="relative" data-accordion-item>
-                                <div class="w-full py-3 text-right cursor-pointer" data-accordion-button>
-                                    <div class="flex items-center justify-between gap-2 text-sm md:text-base">
-                                        <span> مردانه </span>
-                                        <div class="min-w-fit">
-                                            <svg data-accordion-chevron class="h-5 w-5 duration-300">
-                                                <use xlink:href="#chevron-left"></use>
+                        <div class="relative max-h-0 overflow-hidden transition-all duration-300 mr-6 pb-2"
+                            data-accordion-content>
+                            <ul class="pt-2">
+                                <li>
+                                    <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
+                                        href="./shop.html">
+                                        <span class="flex items-center gap-x-2">
+                                            <span class="line-clamp-1">همه</span>
+                                            <svg class="h-5 w-5">
+                                                <use xlink:href="#chevron-left" />
                                             </svg>
+                                        </span>
+                                    </a>
+                                </li>
+                                @foreach ($category->subCategories as $subCategory)
+                                    <li class="relative" data-accordion-item>
+                                        <div class="w-full py-3 text-right cursor-pointer" data-accordion-button>
+                                            <div class="flex items-center justify-between gap-2 text-sm md:text-base">
+                                                <span> {{ $subCategory->name }} </span>
+                                                <div class="min-w-fit">
+                                                    <svg data-accordion-chevron class="h-5 w-5 duration-300">
+                                                        <use xlink:href="#chevron-left"></use>
+                                                    </svg>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="relative max-h-0 overflow-hidden transition-all duration-300 mr-4 pb-2"
-                                    data-accordion-content>
-                                    <ul class="pt-2">
-                                        <li>
-                                            <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
-                                                href="./shop.html">
-                                                <span class="flex items-center gap-x-2">
-                                                    <span class="line-clamp-1">همه</span>
-                                                    <svg class="h-5 w-5">
-                                                        <use xlink:href="#chevron-left" />
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </li>
+                                        <div class="relative max-h-0 overflow-hidden transition-all duration-300 mr-4 pb-2"
+                                            data-accordion-content>
+                                            <ul class="pt-2">
+                                                <li>
+                                                    <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
+                                                        href="./shop.html">
+                                                        <span class="flex items-center gap-x-2">
+                                                            <span class="line-clamp-1">همه</span>
+                                                            <svg class="h-5 w-5">
+                                                                <use xlink:href="#chevron-left" />
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                </li>
 
-                                        <li>
-                                            <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
-                                                href="./shop.html">
-                                                <span class="flex items-center gap-x-2">
-                                                    <span class="line-clamp-1">
-                                                        دسته بندی اول
-                                                    </span>
-                                                    <svg class="h-5 w-5">
-                                                        <use xlink:href="#chevron-left" />
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                                                <li>
+                                                    <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"
+                                                        href="./shop.html">
+                                                        <span class="flex items-center gap-x-2">
+                                                            <span class="line-clamp-1">
+                                                                دسته بندی اول
+                                                            </span>
+                                                            <svg class="h-5 w-5">
+                                                                <use xlink:href="#chevron-left" />
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>
@@ -2325,8 +1124,7 @@
                         href="./profile-dashboard.html">
                         <span class="flex items-center gap-x-4">
                             <span class="min-w-fit">
-                                <img alt="" class="h-10 w-10 rounded-full"
-                                    src="./assets/images/user.png" />
+                                <img alt="" class="h-10 w-10 rounded-full" src="./assets/images/user.png" />
                             </span>
                             <span class="line-clamp-1">تست تست تست تسستست تسست </span>
                         </span>
@@ -2452,8 +1250,7 @@
                                 <div>تعداد : 2</div>
                                 <div class="h-3 w-px rounded-full bg-background"></div>
                                 <div class="flex items-center gap-x-2">
-                                    <span class="h-4 w-4 rounded-full"
-                                        style="background: rgb(128, 128, 128)"></span>
+                                    <span class="h-4 w-4 rounded-full" style="background: rgb(128, 128, 128)"></span>
                                     <span> طوسی</span>
                                 </div>
                             </div>
@@ -2511,8 +1308,7 @@
                                 <div>تعداد : 2</div>
                                 <div class="h-3 w-px rounded-full bg-background"></div>
                                 <div class="flex items-center gap-x-2">
-                                    <span class="h-4 w-4 rounded-full"
-                                        style="background: rgb(128, 128, 128)"></span>
+                                    <span class="h-4 w-4 rounded-full" style="background: rgb(128, 128, 128)"></span>
                                     <span> طوسی</span>
                                 </div>
                             </div>
@@ -2570,8 +1366,7 @@
                                 <div>تعداد : 2</div>
                                 <div class="h-3 w-px rounded-full bg-background"></div>
                                 <div class="flex items-center gap-x-2">
-                                    <span class="h-4 w-4 rounded-full"
-                                        style="background: rgb(128, 128, 128)"></span>
+                                    <span class="h-4 w-4 rounded-full" style="background: rgb(128, 128, 128)"></span>
                                     <span> طوسی</span>
                                 </div>
                             </div>

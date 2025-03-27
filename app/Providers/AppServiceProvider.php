@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Content\Menu;
+use App\Models\Market\ProductCategory;
+use App\Models\Setting\Setting;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Auth::loginUsingId(1);
+        Auth::loginUsingId(1);
         Paginator::useBootstrap();
     }
 }

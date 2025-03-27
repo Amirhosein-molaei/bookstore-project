@@ -24,19 +24,15 @@ use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 
-// Route::get('/', function () {
-//     return view('app.home');
-// });
-
 
 Route::get('/dashboard', function () {
-   return view('dashboard');
+    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__ . '/auth.php';
@@ -48,17 +44,17 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 
     Route::middleware(['auth','superAdmin'])->group(function () {
 
-    Route::get('/users', [UserController::class, 'index'])->name('user.');
-    Route::post('/user/admin-access/{user}', [UserController::class, 'changeAdminAccess'])->name('user.admin-access');
-    Route::post('/user/super-admin-access/{user}', [UserController::class, 'changeSuperAdminAccess'])->name('user.super-admin-access');
-    Route::post('/user/change-ticket-admin/{user}', [UserController::class, 'changeTicketAdmin'])->name('user.change-ticket-admin');
+        Route::get('/users', [UserController::class, 'index'])->name('user.');
+        Route::post('/user/admin-access/{user}', [UserController::class, 'changeAdminAccess'])->name('user.admin-access');
+        Route::post('/user/super-admin-access/{user}', [UserController::class, 'changeSuperAdminAccess'])->name('user.super-admin-access');
+        Route::post('/user/change-ticket-admin/{user}', [UserController::class, 'changeTicketAdmin'])->name('user.change-ticket-admin');
 
-    Route::prefix('setting')->name('setting.')->group(function () {
-        Route::get('/', [SettingController::class, 'index']);
-        Route::get('set', [SettingController::class, 'set'])->name('set');
-        Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
+        Route::prefix('setting')->name('setting.')->group(function () {
+            Route::get('/', [SettingController::class, 'index']);
+            Route::get('set', [SettingController::class, 'set'])->name('set');
+            Route::post('/set/store', [SettingController::class, 'setStore'])->name('set.store');
+        });
     });
-});
 
     Route::prefix('content')->name('content.')->group(function () {
         Route::resource('menu', MenuController::class);

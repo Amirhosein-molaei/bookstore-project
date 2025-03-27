@@ -2,28 +2,43 @@
 @section('title', 'صفحه اصلی')
 
 @section('content')
-<!-- Main Banners section Start -->
-<section class="mb-8">
-    <div class="container relative grid grid-cols-12 gap-x-4 gap-y-2">
-        <div class="col-span-12 lg:col-span-8">
-            <!-- Swiper -->
-            <div class="swiper banner-slider rounded-lg shadow-base">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+    <!-- Main Banners section Start -->
+    <section class="mb-8">
+        <div class="container relative grid grid-cols-12 gap-x-4 gap-y-2">
+            <div class="col-span-12 lg:col-span-8">
+                <!-- Swiper -->
+                <div class="swiper banner-slider rounded-lg shadow-base">
+                    <div class="swiper-wrapper">
+                        @foreach($sliders->where('position', 1) as $slider)
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <img alt="" class="max-h-[450px]" src="{{asset($slider->image)}}" style="width: 100%" />
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-next hidden md:flex"></div>
+                    <div class="swiper-button-prev hidden md:flex"></div>
+                    <div class="swiper-pagination main-banner-pagination"></div>
+                </div>
+            </div>
+            <div class="col-span-12 hidden xs:block lg:col-span-4">
+                <div class="flex h-full flex-row justify-between gap-x-2 lg:flex-col">
+                    @foreach($sliders->where('position', 2) as $slider)
+                    <div>
                         <a href="#">
-                            <img alt="" class="max-h-[450px]" src="./assets/images/banners/main-slider-1.jpg" />
+                            <img alt="" class="rounded-lg shadow-base"
+                                src="{{asset($slider->image)}}" />
                         </a>
                     </div>
-                    <div class="swiper-slide">
+                    @endforeach
+                        @foreach($sliders->where('position', 3) as $slider)
+                    <div>
                         <a href="#">
-                            <img alt="" class="max-h-[450px]" src="./assets/images/banners/main-slider-2.jpg" />
+                            <img alt="" class="rounded-lg shadow-base" src="{{asset($slider->image)}}" />
                         </a>
                     </div>
-                    <div class="swiper-slide">
-                        <a href="#">
-                            <img alt="" class="max-h-[450px]" src="./assets/images/banners/main-slider-3.jpg" />
-                        </a>
-                    </div>
+                        @endforeach
                 </div>
                 <div class="swiper-button-next hidden md:flex"></div>
                 <div class="swiper-button-prev hidden md:flex"></div>

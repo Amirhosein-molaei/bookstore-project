@@ -104,5 +104,5 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 
 
 // Home
-Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/',[HomeController::class,'index'])->name('app.home');
 Route::get('/product/{product}', [HomeController::class, 'show'])->name('product');

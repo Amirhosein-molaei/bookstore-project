@@ -27,5 +27,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Auth::loginUsingId(1);
         Paginator::useBootstrap();
+
+        View::composer('app.layouts.*', function ($view) {
+            $setting = Setting::first();
+            $categories = ProductCategory::with('subCategories')->get();
+            $menus = Menu::with('subMenus')->get();
+
+            $view->with(['setting' => $setting, 'categories' => $categories, 'menus' => $menus]);
+        });
     }
 }

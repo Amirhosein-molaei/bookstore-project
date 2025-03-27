@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Home;
-  
+
 use App\Models\Content\Menu;
 use App\Models\Content\Slider;
 use App\Http\Controllers\Controller;
@@ -18,26 +18,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $mosteSelledProducts=Product::select('*')
-      ->withCount('cartItems') 
-      ->whereHas('cartItems.cart', function ($query) {
-          $query->where('status', 1); // فقط سبدهای خریدی که تکمیل شده‌اند
-      })
-      ->orderByDesc('cart_items_count')
-      ->limit(10)
-      ->get();
-      
-      $sliders = Slider::where('status',1)->orderBy('position')->get();
-      
-        View::composer('app.layouts.*', function($view){
-            $setting = Setting::first();
-            $categories = ProductCategory::with('subCategories')->get();
-            $menus = Menu::with('subMenus')->get();
+        $mosteSelledProducts = Product::select('*')
+            ->withCount('cartItems')
+            ->whereHas('cartItems.cart', function ($query) {
+                $query->where('status', 1); // فقط سبدهای خریدی که تکمیل شده‌اند
+            })
+            ->orderByDesc('cart_items_count')
+            ->limit(10)
+            ->get();
 
-            $view->with(['setting' => $setting, 'categories' => $categories, 'menus' => $menus]);
-        });
-      
-        return view('app.home',compact('sliders', 'mosteSelledProducts'));
+        $sliders = Slider::where('status', 1)->orderBy('position')->get();
+
+        return view('app.home', compact('sliders', 'mosteSelledProducts'));
     }
 
     /**
@@ -45,6 +37,6 @@ class HomeController extends Controller
      */
     public function show(Product $product)
     {
-        return view('app.product',compact('product'));
+        return view('app.product', compact('product'));
     }
 }

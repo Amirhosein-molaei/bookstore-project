@@ -29,7 +29,14 @@ class HomeController extends Controller
 
         $sliders = Slider::where('status', 1)->orderBy('position')->get();
 
-        return view('app.home', compact('sliders', 'mosteSelledProducts'));
+        $hotDeals = Product::where('hot_deal', 1)
+            ->where('status', 0)->where('marketable', 0)->limit(10)->get();
+
+        $suggesteds = Product::where('suggested_count', '>',  1)
+            ->where('status', 0)->where('marketable', 0)
+            ->orderByDesc('suggested_count')->limit(10)->get();
+
+        return view('app.home', compact('sliders', 'mosteSelledProducts', 'hotDeals', 'suggesteds'));
     }
 
     /**

@@ -82,6 +82,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
         Route::resource('payment', PaymentController::class);
         Route::resource('copan', CopanController::class);
         Route::resource('product', ProductController::class);
+        Route::post('/product/change-hot-deal-status/{product}', [ProductController::class, 'changeHotDealStatus'])->name('product.change-hot-deal-status');
         Route::get('product-file/{product}', [ProductFileController::class, 'index'])->name('product-file.index');
         Route::get('product-file/{product}/create', [ProductFileController::class, 'create'])->name('product-file.create');
         Route::post('product-file/{product}', [ProductFileController::class, 'store'])->name('product-file.store');

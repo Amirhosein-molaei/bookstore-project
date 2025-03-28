@@ -6,7 +6,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\FavoriteController;
-use App\Http\Controllers\Home\ProducttController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\Content\FaqController;
@@ -109,7 +108,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 
 
 // Home
-Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/',[HomeController::class,'index'])->name('app.home');
 Route::get('/product/{product}', [HomeProductController::class, 'show'])->name('product');
 
 

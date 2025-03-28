@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Models\Content\Menu;
 use App\Models\Content\Slider;
 use App\Http\Controllers\Controller;
 use App\Models\Market\Product;
-use Illuminate\Http\Request;
-use App\Models\Setting\Setting;
-use Illuminate\Support\Facades\View;
-use App\Models\Market\ProductCategory;
 
 class HomeController extends Controller
 {

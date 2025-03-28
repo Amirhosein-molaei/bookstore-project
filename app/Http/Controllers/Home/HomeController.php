@@ -13,9 +13,6 @@ use App\Models\Market\ProductCategory;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $mosteSelledProducts = Product::select('*')
@@ -37,13 +34,5 @@ class HomeController extends Controller
             ->orderByDesc('suggested_count')->limit(10)->get();
 
         return view('app.home', compact('sliders', 'mosteSelledProducts', 'hotDeals', 'suggesteds'));
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        return view('app.product', compact('product'));
     }
 }

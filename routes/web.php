@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
-use App\Http\Controllers\Home\FavoritController;
+use App\Http\Controllers\Home\FavoriteController;
 use App\Http\Controllers\Home\ProducttController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\User\UserController;
@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\Ticket\TicketFileController;
 use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
+use App\Http\Controllers\Home\ProductController as HomeProductController;
 
 // Route::get('/', function () {
 //     return view('app.home');
@@ -112,14 +113,16 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 
 // Home
 Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('/product/{product}', [HomeController::class, 'show'])->name('product');
-Route::post('/product/favorit/{product}',[FavoritController::class, 'addProduct'])->name('product.favorit');
-Route::post('product/comment/{product}',[HomeController::class,'sendComment'])->name('product.comment');
-Route::post('product/comment/like/{comment}',[HomeController::class,'likeComment'])->name('product.comment.like');
-Route::post('product/comment/dislike/{comment}',[HomeController::class,'dislikeComment'])->name('product.comment.dislike');
-Route::post('/product/comment/{product}/answer', [HomeController::class, 'answerComment'])->name('product.comment.answer');
+Route::get('/product/{product}', [HomeProductController::class, 'show'])->name('product');
 
-// Cart
+
 Route::middleware('auth')->group(function(){
- Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    //cart
+    Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    // add to favorite and comment
+    Route::post('product/favorite/{product}',[FavoriteController::class, 'addProduct'])->name('product.favorite'); 
+    Route::post('product/comment/{product}',[HomeProductController::class,'sendComment'])->name('product.comment');
+    Route::post('product/comment/{product}/answer', [HomeProductController::class, 'answerComment'])->name('product.comment.answer');
+    Route::post('product/comment/like/{comment}',[HomeProductController::class,'likeComment'])->name('product.comment.like');
+    Route::post('product/comment/dislike/{comment}',[HomeProductController::class,'dislikeComment'])->name('product.comment.dislike');
 });

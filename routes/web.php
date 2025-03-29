@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Home\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -135,3 +136,10 @@ Route::get(uri: '/shop/cheapest-product', action: [ShopController::class, 'cheap
 
 // Faq
 Route::get(uri: '/faq', action: [HomeFaqController::class, 'index'])->name('faq');
+
+// profile
+Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(function(){
+    Route::get('/', [UserProfileController::class, 'index']);
+    Route::get('/ticket', [UserProfileController::class, 'showTicket'])->name('ticket');
+
+   });

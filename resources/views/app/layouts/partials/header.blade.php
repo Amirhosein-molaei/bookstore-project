@@ -10,7 +10,7 @@
                     <!-- logo -->
                     <div>
                         <a href="#">
-                            <img alt="" class="w-44 text-red-700" src="{{asset('upload/2025/3/26/logo.jpg')}}" />
+                            <img alt="" class="w-44 text-red-700"  src="{{asset('upload/2025/3/26/logo.jpg')}}" />
                         </a>
                     </div>
                     <!-- Search -->

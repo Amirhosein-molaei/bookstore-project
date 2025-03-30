@@ -48,12 +48,12 @@
                                     <!-- add to favorite -->
                                     @if (Auth::check())
                                         <div>
-                                            <form action="{{ route('product.favorite', $product) }}" method="post">
+                                            <form style="margin-bottom: 0" action="{{ route('product.favorite', $product) }}" method="post">
                                                 @csrf
                                                 <button data-tooltip-target="add-to-favorite" type="submit">
                                                     @if ($product->isFavorited())
                                                         <svg class="h-6 w-6 text-primary">
-                                                            <use xlink:href="#heart"/>
+                                                            <use xlink:href="#heart" />
                                                         </svg>
                                                     @else
                                                         <svg class="h-6 w-6">
@@ -68,13 +68,47 @@
                                             </div>
                                         </div>
                                     @endif
+
+                                    <!-- share on social -->
+                                    <div>
+                                        <button id="dropdownMenuCopySocialShareLink"
+                                            data-dropdown-toggle="copy-social-share-link"
+                                            data-tooltip-target="share-on-social" type="button">
+                                            <svg class="h-6 w-6">
+                                                <use xlink:href="#social-share" />
+                                            </svg>
+                                        </button>
+                                        <div id="share-on-social" role="tooltip"
+                                            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-zinc-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-zinc-800">
+                                            اشتراک گذاری
+                                        </div>
+                                        <!-- Dropdown menu -->
+                                        <div class="z-10 !ml-5 hidden w-50 overflow-hidden rounded-lg border bg-muted shadow-base"
+                                            id="copy-social-share-link">
+                                            <ul class="space-y-2 p-2">
+                                                <li>
+                                                    <button type="button" data-link="https://www.google.com"
+                                                        onclick="copyToClipboardSocialShareDesktop(this)"
+                                                        class="flex w-full items-center justify-between rounded-lg px-4 py-3 text-sky-500 hover:bg-sky-500/10 dark:text-sky-400 dark:hover:bg-sky-400/10">
+                                                        <div class="flex items-center gap-x-2">
+                                                            <svg class="h-6 w-6">
+                                                                <use xlink:href="#copy"></use>
+                                                            </svg>
+                                                            <span id="copyToClipboardSocialShareText">
+                                                                کپی کردن لینک
+                                                            </span>
+                                                        </div>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Main image -->
                             <div>
                                 <img src="{{ asset($product->image) }}" alt="" class="mx-auto" loading="lazy" />
                             </div>
-
                         </div>
                     </div>
                     <div class="col-span-8 flex min-h-full flex-col">
@@ -91,89 +125,146 @@
 
                         <div class="grid flex-grow grid-cols-2 gap-x-4">
                             <!-- right side -->
+                            <div class="col-span-1">
+                                <!-- comments & SKU -->
+                                <div class="mb-4 flex items-center gap-x-4 text-sm font-light text-primary">
+                                    @if ($product->comments->count() > 0)
+                                    <div>
+                                        <a href="#"> امتیاز {{ $product->Comments->sum('rate') / $product->comments->count() }} از 5</a>
+                                    </div>
+                                    @endif
+                                    <span class="h-4 w-px rounded-full bg-background dark:bg-muted/10"></span>
+                                    <div>
+                                        <a href="#"> {{ $commentCount }} دیدگاه </a>
+                                    </div>
+                                </div>
+                                <!-- users suggestion -->
+                                <div class="mb-4 flex gap-x-2">
+                                    <svg class="h-4 w-4 text-primary">
+                                        <use xlink:href="#like" />
+                                    </svg>
+                                    <p class="text-sm font-light text-text/60">
+                                        80% از خریداران، خرید این کالا را پیشنهاد کرده‌اند
+                                    </p>
+                                </div>
 
-                            <!-- comments & SKU -->
-                            <div class="mb-4 flex items-center gap-x-4 text-sm font-light text-primary">
-
-                                <span class="h-4 w-px rounded-full bg-background dark:bg-muted/10"></span>
+                                <!-- Property -->
                                 <div>
-                                    <a href="#"> {{ $commentCount }} دیدگاه </a>
+                                    <p class="mb-6 font-medium">ویژگی های محصول</p>
+
+                                    <ul class="space-y-4">
+                                        <li class="flex gap-x-2">
+                                            <div class="min-w-fit text-text/60">نوع :</div>
+                                            <div class="text-text/90">
+                                                @if ($product->type == 0)
+                                                    متنی
+                                                @else
+                                                    صوتی
+                                                @endif
+                                            </div>
+                                        </li>
+                                        <li class="flex gap-x-2">
+                                            <div class="min-w-fit text-text/60">نویسنده :</div>
+                                            <div class="text-text/90">{{ $product->writer->name }}</div>
+                                        </li>
+                                        <li class="flex gap-x-2">
+                                            <div class="min-w-fit text-text/60">
+                                                انتشارات:
+                                            </div>
+                                            <div class="text-text/90">{{ $product->publisher->name }}</div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <!-- users suggestion -->
-                            <div class="mb-4 flex gap-x-2">
 
-                            </div>
+                            <!-- left side -->
+                            <div class="col-span-1 flex flex-col">
+                                <div class="flex-grow">
+                                    <!-- variant -->
+                                    <div class="mb-6 space-y-6">
+                                        <!-- Color -->
+                                        <div>
+                                            {{-- <div class="mb-4">انتخاب رنگ</div>
+                                            <fieldset class="flex flex-wrap items-center gap-1">
+                                                <legend class="sr-only">Color</legend>
 
-                            <!-- Property -->
-                            <div>
-                                <p class="mb-6 font-medium">ویژگی های محصول</p>
+                                                <div>
+                                                    <input checked type="radio" name="color-desktop"
+                                                        value="color-desktop-1" id="color-desktop-1"
+                                                        class="peer hidden" />
 
-                                <ul class="space-y-4">
-                                    <li class="flex gap-x-2">
-                                        <div class="min-w-fit text-text/60">نوع :</div>
-                                        <div class="text-text/90">
-                                            @if ($product->type == 0)
-                                                متنی
-                                            @else
-                                                صوتی
-                                            @endif
+                                                    <label for="color-desktop-1"
+                                                        class="relative block cursor-pointer rounded-full border-2 p-2 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
+                                                        <div class="flex items-center gap-x-2">
+                                                            <div class="h-6 w-6 rounded-full border-2 shadow-base dark:border-white/30"
+                                                                style="background-color: black"></div>
+                                                            <p class="text-text/90">مشکی</p>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="color-desktop"
+                                                        value="color-desktop-2" id="color-desktop-2"
+                                                        class="peer hidden" />
+
+                                                    <label for="color-desktop-2"
+                                                        class="relative block cursor-pointer rounded-full border-2 p-2 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
+                                                        <div class="flex items-center gap-x-2">
+                                                            <div class="h-6 w-6 rounded-full border-2 shadow-base dark:border-white/30"
+                                                                style="background-color: gray"></div>
+                                                            <p class="text-text/90">طوسی</p>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="color-desktop"
+                                                        value="color-desktop-3" id="color-desktop-3"
+                                                        class="peer hidden" />
+
+                                                    <label for="color-desktop-3"
+                                                        class="relative block cursor-pointer rounded-full border-2 p-2 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
+                                                        <div class="flex items-center gap-x-2">
+                                                            <div class="h-6 w-6 rounded-full border-2 shadow-base dark:border-white/30"
+                                                                style="background-color: white"></div>
+                                                            <p class="text-text/90">سفید</p>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </fieldset> --}}
                                         </div>
-                                    </li>
-                                    <li class="flex gap-x-2">
-                                        <div class="min-w-fit text-text/60">نویسنده :</div>
-                                        <div class="text-text/90">{{ $product->writer->name }}</div>
-                                    </li>
-                                    <li class="flex gap-x-2">
-                                        <div class="min-w-fit text-text/60">
-                                            انتشارات:
-                                        </div>
-                                        <div class="text-text/90">{{ $product->publisher->name }}</div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- left side -->
-                        <div class="col-span-1 flex flex-col">
-                            <div class="flex-grow">
-                                <!-- variant -->
-                                <div class="mb-6 space-y-6">
-                                    <!-- Color -->
-
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <!-- verified text -->
-
-                                <!-- price -->
-                                <div class="mb-6 flex items-center justify-between">
-
-                                    <div class="flex items-center gap-x-1 text-primary">
+                                <div>
+                                    <!-- verified text -->
+                                    {{-- <div
+                                        class="mb-6 flex items-center gap-x-2 rounded-lg bg-primary/10 p-4 text-sm text-primary /5">
+                                        <svg class="h-6 w-6">
+                                            <use xlink:href="#verified" />
+                                        </svg>
+                                        تضمین سلامت فیزیکی و اصالت کالا
+                                    </div> --}}
+                                    <!-- price -->
+                                    <div class="mb-6 flex items-center justify-end gap-x-1 text-primary">
                                         <span class="text-xl font-bold">
-
                                             {{ $product->discounted_price ? number_format($product->discounted_price) : $product->price }}
-
                                         </span>
                                         <span>تومان</span>
                                     </div>
-                                </div>
-                                <!-- add to cart -->
-                                <div class="mb-6">
-                                    <form action="{{ route('cart.add', $product) }}" method="post">
-                                        @csrf
-                                        <button type="submit" class="btn-primary w-full py-3">
-                                            افزودن به سبد خرید
-                                        </button>
-                                    </form>
-
+                                    <!-- add to cart -->
+                                    <div class="mb-6">
+                                        <form action="{{ route('cart.add', $product) }}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn-primary w-full py-3">
+                                                افزودن به سبد خرید
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <!-- Mobile Product Detail-->
         <div class="lg:hidden">
@@ -749,6 +840,17 @@
                                                 </fieldset>
                                             </div>
                                             <div class="col-span-2">
+                                                <div class="rating" id="rating">
+                                                    <span class="star" data-value="1">★</span>
+                                                    <span class="star" data-value="2">★</span>
+                                                    <span class="star" data-value="3">★</span>
+                                                    <span class="star" data-value="4">★</span>
+                                                    <span class="star" data-value="5">★</span>
+                                                </div>
+                                                <input type="hidden" id="rating-value" name="rate"
+                                                    value="0">
+                                            </div>
+                                            <div class="col-span-2">
                                                 <label for="comment"
                                                     class="relative block rounded-lg border shadow-base">
                                                     <textarea type="text" id="comment" name="body" rows="3"
@@ -785,7 +887,8 @@
                                         <div class="col-span-2">
                                             <!-- Suggestion -->
                                             <div class="mb-4 text-sm text-text/60">
-                                                برای ثبت دیدگاه ابتدا <a href="{{ route('login') }}" class="text-primary">وارد شوید</a>
+                                                برای ثبت دیدگاه ابتدا <a href="{{ route('login') }}"
+                                                    class="text-primary">وارد شوید</a>
                                             </div>
                                         </div>
                                     </div>
@@ -826,6 +929,14 @@
                                                             class="h-3 w-px rounded-full bg-background dark:bg-muted/10"></span>
                                                         <div class="text-sm text-text/60">{{ $comment->user->name }}
                                                         </div>
+                                                    </div>
+                                                    <div class="flex justify-end items-center flex-grow">
+                                                        @for ($i = 0; $i < $comment->rate; $i++)
+                                                            <span class="star filled">★</span>
+                                                        @endfor
+                                                        @for ($i = 0; $i < 5 - $comment->rate; $i++)
+                                                            <span class="star">★</span>
+                                                        @endfor
                                                     </div>
                                                 </div>
                                                 <div class="py-2">
@@ -1056,6 +1167,30 @@
             });
         </script>
     @endif
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const stars = document.querySelectorAll('.star');
+            const ratingValue = document.getElementById('rating-value');
+
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    let value = star.getAttribute('data-value');
+                    ratingValue.value = value;
+
+                    // پاک کردن همه ستاره‌ها
+                    stars.forEach(s => s.classList.remove('filled'));
+
+                    // پر کردن ستاره‌های موردنظر از راست به چپ
+                    stars.forEach(s => {
+                        if (s.getAttribute('data-value') <= value) {
+                            s.classList.add('filled');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
     <script>
         // تابع برای تغییر وضعیت محتوا
         function setupToggle(containerId, buttonId) {

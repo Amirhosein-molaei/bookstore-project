@@ -29,7 +29,7 @@ class Product extends Model
             ]
         ];
     }
-    
+
     public function favoritedByUsers()
     {
         return $this->morphToMany(User::class, 'favoriteable');
@@ -63,6 +63,10 @@ class Product extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+    public function scopeMostViewed($query)
+    {
+        return $query->orderBy('view_count', 'desc');
     }
 
 }

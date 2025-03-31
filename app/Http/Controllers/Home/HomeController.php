@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Controller;
 use App\Models\Content\Menu;
 use App\Models\Content\Slider;
+use App\Models\Market\Product;
 use App\Models\Market\ProductCategory;
 use App\Models\Setting\Setting;
 use Illuminate\Http\Request;
@@ -20,6 +22,7 @@ class HomeController extends Controller
         //     $submenus = Menu::where('parent_id', $menu->id)->get();
         // }
         $sliders=Slider::where('status',1)->orderBy('position')->get();
-        return view('app.home',compact('sliders'));
+        $mostViewProducts =Product::mostViewed()->get();
+        return view('app.home',compact('sliders','mostViewProducts'));
     }
 }

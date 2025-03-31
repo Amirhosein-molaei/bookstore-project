@@ -24,7 +24,10 @@ use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\Ticket\TicketFileController;
 
 Route::get('/',[\App\Http\Controllers\Home\HomeController::class ,'index'])->name('app.home');
-
+Route::get('/products/{product}', function (Product $product) {
+    $product->incrementViews();
+    return view('products.show', compact('product'));
+})->name('products.show');
 
 
 Route::get('/dashboard', function () {

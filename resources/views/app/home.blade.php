@@ -826,7 +826,7 @@
             <!-- Section Header -->
             <div class="mb-4 flex items-center justify-between">
                 <h3 class="font-medium md:text-lg lg:text-xl">
-                    پرفروش ترین محصولات
+                    پربازدید ترین محصولات
                 </h3>
                 <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./shop.html">
                     مشاهده همه
@@ -840,6 +840,7 @@
             <!-- Section Content -->
             <div class="swiper product-slider p-px">
                 <div class="swiper-wrapper">
+                    @foreach($mostViewProducts as $mostViewProduct)
                     <div class="swiper-slide">
                         <div
                             class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
@@ -849,14 +850,14 @@
                                 <div class="mb-2 md:mb-5" draggable="false">
                                     <a href="./product-detail.html">
                                         <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                            src="./assets/images/products/p2.png" />
+                                            src="{{asset($mostViewProduct->image)}}" />
                                     </a>
                                 </div>
                                 <!-- title -->
                                 <div class="mb-2">
                                     <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
                                         href="./product-detail.html">
-                                        کفش پیاده روی مردانه نیو بالانس مدل Mdrftlm2
+                                        {{$mostViewProduct->title}}
                                     </a>
                                 </div>
                                 <!-- Prices -->
@@ -867,7 +868,7 @@
                                         <div></div>
                                         <!-- New price -->
                                         <div class="text-sm font-bold text-primary md:text-base">
-                                            8,000,000
+                                            {{number_format($mostViewProduct->price)}}
                                             <span class="text-xs font-light md:text-sm">تومان</span>
                                         </div>
                                     </div>
@@ -875,251 +876,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
-                        <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <!-- Product Card -->
-                            <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                <!-- image -->
-                                <div class="mb-2 md:mb-5" draggable="false">
-                                    <a href="./product-detail.html">
-                                        <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                            src="./assets/images/products/p5.png" />
-                                    </a>
-                                </div>
-                                <!-- title -->
-                                <div class="mb-2">
-                                    <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                        href="./product-detail.html">
-                                        کفش پیاده روی زنانه مدل LT RBK
-                                    </a>
-                                </div>
-                                <!-- Prices -->
-                                <div class="flex flex-col">
-                                    <!-- Old price -->
-                                    <div class="h-5 text-left"></div>
-                                    <div class="flex items-center justify-between">
-                                        <div></div>
-                                        <!-- New price -->
-                                        <div class="text-sm font-bold text-primary md:text-base">
-                                            100,000
-                                            <span class="text-xs font-light md:text-sm">تومان</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <!-- Product Card -->
-                        <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                <!-- image -->
-                                <div class="mb-2 md:mb-5" draggable="false">
-                                    <a href="./product-detail.html">
-                                        <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                            src="./assets/images/products/p1.png" />
-                                    </a>
-                                </div>
-                                <!-- title -->
-                                <div class="mb-2">
-                                    <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                        href="./product-detail.html">
-                                        کفش پیاده روی مردانه نیو بالانس مدل M520LN7
-                                    </a>
-                                </div>
-                                <!-- Prices -->
-                                <div class="flex flex-col">
-                                    <!-- Old price -->
-                                    <div class="h-5 text-left"></div>
-                                    <div class="flex items-center justify-between">
-                                        <div></div>
-                                        <!-- New price -->
-                                        <div class="text-sm font-bold text-primary md:text-base">
-                                            5,000,000
-                                            <span class="text-xs font-light md:text-sm">تومان</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <!-- Product Card -->
-                            <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                <!-- image -->
-                                <div class="mb-2 md:mb-5" draggable="false">
-                                    <a href="./product-detail.html">
-                                        <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                            src="./assets/images/products/p6.png" />
-                                    </a>
-                                </div>
-                                <!-- title -->
-                                <div class="mb-2">
-                                    <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                        href="./product-detail.html">
-                                        کیف اداری مردانه درسا مدل 53156
-                                    </a>
-                                </div>
-                                <!-- Prices -->
-                                <div class="flex flex-col">
-                                    <!-- Old price -->
-                                    <div class="h-5 text-left"></div>
-                                    <div class="flex items-center justify-between">
-                                        <div></div>
-                                        <!-- New price -->
-                                        <div class="text-sm font-bold text-primary md:text-base">
-                                            9,000,000
-                                            <span class="text-xs font-light md:text-sm">تومان</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <!-- Product Card -->
-                            <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                <!-- image -->
-                                <div class="mb-2 md:mb-5" draggable="false">
-                                    <a href="./product-detail.html">
-                                        <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                            src="./assets/images/products/p7.png" />
-                                    </a>
-                                </div>
-                                <!-- title -->
-                                <div class="mb-2">
-                                    <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                        href="./product-detail.html">
-                                        کیف دستی دلسی مدل CHATELET AIR 2.0 کد 1676350
-                                    </a>
-                                </div>
-                                <!-- Prices -->
-                                <div class="flex flex-col">
-                                    <!-- Old price -->
-                                    <div class="h-5 text-left"></div>
-                                    <div class="flex items-center justify-between">
-                                        <div></div>
-                                        <!-- New price -->
-                                        <div class="text-sm font-bold text-primary md:text-base">
-                                            500,000
-                                            <span class="text-xs font-light md:text-sm">تومان</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <!-- Product Card -->
-                            <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                <!-- image -->
-                                <div class="mb-2 md:mb-5" draggable="false">
-                                    <a href="./product-detail.html">
-                                        <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                            src="./assets/images/products/p4.png" />
-                                    </a>
-                                </div>
-                                <!-- title -->
-                                <div class="mb-2">
-                                    <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                        href="./product-detail.html">
-                                        کفش پیاده روی زنانه مدل M47767
-                                    </a>
-                                </div>
-                                <!-- Prices -->
-                                <div class="flex flex-col">
-                                    <!-- Old price -->
-                                    <div class="h-5 text-left"></div>
-                                    <div class="flex items-center justify-between">
-                                        <div></div>
-                                        <!-- New price -->
-                                        <div class="text-sm font-bold text-primary md:text-base">
-                                            400,000
-                                            <span class="text-xs font-light md:text-sm">تومان</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <!-- Product Card -->
-                            <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                <!-- image -->
-                                <div class="mb-2 md:mb-5" draggable="false">
-                                    <a href="./product-detail.html">
-                                        <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                            src="./assets/images/products/p3.png" />
-                                    </a>
-                                </div>
-                                <!-- title -->
-                                <div class="mb-2">
-                                    <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                        href="./product-detail.html">
-                                        کفش پیاده روی مردانه نیو بالانس مدل Mdrftbg2
-                                    </a>
-                                </div>
-                                <!-- Prices -->
-                                <div class="flex flex-col">
-                                    <!-- Old price -->
-                                    <div class="h-5 text-left"></div>
-                                    <div class="flex items-center justify-between">
-                                        <div></div>
-                                        <!-- New price -->
-                                        <div class="text-sm font-bold text-primary md:text-base">
-                                            10,000,000
-                                            <span class="text-xs font-light md:text-sm">تومان</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <!-- Product Card -->
-                        <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                <!-- image -->
-                                <div class="mb-2 md:mb-5" draggable="false">
-                                    <a href="./product-detail.html">
-                                        <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                            src="./assets/images/products/p8.png" />
-                                    </a>
-                                </div>
-                                <!-- title -->
-                                <div class="mb-2">
-                                    <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                        href="./product-detail.html">
-                                        کیف دوشی زنانه درسا مدل 49787
-                                    </a>
-                                </div>
-                                <!-- Prices -->
-                                <div class="flex flex-col">
-                                    <!-- Old price -->
-                                    <div class="h-5 text-left"></div>
-                                    <div class="flex items-center justify-between">
-                                        <div></div>
-                                        <!-- New price -->
-                                        <div class="text-sm font-bold text-primary md:text-base">
-                                            4,000,000
-                                            <span class="text-xs font-light md:text-sm">تومان</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>

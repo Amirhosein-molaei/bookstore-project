@@ -16,7 +16,7 @@ class ProductController extends Controller
         $relatedProducts = Product::where('product_category_id', $product->category->id)->whereNot('id', $product->id)->limit(10)->get();
         $commentCount = $product->comments()->where('status', 2)->count();
         $productFiles = $product->files()->get();
-        $comments = $product->comments()->whereNull('parent_id')->where('status', 2)->orderByDesc('created_at')->limit(10)->get();
+        $comments = $product->comments()->whereNull('parent_id')->where('status', 2)->orderByDesc('created_at')->paginate(10);
         $commentAnswers = $product->comments()->whereNotNull('parent_id')->where('status', 2)->orderByDesc('created_at')->limit(3)->get();
         return view('app.product', compact('product', 'relatedProducts', 'commentCount', 'productFiles', 'comments', 'commentAnswers'));
     }
@@ -32,7 +32,7 @@ class ProductController extends Controller
         $inputs['status'] = 0;
 
         $comment = Comment::create($inputs);
-        return redirect()->back()->with('swal-success', '  کامنت با موفقیت ثبت شد و پس از تایید نمایش داده میشود.');
+        return redirect()->back()->with('success', 'دیدگاه شما ثبت شد و پس از تایید نمایش داده میشود.');
     }
 
     public function likeComment(Comment $comment)
@@ -43,7 +43,7 @@ class ProductController extends Controller
 
         if ($existingLike) {
             if ($existingLike->status == 1) {
-                return redirect()->back()->with('swal-error', 'شما قبلاً این کامنت را لایک کرده‌اید.');
+                return redirect()->back()->with('error', 'شما قبلاً این کامنت را لایک کرده‌اید.');
             } elseif ($existingLike->status == 2) {
                 $existingLike->delete();
                 $comment->decrement('dislikes');
@@ -68,7 +68,7 @@ class ProductController extends Controller
 
         if ($existingLike) {
             if ($existingLike->status == 2) {
-                return redirect()->back()->with('swal-error', 'شما قبلاً این کامنت را دیس‌لایک کرده‌اید.');
+                return redirect()->back()->with('error', 'شما قبلاً این کامنت را دیس‌لایک کرده‌اید.');
             } elseif ($existingLike->status == 1) {
                 // اگه قبلاً لایک کرده، لایک رو حذف کن و دیس‌لایک کن
                 $existingLike->delete();
@@ -89,12 +89,12 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         if (!$user) {
-            return redirect()->back()->with('swal-error', 'لطفا ابتدا وارد شوید');
+            return redirect()->back()->with('error', 'لطفا ابتدا وارد شوید');
         }
 
         $comment = Comment::findOrFail($request->comment_id);
         if ($comment->parent_id != null) {
-            return redirect()->back()->with('swal-error', 'شما تنها مجاز به پاسخگویی کامنت اصلی هستید.');
+            return redirect()->back()->with('error', 'شما تنها مجاز به پاسخگویی کامنت اصلی هستید.');
         }
 
         $request->validate([
@@ -109,6 +109,6 @@ class ProductController extends Controller
         $inputs['status'] = 0;
 
         Comment::create($inputs);
-        return redirect()->back()->with('swal-success', 'کامنت با موفقیت ثبت شد و پس از تایید نمایش داده خواهد شد .');
+        return redirect()->back()->with('success', 'کامنت با موفقیت ثبت شد و پس از تایید نمایش داده خواهد شد .');
     }
 }

@@ -426,7 +426,7 @@
                                         <!-- Old price -->
                                         <div class="h-5 text-left">
                                             @if ($mosteSelledProduct->discounted_price)
-                                                <del>{{ $mosteSelledProduct->price }}</del>
+                                                <del class="text-sm text-text/60 decoration-warning md:text-base">{{ $mosteSelledProduct->price }}</del>
                                                 <span class="text-xs font-light md-text-sm">تومان</span>
                                             @endif
                                         </div>

@@ -18,7 +18,7 @@ class FavoriteController extends Controller
 			$favoritBook = Favorite::where("user_id", $user->id)->where("favoriteable_type", Product::class)->where("favoriteable_id", $product->id)->first();
 			if ($favoritBook) {
 				$favoritBook->delete();
-				return redirect()->back()->with('swal-error', 'کتاب از لیست علاقه مندی ها حذف شد');
+				return redirect()->back()->with('error', 'کتاب از لیست علاقه مندی ها حذف شد');
 			} else {
 				Favorite::restoreOrCreate([
 					"user_id" => $user->id,
@@ -29,7 +29,7 @@ class FavoriteController extends Controller
 					"favoriteable_type" => Product::class,
 					"favoriteable_id" => $product->id
 				]);
-				return redirect()->back()->with('swal-success', 'کتاب با موفقیت به لیست علاقه مندی ها اضافه شد');
+				return redirect()->back()->with('success', 'کتاب به لیست علاقه مندی ها اضافه شد');
 			}
 		}
 	}

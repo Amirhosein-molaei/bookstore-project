@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\CheckoutController;
 use App\Http\Controllers\Home\FavoriteController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\User\UserController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Market\CopanController;
 use App\Http\Controllers\Admin\Content\SlideController;
 use App\Http\Controllers\Admin\Ticket\TicketController;
+use App\Http\Controllers\Admin\Content\BannerController;
 use App\Http\Controllers\Admin\Content\WriterController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductController;
@@ -74,8 +76,8 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
         Route::resource('tags', TagController::class);
         Route::resource('blog', BlogController::class);
         //   banners
-        Route::resource('/banners',\App\Http\Controllers\Admin\Content\BannerController::class);
-        Route::post('banners/{banner}/select', [\App\Http\Controllers\Admin\Content\BannerController::class, 'select'])->name('banners.select');
+        Route::resource('/banners',BannerController::class);
+        Route::post('banners/{banner}/select', [BannerController::class, 'select'])->name('banners.select');
     });
 
 
@@ -114,7 +116,18 @@ Route::get('/product/{product}', [HomeProductController::class, 'show'])->name('
 
 Route::middleware('auth')->group(function(){
     //cart
+    Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
+    Route::get('/cart/empty', [CartController::class, 'emptyCart'])->name('cart.empty');
     Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/remove/{cartItem}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+
+    Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout');
+    Route::post('/checkout/apply-discount', [CheckoutController::class, 'applyDiscount'])->name('checkout.apply-discount');
+    Route::post('/checkout/remove-discount', [CheckoutController::class, 'removeDiscount'])->name('checkout.remove-discount');
+    Route::post('/checkout/submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/fail', [CheckoutController::class, 'fail'])->name('checkout.fail');
+    
     // add to favorite and comment
     Route::post('product/favorite/{product}',[FavoriteController::class, 'addProduct'])->name('product.favorite'); 
     Route::post('product/comment/{product}',[HomeProductController::class,'sendComment'])->name('product.comment');

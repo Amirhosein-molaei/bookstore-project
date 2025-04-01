@@ -1,4 +1,7 @@
 @extends('app.layouts.master')
+@php
+    use Morilog\Jalali\Jalalian;
+@endphp
 @section('title', $product->title)
 @section('content')
     <div class="container">
@@ -9,8 +12,8 @@
                 <nav aria-label="Breadcrumb" class="w-fit rounded-lg bg-muted px-4 py-4 shadow-base">
                     <ol class="flex flex-wrap items-center justify-center gap-x-2 gap-y-4">
                         <li class="flex items-center gap-x-2">
-                            <a href="./index.html" class="text-sm text-text/90 hover: hover:">
-                                روتی کالا
+                            <a href="{{ route('app.home') }}" class="text-sm text-text/90 hover: hover:">
+                                {{ $setting->title }}
                             </a>
                             <span class="text-text/90">
                                 <svg class="h-5 w-5">
@@ -48,7 +51,8 @@
                                     <!-- add to favorite -->
                                     @if (Auth::check())
                                         <div>
-                                            <form style="margin-bottom: 0" action="{{ route('product.favorite', $product) }}" method="post">
+                                            <form style="margin-bottom: 0"
+                                                action="{{ route('product.favorite', $product) }}" method="post">
                                                 @csrf
                                                 <button data-tooltip-target="add-to-favorite" type="submit">
                                                     @if ($product->isFavorited())
@@ -87,7 +91,7 @@
                                             id="copy-social-share-link">
                                             <ul class="space-y-2 p-2">
                                                 <li>
-                                                    <button type="button" data-link="https://www.google.com"
+                                                    <button type="button" data-link="{{ route('product', $product) }}"
                                                         onclick="copyToClipboardSocialShareDesktop(this)"
                                                         class="flex w-full items-center justify-between rounded-lg px-4 py-3 text-sky-500 hover:bg-sky-500/10 dark:text-sky-400 dark:hover:bg-sky-400/10">
                                                         <div class="flex items-center gap-x-2">
@@ -129,9 +133,10 @@
                                 <!-- comments & SKU -->
                                 <div class="mb-4 flex items-center gap-x-4 text-sm font-light text-primary">
                                     @if ($product->comments->count() > 0)
-                                    <div>
-                                        <a href="#"> امتیاز {{ $product->Comments->sum('rate') / $product->comments->count() }} از 5</a>
-                                    </div>
+                                        <div>
+                                            <a href="#"> امتیاز
+                                                {{ round($product->Comments->where('parent_id', null)->sum('rate') / $product->comments->where('parent_id', null)->count(), 1) }} از 5</a>
+                                        </div>
                                     @endif
                                     <span class="h-4 w-px rounded-full bg-background dark:bg-muted/10"></span>
                                     <div>
@@ -184,53 +189,6 @@
                                     <div class="mb-6 space-y-6">
                                         <!-- Color -->
                                         <div>
-                                            {{-- <div class="mb-4">انتخاب رنگ</div>
-                                            <fieldset class="flex flex-wrap items-center gap-1">
-                                                <legend class="sr-only">Color</legend>
-
-                                                <div>
-                                                    <input checked type="radio" name="color-desktop"
-                                                        value="color-desktop-1" id="color-desktop-1"
-                                                        class="peer hidden" />
-
-                                                    <label for="color-desktop-1"
-                                                        class="relative block cursor-pointer rounded-full border-2 p-2 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                                                        <div class="flex items-center gap-x-2">
-                                                            <div class="h-6 w-6 rounded-full border-2 shadow-base dark:border-white/30"
-                                                                style="background-color: black"></div>
-                                                            <p class="text-text/90">مشکی</p>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div>
-                                                    <input type="radio" name="color-desktop"
-                                                        value="color-desktop-2" id="color-desktop-2"
-                                                        class="peer hidden" />
-
-                                                    <label for="color-desktop-2"
-                                                        class="relative block cursor-pointer rounded-full border-2 p-2 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                                                        <div class="flex items-center gap-x-2">
-                                                            <div class="h-6 w-6 rounded-full border-2 shadow-base dark:border-white/30"
-                                                                style="background-color: gray"></div>
-                                                            <p class="text-text/90">طوسی</p>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div>
-                                                    <input type="radio" name="color-desktop"
-                                                        value="color-desktop-3" id="color-desktop-3"
-                                                        class="peer hidden" />
-
-                                                    <label for="color-desktop-3"
-                                                        class="relative block cursor-pointer rounded-full border-2 p-2 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                                                        <div class="flex items-center gap-x-2">
-                                                            <div class="h-6 w-6 rounded-full border-2 shadow-base dark:border-white/30"
-                                                                style="background-color: white"></div>
-                                                            <p class="text-text/90">سفید</p>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </fieldset> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -252,12 +210,23 @@
                                     </div>
                                     <!-- add to cart -->
                                     <div class="mb-6">
-                                        <form action="{{ route('cart.add', $product) }}" method="post">
-                                            @csrf
-                                            <button type="submit" class="btn-primary w-full py-3">
-                                                افزودن به سبد خرید
-                                            </button>
-                                        </form>
+                                        @if ($cart->hasProduct($product->id))
+                                            <form
+                                                action="{{ route('cart.remove', $product->cartItems->where('product_id', $product->id)->first()) }}"
+                                                method="post">
+                                                @csrf
+                                                <button type="submit" class="btn-red w-full py-3">
+                                                    حذف از سبد خرید
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('cart.add', $product) }}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn-primary w-full py-3">
+                                                    افزودن به سبد خرید
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -271,19 +240,20 @@
             <!-- breadcrumb -->
             <div class="mb-4 flex flex-wrap items-center gap-2">
                 <div class="flex items-center gap-x-1 text-sm font-light text-primary sm:text-base md:text-base">
-                    <a href="./index.html"> روتی کالا </a>
+                    <a href="{{ route('app.home') }}"> {{ $setting->title }} </a>
                     <svg class="h-5 w-5">
                         <use xlink:href="#chevron-left" />
                     </svg>
                 </div>
                 <div class="flex items-center gap-x-1 text-sm font-light text-primary sm:text-base md:text-base">
-                    <a href="./index.html"> کتونی </a>
+                    <a href="./index.html">
+                        {{ $product->category->parent ? $product->category->parent->name : $product->category->name }} </a>
                     <svg class="h-5 w-5">
                         <use xlink:href="#chevron-left" />
                     </svg>
                 </div>
                 <div class="line-clamp-1 text-sm font-light text-primary sm:text-base md:text-base">
-                    <a href="#">کتونی مردانه</a>
+                    <a href="#">{{ $product->category->parent ? $product->category->name : '' }}</a>
                 </div>
             </div>
             <!-- Product Detail Section -->
@@ -293,41 +263,37 @@
                     <div class="swiper product-image-mobile-swiper">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img src="./assets/images/products/p1.png" alt="" class="mx-auto" loading="lazy" />
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="./assets/images/products/p2.png" alt="" class="mx-auto" loading="lazy" />
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="./assets/images/products/p3.png" alt="" class="mx-auto"
+                                <img src="{{ asset($product->image) }}" alt="" class="mx-auto"
                                     loading="lazy" />
                             </div>
                         </div>
-                        <div class="swiper-pagination text-left"></div>
                     </div>
                     <div class="absolute left-0 top-0 z-10">
                         <div class="flex items-center gap-x-4">
                             <!-- add to favorite -->
-                            <div>
-                                <button>
-                                    <svg class="h-6 w-6">
-                                        <use xlink:href="#heart" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <!-- add to compare -->
-                            <div>
-                                <button>
-                                    <svg class="h-6 w-6">
-                                        <use xlink:href="#compare" />
-                                    </svg>
-                                </button>
-                            </div>
-
+                            @if (Auth::check())
+                                <div>
+                                    <form style="margin-bottom: 0" action="{{ route('product.favorite', $product) }}"
+                                        method="post">
+                                        @csrf
+                                        <button data-tooltip-target="add-to-favorite" type="submit">
+                                            @if ($product->isFavorited())
+                                                <svg class="h-6 w-6 text-primary">
+                                                    <use xlink:href="#heart" />
+                                                </svg>
+                                            @else
+                                                <svg class="h-6 w-6">
+                                                    <use xlink:href="#heart" />
+                                                </svg>
+                                            @endif
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
                             <!-- share on social -->
                             <div class="relative">
                                 <button type="button" onclick="copyToClipboardSocialShareMobile(this)"
-                                    data-link="https://www.google.com">
+                                    data-link="{{ route('product', $product) }}">
                                     <svg class="h-6 w-6">
                                         <use xlink:href="#social-share" />
                                     </svg>
@@ -343,214 +309,103 @@
                 <!-- breadcrumb -->
                 <div class="mb-4 flex flex-wrap items-center gap-2">
                     <div class="flex items-center gap-x-1 text-sm font-light text-primary md:text-base">
-                        <a href="#">نایک</a>
+                        <a
+                            href="#">{{ $product->category->parent ? $product->category->parent->name : $product->category->name }}</a>
                         <svg class="h-5 w-5">
                             <use xlink:href="#chevron-left" />
                         </svg>
                     </div>
                     <div class="line-clamp-1 text-sm font-light text-primary md:text-base">
-                        <a href="#"> کتونی ورزشی نایک </a>
+                        <a href="#"> {{ $product->category->parent ? $product->category->name : '' }} </a>
                     </div>
                 </div>
                 <!-- title -->
                 <div class="mb-4 font-semibold md:text-lg">
-                    کفش پیاده روی مردانه نیو بالانس مدل Mdrftlm2
+                    {{ $product->title }}
                 </div>
                 <!-- comments & SKU -->
                 <div class="flex gap-x-4 text-sm font-light text-primary md:text-base">
+                    @if ($product->comments->count() > 0)
+                        <div>
+                            <a href="#"> امتیاز
+                                {{ round($product->Comments->where('parent_id', null)->sum('rate') / $product->comments->where('parent_id', null)->count(), 1) }} از 5</a>
+                        </div>
+                    @endif
                     <div>
-                        <a href="#"> کد کالا 6457# </a>
-                    </div>
-                    <div>
-                        <a href="#"> 20 دیدگاه </a>
+                        <a href="#"> {{ $commentCount }} دیدگاه </a>
                     </div>
                 </div>
                 <div class="my-4 h-px w-full bg-background"></div>
-                <!-- variant -->
-                <div class="mb-6 space-y-4">
-                    <!-- Color -->
-                    <div class="text-sm md:text-base">انتخاب رنگ</div>
-                    <fieldset class="flex flex-wrap items-center gap-1">
-                        <legend class="sr-only">Color</legend>
+                <!-- Property -->
+                <div class="mb-6 rounded-lg bg-muted p-4 shadow-base lg:hidden">
+                    <p class="mb-6">اطلاعات محصول</p>
 
-                        <div>
-                            <input checked type="radio" name="color" value="color-1" id="color-1"
-                                class="peer hidden" />
-
-                            <label for="color-1"
-                                class="relative block cursor-pointer rounded-full border-2 p-2 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                                <div class="flex items-center gap-x-2">
-                                    <div class="h-5 w-5 rounded-full border-2 shadow-base dark:border-white/30"
-                                        style="background-color: black"></div>
-                                    <p class="text-sm text-text/90 md:text-base">مشکی</p>
-                                </div>
-                            </label>
-                        </div>
-                        <div>
-                            <input type="radio" name="color" value="color-2" id="color-2" class="peer hidden" />
-
-                            <label for="color-2"
-                                class="relative block cursor-pointer rounded-full border-2 p-2 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                                <div class="flex items-center gap-x-2">
-                                    <div class="h-5 w-5 rounded-full border-2 shadow-base dark:border-white/30"
-                                        style="background-color: gray"></div>
-                                    <p class="text-sm text-text/90 md:text-base">طوسی</p>
-                                </div>
-                            </label>
-                        </div>
-                        <div>
-                            <input type="radio" name="color" value="color-3" id="color-3" class="peer hidden" />
-
-                            <label for="color-3"
-                                class="relative block cursor-pointer rounded-full border-2 p-2 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                                <div class="flex items-center gap-x-2">
-                                    <div class="h-5 w-5 rounded-full border-2 shadow-base dark:border-white/30"
-                                        style="background-color: white"></div>
-                                    <p class="text-sm text-text/90 md:text-base">سفید</p>
-                                </div>
-                            </label>
-                        </div>
-                    </fieldset>
-                    <!-- Size -->
-
-                    <div class="mb-4 text-sm md:text-base">انتخاب سایز</div>
-                    <fieldset class="mb-4 flex flex-wrap items-center gap-2">
-                        <legend class="sr-only">Size</legend>
-
-                        <div>
-                            <input checked type="radio" name="size-mobile" value="size-mobile-1" id="size-mobile-1"
-                                class="peer hidden" />
-
-                            <label for="size-mobile-1"
-                                class="relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 p-1 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                                <p class="text-sm font-bold text-text/90 md:text-base">
-                                    37
-                                </p>
-                            </label>
-                        </div>
-                        <div>
-                            <input type="radio" name="size-mobile" value="size-mobile-2" id="size-mobile-2"
-                                class="peer hidden" />
-
-                            <label for="size-mobile-2"
-                                class="relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 p-1 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                                <p class="text-sm font-bold text-text/90 md:text-base">
-                                    40
-                                </p>
-                            </label>
-                        </div>
-                        <div>
-                            <input type="radio" name="size-mobile" value="size-mobile-3" id="size-mobile-3"
-                                class="peer hidden" />
-
-                            <label for="size-mobile-3"
-                                class="relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 p-1 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                                <p class="text-sm font-bold text-text/90 md:text-base">
-                                    44
-                                </p>
-                            </label>
-                        </div>
-                    </fieldset>
-
-                    <!-- Quantity -->
-                    <div class="mb-4 text-sm md:text-base">انتخاب تعداد</div>
-                    <div class="flex h-12 w-40 items-center justify-between rounded-lg border px-4 py-1">
-                        <button type="button" data-action="increment">
-                            <svg class="h-7 w-7 text-primary">
-                                <use xlink:href="#plus" />
-                            </svg>
-                        </button>
-                        <input value="1" disabled type="number"
-                            class="flex h-6 w-6 w-full select-none items-center justify-center bg-transparent text-center outline-none" />
-                        <button type="button" data-action="decrement">
-                            <svg class="h-7 w-7 text-red-600 dark:text-red-500">
-                                <use xlink:href="#minus" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div class="flex items-center gap-x-2 rounded-lg border px-4 py-3 text-sm text-text/60">
-                        <svg class="h-5 w-5">
-                            <use xlink:href="#refund" />
-                        </svg>
-                        هفت روز ضمانت بازگشت کالا
-                    </div>
-
-                    <div class="flex items-center gap-x-2 rounded-lg border px-4 py-3 text-sm text-text/60">
-                        <svg class="h-6 w-6">
-                            <use xlink:href="#verified" />
-                        </svg>
-                        تضمین اصالت کالا
-                    </div>
-                    <div class="flex items-center gap-x-2 rounded-lg border px-4 py-3 text-sm text-text/60">
-                        <svg class="h-6 w-6">
-                            <use xlink:href="#support" />
-                        </svg>
-                        هفت روز هفته
-                    </div>
-                    <div class="flex items-center gap-x-2 rounded-lg border px-4 py-3 text-sm text-text/60">
-                        <svg class="h-6 w-6">
-                            <use xlink:href="#fast-delivery" />
-                        </svg>
-                        تحویل اکسپرس در تهران, کرج
-                    </div>
-                </div>
-            </div>
-            <!-- Property -->
-            <div class="mb-6 rounded-lg bg-muted p-4 shadow-base lg:hidden">
-                <p class="mb-6">ویژگی های محصول</p>
-
-                <ul class="space-y-4">
-                    <li class="flex gap-x-2">
-                        <div class="min-w-fit text-sm text-text/60">جنس :</div>
-                        <div class="text-sm text-text/90">پارچه</div>
-                    </li>
-                    <li class="flex gap-x-2">
-                        <div class="min-w-fit text-sm text-text/60">جنس زیره :</div>
-                        <div class="text-sm text-text/90">لاستیک</div>
-                    </li>
-                    <li class="flex gap-x-2">
-                        <div class="min-w-fit text-sm text-text/60">
-                            نحوه بسته شدن کفش :
-                        </div>
-                        <div class="text-sm text-text/90">بندی</div>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Add to Cart -->
-            <div class="fixed inset-x-0 bottom-0 z-10 bg-muted p-5">
-                <div class="flex items-center justify-between gap-x-6">
-                    <!-- Button -->
-                    <div class="flex grow">
-                        <button class="btn-primary w-full px-4 py-3 text-sm">
-                            افزودن به سبد خرید
-                        </button>
-                    </div>
-                    <!-- Price -->
-                    <div class="space-y-1">
-                        <!-- Old Price -->
-                        <div class="flex items-center gap-x-2">
-                            <div>
-                                <del class="text-sm text-text/60 decoration-warning md:text-base">
-                                    10,000,000
-                                </del>
+                    <ul class="space-y-4">
+                        <li class="flex gap-x-2">
+                            <div class="min-w-fit text-sm text-text/60">نوع :</div>
+                            <div class="text-sm text-text/90">
+                                @if ($product->type == 0)
+                                    متنی
+                                @else
+                                    صوتی
+                                @endif
                             </div>
-                            <div
-                                class="flex w-10 items-center justify-center rounded-full bg-warning py-0.5 text-sm font-bold text-white dark:bg-red-600">
-                                50%
+                        </li>
+                        <li class="flex gap-x-2">
+                            <div class="min-w-fit text-sm text-text/60">نویسنده :</div>
+                            <div class="text-sm text-text/90">
+                                {{ $product->writer->name }}
+                            </div>
+                        </li>
+                        <li class="flex gap-x-2">
+                            <div class="min-w-fit text-sm text-text/60">
+                                انتشارات :
+                            </div>
+                            <div class="text-sm text-text/90">
+                                {{ $product->publisher->name }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Add to Cart -->
+                <div class="fixed inset-x-0 bottom-0 z-10 bg-muted p-5">
+                    <div class="flex items-center justify-between gap-x-6">
+                        <!-- Button -->
+                        <div class="flex grow">
+                            <button class="btn-primary w-full px-4 py-3 text-sm">
+                                افزودن به سبد خرید
+                            </button>
+                        </div>
+                        <!-- Price -->
+                        <div class="space-y-1">
+                            <!-- Old Price -->
+                            @if ($product->discounted_price)
+                                <div class="flex items-center gap-x-2">
+                                    <div>
+                                        <del class="text-sm text-text/60 decoration-warning md:text-base">
+                                            {{ number_format($product->price) }}
+                                        </del>
+                                    </div>
+                                    <div
+                                        class="flex w-10 items-center justify-center rounded-full bg-warning py-0.5 text-sm font-bold text-white dark:bg-red-600">
+                                        {{ $product->discount_percentage }}%
+                                    </div>
+                                </div>
+                            @endif
+                            <!-- New Price -->
+                            <div class="text-primary">
+                                <span
+                                    class="font-semibold">{{ $product->discounted_price ? $product->discounted_price : $product->price }}</span>
+                                <span class="text-sm font-light">تومان</span>
                             </div>
                         </div>
-                        <!-- New Price -->
-                        <div class="text-primary">
-                            <span class="font-semibold">1,200,000</span>
-                            <span class="text-sm font-light">تومان</span>
-                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
+
         <div class="mb-6">
             <div>
                 <!-- Section Header -->
@@ -847,8 +702,7 @@
                                                     <span class="star" data-value="4">★</span>
                                                     <span class="star" data-value="5">★</span>
                                                 </div>
-                                                <input type="hidden" id="rating-value" name="rate"
-                                                    value="0">
+                                                <input type="hidden" id="rating-value" name="rate" value="0">
                                             </div>
                                             <div class="col-span-2">
                                                 <label for="comment"
@@ -897,11 +751,9 @@
                             <!-- Comments -->
                             <div class="order-first col-span-12 mb-10 max-h-[500px] overflow-hidden md:order-last md:col-span-8 lg:col-span-9"
                                 id="commentsContainer">
-                                <!-- Desktop Comments -->
-
-                                <div class="hidden md:block">
+                                <div>
                                     <ul class="mb-8 space-y-4 divide-y divide-gray-200 dark:divide-white/10">
-                                        @foreach ($comments as $comment)
+                                        @forelse ($comments as $comment)
                                             <li class="space-y-2">
                                                 <div class="mt-4 flex items-center gap-x-4 pb-6">
                                                     @if ($comment->suggested)
@@ -910,20 +762,23 @@
                                                             <svg class="h-5 w-5">
                                                                 <use xlink:href="#like" />
                                                             </svg>
-                                                            پیشنهاد میکنم
+                                                            <span class="hidden md:block">
+                                                                پیشنهاد میکنم
+                                                            </span>
                                                         </div>
                                                     @else
-                                                        <div class="flex items-center gap-x-2 text-danger">
-
-                                                            <svg class="h-5 w-5 text-sm xs:text-base">
+                                                        <div class="flex items-center gap-x-2 text-red-500 dark:text-red-400">
+                                                            <svg class="h-5 w-5">
                                                                 <use xlink:href="#dislike" />
                                                             </svg>
-                                                            پیشنهاد نمیکنم
+                                                            <span class="hidden md:block">
+                                                                پیشنهاد نمیکنم
+                                                            </span>
                                                         </div>
                                                     @endif
                                                     <div class="flex items-center gap-x-2">
                                                         <div class="text-sm text-text/60">
-                                                            {{ jdate($comment->created_at) }}
+                                                            {{ Jalalian::forge($comment->created_at)->format('%B %d، %Y') }}
                                                         </div>
                                                         <span
                                                             class="h-3 w-px rounded-full bg-background dark:bg-muted/10"></span>
@@ -953,36 +808,41 @@
                                                         </button>
                                                     </div>
 
-                                                    <div class="flex items-center justify-end gap-x-8">
+                                                    <div class="flex items-center justify-between gap-x-8">
                                                         @if (Auth::check())
                                                             <div class="text-sm text-text/60">
                                                                 آیا این دیدگاه برایتان مفید بود؟
                                                             </div>
                                                             <!-- like & dislike -->
-                                                            <form action="{{ route('product.comment.like', $comment) }}"
-                                                                method="post">
-                                                                @csrf
+                                                            <div class="flex gap-x-4">
+                                                                <form
+                                                                    action="{{ route('product.comment.like', $comment) }}"
+                                                                    method="post">
+                                                                    @csrf
 
-                                                                <button type="submit"
-                                                                    class="flex items-center gap-x-2 text-primary transition-all duration-200 hover:text-emerald-400 hover:dark:text-primary">
-                                                                    <span class="text-sm"> {{ $comment->likes }} </span>
-                                                                    <svg class="h-6 w-6">
-                                                                        <use xlink:href="#like" />
-                                                                    </svg>
-                                                                </button>
-                                                            </form>
-                                                            <form
-                                                                action="{{ route('product.comment.dislike', $comment) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                <button type="submit"
-                                                                    class="flex items-center gap-x-2 text-red-500 transition-all duration-200 hover:text-red-400 dark:text-red-400 hover:dark:text-red-500">
-                                                                    <span class="text-sm"> {{ $comment->dislikes }}</span>
-                                                                    <svg class="h-6 w-6">
-                                                                        <use xlink:href="#dislike" />
-                                                                    </svg>
-                                                                </button>
-                                                            </form>
+                                                                    <button type="submit"
+                                                                        class="flex items-center gap-x-2 text-primary transition-all duration-200 hover:text-emerald-400 hover:dark:text-primary">
+                                                                        <span class="text-sm"> {{ $comment->likes }}
+                                                                        </span>
+                                                                        <svg class="h-6 w-6">
+                                                                            <use xlink:href="#like" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </form>
+                                                                <form
+                                                                    action="{{ route('product.comment.dislike', $comment) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="flex items-center gap-x-2 text-red-500 transition-all duration-200 hover:text-red-400 dark:text-red-400 hover:dark:text-red-500">
+                                                                        <span class="text-sm">
+                                                                            {{ $comment->dislikes }}</span>
+                                                                        <svg class="h-6 w-6 fill-red-500">
+                                                                            <use xlink:href="#dislike" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
                                                         @endif
                                                         <!-- end like & dislike -->
                                                     </div>
@@ -1009,77 +869,18 @@
                                                     </ul>
                                                 @endif
                                             </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-
-                                <!-- Mobile Comments -->
-                                <div class="md:hidden">
-                                    <div class="swiper product-comments-swiper">
-                                        <div class="swiper-wrapper">
-                                            @foreach ($comments as $comment)
-                                                <div class="swiper-slide">
-                                                    <div class="flex h-64 flex-col rounded-lg border px-4 py-6">
-                                                        <div class="flex items-center justify-between gap-2 mb-4">
-                                                            @if ($comment->suggested)
-                                                                <div class="flex items-center gap-x-2 text-primary">
-                                                                    <svg class="h-5 w-5">
-                                                                        <use xlink:href="#like" />
-                                                                    </svg>
-                                                                    پیشنهاد میکنم
-                                                                </div>
-                                                            @else
-                                                                <div
-                                                                    class="flex items-center gap-x-2 text-red-500 dark:text-red-400">
-                                                                    <svg class="h-5 w-5">
-                                                                        <use xlink:href="#dislike" />
-                                                                    </svg>
-                                                                    پیشنهاد نمیکنم
-                                                                </div>
-                                                            @endif
-                                                            <button data-comment-id="{{ $comment->id }}"
-                                                                class="btn-secondary-nobg reply-btn" type="button">
-                                                                پاسخ
-                                                                <svg class="w-5 h-5">
-                                                                    <use xlink:href="#chevron-left" />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                        <div class="flex-grow space-y-2">
-                                                            <h5 class="text-sm leading-relaxed">{{ $comment->body }}</h5>
-                                                        </div>
-                                                        <div class="flex items-center justify-between">
-                                                            <div class="flex items-center gap-x-4">
-                                                                <button class="relative text-primary">
-                                                                    <svg class="h-6 w-6">
-                                                                        <use xlink:href="#like" />
-                                                                    </svg>
-                                                                    <span
-                                                                        class="absolute -right-2 top-6 text-sm">{{ $comment->likes }}</span>
-                                                                </button>
-                                                                <button class="relative text-red-500 dark:text-red-400">
-                                                                    <svg class="h-6 w-6">
-                                                                        <use xlink:href="#dislike" />
-                                                                    </svg>
-                                                                    <span
-                                                                        class="absolute -right-2 top-6 text-sm">{{ $comment->dislikes }}</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="flex items-center gap-x-2">
-                                                                <div class="text-xs text-text/60">
-                                                                    {{ jdate($comment->created_at) }}</div>
-                                                                <span
-                                                                    class="h-3 w-px rounded-full bg-background dark:bg-muted/10"></span>
-                                                                <div class="text-xs text-text/60">
-                                                                    {{ $comment->user->name }}</div>
-                                                            </div>
-                                                        </div>
-
-                                                        <!-- like & dislike -->
-                                                    </div>
+                                        @empty
+                                            <li class="py-4">
+                                                <div class="py-4 pr-8 border-r dark:border-white/10">
+                                                    <h5 class="mb-4 leading-relaxed xl:text-lg">
+                                                        دیدگاهی برای این محصول ثبت نشده است.
+                                                    </h5>
                                                 </div>
-                                            @endforeach
-                                        </div>
+                                            </li>
+                                        @endforelse
+                                    </ul>
+                                    <div>
+                                        {{ $comments->links() }}
                                     </div>
                                 </div>
                             </div>
@@ -1096,53 +897,52 @@
                 </div>
             </div>
         </div>
-    </div>
 
 
 
-    <!--my Modal for submitting answers -->
-    <div id="submit-answers-to-comments-modal" tabindex="-1" aria-hidden="true"
-        class="fixed inset-0 z-50 hidden w-full h-full flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto">
-        <div class="relative w-full max-w-md max-h-full">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">ثبت پاسخ</h3>
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-hide="submit-answers-to-comments-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                        <span class="sr-only">بستن مدال</span>
-                    </button>
-                </div>
-                <div class="p-4">
-                    <form id="answer-form" method="POST" action="{{ route('product.comment.answer', $product) }}">
-                        @csrf
-                        <input type="hidden" name="comment_id" id="comment-id">
-                        <div class="col-span-2">
-                            <label for="comment" class="relative block rounded-lg border shadow-base">
-                                <textarea type="text" id="comment" name="body" rows="3"
-                                    class="main-scroll peer w-full rounded-lg border-none bg-transparent px-4 py-3 placeholder-transparent focus:outline-none focus:ring-0"
-                                    placeholder="متن دیدگاه"></textarea>
-                                @error('body')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
-                                <span
-                                    class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">متن
-                                    دیدگاه</span>
-                            </label>
-                        </div>
-                        <div class="flex justify-end mt-4">
-                            <button type="submit" class="btn-primary w-full px-4 py-2 md:w-auto">ثبت پاسخ</button>
-                        </div>
-                    </form>
+        <!--my Modal for submitting answers -->
+        <div id="submit-answers-to-comments-modal" tabindex="-1" aria-hidden="true"
+            class="fixed inset-0 z-50 hidden w-full h-full flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto">
+            <div class="relative w-full max-w-md max-h-full">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-medium text-gray-900 dark:text-white">ثبت پاسخ</h3>
+                        <button type="button"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-hide="submit-answers-to-comments-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">بستن مدال</span>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <form id="answer-form" method="POST" action="{{ route('product.comment.answer', $product) }}">
+                            @csrf
+                            <input type="hidden" name="comment_id" id="comment-id">
+                            <div class="col-span-2">
+                                <label for="comment" class="relative block rounded-lg border shadow-base">
+                                    <textarea type="text" id="comment" name="body" rows="3"
+                                        class="main-scroll peer w-full rounded-lg border-none bg-transparent px-4 py-3 placeholder-transparent focus:outline-none focus:ring-0"
+                                        placeholder="متن دیدگاه"></textarea>
+                                    @error('body')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                    <span
+                                        class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">متن
+                                        دیدگاه</span>
+                                </label>
+                            </div>
+                            <div class="flex justify-end mt-4">
+                                <button type="submit" class="btn-primary w-full px-4 py-2 md:w-auto">ثبت پاسخ</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 @endsection
@@ -1260,6 +1060,51 @@
 
             setupReplyModal();
         });
+
+        const copyToClipboardSocialShareDesktop = (button) => {
+            const linkToCopy = button.getAttribute("data-link");
+            if (linkToCopy) {
+                navigator.clipboard
+                    .writeText(linkToCopy)
+                    .then(function() {
+                        const copyToClipboardSocialShareText = document.getElementById(
+                            "copyToClipboardSocialShareText",
+                        );
+                        copyToClipboardSocialShareText.innerText = "کپی شد !";
+
+                        // Revert the text after 5 seconds
+                        setTimeout(function() {
+                            copyToClipboardSocialShareText.innerText = "کپی کردن لینک";
+                        }, 5000);
+                    })
+                    .catch(function(err) {
+                        console.error("مشکلی در عملیات پیش آمد", err);
+                    });
+            }
+        };
+        const copyToClipboardSocialShareMobile = (button) => {
+            const linkToCopy = button.getAttribute("data-link");
+            console.log(linkToCopy);
+            if (linkToCopy) {
+                navigator.clipboard
+                    .writeText(linkToCopy)
+                    .then(function() {
+                        const copyToClipboardSocialShareNotifyMobile =
+                            document.getElementById(
+                                "notify-copied-social-share-link-mobile",
+                            );
+                        copyToClipboardSocialShareNotifyMobile.classList.remove("hidden");
+
+                        // Revert the text after 5 seconds
+                        setTimeout(function() {
+                            copyToClipboardSocialShareNotifyMobile.classList.add("hidden");
+                        }, 5000);
+                    })
+                    .catch(function(err) {
+                        console.error("مشکلی در عملیات پیش آمد", err);
+                    });
+            }
+        };
     </script>
 
 

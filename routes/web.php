@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\Ticket\TicketFileController;
 
 Route::get('/',[\App\Http\Controllers\Home\HomeController::class ,'index'])->name('app.home');
 Route::get('/blogs', [\App\Http\Controllers\Home\BlogController::class, 'index'])->name('blogs.index');
+Route::get('/blogs/{blog}', [\App\Http\Controllers\Home\BlogController::class, 'show'])->name('blogs.show');
 Route::get('/products/{product}', function (Product $product) {
     $product->incrementViews();
     return view('products.show', compact('product'));

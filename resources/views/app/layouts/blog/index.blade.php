@@ -188,7 +188,7 @@
                         @foreach($blogs as $blog)
                             <div class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
                                 <div>
-{{--                                    <a href="{{ route('blogs.show', $blog->id) }}">--}}
+                                    <a href="{{ route('blogs.show', $blog->id) }}">
                                         <div class="relative rounded-xl bg-muted p-2 shadow-base">
                                             <!-- image -->
                                             <div class="mb-2 md:mb-5" draggable="false">

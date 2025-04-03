@@ -22,7 +22,7 @@ class StoreCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'rate' => 'required|numeric|between:0,5',
             'body' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
             'suggested' => 'required|in:0,1'
         ];

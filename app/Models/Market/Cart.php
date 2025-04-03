@@ -12,8 +12,21 @@ class Cart extends Model
 
     protected $guarded = ['id'];
     
-    public function cartItems()
+    public function items()
     {
         return $this->hasMany(CartItem::class);
+    }
+
+    public function copan()
+    {
+        return $this->belongsTo(Copan::class);
+    }
+
+    public function hasProduct($productId)
+    {
+        if ($this->items()->count() == 0) {
+            return false;
+        }
+        return $this->items()->where('product_id', $productId)->exists();
     }
 }

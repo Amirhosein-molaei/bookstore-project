@@ -27,6 +27,7 @@
                         <th scope="col">عنوان</th>
                         <th scope="col">متن</th>
                         <th scope="col">بازدید</th>
+                        <th scope="col">تصویر</th>
                         <th scope="col">تاریخ ایجاد</th>
                         <th scope="col">عملیات</th>
                     </tr>
@@ -40,6 +41,9 @@
                         <td>{{ Str::limit($blog->body, 20, '...') }}</td>
                         <td>
                             {{ $blog->view_count }}
+                        </td>
+                        <td>
+                            <img src="{{asset($blog->image) }}" width="80px">
                         </td>
                         <td>{{ \Morilog\Jalali\Jalalian::fromDateTime($blog->created_at)->format('Y/m/d') }}</td>
 

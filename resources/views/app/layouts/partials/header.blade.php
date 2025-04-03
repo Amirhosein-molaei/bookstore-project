@@ -610,7 +610,12 @@
                                 </div>
                             </div>
                         </ul>
+                        <ul class="group relative z-10" id="header-desktop-indicator">
+                            <a href="{{'blogs'}}"
+                               class="flex cursor-pointer items-center gap-x-2 p-2 pt-0">بلاگ ها
+                            </a>
 
+                        </ul>
 
                         @foreach ($menus as $menu)
                             <ul class="group relative z-10" id="header-desktop-indicator">
@@ -972,6 +977,19 @@
                     </a>
                 </li>
 
+                <li>
+                    <a class="flex items-center justify-between rounded-lg px-4 py-3 hover:text-primary"
+                       href="{{ 'blogs' }}">
+                            <span class="flex items-center gap-x-2">
+                                <svg class="h-6 w-6">
+                                    <use xlink:href="#special-sale" />
+                                </svg>
+                                <span>بلاگ ها </span>
+                            </span>
+                    </a>
+
+                </li>
+
 
                 @foreach ($menus as $menu)
                     <li>
@@ -1073,6 +1091,7 @@
                                                         </span>
                                                     </a>
                                                 </li>
+
 
                                                 <li>
                                                     <a class="flex w-full items-center justify-between rounded-lg py-3 text-sm"

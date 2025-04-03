@@ -113,7 +113,6 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 Route::get('/',[HomeController::class,'index'])->name('app.home');
 Route::get('/product/{product}', [HomeProductController::class, 'show'])->name('product');
 
-
 Route::middleware('auth')->group(function(){
     //cart
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart');

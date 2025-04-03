@@ -218,6 +218,8 @@
                         <!-- Account -->
 
                         <div>
+                            @if (Auth::check())
+                                
                             <button class=" " data-dropdown-toggle="dropdownAccountDesktop"
                                 id="dropdownDefaultButton" type="button">
                                 <svg class="h-6 w-6">
@@ -236,7 +238,7 @@
                                                     <img alt="profile" class="h-8 w-8 rounded-full"
                                                         src="./assets/images/user.png" />
                                                 </span>
-                                                <span class="line-clamp-1"> نام تستی تستی </span>
+                                                <span class="line-clamp-1"> {{ Auth::user()->name }} </span>
                                             </span>
                                             <span>
                                                 <svg class="h-6 w-6">
@@ -290,26 +292,40 @@
                                         <div class="my-2 h-px w-full rounded-full bg-border"></div>
                                     </li>
                                     <li>
-                                        <a class="flex items-center justify-between rounded-lg p-4 text-red-500 hover:bg-warning/10 dark:text-red-400 dark:hover:bg-red-400/10"
-                                            href="#">
-                                            <div class="flex items-center gap-x-2">
-                                                <svg class="h-6 w-6">
-                                                    <use xlink:href="#exit" />
-                                                </svg>
-                                                <span> خروج </span>
-                                            </div>
-                                        </a>
+                                        <form action="{{ route('logout') }}" method="post" class="w-full">
+                                            @csrf
+                                            <button type="submit" class="flex items-center justify-between w-full rounded-lg p-4 text-red-500 hover:bg-warning/10 dark:text-red-400 dark:hover:bg-red-400/10">
+                                                <div class="flex items-center gap-x-2">
+                                                    <svg class="h-6 w-6">
+                                                        <use xlink:href="#exit" />
+                                                    </svg>
+                                                    <span> خروج </span>
+                                                </div></button>
+                                        </form>
                                     </li>
                                 </ul>
                             </div>
+                            @else
+                                
+                            <div class="flex items-center justify-center gap-x-1">
+                                <a href="{{ route('login') }}">
+                                    <div
+                                        class="flex h-8 cursor-pointer items-center justify-center rounded-lg px-2 text-sm font-medium transition-colors duration-200 hover:text-primary dark:hover:text-primary">
+                                        ورود
+                                    </div>
+                                </a>
+                                <span>
+                                    /
+                                </span>
+                                <a href="{{ route('register') }}">
+                                    <div
+                                        class="flex h-8 cursor-pointer items-center justify-center rounded-lg px-2 text-sm font-medium transition-colors duration-200 hover:text-primary dark:hover:text-primary">
+                                        ثبت نام
+                                    </div>
+                                </a>
+                            </div>
+                            @endif
 
-                            <!-- <a href="./login.html">
-              <div
-                class="flex h-8 cursor-pointer items-center justify-center rounded-lg border  px-4 text-sm font-medium  transition-colors duration-200 hover:bg-primary hover:text-white    dark:hover:bg-primary dark:hover:text-white"
-              >
-                ورود \ ثبت نام
-              </div>
-            </a> -->
                         </div>
                         <!-- Basket -->
                         <div>

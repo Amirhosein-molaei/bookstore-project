@@ -28,7 +28,8 @@ class User extends Authenticatable
         'password',
         'is_admin',
         'activated',
-        'is_superAdmin'
+        'is_superAdmin',
+        'mobile'
     ];
 
     /**

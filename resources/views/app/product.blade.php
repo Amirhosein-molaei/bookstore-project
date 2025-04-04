@@ -210,7 +210,7 @@
                                     </div>
                                     <!-- add to cart -->
                                     <div class="mb-6">
-                                        @if ($cart->hasProduct($product->id))
+                                        @if ($cart !== null and $cart->hasProduct($product->id))
                                             <form
                                                 action="{{ route('cart.remove', $product->cartItems->where('product_id', $product->id)->first()) }}"
                                                 method="post">

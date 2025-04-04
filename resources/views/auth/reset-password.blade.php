@@ -14,6 +14,8 @@
 </head>
 
 <body>
+    @include('auth.layouts.messages')
+
     @include('app.layouts.partials.icons')
 
     <div class="flex min-h-screen items-center justify-center bg-background">

@@ -24,7 +24,7 @@ class Cart extends Model
 
     public function hasProduct($productId)
     {
-        if ($this->items()->count() == 0) {
+        if ($this->items()->count() == 0 or $this === null) {
             return false;
         }
         return $this->items()->where('product_id', $productId)->exists();

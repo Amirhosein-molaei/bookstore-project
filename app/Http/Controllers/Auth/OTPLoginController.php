@@ -56,10 +56,9 @@ class OTPLoginController extends Controller
 
             $oldOtp = Otp::where('user_id', $user->id)->first();
 
-            // if ($oldOtp && $oldOtp->created_at->diffInMinutes(now()) < 5) {
-            //     return back()->with('error', 'لطفاً ۵ دقیقه صبر کنید و سپس مجدداً درخواست کد دهید.');
-            // }
-
+                // if ($oldOtp && $oldOtp->created_at->diffInMinutes(now()) < 3) {
+                //     return back()->with('error', 'لطفاً 3 دقیقه صبر کنید و سپس مجدداً درخواست کد دهید.');
+                // }
 
             $oldOtp ? $oldOtp->delete() : "";
             // ورود با رمز یکبار مصرف
@@ -88,7 +87,7 @@ class OTPLoginController extends Controller
                 // ارسال پیامک
                 try {
                     $smsService = new SmsService();
-                    $smsService->sendSmsOtp($identifier, "رمز یکبار مصرف شما: $otp");
+                    $smsService->sendSmsOtp($identifier, $otp->otp_code);
                 } catch (\Exception $e) {
                     return redirect()->back()->with('error', 'خطا در ارسال کد' . $e->getMessage());
                 }
@@ -144,6 +143,6 @@ class OTPLoginController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('app.home');
+        return redirect()->route('app.home')->with('success', 'ورود با موفقیت انجام شد');
     }
 }

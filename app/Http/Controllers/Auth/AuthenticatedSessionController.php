@@ -116,6 +116,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success', 'شما از حساب خود خارج شدید');
     }
 }

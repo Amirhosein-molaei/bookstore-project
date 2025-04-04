@@ -19,7 +19,7 @@
                     <button class="btn-indigo px-4 py-4">
                         {{ session('success') }}
                         <svg class="h-5 w-5">
-                            <use xlink:href="#check"></use>
+                            <use xlink:href="#close" onclick="removeButton()"></use>
                           </svg>
                     </button>
                 @endif
@@ -30,7 +30,7 @@
                     <button class="btn-rose px-4 py-4">
                         {{ session('error') }}
                         <svg class="h-5 w-5">
-                            <use xlink:href="#check"></use>
+                            <use xlink:href="#close" onclick="removeButton()"></use>
                           </svg>
                     </button>
                 @endif

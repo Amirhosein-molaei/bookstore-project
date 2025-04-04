@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    @include('auth.layouts.messages')
 
     @include('app.layouts.partials.icons')
 

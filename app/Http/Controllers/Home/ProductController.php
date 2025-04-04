@@ -14,11 +14,34 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $relatedProducts = Product::where('product_category_id', $product->category->id)->whereNot('id', $product->id)->limit(10)->get();
+
         $commentCount = $product->comments()->where('status', 2)->count();
         $productFiles = $product->files()->get();
+
         $comments = $product->comments()->whereNull('parent_id')->where('status', 2)->orderByDesc('created_at')->paginate(10);
+
         $commentAnswers = $product->comments()->whereNotNull('parent_id')->where('status', 2)->orderByDesc('created_at')->limit(3)->get();
-        return view('app.product', compact('product', 'relatedProducts', 'commentCount', 'productFiles', 'comments', 'commentAnswers'));
+
+        $this->addToRecentlyViewedProducts($product->id);
+
+        $recentlyViewds = Product::whereIn('id', $this->getRecentlyViewedProducts())->get();
+
+        return view('app.product', compact('product', 'relatedProducts', 'commentCount', 'productFiles', 'comments', 'commentAnswers', 'recentlyViewds'));
+    }
+
+    public function addToRecentlyViewedProducts($productId) {
+        $recentProducts = session()->get('recently_viewed_products', []);
+    
+        if (!in_array($productId, $recentProducts)) {
+            $recentProducts[] = $productId;
+        }
+    
+        session()->put('recently_viewed_products', $recentProducts);
+    }
+
+    public function getRecentlyViewedProducts() {
+        $products = session()->get('recently_viewed_products', []);
+        return array_slice($products, -10);
     }
 
     public function sendComment(StoreCommentRequest $request, Product $product)

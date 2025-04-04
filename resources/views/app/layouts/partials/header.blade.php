@@ -6,7 +6,7 @@
             <div class="hidden md:block">
                 <!-- Top Section -->
                 <div
-                    class="container relative z-30 flex max-w-[1680px] items-center justify-between gap-x-4 bg-muted py-4">
+                    class="container relative z-30 flex max-w-[1680px] items-center justify-between gap-x-4 bg-muted py-2">
                     <!-- logo -->
                     <div>
                         <a href="{{ route('app.home') }}">

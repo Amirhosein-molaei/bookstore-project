@@ -135,7 +135,8 @@
                                     @if ($product->comments->count() > 0)
                                         <div>
                                             <a href="#"> امتیاز
-                                                {{ round($product->Comments->where('parent_id', null)->sum('rate') / $product->comments->where('parent_id', null)->count(), 1) }} از 5</a>
+                                                {{ round($product->Comments->where('parent_id', null)->sum('rate') / $product->comments->where('parent_id', null)->count(), 1) }}
+                                                از 5</a>
                                         </div>
                                     @endif
                                     <span class="h-4 w-px rounded-full bg-background dark:bg-muted/10"></span>
@@ -204,7 +205,7 @@
                                     <!-- price -->
                                     <div class="mb-6 flex items-center justify-end gap-x-1 text-primary">
                                         <span class="text-xl font-bold">
-                                            {{ $product->discounted_price ? number_format($product->discounted_price) : $product->price }}
+                                            {{ $product->discounted_price ? number_format($product->discounted_price) : number_format($product->price) }}
                                         </span>
                                         <span>تومان</span>
                                     </div>
@@ -328,7 +329,8 @@
                     @if ($product->comments->count() > 0)
                         <div>
                             <a href="#"> امتیاز
-                                {{ round($product->Comments->where('parent_id', null)->sum('rate') / $product->comments->where('parent_id', null)->count(), 1) }} از 5</a>
+                                {{ round($product->Comments->where('parent_id', null)->sum('rate') / $product->comments->where('parent_id', null)->count(), 1) }}
+                                از 5</a>
                         </div>
                     @endif
                     <div>
@@ -470,6 +472,71 @@
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                 </div>
+                @if ($recentlyViewds)
+
+                    <!-- Section Header -->
+                    <div class="mb-4 mt-6 flex items-center justify-between">
+                        <h3 class="font-medium md:text-lg lg:text-xl">اخیرا بازدید کرده‌اید</h3>
+                    </div>
+                    <!-- Section Content -->
+                    <div class="swiper product-slider p-px">
+                        <div class="swiper-wrapper">
+
+                            @foreach ($recentlyViewds as $recentlyViewd)
+                                <div class="swiper-slide">
+                                    <div
+                                        class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
+                                        <!-- Product Card -->
+                                        <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
+                                            <!-- image -->
+                                            <div class="mb-2 md:mb-5" draggable="false">
+                                                <a href="{{ route('product', $recentlyViewd) }}">
+                                                    <img alt="{{ $recentlyViewd->title }}"
+                                                        class="mx-auto w-32 rounded-lg md:w-auto"
+                                                        src="{{ asset($recentlyViewd->image) }}" />
+                                                </a>
+                                            </div>
+                                            <!-- title -->
+                                            <div class="mb-2">
+                                                <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
+                                                    href="{{ route('product', $recentlyViewd) }}">
+                                                    {{ $recentlyViewd->title }}
+                                                </a>
+                                            </div>
+                                            <!-- Prices -->
+                                            <div class="flex flex-col">
+                                                <!-- Old price -->
+                                                <div class="h-5 text-left">
+                                                    <del class="text-sm text-text/60 decoration-warning md:text-base">
+                                                        {{ $recentlyViewd->discounted_price ? number_format($recentlyViewd->price) : '' }}
+                                                    </del>
+                                                </div>
+                                                <div class="flex items-center justify-between">
+                                                    <div>
+                                                        @if ($recentlyViewd->discount_percentage)
+                                                            <p
+                                                                class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
+                                                                {{ $recentlyViewd->discount_percentage }}
+                                                            </p>
+                                                        @endif
+                                                    </div>
+                                                    <!-- New price -->
+                                                    <div class="text-sm font-bold text-primary md:text-base">
+                                                        {{ $recentlyViewd->discounted_price ? number_format($recentlyViewd->discounted_price) : number_format($recentlyViewd->price) }}
+                                                        <span class="text-xs font-light md:text-sm">تومان</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                @endif
             </div>
         </div>
         <!-- description / specs / commment  -->
@@ -767,7 +834,8 @@
                                                             </span>
                                                         </div>
                                                     @else
-                                                        <div class="flex items-center gap-x-2 text-red-500 dark:text-red-400">
+                                                        <div
+                                                            class="flex items-center gap-x-2 text-red-500 dark:text-red-400">
                                                             <svg class="h-5 w-5">
                                                                 <use xlink:href="#dislike" />
                                                             </svg>
@@ -945,169 +1013,169 @@
         </div>
 
 
-@endsection
-@section('scripts')
-    @parent
-    @if (session('swal-success'))
+    @endsection
+    @section('scripts')
+        @parent
+        @if (session('swal-success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'موفقیت',
+                    text: '{{ session('swal-success') }}',
+                });
+            </script>
+        @endif
+
+        @if (session('swal-error'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطا',
+                    text: '{{ session('swal-error') }}',
+                });
+            </script>
+        @endif
         <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'موفقیت',
-                text: '{{ session('swal-success') }}',
-            });
-        </script>
-    @endif
+            document.addEventListener("DOMContentLoaded", function() {
+                const stars = document.querySelectorAll('.star');
+                const ratingValue = document.getElementById('rating-value');
 
-    @if (session('swal-error'))
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'خطا',
-                text: '{{ session('swal-error') }}',
-            });
-        </script>
-    @endif
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const stars = document.querySelectorAll('.star');
-            const ratingValue = document.getElementById('rating-value');
+                stars.forEach(star => {
+                    star.addEventListener('click', () => {
+                        let value = star.getAttribute('data-value');
+                        ratingValue.value = value;
 
-            stars.forEach(star => {
-                star.addEventListener('click', () => {
-                    let value = star.getAttribute('data-value');
-                    ratingValue.value = value;
+                        // پاک کردن همه ستاره‌ها
+                        stars.forEach(s => s.classList.remove('filled'));
 
-                    // پاک کردن همه ستاره‌ها
-                    stars.forEach(s => s.classList.remove('filled'));
-
-                    // پر کردن ستاره‌های موردنظر از راست به چپ
-                    stars.forEach(s => {
-                        if (s.getAttribute('data-value') <= value) {
-                            s.classList.add('filled');
-                        }
+                        // پر کردن ستاره‌های موردنظر از راست به چپ
+                        stars.forEach(s => {
+                            if (s.getAttribute('data-value') <= value) {
+                                s.classList.add('filled');
+                            }
+                        });
                     });
                 });
             });
-        });
-    </script>
+        </script>
 
-    <script>
-        // تابع برای تغییر وضعیت محتوا
-        function setupToggle(containerId, buttonId) {
-            const container = document.getElementById(containerId);
-            const button = document.getElementById(buttonId);
+        <script>
+            // تابع برای تغییر وضعیت محتوا
+            function setupToggle(containerId, buttonId) {
+                const container = document.getElementById(containerId);
+                const button = document.getElementById(buttonId);
 
-            if (!container || !button) {
-                console.error(`المنت پیدا نشد: ${containerId} یا ${buttonId}`);
-                return;
-            }
-
-            console.log(`ارتفاع ${containerId}: ${container.scrollHeight}px`);
-            const fullHeight = container.scrollHeight;
-            if (fullHeight <= 500) {
-                button.style.display = "none";
-                container.classList.remove("max-h-[500px]");
-                return;
-            }
-
-            button.addEventListener("click", () => {
-                console.log(`دکمه ${buttonId} کلیک شد`);
-                if (container.style.maxHeight === "500px") {
-                    container.style.maxHeight = "none";
-                    button.innerHTML = 'بستن <svg class="h-5 w-5"><use xlink:href="#chevron-left"/></svg>';
-                } else {
-                    container.style.maxHeight = "500px";
-                    button.innerHTML = 'مشاهده بیشتر <svg class="h-5 w-5"><use xlink:href="#chevron-left"/></svg>';
+                if (!container || !button) {
+                    console.error(`المنت پیدا نشد: ${containerId} یا ${buttonId}`);
+                    return;
                 }
-            });
 
-        }
+                console.log(`ارتفاع ${containerId}: ${container.scrollHeight}px`);
+                const fullHeight = container.scrollHeight;
+                if (fullHeight <= 500) {
+                    button.style.display = "none";
+                    container.classList.remove("max-h-[500px]");
+                    return;
+                }
 
-        // مدیریت مدال پاسخ
-        function setupReplyModal() {
-            const replyButtons = document.querySelectorAll('.reply-btn');
-            const commentIdInput = document.getElementById('comment-id');
-            const modal = document.getElementById('submit-answers-to-comments-modal');
-            const closeModalBtn = modal ? modal.querySelector('[data-modal-hide]') : null;
-
-            if (!replyButtons.length) console.error("دکمه‌های پاسخ پیدا نشدند!");
-            if (!commentIdInput) console.error("ورودی comment-id پیدا نشد!");
-            if (!modal) console.error("مدال submit-answers-to-comments-modal پیدا نشد!");
-            if (!closeModalBtn) console.error("دکمه بستن مدال پیدا نشد!");
-
-            replyButtons.forEach((button) => {
-                button.addEventListener('click', () => {
-                    const commentId = button.getAttribute('data-comment-id');
-                    console.log(`پاسخ برای کامنت ${commentId} کلیک شد`);
-                    commentIdInput.value = commentId;
-                    modal.classList.remove('hidden');
+                button.addEventListener("click", () => {
+                    console.log(`دکمه ${buttonId} کلیک شد`);
+                    if (container.style.maxHeight === "500px") {
+                        container.style.maxHeight = "none";
+                        button.innerHTML = 'بستن <svg class="h-5 w-5"><use xlink:href="#chevron-left"/></svg>';
+                    } else {
+                        container.style.maxHeight = "500px";
+                        button.innerHTML = 'مشاهده بیشتر <svg class="h-5 w-5"><use xlink:href="#chevron-left"/></svg>';
+                    }
                 });
-            });
 
-            closeModalBtn.addEventListener('click', () => {
-                console.log("مدال بسته شد");
-                modal.classList.add('hidden');
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            console.log("DOM لود شد");
-            setupToggle("descriptionContainer", "toggleDescriptionButton");
-            setupToggle("specsContainer", "toggleSpecsButton");
-            setupToggle("commentsContainer", "toggleCommentsButton");
-            setupToggle("descriptionContainer", "descriptionButtonMobile");
-            setupToggle("specsContainer", "specsButtonMobile");
-
-            setupReplyModal();
-        });
-
-        const copyToClipboardSocialShareDesktop = (button) => {
-            const linkToCopy = button.getAttribute("data-link");
-            if (linkToCopy) {
-                navigator.clipboard
-                    .writeText(linkToCopy)
-                    .then(function() {
-                        const copyToClipboardSocialShareText = document.getElementById(
-                            "copyToClipboardSocialShareText",
-                        );
-                        copyToClipboardSocialShareText.innerText = "کپی شد !";
-
-                        // Revert the text after 5 seconds
-                        setTimeout(function() {
-                            copyToClipboardSocialShareText.innerText = "کپی کردن لینک";
-                        }, 5000);
-                    })
-                    .catch(function(err) {
-                        console.error("مشکلی در عملیات پیش آمد", err);
-                    });
             }
-        };
-        const copyToClipboardSocialShareMobile = (button) => {
-            const linkToCopy = button.getAttribute("data-link");
-            console.log(linkToCopy);
-            if (linkToCopy) {
-                navigator.clipboard
-                    .writeText(linkToCopy)
-                    .then(function() {
-                        const copyToClipboardSocialShareNotifyMobile =
-                            document.getElementById(
-                                "notify-copied-social-share-link-mobile",
+
+            // مدیریت مدال پاسخ
+            function setupReplyModal() {
+                const replyButtons = document.querySelectorAll('.reply-btn');
+                const commentIdInput = document.getElementById('comment-id');
+                const modal = document.getElementById('submit-answers-to-comments-modal');
+                const closeModalBtn = modal ? modal.querySelector('[data-modal-hide]') : null;
+
+                if (!replyButtons.length) console.error("دکمه‌های پاسخ پیدا نشدند!");
+                if (!commentIdInput) console.error("ورودی comment-id پیدا نشد!");
+                if (!modal) console.error("مدال submit-answers-to-comments-modal پیدا نشد!");
+                if (!closeModalBtn) console.error("دکمه بستن مدال پیدا نشد!");
+
+                replyButtons.forEach((button) => {
+                    button.addEventListener('click', () => {
+                        const commentId = button.getAttribute('data-comment-id');
+                        console.log(`پاسخ برای کامنت ${commentId} کلیک شد`);
+                        commentIdInput.value = commentId;
+                        modal.classList.remove('hidden');
+                    });
+                });
+
+                closeModalBtn.addEventListener('click', () => {
+                    console.log("مدال بسته شد");
+                    modal.classList.add('hidden');
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                console.log("DOM لود شد");
+                setupToggle("descriptionContainer", "toggleDescriptionButton");
+                setupToggle("specsContainer", "toggleSpecsButton");
+                setupToggle("commentsContainer", "toggleCommentsButton");
+                setupToggle("descriptionContainer", "descriptionButtonMobile");
+                setupToggle("specsContainer", "specsButtonMobile");
+
+                setupReplyModal();
+            });
+
+            const copyToClipboardSocialShareDesktop = (button) => {
+                const linkToCopy = button.getAttribute("data-link");
+                if (linkToCopy) {
+                    navigator.clipboard
+                        .writeText(linkToCopy)
+                        .then(function() {
+                            const copyToClipboardSocialShareText = document.getElementById(
+                                "copyToClipboardSocialShareText",
                             );
-                        copyToClipboardSocialShareNotifyMobile.classList.remove("hidden");
+                            copyToClipboardSocialShareText.innerText = "کپی شد !";
 
-                        // Revert the text after 5 seconds
-                        setTimeout(function() {
-                            copyToClipboardSocialShareNotifyMobile.classList.add("hidden");
-                        }, 5000);
-                    })
-                    .catch(function(err) {
-                        console.error("مشکلی در عملیات پیش آمد", err);
-                    });
-            }
-        };
-    </script>
+                            // Revert the text after 5 seconds
+                            setTimeout(function() {
+                                copyToClipboardSocialShareText.innerText = "کپی کردن لینک";
+                            }, 5000);
+                        })
+                        .catch(function(err) {
+                            console.error("مشکلی در عملیات پیش آمد", err);
+                        });
+                }
+            };
+            const copyToClipboardSocialShareMobile = (button) => {
+                const linkToCopy = button.getAttribute("data-link");
+                console.log(linkToCopy);
+                if (linkToCopy) {
+                    navigator.clipboard
+                        .writeText(linkToCopy)
+                        .then(function() {
+                            const copyToClipboardSocialShareNotifyMobile =
+                                document.getElementById(
+                                    "notify-copied-social-share-link-mobile",
+                                );
+                            copyToClipboardSocialShareNotifyMobile.classList.remove("hidden");
+
+                            // Revert the text after 5 seconds
+                            setTimeout(function() {
+                                copyToClipboardSocialShareNotifyMobile.classList.add("hidden");
+                            }, 5000);
+                        })
+                        .catch(function(err) {
+                            console.error("مشکلی در عملیات پیش آمد", err);
+                        });
+                }
+            };
+        </script>
 
 
 
 
-@show
+    @show

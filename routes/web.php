@@ -26,6 +26,20 @@ use App\Http\Controllers\Admin\Ticket\TicketFileController;
 Route::get('/',[\App\Http\Controllers\Home\HomeController::class ,'index'])->name('app.home');
 Route::get('/blogs', [\App\Http\Controllers\Home\BlogController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{blog}', [\App\Http\Controllers\Home\BlogController::class, 'show'])->name('blogs.show');
+Route::get('/writers', [\App\Http\Controllers\Home\WriterController::class, 'index'])->name('writers.index');
+Route::get('/writers/{id}/details', function($id) {
+    $writer = \App\Models\Content\Writer::findOrFail($id);
+
+    return response()->json([
+        'name' => $writer->name,
+        'english_name' => $writer->english_name,
+        'nationality' => $writer->nationality,
+        'birth_year' => $writer->birth_year,
+        'death_year' => $writer->death_year,
+        'description' => $writer->description,
+
+    ]);
+});
 Route::get('/products/{product}', function (Product $product) {
     $product->incrementViews();
     return view('products.show', compact('product'));

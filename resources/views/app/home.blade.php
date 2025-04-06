@@ -860,17 +860,28 @@
                                         {{$mostViewProduct->title}}
                                     </a>
                                 </div>
-                                <!-- Prices -->
-                                <div class="flex flex-col">
-                                    <!-- Old price -->
-                                    <div class="h-5 text-left"></div>
-                                    <div class="flex items-center justify-between">
-                                        <div></div>
-                                        <!-- New price -->
-                                        <div class="text-sm font-bold text-primary md:text-base">
-                                            {{number_format($mostViewProduct->price)}}
-                                            <span class="text-xs font-light md:text-sm">تومان</span>
-                                        </div>
+                                <!-- قیمت محصول -->
+                                <div class="flex flex-col gap-1">
+                                    <div class="flex flex-col gap-1" style="height: 80px">
+                                        @if($mostViewProduct->discounted_price)
+                                            <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded mb-1">
+                                                {{ $mostViewProduct->discount_percentage }}% تخفیف
+                                            </span>
+
+                                            <div class="text-gray-400 line-through text-xs">
+                                                {{ number_format($mostViewProduct->price) }} تومان
+                                            </div>
+
+
+                                            <div class="text-primary font-bold text-base">
+                                                {{ number_format($mostViewProduct->discounted_price) }} تومان
+                                            </div>
+                                        @else
+                                            <!-- قیمت بدون تخفیف -->
+                                            <div class="text-primary font-bold text-base">
+                                                {{ number_format($mostViewProduct->price) }} تومان
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

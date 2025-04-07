@@ -48,7 +48,7 @@ class OTPLoginController extends Controller
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate(); // بازتولید سشن برای امنیت
                $user->update(['activated'=>1]);
-                return redirect()->intended(route('home', absolute: false));
+                return redirect()->intended(route('app.home', absolute: false));
             } else {
                 return redirect()->back()->with('error', '  اطلاعات ورود نامعتبر');
             }
@@ -56,9 +56,9 @@ class OTPLoginController extends Controller
 
             $oldOtp = Otp::where('user_id', $user->id)->first();
 
-                // if ($oldOtp && $oldOtp->created_at->diffInMinutes(now()) < 3) {
-                //     return back()->with('error', 'لطفاً 3 دقیقه صبر کنید و سپس مجدداً درخواست کد دهید.');
-                // }
+                if ($oldOtp && $oldOtp->created_at->diffInMinutes(now()) < 3) {
+                    return back()->with('error', 'لطفاً 3 دقیقه صبر کنید و سپس مجدداً درخواست کد دهید.');
+                }
 
             $oldOtp ? $oldOtp->delete() : "";
             // ورود با رمز یکبار مصرف

@@ -64,9 +64,22 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(updateBlogRequest $request, Blog $blog)
+    public function update(updateBlogRequest $request, Blog $blog, ImageUploadService $imageUploadService)
     {
         $inputs = $request->validated();
+
+        if ($request->hasFile('image')) {
+
+            if (!empty($blog->image)) {
+                $imageUploadService->removeImage($blog->image);
+            }
+
+            $result = $imageUploadService->uploadImage($request->file('image'));
+            if ($result === false) {
+                return back()->with('swal-error', 'خطا در آپلود فایل');
+            }
+            $inputs['image'] = $result;
+        }
 
         $blog->update($inputs);
 
@@ -76,8 +89,12 @@ class BlogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Blog $blog)
+    public function destroy(Blog $blog, ImageUploadService $imageUploadService)
     {
+        if ($blog->image != null) {
+            $imageUploadService->removeImage($blog->image);
+        }
+
         $blog->delete();
         return redirect()->back()->with('swal-success','بلاگ با موفقیت موفقیت حذف شد');
     }

@@ -145,16 +145,14 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product, ImageUploadService $imageUploadService)
     {
         $product->tags()->detach();
+        
+        if ($product->image != null) {
+            $imageUploadService->removeImage($product->image);
+        }
         $product->delete();
         return to_route('admin.market.product.index')->with('swal-success', 'محصول با موفقیت حذف شد');
-    }
-
-    public function incrementViews()
-    {
-        $this->view_count++;
-        $this->save();
     }
 }

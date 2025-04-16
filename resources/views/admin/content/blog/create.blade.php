@@ -21,7 +21,7 @@
                     </div>
                 </section>
                 <section class="body-content">
-                    <form class="row g-3" action="{{route('admin.content.blog.store')}}" method="POST">
+                    <form class="row g-3" action="{{route('admin.content.blog.store')}}" method="POST" enctype="multipart/form-data">>
                         @csrf
                         <div class="col-12 mb-2">
                             <label for="title" class="form-label">عنوان</label>
@@ -41,6 +41,13 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                            <div class="col-12 mb-2">
+                                <label>تصویر</label>
+                                <input type="file" class="form-control-file" name="image">
+                                @error('image')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-success">ثبت</button>

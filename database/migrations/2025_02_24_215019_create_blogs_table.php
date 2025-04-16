@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('body');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('view_count')->default(0);
+            $table->string('image');
+
             $table->timestamps();
         });
     }

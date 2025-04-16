@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\CheckoutController;
 use App\Http\Controllers\Home\FavoriteController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -27,7 +28,9 @@ use App\Http\Controllers\Admin\Ticket\TicketFileController;
 use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
-use App\Http\Controllers\Home\ProductController as HomeProductController;
+use App\Http\Controllers\Admin\Market\ProductFileController;
+use App\Http\Controllers\Admin\Ticket\TicketController;
+use App\Http\Controllers\Admin\Ticket\TicketFileController;
 
 
 Route::get('/dashboard', function () {
@@ -112,6 +115,23 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 // Home
 Route::get('/',[HomeController::class,'index'])->name('app.home');
 Route::get('/product/{product}', [HomeProductController::class, 'show'])->name('product');
+
+Route::get('/blogs', [\App\Http\Controllers\Home\BlogController::class, 'index'])->name('blogs.index');
+Route::get('/blogs/{blog}', [\App\Http\Controllers\Home\BlogController::class, 'show'])->name('blogs.show');
+Route::get('/writers', [\App\Http\Controllers\Home\WriterController::class, 'index'])->name('writers.index');
+Route::get('/writers/{id}/details', function($id) {
+    $writer = \App\Models\Content\Writer::findOrFail($id);
+
+    return response()->json([
+        'name' => $writer->name,
+        'english_name' => $writer->english_name,
+        'nationality' => $writer->nationality,
+        'birth_year' => $writer->birth_year,
+        'death_year' => $writer->death_year,
+        'description' => $writer->description,
+
+    ]);
+});
 
 Route::middleware('auth')->group(function(){
     //cart

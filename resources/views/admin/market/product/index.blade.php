@@ -40,7 +40,11 @@
                 @foreach ($products as $product)
                 <tr>
                     <th>{{ $loop->iteration }}</th>
-                    <td>{{ Str::limit($product->title, 20, '...') }}</td>
+                    <td>{{ Str::limit($product->title, 20, '...') }}
+                        @if ($product->hot_deal)
+                           <i class="fa fa-fire text-warning font-weight-bold"></i> 
+                        @endif
+                    </td>
                     <td>{{ $product->publisher->name }}</td>
                     <td>{{ $product->writer->name }}</td>
                     <td>

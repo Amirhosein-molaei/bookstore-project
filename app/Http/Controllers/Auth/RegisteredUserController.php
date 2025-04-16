@@ -29,22 +29,37 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // اعتبارسنجی ورودی
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'identifier' => ['required', 'string', 'max:255', 'regex:/^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|09[0-9]{9})$/'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // detect identifier type 
+        if (filter_var($request->identifier, FILTER_VALIDATE_EMAIL)) {
+            $email = $request->identifier;
+            $mobile = null;
+            $existingUser = User::where('email', $email)->exists();
+        } else {
+            $email = null;
+            $mobile = $request->identifier;
+            $existingUser = User::where('mobile', $mobile)->exists();
+        }
+
+    
+        if ($existingUser) {
+            return redirect()->route('register')->withErrors(['identifier' => 'ایمیل یا شماره موبایل وارد شده تکراری است']);
+        }
+
         $user = User::create([
             'name' => $request->name,
-            'email' => $request->email,
+            'email' => $email,
+            'mobile' => $mobile,
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('login')->with('success', $user->name . ' عزیز، به بوک خونه خوش آمدید:)');
     }
 }

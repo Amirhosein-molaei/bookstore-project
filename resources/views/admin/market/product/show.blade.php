@@ -44,6 +44,24 @@
                         <td>{{ $product->slug }}</td>
                     </tr>
                     <tr>
+                        <td>وضعیت</td>
+                        <td>
+                            @if ($product->hot_deal)
+                                <p>عضو داغ ترین ها <i class="fa fa-fire-alt text-warning"></i></p>
+                            @endif
+                            <form action="{{ route("admin.market.product.change-hot-deal-status", $product)}}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-warning">
+                                    @if ($product->hot_deal)
+                                        حذف از داغ ترین ها
+                                    @else
+                                        افزودن به داغ ترین ها
+                                    @endif
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>برچسب ها</td>
                         <td>
                             @foreach ($product->tags as $tag)

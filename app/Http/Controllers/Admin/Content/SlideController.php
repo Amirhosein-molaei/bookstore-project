@@ -124,8 +124,9 @@ class SlideController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Slider $slide)
+    public function destroy(Slider $slide, ImageUploadService $imageUploadService)
     {
+        $imageUploadService->removeImage($slide->image);
         $slide->delete();
         return to_route('admin.content.slide.index')->with('swal-success', ' اسلاید با موفقیت حذف شد');
 

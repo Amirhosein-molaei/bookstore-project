@@ -150,6 +150,8 @@ return [
         "body" => "متن اصلی",
         "image" => "تصویر",
         "photos" => "تصاویر",
+        "identifier"=>"شناسه ورود",
+        "login_type"=>"نوع ورود",
         "photo" => "تصویر",
         "cat_id" => "دسته بندی",
         "published_at" => "تاریخ انتشار",

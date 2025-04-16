@@ -152,9 +152,9 @@ class ProductController extends Controller
         return to_route('admin.market.product.index')->with('swal-success', 'محصول با موفقیت حذف شد');
     }
 
-    public function incrementViews()
+    public function changeHotDealStatus(Product $product)
     {
-        $this->view_count++;
-        $this->save();
+        $product->update(['hot_deal' => !$product->hot_deal]);
+        return to_route('admin.market.product.index')->with('swal-success', 'وضعیت محصول با موفقیت تغییر یافت');
     }
 }

@@ -6,11 +6,13 @@ use App\Models\Content\Comment;
 use App\Models\Content\Publisher;
 use App\Models\Content\Tag;
 use App\Models\Content\Writer;
+use App\Models\User\Favorite;
 use App\Models\User\User;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 
 class Product extends Model
 {
@@ -28,11 +30,6 @@ class Product extends Model
                 'separator' => '-',
             ]
         ];
-    }
-
-    public function favoritedByUsers()
-    {
-        return $this->morphToMany(User::class, 'favoriteable');
     }
 
     public function comments()
@@ -64,9 +61,20 @@ class Product extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
     public function scopeMostViewed($query)
     {
         return $query->orderBy('view_count', 'desc');
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class, 'product_id');
     }
 
+    public function isFavorited()
+    {
+        return Favorite::where('user_id', Auth::id())
+            ->where('favoriteable_id', $this->id)
+            ->where('favoriteable_type', Product::class)->exists();
+    }
 }

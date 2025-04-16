@@ -11,8 +11,8 @@ class WriterController extends Controller
     public function index()
     {
         $writers=Writer::all();
-
-        return view('app.layouts.writers.index',compact('writers'));
+        
+        return view('app.writers.index',compact('writers'));
 
     }
 }

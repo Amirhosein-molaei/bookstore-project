@@ -1,5 +1,6 @@
 @extends('app.layouts.master')
 @section('scripts')
+    @parent
     <script>
         function loadWriterDetails(writerId) {
 
@@ -40,6 +41,15 @@
                                 <p>${data.description}</p>
                             </div>
                         </div>
+                        
+                    
+                    <!-- add to favorites form -->
+
+                    <form action="{{ route('app.home') }}" method="get">
+                        <button type="submit" class="btn-indigo px-4 py-2">دنبال کردن</button>
+                    </form>
+
+
                     </div>
                     <div class="py-6" id="specs">
                         <div class="relative mb-16 w-fit text-xl font-medium">
@@ -113,6 +123,8 @@
         <div class="container">
             <div class="mb-6">
                 <div>
+
+
                     <!-- Section Header -->
                     <div class="mb-4 flex items-center justify-between">
                         <h3 class="font-medium md:text-lg lg:text-xl">نویسنده ها</h3>
@@ -128,7 +140,7 @@
                                             <!-- image -->
                                             <div class="mb-2 md:mb-5" draggable="false">
                                                 <a href="javascript:void(0)" onclick="loadWriterDetails({{$writer->id}})">
-                                                    <img alt="" class="mx-auto w-32 rounded-lg md:w-auto" src="{{$writer->avatar}}" />
+                                                    <img alt="" class="mx-auto w-32 rounded-lg md:w-auto" src="{{ asset($writer->avatar) }}" />
                                                 </a>
                                             </div>
                                             <!-- title -->
@@ -140,15 +152,13 @@
                                             <!-- Prices -->
                                             <div class="flex flex-col">
                                                 <div class="flex items-center justify-between">
-                                                    <div>
-                                                        <p class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
+                                                        <span class="btn-yellow py-1 px-4">
                                                             {{$writer->nationality}}
-                                                        </p>
-                                                    </div>
-                                                    <!-- New price -->
+                                                        </span>
+                                                    {{-- <!-- New price -->
                                                     <div class="text-sm font-bold text-primary md:text-base">
                                                         {{$writer->english_name}}
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>

@@ -32,13 +32,13 @@ class BlogController extends Controller
             ->paginate(12);
 
 
-        return view('app.layouts.blog.index', compact('blogs', 'sort', 'categories', 'searchTerm'));
+        return view('app.blog.index', compact('blogs', 'sort', 'categories', 'searchTerm'));
     }
     public function show(Blog $blog )
     {
         $blog->load(['user']);
         $blogs=Blog::latest()->paginate(3);
-        return view('app.layouts.blog.details',compact('blog','blogs'));
+        return view('app.blog.details',compact('blog','blogs'));
 
     }
 

@@ -10,7 +10,7 @@ class WriterController extends Controller
 {
     public function index()
     {
-        $writers=Writer::all();
+        $writers = Writer::all();
         
         return view('app.writers.index',compact('writers'));
 

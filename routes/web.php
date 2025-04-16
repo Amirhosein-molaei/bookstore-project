@@ -28,9 +28,6 @@ use App\Http\Controllers\Admin\Ticket\TicketFileController;
 use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
-use App\Http\Controllers\Admin\Market\ProductFileController;
-use App\Http\Controllers\Admin\Ticket\TicketController;
-use App\Http\Controllers\Admin\Ticket\TicketFileController;
 
 
 Route::get('/dashboard', function () {

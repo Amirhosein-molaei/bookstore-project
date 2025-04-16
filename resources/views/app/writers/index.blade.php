@@ -42,14 +42,10 @@
                             </div>
                         </div>
                         
-                    
-                    <!-- add to favorites form -->
-
                     <form action="{{ route('app.home') }}" method="get">
                         <button type="submit" class="btn-indigo px-4 py-2">دنبال کردن</button>
                     </form>
-
-
+                    
                     </div>
                     <div class="py-6" id="specs">
                         <div class="relative mb-16 w-fit text-xl font-medium">

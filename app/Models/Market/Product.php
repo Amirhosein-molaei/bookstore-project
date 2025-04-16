@@ -65,7 +65,8 @@ class Product extends Model
     public function scopeMostViewed($query)
     {
         return $query->orderBy('view_count', 'desc');
-
+    }
+    
     public function cartItems()
     {
         return $this->hasMany(CartItem::class, 'product_id');

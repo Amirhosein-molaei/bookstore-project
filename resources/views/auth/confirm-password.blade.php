@@ -1,8 +1,21 @@
-@extends('auth.layouts.master')
+<!doctype html>
+<html dir="rtl" lang="fa">
 
-@section('title', 'تأیید رمز عبور')
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>تایید رمز عبور</title>
 
-@section('content')
+    <link href=" {{ asset('assets/css/fonts.css') }}" rel="stylesheet" />
+    <link href=" {{ asset('assets/css/app.css') }}" rel="stylesheet" />
+    <link href=" {{ asset('assets/css/theme.css') }}" rel="stylesheet" />
+
+    <script src=" {{ asset('assets/scripts/mount.js') }}"></script>
+</head>
+
+<body>
+    @include('auth.layouts.messages')
+    @include('app.layouts.partials.icons')
     <div class="flex min-h-screen items-center justify-center bg-background">
         <div class="container">
             <div class="mx-auto max-w-[450px] rounded-xl bg-muted p-5 shadow-base md:p-10">
@@ -39,26 +52,5 @@
             </div>
         </div>
     </div>
-@endsection
-@section('scripts')
-@parent
-@if (session('swal-success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'موفقیت',
-        text: '{{ session("swal-success") }}',
-    });
-</script>
-@endif
-
-@if (session('swal-error'))
-<script>
-    Swal.fire({
-        icon: 'error',
-        title: 'خطا',
-        text: '{{ session("swal-error") }}',
-    });
-</script>
-@endif
-@show
+</body>
+</html>

@@ -65,6 +65,10 @@
                 <i class="fas fa-book-open"></i>
                 <span>محصولات</span>
             </a>
+            <a href="{{route('admin.market.copan.index')}}" class="sidebar-link">
+                <i class="fas fa-percent"></i>
+                <span>تخفیف ها</span>
+            </a>
             <a href="{{ route('admin.market.payment.index') }}" class="sidebar-link">
                 <i class="fas fa-key"></i>
                 <span>پرداخت ها</span>

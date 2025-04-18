@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Sms;
 
 use SoapClient;
@@ -31,7 +32,7 @@ class SmsService
                 'password' => $this->password,
                 'to' => $phoneNumber,
                 'from' => $this->from,
-                'text' => 'کد تایید شما: ' . $otpCode,
+                'text' => 'به بوک خونه خوش آمدید. تایید شما: ' . $otpCode,
                 'isflash' => false
             ];
 

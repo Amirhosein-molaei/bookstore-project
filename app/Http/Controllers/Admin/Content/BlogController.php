@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Content\storeBlogRequest;
 use App\Http\Requests\Admin\Content\updateBlogRequest;
 use App\Models\Content\Blog;
+use App\Services\ImageUploadService;
 
 class BlogController extends Controller
 {
@@ -29,10 +30,20 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(storeBlogRequest $request)
+    public function store(storeBlogRequest $request ,ImageUploadService $imageUploadService)
     {
         $inputs = $request->validated();
         $inputs['user_id'] = 1;
+
+        if($request->hasFile('image'))
+        {
+
+            $result=$imageUploadService->uploadImage($request->file('image'));
+            if ($result === false) {
+                return back()->with('swal-error', 'خطا در آپلود فایل');
+            }
+            $inputs['image'] = $result;
+        }
         Blog::create($inputs);
         return redirect()->route('admin.content.blog.index')->with('swal-success','بلاگ با موفقیت ساخته شد');
     }

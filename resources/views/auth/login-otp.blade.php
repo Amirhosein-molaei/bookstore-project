@@ -1,54 +1,23 @@
-{{-- <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!doctype html>
+<html dir="rtl" lang="fa">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ورود / ثبت نام</title>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <link href=" {{ asset('assets/css/fonts.css') }}" rel="stylesheet" />
+    <link href=" {{ asset('assets/css/app.css') }}" rel="stylesheet" />
+    <link href=" {{ asset('assets/css/theme.css') }}" rel="stylesheet" />
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    <script src=" {{ asset('assets/scripts/mount.js') }}"></script>
+</head>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+<body>
+    @include('auth.layouts.messages')
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+    @include('app.layouts.partials.icons')
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout> --}}@extends('auth.layouts.master')
-
-@section('title', 'ورود و ثبت نام')
-
-@section('content')
     <div class="flex min-h-screen items-center justify-center bg-background">
         <div class="container">
             <div class="mx-auto max-w-[450px] rounded-xl bg-muted p-5 shadow-base md:p-10">
@@ -63,12 +32,15 @@
                     @csrf
                     <div class="mb-4 space-y-4">
                         <!-- نوع ورود -->
-                        <label for="login_type" class="relative block rounded-lg border shadow-base">
-                            <select name="login_type" id="login_type" class="peer w-full rounded-lg border-none bg-transparent p-4 text-right focus:outline-none focus:ring-0" required>
+                        <label for="login_type" class="relative block rounded-lg border shadow-base p-2">
+                            <select name="login_type" id="login_type"
+                                class="peer w-full rounded-lg border-none bg-transparent p-4 text-right focus:outline-none focus:ring-0"
+                                required>
                                 <option value="password">ورود با رمز ثابت</option>
-                                <option value="otp">ورود با رمز یکبار مصرف</option>
+                                <option value="otp" selected>ورود با رمز یکبار مصرف</option>
                             </select>
-                            <span class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-focus:text-sm">
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-focus:text-sm">
                                 نوع ورود
                             </span>
                         </label>
@@ -81,7 +53,8 @@
                             <input type="text" id="identifier" name="identifier" dir="auto"
                                 class="peer w-full rounded-lg border-none bg-transparent p-4 text-right placeholder-transparent focus:outline-none focus:ring-0"
                                 placeholder="شماره موبایل یا ایمیل" required />
-                            <span class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
                                 شماره موبایل یا ایمیل
                             </span>
                         </label>
@@ -95,7 +68,8 @@
                                 <input type="password" id="password" name="password" dir="auto"
                                     class="peer w-full rounded-lg border-none bg-transparent p-4 text-right placeholder-transparent focus:outline-none focus:ring-0"
                                     placeholder="رمز عبور" />
-                                <span class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
+                                <span
+                                    class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
                                     رمز عبور
                                 </span>
                             </label>
@@ -114,8 +88,10 @@
 
                 <div class="mt-3 text-center text-sm">
                     <a href="{{ route('register') }}" class="text-primary block">ثبت نام</a>
-                    <a href="{{ route('password.request') }}" class="text-primary block">  فراموشی رمز عبور / بازیابی از طریق ایمیل</a>
-                    <p class="mt-2 text-text/90">اگر رمز عبور خود را فراموش کرده‌اید، می‌توانید از روش رمز یکبار مصرف نیز استفاده کنید.</p>
+                    <a href="{{ route('password.request') }}" class="text-primary block"> فراموشی رمز عبور / بازیابی از
+                        طریق ایمیل</a>
+                    <p class="mt-2 text-text/90">اگر رمز عبور خود را فراموش کرده‌اید، می‌توانید از روش رمز یکبار مصرف
+                        نیز استفاده کنید.</p>
                 </div>
 
                 @if (session('error'))
@@ -126,41 +102,19 @@
             </div>
         </div>
     </div>
+</body>
 
-    <!-- اسکریپت برای نمایش/مخفی کردن فیلد رمز عبور -->
-    <script>
-        document.getElementById('login_type').addEventListener('change', function() {
-            const passwordField = document.getElementById('password_field');
-            if (this.value === 'password') {
-                passwordField.style.display = 'block';
-                document.getElementById('password').setAttribute('required', 'required');
-            } else {
-                passwordField.style.display = 'none';
-                document.getElementById('password').removeAttribute('required');
-            }
-        });
-    </script>
-@endsection
-
-@section('scripts')
-@parent
-@if (session('swal-success'))
+</html>
+<!-- اسکریپت برای نمایش/مخفی کردن فیلد رمز عبور -->
 <script>
-    Swal.fire({
-        icon: 'success',
-        title: 'موفقیت',
-        text: '{{ session("swal-success") }}',
+    document.getElementById('login_type').addEventListener('change', function() {
+        const passwordField = document.getElementById('password_field');
+        if (this.value === 'password') {
+            passwordField.style.display = 'block';
+            document.getElementById('password').setAttribute('required', 'required');
+        } else {
+            passwordField.style.display = 'none';
+            document.getElementById('password').removeAttribute('required');
+        }
     });
 </script>
-@endif
-
-@if (session('swal-error'))
-<script>
-    Swal.fire({
-        icon: 'error',
-        title: 'خطا',
-        text: '{{ session("swal-error") }}',
-    });
-</script>
-@endif
-@show

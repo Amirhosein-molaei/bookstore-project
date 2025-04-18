@@ -47,12 +47,12 @@ class ProductController extends Controller
         $inputs = $request->validated();
         $tagIds = $inputs['tags'];
         unset($inputs['tags']);
-        
+
         if ($inputs['discount_percentage']) {
-            
+
             $inputs['discounted_price'] = $inputs['price'] - $inputs['price'] * $inputs['discount_percentage'] / 100;
             $expireDate = substr($inputs['discount_expires_at'], 0, 10);
-            
+
             $inputs['discount_expires_at'] = date('Y-m-d H:i:s', (int)$expireDate);
         } else {
             unset($inputs['discount_expires_at']);
@@ -92,7 +92,7 @@ class ProductController extends Controller
         $publishers = Publisher::all();
         $writers = Writer::all();
 
-        // tags are assigned to product already, can't be in $tags. becauase in tag-selection section in edit page, 
+        // tags are assigned to product already, can't be in $tags. becauase in tag-selection section in edit page,
         // they will be repeated and therfore user can choose them again and duplicate records will appear in pivot table
         $tags = Tag::where('status', 0)->whereNotIn('id', $product->tags()->pluck('id'))->get();
         $categories = ProductCategory::where('parent_id', null)->get();
@@ -112,7 +112,7 @@ class ProductController extends Controller
 
             $inputs['discounted_price'] = $inputs['price'] - $inputs['price'] * $inputs['discount_percentage'] / 100;
             $expireDate = substr($inputs['discount_expires_at'], 0, 10);
-            
+
             $inputs['discount_expires_at'] = date('Y-m-d H:i:s', (int)$expireDate);
         } else {
             unset($inputs['discount_expires_at']);
@@ -133,8 +133,8 @@ class ProductController extends Controller
 
         $product->update($inputs);
 
-        /* 
-            this method will check records in pivot table 
+        /*
+            this method will check records in pivot table
             inert's new one's and deletes those that aren't in $tagIds
         */
         $product->tags()->sync($tagIds);
@@ -150,5 +150,11 @@ class ProductController extends Controller
         $product->tags()->detach();
         $product->delete();
         return to_route('admin.market.product.index')->with('swal-success', 'محصول با موفقیت حذف شد');
+    }
+
+    public function changeHotDealStatus(Product $product)
+    {
+        $product->update(['hot_deal' => !$product->hot_deal]);
+        return to_route('admin.market.product.index')->with('swal-success', 'وضعیت محصول با موفقیت تغییر یافت');
     }
 }

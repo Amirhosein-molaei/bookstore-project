@@ -1,8 +1,23 @@
-@extends('auth.layouts.master')
+<!doctype html>
+<html dir="rtl" lang="fa">
 
-@section('title', 'تغییر رمز عبور')
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>تغییر رمز عبور</title>
 
-@section('content')
+    <link href=" {{ asset('assets/css/fonts.css') }}" rel="stylesheet" />
+    <link href=" {{ asset('assets/css/app.css') }}" rel="stylesheet" />
+    <link href=" {{ asset('assets/css/theme.css') }}" rel="stylesheet" />
+
+    <script src=" {{ asset('assets/scripts/mount.js') }}"></script>
+</head>
+
+<body>
+    @include('auth.layouts.messages')
+
+    @include('app.layouts.partials.icons')
+
     <div class="flex min-h-screen items-center justify-center bg-background">
         <div class="container">
             <div class="mx-auto max-w-[450px] rounded-xl bg-muted p-5 shadow-base md:p-10">
@@ -26,7 +41,8 @@
                             <input type="email" id="email" name="email" dir="auto"
                                 class="peer w-full rounded-lg border-none bg-transparent p-4 text-right placeholder-transparent focus:outline-none focus:ring-0"
                                 value="{{ old('email', $request->email) }}" required autofocus />
-                            <span class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
                                 ایمیل
                             </span>
                         </label>
@@ -39,7 +55,8 @@
                             <input type="password" id="password" name="password" dir="auto"
                                 class="peer w-full rounded-lg border-none bg-transparent p-4 text-right placeholder-transparent focus:outline-none focus:ring-0"
                                 placeholder="رمز عبور جدید" required autocomplete="new-password" />
-                            <span class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
                                 رمز عبور جدید
                             </span>
                         </label>
@@ -49,10 +66,12 @@
 
                         <!-- تکرار رمز عبور -->
                         <label for="password_confirmation" class="relative block rounded-lg border shadow-base">
-                            <input type="password" id="password_confirmation" name="password_confirmation" dir="auto"
+                            <input type="password" id="password_confirmation" name="password_confirmation"
+                                dir="auto"
                                 class="peer w-full rounded-lg border-none bg-transparent p-4 text-right placeholder-transparent focus:outline-none focus:ring-0"
                                 placeholder="تکرار رمز عبور" required autocomplete="new-password" />
-                            <span class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
                                 تکرار رمز عبور
                             </span>
                         </label>
@@ -73,26 +92,6 @@
             </div>
         </div>
     </div>
-@endsection
-@section('scripts')
-@parent
-@if (session('swal-success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'موفقیت',
-        text: '{{ session("swal-success") }}',
-    });
-</script>
-@endif
+</body>
 
-@if (session('swal-error'))
-<script>
-    Swal.fire({
-        icon: 'error',
-        title: 'خطا',
-        text: '{{ session("swal-error") }}',
-    });
-</script>
-@endif
-@show
+</html>

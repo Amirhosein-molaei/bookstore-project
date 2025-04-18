@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Services\Sms\SmsService;
 use App\Http\Controllers\Controller;
+use App\Mail\otpMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -34,7 +35,7 @@ class OTPLoginController extends Controller
             ->orWhere('mobile', $identifier)
             ->first();
         if (!$user) {
-            return redirect()->back()->with('swal-error', '    کاربری با این مشخصات پیدا نشد.');
+            return redirect()->back()->with('error', '    کاربری با این مشخصات پیدا نشد.');
         }
 
         if ($loginType === 'password') {
@@ -47,29 +48,28 @@ class OTPLoginController extends Controller
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate(); // بازتولید سشن برای امنیت
                $user->update(['activated'=>1]);
-                return redirect()->intended(route('home', absolute: false));
+                return redirect()->intended(route('app.home', absolute: false));
             } else {
-                return redirect()->back()->with('swal-error', '  اطلاعات ورود نامعتبر.');
+                return redirect()->back()->with('error', '  اطلاعات ورود نامعتبر');
             }
         } else {
 
             $oldOtp = Otp::where('user_id', $user->id)->first();
 
-            if ($oldOtp && $oldOtp->created_at->diffInMinutes(now()) < 5) {
-                return back()->with('error', 'لطفاً ۵ دقیقه صبر کنید و سپس مجدداً درخواست کد دهید.');
-            }
-
+                if ($oldOtp && $oldOtp->created_at->diffInMinutes(now()) < 3) {
+                    return back()->with('error', 'لطفاً 3 دقیقه صبر کنید و سپس مجدداً درخواست کد دهید.');
+                }
 
             $oldOtp ? $oldOtp->delete() : "";
             // ورود با رمز یکبار مصرف
-            $otp = rand(1000, 9999); // یه کد 4 رقمی
-            $expires_at = now()->addMinutes(3); // انقضا بعد از 3 دقیقه
+            $code = rand(1000, 9999); // یه کد 4 رقمی
+            $expires_at = now()->addMinutes(3)->toDateTimeString(); // انقضا بعد از 3 دقیقه
             $token = Str::random(32);
             // ذخیره OTP
-            Otp::create([
+            $otp = Otp::create([
                 'token' => $token,
                 'user_id' => $user->id,
-                'otp_code' => $otp,
+                'otp_code' => $code,
                 'used' => 0,
                 'attempts' => 0,
                 'expires_at' => $expires_at
@@ -79,18 +79,15 @@ class OTPLoginController extends Controller
             if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
                 // ارسال ایمیل
                 try {
-                    Mail::raw("رمز یکبار مصرف شما: $otp", function ($message) use ($identifier) {
-                        $message->to($identifier)
-                            ->subject('رمز یکبار مصرف');
-                    });
-                } catch (\Exception $e) {
-                    return redirect()->back()->with('error', 'خطا در ارسال کد' . $e->getMessage());
+                    Mail::to($user->email)->send(new otpMail($otp));
+                } catch (\Throwable $th) {
+                    return redirect()->back()->with('error', 'ارسال ایمیل با خطا مواجه شد. لطفا دوباره اقدام کنید' . $th->getMessage());
                 }
             } else {
                 // ارسال پیامک
                 try {
                     $smsService = new SmsService();
-                    $smsService->sendSmsOtp($identifier, "رمز یکبار مصرف شما: $otp");
+                    $smsService->sendSmsOtp($identifier, $otp->otp_code);
                 } catch (\Exception $e) {
                     return redirect()->back()->with('error', 'خطا در ارسال کد' . $e->getMessage());
                 }
@@ -98,7 +95,7 @@ class OTPLoginController extends Controller
 
             // انتقال به صفحه وارد کردن OTP
 
-            return redirect()->route('otp.verify.form', ['token' => $token])->with('message', 'کد ارسال شد');
+            return redirect()->route('otp.verify.form', ['token' => $token])->with('success', 'کد تایید برای شما ارسال شد');
         }
     }
 
@@ -146,6 +143,6 @@ class OTPLoginController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('home');
+        return redirect()->route('app.home')->with('success', 'ورود با موفقیت انجام شد');
     }
 }

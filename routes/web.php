@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Home\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\ShopController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\CheckoutController;
 use App\Http\Controllers\Home\FavoriteController;
@@ -28,6 +30,7 @@ use App\Http\Controllers\Admin\Ticket\TicketFileController;
 use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
+use App\Http\Controllers\Home\HomeFaqController;
 
 
 Route::get('/dashboard', function () {
@@ -131,7 +134,8 @@ Route::get('/writers/{id}/details', function($id) {
 });
 
 Route::middleware('auth')->group(function(){
-    //cart
+  
+  //cart
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
     Route::get('/cart/empty', [CartController::class, 'emptyCart'])->name('cart.empty');
     Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
@@ -150,4 +154,21 @@ Route::middleware('auth')->group(function(){
     Route::post('product/comment/{product}/answer', [HomeProductController::class, 'answerComment'])->name('product.comment.answer');
     Route::post('product/comment/like/{comment}',[HomeProductController::class,'likeComment'])->name('product.comment.like');
     Route::post('product/comment/dislike/{comment}',[HomeProductController::class,'dislikeComment'])->name('product.comment.dislike');
+});
+
+// shop
+Route::get(uri: '/shop', action: [ShopController::class, 'index'])->name('shop');
+Route::get(uri: '/shop/available-product', action: [ShopController::class, 'availableProduct'])->name('shop.available-product');
+Route::get(uri: '/shop/with-picture-product', action: [ShopController::class, 'withPictureProduct'])->name('shop.with-picture-product');
+Route::get(uri: '/shop/most-expensive-product', action: [ShopController::class, 'mostExpensiveProduct'])->name('shop.most-expensive-product');
+Route::get(uri: '/shop/cheapest-product', action: [ShopController::class, 'cheapestProduct'])->name('shop.cheapest-product');
+
+// Faq
+Route::get(uri: '/faq', action: [HomeFaqController::class, 'index'])->name('faq');
+
+// profile
+Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(function(){
+    Route::get('/', [UserProfileController::class, 'index']);
+    Route::get('/ticket', [UserProfileController::class, 'showTicket'])->name('ticket');
+
 });

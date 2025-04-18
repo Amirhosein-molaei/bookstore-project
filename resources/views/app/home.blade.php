@@ -394,6 +394,25 @@
             </div>
             <!-- Section Content -->
 
+<!-- Special Products section Start -->
+<section class="mb-8">
+    <div class="container relative">
+        <!-- Section Header -->
+        <div class="mb-4 flex items-center justify-between">
+            <h3 class="font-medium md:text-lg lg:text-xl">
+                پرفروش ترین محصولات
+            </h3>
+            <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="{{route('shop')}}">
+                مشاهده همه
+                <span>
+                    <svg class="h-5 w-5 lg:h-6 lg:w-6">
+                        <use xlink:href="#chevron-left" />
+                    </svg>
+                </span>
+            </a>
+        </div>
+        <!-- Section Content -->
+
 
             <div class="swiper product-slider p-px">
 

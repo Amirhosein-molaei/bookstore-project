@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Content\Writer;
+use App\Models\Ticket\Ticket;
 use App\Models\Market\Cart;
 use App\Models\Content\Menu;
 use App\Models\Setting\Setting;
@@ -27,6 +29,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Auth::loginUsingId(11);
+        View::composer('app.shop', function ($view) {
+            $view->with('writers', Writer::all());
+        });
+      
         if (Request::is('admin/*')) {
             Paginator::useBootstrap(); 
         } else {

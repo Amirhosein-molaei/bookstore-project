@@ -4,682 +4,665 @@
 @section('content')
     <!-- Color Effect -->
     <div class="fixed inset-x-0 top-1/3 mx-auto h-1/3 w-1/4 bg-primary/50 blur-[200px]"></div>
-<main class="flex-grow bg-background pb-14 pt-36 xs:pt-36">
+    <main class="flex-grow bg-background pb-14 pt-36 xs:pt-36">
 
-    <!-- Main Banners section Start -->
-    <section class="mb-8">
-        <div class="container relative grid grid-cols-12 gap-x-4 gap-y-2">
-            <div class="col-span-12 lg:col-span-8">
-                <!-- Swiper -->
-                <div class="swiper banner-slider rounded-lg shadow-base">
-                    <div class="swiper-wrapper">
-                        @foreach ($sliders->where('position', 1) as $slider)
-                            <div class="swiper-slide">
+        <!-- Main Banners section Start -->
+        <section class="mb-8">
+            <div class="container relative grid grid-cols-12 gap-x-4 gap-y-2">
+                <div class="col-span-12 lg:col-span-8">
+                    <!-- Swiper -->
+                    <div class="swiper banner-slider rounded-lg shadow-base">
+                        <div class="swiper-wrapper">
+                            @foreach ($sliders->where('position', 1) as $slider)
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <img alt="" class="max-h-[450px]" src="{{ asset($slider->image) }}"
+                                            style="width: 100%" />
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="swiper-button-next hidden md:flex"></div>
+                        <div class="swiper-button-prev hidden md:flex"></div>
+                        <div class="swiper-pagination main-banner-pagination"></div>
+                    </div>
+                </div>
+                <div class="col-span-12 hidden xs:block lg:col-span-4">
+                    <div class="flex h-full flex-row justify-between gap-x-2 lg:flex-col">
+                        @foreach ($sliders->where('position', 2) as $slider)
+                            <div>
                                 <a href="#">
-                                    <img alt="" class="max-h-[450px]" src="{{ asset($slider->image) }}"
-                                        style="width: 100%" />
+                                    <img alt="" class="rounded-lg shadow-base" src="{{ asset($slider->image) }}" />
+                                </a>
+                            </div>
+                        @endforeach
+                        @foreach ($sliders->where('position', 3) as $slider)
+                            <div>
+                                <a href="#">
+                                    <img alt="" class="rounded-lg shadow-base" src="{{ asset($slider->image) }}" />
                                 </a>
                             </div>
                         @endforeach
                     </div>
-                    <div class="swiper-button-next hidden md:flex"></div>
-                    <div class="swiper-button-prev hidden md:flex"></div>
-                    <div class="swiper-pagination main-banner-pagination"></div>
                 </div>
             </div>
-            <div class="col-span-12 hidden xs:block lg:col-span-4">
-                <div class="flex h-full flex-row justify-between gap-x-2 lg:flex-col">
-                    @foreach ($sliders->where('position', 2) as $slider)
-                        <div>
-                            <a href="#">
-                                <img alt="" class="rounded-lg shadow-base" src="{{ asset($slider->image) }}" />
-                            </a>
-                        </div>
-                    @endforeach
-                    @foreach ($sliders->where('position', 3) as $slider)
-                        <div>
-                            <a href="#">
-                                <img alt="" class="rounded-lg shadow-base" src="{{ asset($slider->image) }}" />
-                            </a>
-                        </div>
-                    @endforeach
+        </section>
+
+        <!-- suggested Products section Start -->
+        <section class="mb-8">
+            <div class="container relative">
+                <!-- Section Header -->
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="font-medium md:text-lg lg:text-xl">پیشنهادات کاربران</h3>
+                    <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./shop.html">
+                        مشاهده همه
+                        <span>
+                            <svg class="h-5 w-5 lg:h-6 lg:w-6">
+                                <use xlink:href="#chevron-left" />
+                            </svg>
+                        </span>
+                    </a>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- suggested Products section Start -->
-    <section class="mb-8">
-        <div class="container relative">
-            <!-- Section Header -->
-            <div class="mb-4 flex items-center justify-between">
-                <h3 class="font-medium md:text-lg lg:text-xl">پیشنهادات کاربران</h3>
-                <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./shop.html">
-                    مشاهده همه
-                    <span>
-                        <svg class="h-5 w-5 lg:h-6 lg:w-6">
-                            <use xlink:href="#chevron-left" />
-                        </svg>
-                    </span>
-                </a>
-            </div>
-
-            <!-- Section Content -->
-            <div class="swiper product-slider p-px">
-                <div class="swiper-wrapper">
-                    @foreach ($suggesteds as $suggested)
-                        <div class="swiper-slide">
-                            <!-- Product Card -->
-                            <div
-                                class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                                <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                    <!-- image -->
-                                    <div class="mb-2 md:mb-5" draggable="false">
-                                        <a href="{{ route('product', $suggested) }}">
-                                            <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                src="{{ asset($suggested->image) }}" />
-                                        </a>
-                                    </div>
-                                    <!-- title -->
-                                    <div class="mb-2">
-                                        <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                            href="{{ route('product', $suggested) }}">
-                                            {{ $suggested->title }}
-                                        </a>
-                                    </div>
-                                    <!-- Prices -->
-                                    <div class="flex flex-col">
-                                        <!-- Old price -->
-                                        @if ($suggested->discounted_price)
-                                            <div class="h-5 text-left">
-                                                <del class="text-sm text-text/60 decoration-warning md:text-base">
-                                                    {{ $suggested->price }}
-                                                </del>
-                                            </div>
-                                        @endif
-                                        <div class="flex items-center justify-between">
+                <!-- Section Content -->
+                <div class="swiper product-slider p-px">
+                    <div class="swiper-wrapper">
+                        @foreach ($suggesteds as $suggested)
+                            <div class="swiper-slide">
+                                <!-- Product Card -->
+                                <div
+                                    class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
+                                    <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
+                                        <!-- image -->
+                                        <div class="mb-2 md:mb-5" draggable="false">
+                                            <a href="{{ route('product', $suggested) }}">
+                                                <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
+                                                    src="{{ asset($suggested->image) }}" />
+                                            </a>
+                                        </div>
+                                        <!-- title -->
+                                        <div class="mb-2">
+                                            <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
+                                                href="{{ route('product', $suggested) }}">
+                                                {{ $suggested->title }}
+                                            </a>
+                                        </div>
+                                        <!-- Prices -->
+                                        <div class="flex flex-col">
+                                            <!-- Old price -->
                                             @if ($suggested->discounted_price)
-                                                <div>
-                                                    <p
-                                                        class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
-                                                        {{ $suggested->discount_percentage }}%
-                                                    </p>
+                                                <div class="h-5 text-left">
+                                                    <del class="text-sm text-text/60 decoration-warning md:text-base">
+                                                        {{ $suggested->price }}
+                                                    </del>
                                                 </div>
                                             @endif
-                                            <!-- New price -->
-                                            <div class="text-sm font-bold text-primary md:text-base">
-                                                {{ $suggested->discounted_price ? $suggested->discounted_price : $suggested->price }}
-                                                <span class="text-xs font-light md:text-sm">تومان</span>
+                                            <div class="flex items-center justify-between">
+                                                @if ($suggested->discounted_price)
+                                                    <div>
+                                                        <p
+                                                            class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
+                                                            {{ $suggested->discount_percentage }}%
+                                                        </p>
+                                                    </div>
+                                                @endif
+                                                <!-- New price -->
+                                                <div class="text-sm font-bold text-primary md:text-base">
+                                                    {{ $suggested->discounted_price ? $suggested->discounted_price : $suggested->price }}
+                                                    <span class="text-xs font-light md:text-sm">تومان</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
             </div>
-        </div>
-    </section>
-    <!-- suggested Products section End -->
+        </section>
+        <!-- suggested Products section End -->
 
-    <!-- hot deals(textual) Products section Start -->
-    <section class="mb-8">
-        <div class="container relative">
-            <!-- Section Header -->
-            <div class="mb-4 flex items-center justify-between">
-                <h3 class="font-medium md:text-lg lg:text-xl">
-                    داغ ترین های متنی
-                </h3>
-                <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./shop.html">
-                    مشاهده همه
-                    <span>
-                        <svg class="h-5 w-5 lg:h-6 lg:w-6">
-                            <use xlink:href="#chevron-left" />
-                        </svg>
-                    </span>
-                </a>
-            </div>
-            <!-- Section Content -->
+        <!-- hot deals(textual) Products section Start -->
+        <section class="mb-8">
+            <div class="container relative">
+                <!-- Section Header -->
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="font-medium md:text-lg lg:text-xl">
+                        داغ ترین های متنی
+                    </h3>
+                    <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./shop.html">
+                        مشاهده همه
+                        <span>
+                            <svg class="h-5 w-5 lg:h-6 lg:w-6">
+                                <use xlink:href="#chevron-left" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+                <!-- Section Content -->
 
-            <div class="swiper product-slider p-px">
-                <div class="swiper-wrapper">
-                    @foreach ($hotDeals->where('type', 0) as $hotDeal)
-                        <div class="swiper-slide">
-                            <div
-                                class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                                <!-- Product Card -->
-                                <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                    <!-- image -->
-                                    <div class="mb-2 md:mb-5" draggable="false">
-                                        <a href="{{ route('product', $hotDeal) }}">
-                                            <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                src="{{ asset($hotDeal->image) }}" />
-                                        </a>
-                                    </div>
-                                    <!-- title -->
-                                    <div class="mb-2">
-                                        <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                            href="{{ route('product', $hotDeal) }}">
-                                            {{ $hotDeal->title }}
-                                        </a>
-                                    </div>
-                                    <!-- Prices -->
-                                    <div class="flex flex-col">
-                                        <!-- Old price -->
-                                        @if ($hotDeal->discounted_price)
-                                            <div class="h-5 text-left">
-                                                <del class="text-sm text-text/60 decoration-warning md:text-base">
-                                                    {{ $hotDeal->price }}
-                                                </del>
-                                            </div>
-                                        @endif
-                                        <div class="flex items-center justify-between">
+                <div class="swiper product-slider p-px">
+                    <div class="swiper-wrapper">
+                        @foreach ($hotDeals->where('type', 0) as $hotDeal)
+                            <div class="swiper-slide">
+                                <div
+                                    class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
+                                    <!-- Product Card -->
+                                    <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
+                                        <!-- image -->
+                                        <div class="mb-2 md:mb-5" draggable="false">
+                                            <a href="{{ route('product', $hotDeal) }}">
+                                                <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
+                                                    src="{{ asset($hotDeal->image) }}" />
+                                            </a>
+                                        </div>
+                                        <!-- title -->
+                                        <div class="mb-2">
+                                            <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
+                                                href="{{ route('product', $hotDeal) }}">
+                                                {{ $hotDeal->title }}
+                                            </a>
+                                        </div>
+                                        <!-- Prices -->
+                                        <div class="flex flex-col">
+                                            <!-- Old price -->
                                             @if ($hotDeal->discounted_price)
-                                                <div>
-                                                    <p
-                                                        class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
-                                                        {{ $hotDeal->discount_percentage }}%
-                                                    </p>
+                                                <div class="h-5 text-left">
+                                                    <del class="text-sm text-text/60 decoration-warning md:text-base">
+                                                        {{ $hotDeal->price }}
+                                                    </del>
                                                 </div>
                                             @endif
-                                            <!-- New price -->
-                                            <div class="text-sm font-bold text-primary md:text-base">
-                                                {{ $hotDeal->discounted_price ? $hotDeal->discounted_price : $hotDeal->price }}
-                                                <span class="text-xs font-light md:text-sm">تومان</span>
+                                            <div class="flex items-center justify-between">
+                                                @if ($hotDeal->discounted_price)
+                                                    <div>
+                                                        <p
+                                                            class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
+                                                            {{ $hotDeal->discount_percentage }}%
+                                                        </p>
+                                                    </div>
+                                                @endif
+                                                <!-- New price -->
+                                                <div class="text-sm font-bold text-primary md:text-base">
+                                                    {{ $hotDeal->discounted_price ? $hotDeal->discounted_price : $hotDeal->price }}
+                                                    <span class="text-xs font-light md:text-sm">تومان</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
             </div>
-        </div>
-    </section>
-    <!-- hot deals(textual) Products section End -->
+        </section>
+        <!-- hot deals(textual) Products section End -->
 
-    <!-- hot deals(audio) Products section Start -->
-    <section class="mb-8">
-        <div class="container relative">
-            <!-- Section Header -->
-            <div class="mb-4 flex items-center justify-between">
-                <h3 class="font-medium md:text-lg lg:text-xl">
-                    داغ ترین های صوتی
-                </h3>
-                <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./shop.html">
-                    مشاهده همه
-                    <span>
-                        <svg class="h-5 w-5 lg:h-6 lg:w-6">
-                            <use xlink:href="#chevron-left" />
-                        </svg>
-                    </span>
-                </a>
-            </div>
-            <!-- Section Content -->
+        <!-- hot deals(audio) Products section Start -->
+        <section class="mb-8">
+            <div class="container relative">
+                <!-- Section Header -->
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="font-medium md:text-lg lg:text-xl">
+                        داغ ترین های صوتی
+                    </h3>
+                    <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./shop.html">
+                        مشاهده همه
+                        <span>
+                            <svg class="h-5 w-5 lg:h-6 lg:w-6">
+                                <use xlink:href="#chevron-left" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+                <!-- Section Content -->
 
-            <div class="swiper product-slider p-px">
-                <div class="swiper-wrapper">
-                    @foreach ($hotDeals->where('type', 1) as $hotDeal)
-                        <div class="swiper-slide">
-                            <div
-                                class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                                <!-- Product Card -->
-                                <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                    <!-- image -->
-                                    <div class="mb-2 md:mb-5" draggable="false">
-                                        <a href="{{ route('product', $hotDeal) }}">
-                                            <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                src="{{ asset($hotDeal->image) }}" />
-                                        </a>
-                                    </div>
-                                    <!-- title -->
-                                    <div class="mb-2">
-                                        <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                            href="{{ route('product', $hotDeal) }}">
-                                            {{ $hotDeal->title }}
-                                        </a>
-                                    </div>
-                                    <!-- Prices -->
-                                    <div class="flex flex-col">
-                                        <!-- Old price -->
-                                        @if ($hotDeal->discounted_price)
-                                            <div class="h-5 text-left">
-                                                <del class="text-sm text-text/60 decoration-warning md:text-base">
-                                                    {{ $hotDeal->price }}
-                                                </del>
-                                            </div>
-                                        @endif
-                                        <div class="flex items-center justify-between">
+                <div class="swiper product-slider p-px">
+                    <div class="swiper-wrapper">
+                        @foreach ($hotDeals->where('type', 1) as $hotDeal)
+                            <div class="swiper-slide">
+                                <div
+                                    class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
+                                    <!-- Product Card -->
+                                    <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
+                                        <!-- image -->
+                                        <div class="mb-2 md:mb-5" draggable="false">
+                                            <a href="{{ route('product', $hotDeal) }}">
+                                                <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
+                                                    src="{{ asset($hotDeal->image) }}" />
+                                            </a>
+                                        </div>
+                                        <!-- title -->
+                                        <div class="mb-2">
+                                            <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
+                                                href="{{ route('product', $hotDeal) }}">
+                                                {{ $hotDeal->title }}
+                                            </a>
+                                        </div>
+                                        <!-- Prices -->
+                                        <div class="flex flex-col">
+                                            <!-- Old price -->
                                             @if ($hotDeal->discounted_price)
-                                                <div>
-                                                    <p
-                                                        class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
-                                                        {{ $hotDeal->discount_percentage }}%
-                                                    </p>
+                                                <div class="h-5 text-left">
+                                                    <del class="text-sm text-text/60 decoration-warning md:text-base">
+                                                        {{ $hotDeal->price }}
+                                                    </del>
                                                 </div>
                                             @endif
-                                            <!-- New price -->
-                                            <div class="text-sm font-bold text-primary md:text-base">
-                                                {{ $hotDeal->discounted_price ? $hotDeal->discounted_price : $hotDeal->price }}
-                                                <span class="text-xs font-light md:text-sm">تومان</span>
+                                            <div class="flex items-center justify-between">
+                                                @if ($hotDeal->discounted_price)
+                                                    <div>
+                                                        <p
+                                                            class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
+                                                            {{ $hotDeal->discount_percentage }}%
+                                                        </p>
+                                                    </div>
+                                                @endif
+                                                <!-- New price -->
+                                                <div class="text-sm font-bold text-primary md:text-base">
+                                                    {{ $hotDeal->discounted_price ? $hotDeal->discounted_price : $hotDeal->price }}
+                                                    <span class="text-xs font-light md:text-sm">تومان</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
             </div>
-        </div>
-    </section>
-    <!-- hot deals(audio) Products section End -->
+        </section>
+        <!-- hot deals(audio) Products section End -->
 
-    <!-- Category Banners section Start -->
-    <section class="mb-8">
-        <div class="container relative">
-            <div class="flex w-full flex-col justify-between gap-4 md:flex-row">
-                <a href="#">
-                    <img alt="" class="rounded-base" src="./assets/images/banners/category-right.jpg" />
-                </a>
-                <a href="#">
-                    <img alt="" class="rounded-base" src="./assets/images/banners/category-left.jpg" />
-                </a>
-            </div>
-        </div>
-    </section>
-    <!-- Category Banners section End -->
-
-    <!-- Category section Start -->
-    <section class="mb-8">
-        <div class="container relative">
-            <div class="flex flex-wrap items-center justify-center gap-8 lg:justify-between">
-                <!-- Category -->
-
-                <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                    href="./shop.html">
-                    <div
-                        class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                        <img alt="" class="relative h-25 w-25 rounded-full"
-                            src="./assets/images/categories/c1.jpg" />
-                    </div>
-                    <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                        جوراب مردانه
-                    </p>
-                </a>
-                <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                    href="./shop.html">
-                    <div
-                        class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                        <img alt="" class="relative h-25 w-25 rounded-full"
-                            src="./assets/images/categories/c3.jpg" />
-                    </div>
-                    <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                        کفش ورزشی مردانه
-                    </p>
-                </a>
-                <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                    href="./shop.html">
-                    <div
-                        class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                        <img alt="" class="relative h-25 w-25 rounded-full"
-                            src="./assets/images/categories/c6.jpg" />
-                    </div>
-                    <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                        کیف مردانه
-                    </p>
-                </a>
-                <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                    href="./shop.html">
-                    <div
-                        class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                        <img alt="" class="relative h-25 w-25 rounded-full"
-                            src="./assets/images/categories/c2.jpg" />
-                    </div>
-                    <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                        جوراب زنانه
-                    </p>
-                </a>
-                <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                    href="./shop.html">
-                    <div
-                        class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                        <img alt="" class="relative h-25 w-25 rounded-full"
-                            src="./assets/images/categories/c4.jpg" />
-                    </div>
-                    <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                        کفش ورزشی زنانه
-                    </p>
-                </a>
-                <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                    href="./shop.html">
-                    <div
-                        class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                        <img alt="" class="relative h-25 w-25 rounded-full"
-                            src="./assets/images/categories/c5.jpg" />
-                    </div>
-                    <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                        کیف زنانه
-                    </p>
-                </a>
-            </div>
-        </div>
-    </section>
-    <!-- Category section End -->
-
-    <!-- most saled Products section Start -->
-    <section class="mb-8">
-        <div class="container relative">
-            <!-- Section Header -->
-            <div class="mb-4 flex items-center justify-between">
-                <h3 class="font-medium md:text-lg lg:text-xl">
-                    پربازدید ترین محصولات
-                </h3>
-                <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./shop.html">
-                    مشاهده همه
-                    <span>
-                        <svg class="h-5 w-5 lg:h-6 lg:w-6">
-                            <use xlink:href="#chevron-left" />
-                        </svg>
-                    </span>
-                </a>
-            </div>
-            <!-- Section Content -->
-
-<!-- Special Products section Start -->
-<section class="mb-8">
-    <div class="container relative">
-        <!-- Section Header -->
-        <div class="mb-4 flex items-center justify-between">
-            <h3 class="font-medium md:text-lg lg:text-xl">
-                پرفروش ترین محصولات
-            </h3>
-            <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="{{route('shop')}}">
-                مشاهده همه
-                <span>
-                    <svg class="h-5 w-5 lg:h-6 lg:w-6">
-                        <use xlink:href="#chevron-left" />
-                    </svg>
-                </span>
-            </a>
-        </div>
-        <!-- Section Content -->
-
-
-            <div class="swiper product-slider p-px">
-
-
-                <div class="swiper-wrapper">
-                    @foreach ($mosteSelledProducts as $mosteSelledProduct)
-                        <div class="swiper-slide">
-
-                            <div
-                                class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                                <!-- Product Card -->
-
-                                <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-
-                                    <!-- image -->
-                                    <div class="mb-2 md:mb-5" draggable="false">
-                                        <a href="{{ route('product', $mosteSelledProduct) }}">
-                                            <img alt="{{ $mosteSelledProduct->title }}"
-                                                class="mx-auto w-32 rounded-lg md:w-auto"
-                                                src="{{ asset($mosteSelledProduct->image) }}" />
-                                        </a>
-                                    </div>
-                                    <!-- title -->
-                                    <div class="mb-2">
-                                        <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                            href="./product-detail.html">
-                                            {{ $mosteSelledProduct->title }}
-                                        </a>
-                                    </div>
-                                    <!-- Prices -->
-                                    <div class="flex flex-col">
-                                        <!-- Old price -->
-                                        <div class="h-5 text-left">
-                                            @if ($mosteSelledProduct->discounted_price)
-                                                <del class="text-sm text-text/60 decoration-warning md:text-base">{{ $mosteSelledProduct->price }}</del>
-                                                <span class="text-xs font-light md-text-sm">تومان</span>
-                                            @endif
-                                        </div>
-
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <div></div>
-                                        <!-- New price -->
-                                        <div class="text-sm font-bold text-primary md:text-base">
-                                            {{ $mosteSelledProduct->discounted_price }}
-                                            <span class="text-xs font-light md:text-sm">تومان</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-
+        <!-- Category Banners section Start -->
+        <section class="mb-8">
+            <div class="container relative">
+                <div class="flex w-full flex-col justify-between gap-4 md:flex-row">
+                    <a href="#">
+                        <img alt="" class="rounded-base" src="./assets/images/banners/category-right.jpg" />
+                    </a>
+                    <a href="#">
+                        <img alt="" class="rounded-base" src="./assets/images/banners/category-left.jpg" />
+                    </a>
                 </div>
-
-
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-        </div>
-    </section>
-    <!-- most saled Products section End -->
+        </section>
+        <!-- Category Banners section End -->
 
-    <!-- Newest Products section Start -->
-    <section class="mb-8">
-        <div class="container relative">
-            <!-- Section Header -->
-            <div class="mb-4 flex items-center justify-between">
-                <h3 class="font-medium md:text-lg lg:text-xl">
-                    جدیدترین محصولات
-                </h3>
-                <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./shop.html">
-                    مشاهده همه
-                    <span>
-                        <svg class="h-5 w-5 lg:h-6 lg:w-6">
-                            <use xlink:href="#chevron-left" />
-                        </svg>
-                    </span>
-                </a>
-            </div>
-            <!-- Section Content -->
+        <!-- Category section Start -->
+        <section class="mb-8">
+            <div class="container relative">
+                <div class="flex flex-wrap items-center justify-center gap-8 lg:justify-between">
+                    <!-- Category -->
 
-            <div class="swiper product-slider p-px">
-                <div class="swiper-wrapper">
-                    @foreach($mostViewProducts as $mostViewProduct)
-                    <div class="swiper-slide">
+                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
+                        href="./shop.html">
                         <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <!-- Product Card -->
-                            <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                <!-- image -->
-                                <div class="mb-2 md:mb-5" draggable="false">
-                                    <a href="./product-detail.html">
-                                        <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                            src="{{asset($mostViewProduct->image)}}" />
+                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
+                            <img alt="" class="relative h-25 w-25 rounded-full"
+                                src="./assets/images/categories/c1.jpg" />
+                        </div>
+                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
+                            جوراب مردانه
+                        </p>
+                    </a>
+                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
+                        href="./shop.html">
+                        <div
+                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
+                            <img alt="" class="relative h-25 w-25 rounded-full"
+                                src="./assets/images/categories/c3.jpg" />
+                        </div>
+                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
+                            کفش ورزشی مردانه
+                        </p>
+                    </a>
+                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
+                        href="./shop.html">
+                        <div
+                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
+                            <img alt="" class="relative h-25 w-25 rounded-full"
+                                src="./assets/images/categories/c6.jpg" />
+                        </div>
+                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
+                            کیف مردانه
+                        </p>
+                    </a>
+                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
+                        href="./shop.html">
+                        <div
+                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
+                            <img alt="" class="relative h-25 w-25 rounded-full"
+                                src="./assets/images/categories/c2.jpg" />
+                        </div>
+                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
+                            جوراب زنانه
+                        </p>
+                    </a>
+                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
+                        href="./shop.html">
+                        <div
+                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
+                            <img alt="" class="relative h-25 w-25 rounded-full"
+                                src="./assets/images/categories/c4.jpg" />
+                        </div>
+                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
+                            کفش ورزشی زنانه
+                        </p>
+                    </a>
+                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
+                        href="./shop.html">
+                        <div
+                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
+                            <img alt="" class="relative h-25 w-25 rounded-full"
+                                src="./assets/images/categories/c5.jpg" />
+                        </div>
+                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
+                            کیف زنانه
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- Category section End -->
+
+
+        <!-- Special Products section Start -->
+        <section class="mb-8">
+            <div class="container relative">
+                <!-- Section Header -->
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="font-medium md:text-lg lg:text-xl">
+                        پرفروش ترین محصولات
+                    </h3>
+                    <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base"
+                        href="{{ route('shop') }}">
+                        مشاهده همه
+                        <span>
+                            <svg class="h-5 w-5 lg:h-6 lg:w-6">
+                                <use xlink:href="#chevron-left" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+                <!-- Section Content -->
+
+
+                <div class="swiper product-slider p-px">
+
+
+                    <div class="swiper-wrapper">
+                        @foreach ($mosteSelledProducts as $mosteSelledProduct)
+                            <div class="swiper-slide">
+
+                                <div
+                                    class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
+                                    <!-- Product Card -->
+
+                                    <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
+
+                                        <!-- image -->
+                                        <div class="mb-2 md:mb-5" draggable="false">
+                                            <a href="{{ route('product', $mosteSelledProduct) }}">
+                                                <img alt="{{ $mosteSelledProduct->title }}"
+                                                    class="mx-auto w-32 rounded-lg md:w-auto"
+                                                    src="{{ asset($mosteSelledProduct->image) }}" />
+                                            </a>
+                                        </div>
+                                        <!-- title -->
+                                        <div class="mb-2">
+                                            <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
+                                                href="./product-detail.html">
+                                                {{ $mosteSelledProduct->title }}
+                                            </a>
+                                        </div>
+                                        <!-- Prices -->
+                                        <div class="flex flex-col">
+                                            <!-- Old price -->
+                                            <div class="h-5 text-left">
+                                                @if ($mosteSelledProduct->discounted_price)
+                                                    <del
+                                                        class="text-sm text-text/60 decoration-warning md:text-base">{{ $mosteSelledProduct->price }}</del>
+                                                    <span class="text-xs font-light md-text-sm">تومان</span>
+                                                @endif
+                                            </div>
+
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div></div>
+                                            <!-- New price -->
+                                            <div class="text-sm font-bold text-primary md:text-base">
+                                                {{ $mosteSelledProduct->discounted_price }}
+                                                <span class="text-xs font-light md:text-sm">تومان</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+
+
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            </div>
+        </section>
+        <!-- most saled Products section End -->
+
+        <!-- Newest Products section Start -->
+        <section class="mb-8">
+            <div class="container relative">
+                <!-- Section Header -->
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="font-medium md:text-lg lg:text-xl">
+                        پربازدید ترین محصولات
+                    </h3>
+                    <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./shop.html">
+                        مشاهده همه
+                        <span>
+                            <svg class="h-5 w-5 lg:h-6 lg:w-6">
+                                <use xlink:href="#chevron-left" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+                <!-- Section Content -->
+
+                <div class="swiper product-slider p-px">
+                    <div class="swiper-wrapper">
+                        @foreach ($mostViewProducts as $mostViewProduct)
+                            <div class="swiper-slide">
+                                <div
+                                    class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
+                                    <!-- Product Card -->
+                                    <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
+                                        <!-- image -->
+                                        <div class="mb-2 md:mb-5" draggable="false">
+                                            <a href="./product-detail.html">
+                                                <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
+                                                    src="{{ asset($mostViewProduct->image) }}" />
+                                            </a>
+                                        </div>
+                                        <!-- title -->
+                                        <div class="mb-2">
+                                            <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
+                                                href="./product-detail.html">
+                                                {{ $mostViewProduct->title }}
+                                            </a>
+                                        </div>
+                                        <!-- Prices -->
+                                        <div class="flex flex-col">
+                                            <!-- Old price -->
+                                            <div class="h-5 text-left"></div>
+                                            <div class="flex items-center justify-between">
+                                                <div></div>
+                                                <!-- New price -->
+                                                <div class="text-sm font-bold text-primary md:text-base">
+                                                    {{ number_format($mostViewProduct->price) }}
+                                                    <span class="text-xs font-light md:text-sm">تومان</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
+        <!-- Newest Products section End -->
+
+        <!-- Blog section Start -->
+        <section class="mb-6">
+            <div class="container relative">
+                <!-- Section Header -->
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="font-medium md:text-lg lg:text-xl">مطالب خواندنی</h3>
+                    <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./blog.html">
+                        مشاهده همه
+                        <span>
+                            <svg class="h-5 w-5 lg:h-6 lg:w-6">
+                                <use xlink:href="#chevron-left" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+                <!-- Section Content -->
+                <div class="swiper blog-slider p-px">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div
+                                class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
+                                <!-- Blog Card -->
+                                <div>
+                                    <a href="./blog-detail.html">
+                                        <div class="relative rounded-xl bg-muted p-2 shadow-base">
+                                            <!-- image -->
+                                            <div class="mb-2 md:mb-5" draggable="false">
+                                                <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
+                                                    src="./assets/images/blog/blog1.jpg" />
+                                            </div>
+                                            <!-- title -->
+                                            <div class="mb-2">
+                                                <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
+                                                    مزایا و معایب گوشی‌های سری گلکسی S21
+                                                </p>
+                                            </div>
+                                            <div class="flex justify-end">
+                                                <p class="text-xs text-primary xs:text-sm">
+                                                    29 / شهریور / 1403
+                                                </p>
+                                            </div>
+                                        </div>
                                     </a>
                                 </div>
-                                <!-- title -->
-                                <div class="mb-2">
-                                    <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                        href="./product-detail.html">
-                                        {{$mostViewProduct->title}}
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div
+                                class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
+                                <!-- Blog Card -->
+                                <div>
+                                    <a href="./blog-detail.html">
+                                        <div class="relative rounded-xl bg-muted p-2 shadow-base">
+                                            <!-- image -->
+                                            <div class="mb-2 md:mb-5" draggable="false">
+                                                <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
+                                                    src="./assets/images/blog/blog1.jpg" />
+                                            </div>
+                                            <!-- title -->
+                                            <div class="mb-2">
+                                                <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
+                                                    مزایا و معایب گوشی‌های سری گلکسی S21
+                                                </p>
+                                            </div>
+                                            <div class="flex justify-end">
+                                                <p class="text-xs text-primary xs:text-sm">
+                                                    29 / شهریور / 1403
+                                                </p>
+                                            </div>
+                                        </div>
                                     </a>
                                 </div>
-                                <!-- Prices -->
-                                <div class="flex flex-col">
-                                    <!-- Old price -->
-                                    <div class="h-5 text-left"></div>
-                                    <div class="flex items-center justify-between">
-                                        <div></div>
-                                        <!-- New price -->
-                                        <div class="text-sm font-bold text-primary md:text-base">
-                                            {{number_format($mostViewProduct->price)}}
-                                            <span class="text-xs font-light md:text-sm">تومان</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div
+                                class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
+                                <!-- Blog Card -->
+                                <div>
+                                    <a href="./blog-detail.html">
+                                        <div class="relative rounded-xl bg-muted p-2 shadow-base">
+                                            <!-- image -->
+                                            <div class="mb-2 md:mb-5" draggable="false">
+                                                <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
+                                                    src="./assets/images/blog/blog1.jpg" />
+                                            </div>
+                                            <!-- title -->
+                                            <div class="mb-2">
+                                                <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
+                                                    مزایا و معایب گوشی‌های سری گلکسی S21
+                                                </p>
+                                            </div>
+                                            <div class="flex justify-end">
+                                                <p class="text-xs text-primary xs:text-sm">
+                                                    29 / شهریور / 1403
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div
+                                class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
+                                <!-- Blog Card -->
+                                <div>
+                                    <a href="./blog-detail.html">
+                                        <div class="relative rounded-xl bg-muted p-2 shadow-base">
+                                            <!-- image -->
+                                            <div class="mb-2 md:mb-5" draggable="false">
+                                                <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
+                                                    src="./assets/images/blog/blog1.jpg" />
+                                            </div>
+                                            <!-- title -->
+                                            <div class="mb-2">
+                                                <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
+                                                    مزایا و معایب گوشی‌های سری گلکسی S21
+                                                </p>
+                                            </div>
+                                            <div class="flex justify-end">
+                                                <p class="text-xs text-primary xs:text-sm">
+                                                    29 / شهریور / 1403
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-   
-                    @endforeach
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
             </div>
-        </div>
-    </section>
-    <!-- Newest Products section End -->
+        </section>
 
-    <!-- Blog section Start -->
-    <section class="mb-6">
-        <div class="container relative">
-            <!-- Section Header -->
-            <div class="mb-4 flex items-center justify-between">
-                <h3 class="font-medium md:text-lg lg:text-xl">مطالب خواندنی</h3>
-                <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./blog.html">
-                    مشاهده همه
-                    <span>
-                        <svg class="h-5 w-5 lg:h-6 lg:w-6">
-                            <use xlink:href="#chevron-left" />
-                        </svg>
-                    </span>
-                </a>
-            </div>
-            <!-- Section Content -->
-            <div class="swiper blog-slider p-px">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <!-- Blog Card -->
-                            <div>
-                                <a href="./blog-detail.html">
-                                    <div class="relative rounded-xl bg-muted p-2 shadow-base">
-                                        <!-- image -->
-                                        <div class="mb-2 md:mb-5" draggable="false">
-                                            <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
-                                                src="./assets/images/blog/blog1.jpg" />
-                                        </div>
-                                        <!-- title -->
-                                        <div class="mb-2">
-                                            <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
-                                                مزایا و معایب گوشی‌های سری گلکسی S21
-                                            </p>
-                                        </div>
-                                        <div class="flex justify-end">
-                                            <p class="text-xs text-primary xs:text-sm">
-                                                29 / شهریور / 1403
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <!-- Blog Card -->
-                            <div>
-                                <a href="./blog-detail.html">
-                                    <div class="relative rounded-xl bg-muted p-2 shadow-base">
-                                        <!-- image -->
-                                        <div class="mb-2 md:mb-5" draggable="false">
-                                            <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
-                                                src="./assets/images/blog/blog1.jpg" />
-                                        </div>
-                                        <!-- title -->
-                                        <div class="mb-2">
-                                            <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
-                                                مزایا و معایب گوشی‌های سری گلکسی S21
-                                            </p>
-                                        </div>
-                                        <div class="flex justify-end">
-                                            <p class="text-xs text-primary xs:text-sm">
-                                                29 / شهریور / 1403
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <!-- Blog Card -->
-                            <div>
-                                <a href="./blog-detail.html">
-                                    <div class="relative rounded-xl bg-muted p-2 shadow-base">
-                                        <!-- image -->
-                                        <div class="mb-2 md:mb-5" draggable="false">
-                                            <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
-                                                src="./assets/images/blog/blog1.jpg" />
-                                        </div>
-                                        <!-- title -->
-                                        <div class="mb-2">
-                                            <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
-                                                مزایا و معایب گوشی‌های سری گلکسی S21
-                                            </p>
-                                        </div>
-                                        <div class="flex justify-end">
-                                            <p class="text-xs text-primary xs:text-sm">
-                                                29 / شهریور / 1403
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div
-                            class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                            <!-- Blog Card -->
-                            <div>
-                                <a href="./blog-detail.html">
-                                    <div class="relative rounded-xl bg-muted p-2 shadow-base">
-                                        <!-- image -->
-                                        <div class="mb-2 md:mb-5" draggable="false">
-                                            <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
-                                                src="./assets/images/blog/blog1.jpg" />
-                                        </div>
-                                        <!-- title -->
-                                        <div class="mb-2">
-                                            <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
-                                                مزایا و معایب گوشی‌های سری گلکسی S21
-                                            </p>
-                                        </div>
-                                        <div class="flex justify-end">
-                                            <p class="text-xs text-primary xs:text-sm">
-                                                29 / شهریور / 1403
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog section End -->
-@endsection
+        <!-- Blog section End -->
+    @endsection

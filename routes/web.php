@@ -115,6 +115,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 // Home
 Route::get('/',[HomeController::class,'index'])->name('app.home');
 Route::get('/product/{product}', [HomeProductController::class, 'show'])->name('product');
+Route::get('/publisher/{publisher}', [HomeController::class, 'publisher'])->name('publisher');
 
 Route::get('/blogs', [\App\Http\Controllers\Home\BlogController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{blog}', [\App\Http\Controllers\Home\BlogController::class, 'show'])->name('blogs.show');

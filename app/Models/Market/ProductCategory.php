@@ -4,7 +4,6 @@ namespace App\Models\Market;
 
 // use Cocur\Slugify\Slugify;
 
-use App\Models\Content\Blog;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -49,9 +48,9 @@ class ProductCategory extends Model
         return $this->hasMany(ProductCategory::class, 'parent_id');
     }
 
-    public function blogs()
+    public function products()
     {
-        return $this->hasMany(Blog::class);
+        return $this->hasMany(Product::class, 'product_category_id');
     }
 
 }

@@ -157,7 +157,7 @@ Route::middleware('auth')->group(function(){
 });
 
 // shop
-Route::get(uri: '/shop', action: [ShopController::class, 'index'])->name('shop');
+Route::get(uri: '/shop/{categorySlug?}', action: [ShopController::class, 'index'])->name('shop');
 Route::get(uri: '/shop/available-product', action: [ShopController::class, 'availableProduct'])->name('shop.available-product');
 Route::get(uri: '/shop/with-picture-product', action: [ShopController::class, 'withPictureProduct'])->name('shop.with-picture-product');
 Route::get(uri: '/shop/most-expensive-product', action: [ShopController::class, 'mostExpensiveProduct'])->name('shop.most-expensive-product');

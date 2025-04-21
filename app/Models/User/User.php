@@ -3,7 +3,6 @@
 namespace App\Models\User;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Favorite;
 use App\Models\Content\Writer;
 use App\Models\Market\Order;
 use App\Models\Market\Product;

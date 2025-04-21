@@ -6,7 +6,8 @@
                <div class="mb-2 flex items-center justify-between border-b pb-6 dark:border-white/10">
                    <div class="flex items-center gap-x-4">
                        <div>
-                           <img src="{{ asset('assets/images/user.png') }}" class="h-12 w-12 rounded-full" alt="" />
+                           <img src="{{ asset('assets/images/user.png') }}" class="h-12 w-12 rounded-full"
+                               alt="" />
                        </div>
                        <div class="flex flex-col">
                            <div class="line-clamp-1">{{ Auth::user()->name }}</div>
@@ -67,8 +68,8 @@
                    </li>
 
                    <li>
-                       <a href="{{ route('user-profile.ticket') }}"
-                           class="profile-menu {{ Route::currentRouteName() == 'user-profile.ticket' ? 'profile-menu-active' : '' }} flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
+                       <a href="{{ route('user-profile.tickets') }}"
+                           class="profile-menu {{ Route::currentRouteName() == 'user-profile.tickets' ? 'profile-menu-active' : '' }} flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
                            <div class="flex items-center gap-x-4">
                                <svg class="h-6 w-6">
                                    <use xlink:href="#notification" />
@@ -118,16 +119,17 @@
                        </a>
                    </li>
                    <li>
-                       <form class="flex items-center justify-between rounded-lg p-4 text-red-500 hover:bg-warning/10 dark:text-red-400 dark:hover:bg-red-400/10 cursor-pointer"
+                       <form
+                           class="flex items-center justify-between rounded-lg p-4 text-red-500 hover:bg-warning/10 dark:text-red-400 dark:hover:bg-red-400/10 cursor-pointer"
                            action="{{ route('logout') }}" method="post">
-						   @csrf
+                           @csrf
                            <div class="flex items-center gap-x-2">
                                <svg class="h-6 w-6">
                                    <use xlink:href="#exit"></use>
                                </svg>
                                <button type="submit"> خروج </button>
                            </div>
-                       </a>
+                       </form>
                    </li>
                </ul>
            </div>

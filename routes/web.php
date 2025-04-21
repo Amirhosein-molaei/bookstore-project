@@ -169,6 +169,6 @@ Route::get(uri: '/faq', action: [HomeFaqController::class, 'index'])->name('faq'
 // profile
 Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(function(){
     Route::get('/', [UserProfileController::class, 'index']);
-    Route::get('/ticket', [UserProfileController::class, 'showTicket'])->name('ticket');
-
+    Route::get('/tickets', [UserProfileController::class, 'showTicket'])->name('tickets');
+    Route::post('/send-ticket', [UserProfileController::class, 'sendTicket'])->name('ticket.send');
 });

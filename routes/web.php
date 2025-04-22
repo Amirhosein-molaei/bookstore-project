@@ -131,7 +131,7 @@ Route::get('/writers/{id}/details', function($id) {
         'description' => $writer->description,
 
     ]);
-});
+})->name('writers.details');
 
 Route::middleware('auth')->group(function(){
   
@@ -170,5 +170,15 @@ Route::get(uri: '/faq', action: [HomeFaqController::class, 'index'])->name('faq'
 Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(function(){
     Route::get('/', [UserProfileController::class, 'index']);
     Route::get('/ticket', [UserProfileController::class, 'showTicket'])->name('ticket');
+    Route::get('/favorit-writers', [UserProfileController::class, 'favoritWriters'])->name('favorit-writers');
 
 });
+    
+    // add writer to favorites
+    Route::post('writer/favorite/{writerId}',[FavoriteController::class, 'addWriter'])->name('writer.favorite'); 
+
+// delete favoritWriter from userProfile
+
+Route::delete('/writers/favorite/{writer}', [FavoriteController::class, 'destroyFavoritWriter'])->name('writers.favorite.destroy');
+Route::delete('/writers/favorite', [FavoriteController::class, 'destroyAllFavoritWriter'])->name('writers.favorite.destroy-all');
+

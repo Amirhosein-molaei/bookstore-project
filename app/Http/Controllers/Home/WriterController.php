@@ -15,4 +15,8 @@ class WriterController extends Controller
         return view('app.writers.index',compact('writers'));
 
     }
+   
+     
+
+
 }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Controller;
-use App\Models\Ticket\Ticket;
 use Illuminate\Http\Request;
+use App\Models\Ticket\Ticket;
+use App\Models\User\Favorite;
+use App\Models\Content\Writer;
+use App\Http\Controllers\Controller;
 
 class UserProfileController extends Controller
 {
@@ -30,6 +32,15 @@ class UserProfileController extends Controller
           }])
           ->get();
 
-      return view('app.profile.ticket', compact('unreviewedTickets', 'reviewedTickets'));
+      return view('app.profile.ticket', compact( 'unreviewedTickets', 'reviewedTickets'));
+  }
+  public function favoritWriters()
+  {
+    $user = auth()->user();
+    $favoriteWriters = $user->favoriteWriters()
+        ->wherePivotNull('deleted_at')       
+        ->get();
+    return view('app.profile.favorit-writer', compact( 'favoriteWriters'));
+
   }
 }

@@ -5,6 +5,7 @@ namespace App\Models\Content;
 
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -47,5 +48,9 @@ class Blog extends Model
             $q->where('title', 'like', '%'.$searchTerm.'%')
                 ->orWhere('body', 'like', '%'.$searchTerm.'%');
         });
+    }
+    public function comments(): HasMany
+    {
+        return $this->hasMany(BlogComment::class);
     }
 }

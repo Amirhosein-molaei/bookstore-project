@@ -128,6 +128,156 @@
 
                         </div>
                     </div>
+
+                    <!-- Comments Section -->
+                    <div class="py-6" id="comments">
+                        <div class="relative mb-16 w-fit text-xl font-medium">
+                            دیدگاه ها
+                            <span class="absolute right-0 top-10 h-[3px] w-full rounded-full bg-primary">
+                            </span>
+                        </div>
+
+                        <div>
+                            <div class="grid grid-cols-12 gap-y-8 md:gap-8">
+                                <!-- Submit New Comment -->
+                                @if (Auth::check())
+                                    <div class="col-span-12 md:col-span-4 lg:col-span-3">
+                                        <form action="{{ route('blog.comment.store', $blog) }}" method="post">
+                                            @csrf
+                                            <div class="grid grid-cols-2 gap-4 md:sticky md:top-32">
+                                                <div class="text-lg">ثبت دیدگاه</div>
+                                                <div class="col-span-2">
+                                                    <!-- comment title -->
+                                                </div>
+                                                <div class="col-span-2">
+                                                    <label for="comment"
+                                                           class="relative block rounded-lg border shadow-base">
+                                                        <textarea type="text" id="comment" name="body" rows="3"
+                                                                  class="main-scroll peer w-full rounded-lg border-none bg-transparent px-4 py-3 placeholder-transparent focus:outline-none focus:ring-0"
+                                                                  placeholder="متن دیدگاه"></textarea>
+                                                        @error('body')
+                                                        {{ $message }}
+                                                        @enderror
+
+                                                        <span
+                                                            class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
+                                                            متن دیدگاه
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-span-2 flex justify-end">
+                                                    <button type="submit" class="btn-primary w-full px-4 py-2 md:w-auto">
+                                                        ارسال دیدگاه
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                @else
+                                    <div class="col-span-12 md:col-span-4 lg:col-span-3">
+                                        <div class="grid grid-cols-2 gap-4 md:sticky md:top-32">
+                                            <div class="text-lg">ثبت دیدگاه</div>
+                                            <div class="col-span-2">
+                                                <!-- comment title -->
+                                            </div>
+                                            <div class="col-span-2">
+                                                <!-- Suggestion -->
+                                                <div class="mb-4 text-sm text-text/60">
+                                                    برای ثبت دیدگاه ابتدا <a href="{{ route('login') }}"
+                                                                             class="text-primary">وارد شوید</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                                <!-- Comments -->
+                                <div class="order-first col-span-12 mb-10 max-h-[500px] overflow-hidden md:order-last md:col-span-8 lg:col-span-9"
+                                     id="commentsContainer">
+                                    <div>
+                                        <ul class="mb-8 space-y-4 divide-y divide-gray-200 dark:divide-white/10">
+                                            @forelse ($blog->comments as $comment)
+                                                <li class="space-y-2">
+                                                    <div class="mt-4 flex items-center gap-x-4 pb-6">
+                                                        <div class="flex items-center gap-x-2">
+                                                            <div class="text-sm text-text/60">
+                                                                {{ \Morilog\Jalali\Jalalian::forge($comment->created_at)->format('%B %d، %Y') }}
+                                                            </div>
+                                                            <span
+                                                                class="h-3 w-px rounded-full bg-background dark:bg-muted/10"></span>
+                                                            <div class="text-sm text-text/60">{{ $comment->user->name }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="py-2">
+                                                        <div class="flex items-center justify-between gap-2">
+                                                            <h5 class="mb-4 leading-relaxed xl:text-lg">
+                                                                {{ $comment->body }}
+                                                            </h5>
+                                                        </div>
+
+                                                        <div class="flex items-center justify-between gap-x-8">
+                                                            @if (Auth::check())
+                                                                <div class="text-sm text-text/60">
+                                                                    آیا این دیدگاه برایتان مفید بود؟
+                                                                </div>
+                                                                <!-- like & dislike -->
+                                                                <div class="flex gap-x-4">
+                                                                    <form
+                                                                        action="{{ route('blog.comment.like', $comment) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                                class="flex items-center gap-x-2 text-primary transition-all duration-200 hover:text-emerald-400 hover:dark:text-primary">
+                                                                            <span class="text-sm"> {{ $comment->likes }}
+                                                                            </span>
+                                                                            <svg class="h-6 w-6">
+                                                                                <use xlink:href="#like" />
+                                                                            </svg>
+                                                                        </button>
+                                                                    </form>
+                                                                    <form
+                                                                        action="{{ route('blog.comment.dislike', $comment) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                                class="flex items-center gap-x-2 text-red-500 transition-all duration-200 hover:text-red-400 dark:text-red-400 hover:dark:text-red-500">
+                                                                            <span class="text-sm">
+                                                                                {{ $comment->dislikes }}</span>
+                                                                            <svg class="h-6 w-6 fill-red-500">
+                                                                                <use xlink:href="#dislike" />
+                                                                            </svg>
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @empty
+                                                <li class="py-4">
+                                                    <div class="py-4 pr-8 border-r dark:border-white/10">
+                                                        <h5 class="mb-4 leading-relaxed xl:text-lg">
+                                                            دیدگاهی برای این مطلب ثبت نشده است.
+                                                        </h5>
+                                                    </div>
+                                                </li>
+                                            @endforelse
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden justify-center md:flex">
+                            <button class="btn-secondary-nobg" id="toggleCommentsButton">
+                                مشاهده بیشتر
+                                <svg class="h-5 w-5">
+                                    <use xlink:href="#chevron-left" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- End Comments Section -->
+
                 </div>
                 <!-- Desktop Filter Section -->
                 <div class="col-span-4 row-span-2 hidden md:block lg:col-span-3">
@@ -140,30 +290,30 @@
                                 مطالب مرتبط
                             </p>
                             <ul class="space-y-8">
-                              @foreach($blogs as $blogList)
-                                <li>
-                                    <a href="{{ route('blogs.show', $blogList->id) }}">
-                                        <div class="flex gap-x-2 xl:gap-x-4">
-                                            <div class="min-w-fit">
-                                                <img
-                                                    src="{{asset($blogList->image)}}"
-                                                    alt="blog"
-                                                    class="w-25 rounded-xl xl:w-32"
-                                                />
+                                @foreach($blogs as $blogList)
+                                    <li>
+                                        <a href="{{ route('blogs.show', $blogList->id) }}">
+                                            <div class="flex gap-x-2 xl:gap-x-4">
+                                                <div class="min-w-fit">
+                                                    <img
+                                                        src="{{asset($blogList->image)}}"
+                                                        alt="blog"
+                                                        class="w-25 rounded-xl xl:w-32"
+                                                    />
+                                                </div>
+                                                <div class="flex flex-col gap-y-2">
+                                                    <p
+                                                        class="line-clamp-2 text-sm text-text/90 xl:text-base"
+                                                    >
+                                                        {{$blogList->title}}
+                                                    </p>
+                                                    <p class="text-xs text-text/60 xl:text-sm">
+                                                        {{ jdate($blogList->created_at)->format('d / F / Y') }}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div class="flex flex-col gap-y-2">
-                                                <p
-                                                    class="line-clamp-2 text-sm text-text/90 xl:text-base"
-                                                >
-                                                    {{$blogList->title}}
-                                                </p>
-                                                <p class="text-xs text-text/60 xl:text-sm">
-                                                    {{ jdate($blogList->created_at)->format('d / F / Y') }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
+                                        </a>
+                                    </li>
                                 @endforeach
                                 <li>
                                     <a href="{{route('blogs.index')}}" class="btn-primary py-2">
@@ -172,171 +322,6 @@
                                 </li>
                             </ul>
                         </div>
-{{--                        <!-- hot Blogs -->--}}
-{{--                        <div--}}
-{{--                            class="mb-8 rounded-lg bg-muted px-2 py-3 shadow-base xl:px-4"--}}
-{{--                        >--}}
-{{--                            <p class="mb-4 text-center text-sm font-medium xl:text-base">--}}
-{{--                                مطالب محبوب--}}
-{{--                            </p>--}}
-{{--                            <ul class="space-y-8">--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">--}}
-{{--                                        <div class="flex gap-x-2 xl:gap-x-4">--}}
-{{--                                            <div class="min-w-fit">--}}
-{{--                                                <img--}}
-{{--                                                    src="./assets/images/blog/blog1.jpg"--}}
-{{--                                                    alt="blog"--}}
-{{--                                                    class="w-25 rounded-xl xl:w-32"--}}
-{{--                                                />--}}
-{{--                                            </div>--}}
-{{--                                            <div class="flex flex-col gap-y-2">--}}
-{{--                                                <p--}}
-{{--                                                    class="line-clamp-2 text-sm text-text/90 xl:text-base"--}}
-{{--                                                >--}}
-{{--                                                    نحوه انتقال مخاطبین از گوشی آیفون به اندروید--}}
-{{--                                                </p>--}}
-{{--                                                <p class="text-xs text-text/60 xl:text-sm">--}}
-{{--                                                    1402 / شهریور / 20--}}
-{{--                                                </p>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">--}}
-{{--                                        <div class="flex gap-x-2 xl:gap-x-4">--}}
-{{--                                            <div class="min-w-fit">--}}
-{{--                                                <img--}}
-{{--                                                    src="./assets/images/blog/blog1.jpg"--}}
-{{--                                                    alt="blog"--}}
-{{--                                                    class="w-25 rounded-xl xl:w-32"--}}
-{{--                                                />--}}
-{{--                                            </div>--}}
-{{--                                            <div class="flex flex-col gap-y-2">--}}
-{{--                                                <p--}}
-{{--                                                    class="line-clamp-2 text-sm text-text/90 xl:text-base"--}}
-{{--                                                >--}}
-{{--                                                    نحوه انتقال مخاطبین از گوشی آیفون به اندروید--}}
-{{--                                                </p>--}}
-{{--                                                <p class="text-xs text-text/60 xl:text-sm">--}}
-{{--                                                    1402 / شهریور / 20--}}
-{{--                                                </p>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">--}}
-{{--                                        <div class="flex gap-x-2 xl:gap-x-4">--}}
-{{--                                            <div class="min-w-fit">--}}
-{{--                                                <img--}}
-{{--                                                    src="./assets/images/blog/blog1.jpg"--}}
-{{--                                                    alt="blog"--}}
-{{--                                                    class="w-25 rounded-xl xl:w-32"--}}
-{{--                                                />--}}
-{{--                                            </div>--}}
-{{--                                            <div class="flex flex-col gap-y-2">--}}
-{{--                                                <p--}}
-{{--                                                    class="line-clamp-2 text-sm text-text/90 xl:text-base"--}}
-{{--                                                >--}}
-{{--                                                    نحوه انتقال مخاطبین از گوشی آیفون به اندروید--}}
-{{--                                                </p>--}}
-{{--                                                <p class="text-xs text-text/60 xl:text-sm">--}}
-{{--                                                    1402 / شهریور / 20--}}
-{{--                                                </p>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                        <!-- Categories Blogs -->--}}
-{{--                        <div--}}
-{{--                            class="mb-8 rounded-lg bg-muted px-2 py-3 shadow-base xl:px-4"--}}
-{{--                        >--}}
-{{--                            <p class="mb-4 text-center text-sm font-medium xl:text-base">--}}
-{{--                                دسته‌بندی ها--}}
-{{--                            </p>--}}
-{{--                            <ul class="space-y-4">--}}
-{{--                                <li>--}}
-{{--                                    <a href="#" class="group py-2">--}}
-{{--                                        <div class="flex items-center justify-between">--}}
-{{--                                            <p--}}
-{{--                                                class="flex items-center gap-x-2 text-sm text-text/90 transition-all duration-200 group-hover: group-hover: xl:text-base"--}}
-{{--                                            >--}}
-{{--                                                <svg class="h-4 w-4">--}}
-{{--                                                    <use xlink:href="#chevron-left" />--}}
-{{--                                                </svg>--}}
-{{--                                                دسته بندی اول--}}
-{{--                                            </p>--}}
-{{--                                            <div--}}
-{{--                                                class="w-6 rounded-lg bg-primary py-px text-center text-sm font-medium text-white dark:bg-emerald-600"--}}
-{{--                                            >--}}
-{{--                                                20--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#" class="group py-2">--}}
-{{--                                        <div class="flex items-center justify-between">--}}
-{{--                                            <p--}}
-{{--                                                class="flex items-center gap-x-2 text-sm text-text/90 transition-all duration-200 group-hover: group-hover: xl:text-base"--}}
-{{--                                            >--}}
-{{--                                                <svg class="h-4 w-4">--}}
-{{--                                                    <use xlink:href="#chevron-left" />--}}
-{{--                                                </svg>--}}
-{{--                                                دسته بندی دوم--}}
-{{--                                            </p>--}}
-{{--                                            <div--}}
-{{--                                                class="w-6 rounded-lg bg-primary py-px text-center text-sm font-medium text-white dark:bg-emerald-600"--}}
-{{--                                            >--}}
-{{--                                                20--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#" class="group py-2">--}}
-{{--                                        <div class="flex items-center justify-between">--}}
-{{--                                            <p--}}
-{{--                                                class="flex items-center gap-x-2 text-sm text-text/90 transition-all duration-200 group-hover: group-hover: xl:text-base"--}}
-{{--                                            >--}}
-{{--                                                <svg class="h-4 w-4">--}}
-{{--                                                    <use xlink:href="#chevron-left" />--}}
-{{--                                                </svg>--}}
-{{--                                                دسته بندی سوم--}}
-{{--                                            </p>--}}
-{{--                                            <div--}}
-{{--                                                class="w-6 rounded-lg bg-primary py-px text-center text-sm font-medium text-white dark:bg-emerald-600"--}}
-{{--                                            >--}}
-{{--                                                20--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#" class="group py-2">--}}
-{{--                                        <div class="flex items-center justify-between">--}}
-{{--                                            <p--}}
-{{--                                                class="flex items-center gap-x-2 text-sm text-text/90 transition-all duration-200 group-hover: group-hover: xl:text-base"--}}
-{{--                                            >--}}
-{{--                                                <svg class="h-4 w-4">--}}
-{{--                                                    <use xlink:href="#chevron-left" />--}}
-{{--                                                </svg>--}}
-{{--                                                دسته بندی چهارم--}}
-{{--                                            </p>--}}
-{{--                                            <div--}}
-{{--                                                class="w-6 rounded-lg bg-primary py-px text-center text-sm font-medium text-white dark:bg-emerald-600"--}}
-{{--                                            >--}}
-{{--                                                20--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
                     </div>
                 </div>
             </div>

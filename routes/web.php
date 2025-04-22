@@ -31,6 +31,8 @@ use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Home\HomeFaqController;
+use App\Http\Controllers\Home\BlogCommentController;
+
 
 
 Route::get('/dashboard', function () {
@@ -133,9 +135,20 @@ Route::get('/writers/{id}/details', function($id) {
 
     ]);
 });
+Route::post('/blogs/{blog}/comments', [BlogCommentController::class, 'store'])
+    ->name('blog.comment.store')
+    ->middleware('auth');
+
+Route::post('/blog-comments/{comment}/like', [BlogCommentController::class, 'like'])
+    ->name('blog.comment.like')
+    ->middleware('auth');
+
+Route::post('/blog-comments/{comment}/dislike', [BlogCommentController::class, 'dislike'])
+    ->name('blog.comment.dislike')
+    ->middleware('auth');
 
 Route::middleware('auth')->group(function(){
-  
+
   //cart
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
     Route::get('/cart/empty', [CartController::class, 'emptyCart'])->name('cart.empty');
@@ -148,9 +161,9 @@ Route::middleware('auth')->group(function(){
     Route::post('/checkout/submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/fail', [CheckoutController::class, 'fail'])->name('checkout.fail');
-    
+
     // add to favorite and comment
-    Route::post('product/favorite/{product}',[FavoriteController::class, 'addProduct'])->name('product.favorite'); 
+    Route::post('product/favorite/{product}',[FavoriteController::class, 'addProduct'])->name('product.favorite');
     Route::post('product/comment/{product}',[HomeProductController::class,'sendComment'])->name('product.comment');
     Route::post('product/comment/{product}/answer', [HomeProductController::class, 'answerComment'])->name('product.comment.answer');
     Route::post('product/comment/like/{comment}',[HomeProductController::class,'likeComment'])->name('product.comment.like');

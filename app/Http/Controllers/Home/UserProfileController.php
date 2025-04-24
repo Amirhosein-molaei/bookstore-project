@@ -141,4 +141,11 @@ class UserProfileController extends Controller
 
         return to_route('user-profile.edit')->with('success', 'شماره همراه شما با موفقیت تغییر یافت.');
     }
+
+    public function favoriteProducts()
+    {
+        $user = User::find(Auth::id());
+        $favoriteProducts = $user->favoriteProducts()->get();
+        return view('app.profile.favorite-products', compact('favoriteProducts'));
+    }
 }

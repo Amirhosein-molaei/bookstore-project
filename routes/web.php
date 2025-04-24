@@ -175,4 +175,8 @@ Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(
     Route::put('update-name', [UserProfileController::class, 'updateName'])->name('update-name');
     Route::put('update-email', [UserProfileController::class, 'updateEmail'])->name('update-email');
     Route::put('update-mobile', [UserProfileController::class, 'updateMobile'])->name('update-mobile');
+    Route::get('/favorite-products', [UserProfileController::class, 'favoriteProducts'])->name('product-favorite');
+    Route::delete('/favorite-products/empty', [FavoriteController::class, 'removeAllFavoriteProducts'])->name('product-favorite.empty');
+    Route::delete('/favorite-products/{product}/remove', [FavoriteController::class, 'removeFavoriteProduct'])->name('product-favorite.remove');
+
 });

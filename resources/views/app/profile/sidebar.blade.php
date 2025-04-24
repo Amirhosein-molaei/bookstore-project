@@ -62,14 +62,14 @@
                       </li>
                       <li>
                         <a
-                          href="./profile-favorite.html"
+                          href="{{ route('user-profile.favorit-writers') }}"
                           class="profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4"
                         >
                           <div class="flex items-center gap-x-4">
                             <svg class="h-6 w-6">
                               <use xlink:href="#heart" />
                             </svg>
-                            <div>علاقه‌مندی ها</div>
+                            <div> نویسنده های مورد علاقه</div>
                           </div>
                         </a>
                       </li>

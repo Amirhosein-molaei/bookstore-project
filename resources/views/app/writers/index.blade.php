@@ -1,21 +1,61 @@
 @extends('app.layouts.master')
 @section('scripts')
-    @parent
-    <script>
-        function loadWriterDetails(writerId) {
+@parent
+<!-- <script>
+    const csrf = '{{ csrf_token() }}';
+</script> -->
 
-            document.getElementById('writerDetailsContainer').innerHTML = `
+<script>
+    function toggleFavorite(writerId) {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch(`/writer/favorite/${writerId}`, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => {
+        if (response.ok) return response.json();
+        return response.text().then(text => { throw new Error(text) });
+    })
+    .then(data => {
+        // پیام موفقیت
+        Swal.fire({
+            icon: 'success',
+            title: 'موفق',
+            text: data.message || 'عملیات با موفقیت انجام شد!',
+        });
+    })
+    .catch(error => {
+        console.error(error);
+        Swal.fire({
+            icon: 'error',
+            title: 'خطا',
+            text: 'در انجام عملیات مشکلی پیش آمد!',
+        });
+    });
+}
+
+</script>
+
+<script>
+    function loadWriterDetails(writerId) {
+
+        document.getElementById('writerDetailsContainer').innerHTML = `
         <div class="flex justify-center items-center py-8">
             <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
         </div>
     `;
 
 
-            fetch(`/writers/${writerId}/details`)
-                .then(response => response.json())
-                .then(data => {
+        fetch(`/writers/${writerId}/details`)
+            .then(response => response.json())
+            .then(data => {
 
-                    document.getElementById('writerDetailsContainer').innerHTML = `
+                document.getElementById('writerDetailsContainer').innerHTML = `
                 <div class="mb-6">
                     <ul class="-mb-px flex justify-between gap-x-2 border-b text-center text-sm font-medium xs:justify-start xs:gap-x-4 xs:text-base">
                         <li>
@@ -41,10 +81,13 @@
                                 <p>${data.description}</p>
                             </div>
                         </div>
-                        
-                    <form action="{{ route('app.home') }}" method="get">
-                        <button type="submit" class="btn-indigo px-4 py-2">دنبال کردن</button>
-                    </form>
+              
+                    @if (auth()->check())
+                    
+                <button onclick="toggleFavorite(${writerId})" class="btn-indigo px-4 py-2">اضافه / حذف به علاقه‌مندی‌ها</button>
+
+                    @endif
+
                     
                     </div>
                     <div class="py-6" id="specs">
@@ -100,78 +143,80 @@
                 </div>
             `;
 
-                    // اسکرول به بخش جزئیات
-                    document.getElementById('writerDetailsContainer').scrollIntoView({ behavior: 'smooth' });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById('writerDetailsContainer').innerHTML = `
+                // اسکرول به بخش جزئیات
+                document.getElementById('writerDetailsContainer').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('writerDetailsContainer').innerHTML = `
                 <div class="text-center py-8 text-red-500">
                     خطا در بارگذاری اطلاعات نویسنده
                 </div>
             `;
-                });
-        }
-    </script>
+            });
+    }
+</script>
 @endsection
 @section('content')
-    <main class="flex-grow bg-background pb-14 pt-36 xs:pt-36">
-        <div class="container">
-            <div class="mb-6">
-                <div>
+<main class="flex-grow bg-background pb-14 pt-36 xs:pt-36">
+    <div class="container">
+        <div class="mb-6">
+            <div>
 
 
-                    <!-- Section Header -->
-                    <div class="mb-4 flex items-center justify-between">
-                        <h3 class="font-medium md:text-lg lg:text-xl">نویسنده ها</h3>
-                    </div>
-                    <!-- Section Content -->
-                    <div class="swiper product-slider p-px">
-                        <div class="swiper-wrapper">
-                            @foreach($writers as $writer)
-                                <div class="swiper-slide">
-                                    <!-- Product Card -->
-                                    <div class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                                        <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                                            <!-- image -->
-                                            <div class="mb-2 md:mb-5" draggable="false">
-                                                <a href="javascript:void(0)" onclick="loadWriterDetails({{$writer->id}})">
-                                                    <img alt="" class="mx-auto w-32 rounded-lg md:w-auto" src="{{ asset($writer->avatar) }}" />
-                                                </a>
-                                            </div>
-                                            <!-- title -->
-                                            <div class="mb-2">
-                                                <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base" href="javascript:void(0)" onclick="loadWriterDetails({{$writer->id}})">
-                                                    {{$writer->name}}
-                                                </a>
-                                            </div>
-                                            <!-- Prices -->
-                                            <div class="flex flex-col">
-                                                <div class="flex items-center justify-between">
-                                                        <span class="btn-yellow py-1 px-4">
-                                                            {{$writer->nationality}}
-                                                        </span>
-                                                    {{-- <!-- New price -->
+                <!-- Section Header -->
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="font-medium md:text-lg lg:text-xl">نویسنده ها</h3>
+                </div>
+                <!-- Section Content -->
+                <div class="swiper product-slider p-px">
+                    <div class="swiper-wrapper">
+                        @foreach($writers as $writer)
+                        <div class="swiper-slide">
+                            <!-- Product Card -->
+                            <div class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
+                                <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
+                                    <!-- image -->
+                                    <div class="mb-2 md:mb-5" draggable="false">
+                                        <a href="javascript:void(0)" onclick="loadWriterDetails({{$writer->id}})">
+                                            <img alt="" class="mx-auto w-32 rounded-lg md:w-auto" src="{{ asset($writer->avatar) }}" />
+                                        </a>
+                                    </div>
+                                    <!-- title -->
+                                    <div class="mb-2">
+                                        <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base" href="javascript:void(0)" onclick="loadWriterDetails({{$writer->id}})">
+                                            {{$writer->name}}
+                                        </a>
+                                    </div>
+                                    <!-- Prices -->
+                                    <div class="flex flex-col">
+                                        <div class="flex items-center justify-between">
+                                            <span class="btn-yellow py-1 px-4">
+                                                {{$writer->nationality}}
+                                            </span>
+                                            {{-- <!-- New price -->
                                                     <div class="text-sm font-bold text-primary md:text-base">
                                                         {{$writer->english_name}}
-                                                    </div> --}}
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
                     </div>
+                    @endforeach
                 </div>
-            </div>
-            <!-- description / specs / commment  -->
-            <div class="rounded-lg bg-muted p-4 shadow-base" id="writerDetailsContainer">
-                <!-- محتوای این بخش به صورت پویا با JavaScript پر خواهد شد -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
-    </main>
+    </div>
+    <!-- description / specs / commment  -->
+    <div class="rounded-lg bg-muted p-4 shadow-base" id="writerDetailsContainer">
+        <!-- محتوای این بخش به صورت پویا با JavaScript پر خواهد شد -->
+    </div>
+    </div>
+</main>
 
 @endsection

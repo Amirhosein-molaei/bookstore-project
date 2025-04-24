@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Home\storeTicketRequest;
-use App\Models\Ticket\Ticket;
-use App\Models\Ticket\TicketAdmin;
-use App\Models\Ticket\TicketCategory;
-use App\Models\Ticket\TicketFile;
-use App\Services\ImageUploadService;
+use Nette\Utils\Random;
+use App\Models\User\Otp;
+use App\Models\User\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Ticket\Ticket;
+use Illuminate\Validation\Rule;
+use App\Services\Sms\SmsService;
+use App\Models\Ticket\TicketFile;
+use App\Models\Ticket\TicketAdmin;
+use App\Http\Controllers\Controller;
+use App\Services\ImageUploadService;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Ticket\TicketCategory;
+use App\Http\Requests\Home\storeTicketRequest;
 
 class UserProfileController extends Controller
 {
@@ -74,5 +80,65 @@ class UserProfileController extends Controller
         }
 
         return to_route('user-profile.tickets')->with('success', 'تیکت شما ثبت شد و در اسرع وقت رسیدگی خواهد شد');
+    }
+
+    public function edit()
+    {
+        return view('app.profile.edit');
+    }
+
+    public function updateName(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|min:4|max:255'
+        ]);
+
+        User::find(Auth::id())->update(['name' => $request->input('name')]);
+
+        return to_route('user-profile.edit')->with('success', 'نام کاربری شما با موفقیت تغییر یافت.');
+    }
+
+    public function updateEmail(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'string', 'email', Rule::unique(User::class)->ignore(Auth::id())]
+        ]);
+
+        User::find(Auth::id())->update([
+            'email' => $request->input('email'),
+            'email_verified_at' => null,
+            'activated' => 0
+        ]);
+
+        $request->user()->sendEmailVerificationNotification();
+
+        return to_route('user-profile.edit')->with('success', 'ایمیل فعال سازی ارسال شد.');
+    }
+
+    public function updateMobile(Request $request)
+    {
+        $request->validate([
+            'mobile' => ['required', 'string', 'regex:/^(09[0-9]{9})$/', Rule::unique(User::class)->ignore(Auth::id())]
+        ]);
+
+        User::find(Auth::id())->update([
+            'mobile' => $request->input('mobile'),
+            // 'mobile_verified_at' => null,
+            // 'activated' => 0
+        ]);
+
+        // $otpCode = random_int(1000, 9999);
+        // Otp::create([
+        //     'token' => Str::random(32),
+        //     'user_id' => Auth::id(),
+        //     'otp_code' => $otpCode,
+        //     'used' => 0,
+        //     'attempts' => 0,
+        //     'expires_at' => now()->addMinutes(3)->toDateTimeString()
+        // ]);
+
+        // $smsService->sendSmsOtp($request->input('mobile'), $otpCode);
+
+        return to_route('user-profile.edit')->with('success', 'شماره همراه شما با موفقیت تغییر یافت.');
     }
 }

@@ -171,4 +171,8 @@ Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(
     Route::get('/', [UserProfileController::class, 'index']);
     Route::get('/tickets', [UserProfileController::class, 'showTicket'])->name('tickets');
     Route::post('/send-ticket', [UserProfileController::class, 'sendTicket'])->name('ticket.send');
+    Route::get('/edit', [UserProfileController::class, 'edit'])->name('edit');
+    Route::put('update-name', [UserProfileController::class, 'updateName'])->name('update-name');
+    Route::put('update-email', [UserProfileController::class, 'updateEmail'])->name('update-email');
+    Route::put('update-mobile', [UserProfileController::class, 'updateMobile'])->name('update-mobile');
 });

@@ -32,7 +32,7 @@ class SmsService
                 'password' => $this->password,
                 'to' => $phoneNumber,
                 'from' => $this->from,
-                'text' => 'به بوک خونه خوش آمدید. تایید شما: ' . $otpCode,
+                'text' => 'بوک خونه | کد تایید: ' . $otpCode,
                 'isflash' => false
             ];
 

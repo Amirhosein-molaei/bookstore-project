@@ -108,8 +108,8 @@
                    </li>
 
                    <li>
-                       <a href="./profile-edit.html"
-                           class="profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
+                       <a href="{{ route('user-profile.edit') }}"
+                           class="profile-menu {{ Route::currentRouteName() == 'user-profile.edit' ? 'profile-menu-active' : '' }} flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
                            <div class="flex items-center gap-x-4">
                                <svg class="h-6 w-6">
                                    <use xlink:href="#user-setting" />
@@ -132,6 +132,36 @@
                        </form>
                    </li>
                </ul>
+           </div>
+       </div>
+   </div>
+   <!-- Mobile menu -->
+   <div class="rounded-lg bg-muted p-6 shadow-base lg:hidden">
+       <div class="flex items-center justify-center">
+           <div class="flex flex-col items-center justify-center gap-y-4">
+               <div class="relative">
+                   <img src="./assets/images/user.png" class="h-20 w-20 only:rounded-full" alt="" />
+                   <a href="./profile-edit.html"
+                       class="absolute -right-2 -top-2 rounded-full bg-primary p-2 text-sm text-white dark:bg-emerald-600">
+                       <svg class="h-5 w-5">
+                           <use xlink:href="#edit" />
+                       </svg>
+                   </a>
+               </div>
+               <div>
+                   <p class="line-clamp-1">{{ Auth::user()->name }}</p>
+                   <p class="text-text/60">{{ Auth::user()->mobile ?? Auth::user()->email }}</p>
+               </div>
+               <div>
+                   <button class="btn-primary px-4 py-2" aria-controls="profile-menu-drawer-navigation"
+                       data-drawer-show="profile-menu-drawer-navigation" data-drawer-placement="bottom"
+                       data-drawer-target="profile-menu-drawer-navigation" type="button">
+                       <svg class="h-6 w-6 text-white">
+                           <use xlink:href="#menu" />
+                       </svg>
+                       منوی پنل کاربری
+                   </button>
+               </div>
            </div>
        </div>
    </div>

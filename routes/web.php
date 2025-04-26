@@ -154,6 +154,9 @@ Route::middleware('auth')->group(function(){
     Route::post('product/comment/{product}/answer', [HomeProductController::class, 'answerComment'])->name('product.comment.answer');
     Route::post('product/comment/like/{comment}',[HomeProductController::class,'likeComment'])->name('product.comment.like');
     Route::post('product/comment/dislike/{comment}',[HomeProductController::class,'dislikeComment'])->name('product.comment.dislike');
+
+    // download product
+    Route::post('/product/{product}/download', [HomeProductController::class, 'downloadFiles'])->name('product.download');
 });
 
 // shop
@@ -178,5 +181,6 @@ Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(
     Route::get('/favorite-products', [UserProfileController::class, 'favoriteProducts'])->name('product-favorite');
     Route::delete('/favorite-products/empty', [FavoriteController::class, 'removeAllFavoriteProducts'])->name('product-favorite.empty');
     Route::delete('/favorite-products/{product}/remove', [FavoriteController::class, 'removeFavoriteProduct'])->name('product-favorite.remove');
-
+    Route::get('/orders', [UserProfileController::class, 'orders'])->name('orders');
+    Route::get('/orders/{order}', [UserProfileController::class, 'orderDetails'])->name('order-details');
 });

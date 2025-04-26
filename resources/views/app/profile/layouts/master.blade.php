@@ -16,7 +16,7 @@
 
             <div class="flex justify-center w-3/4 mx-auto mb-4">
                 @if (session('success'))
-                    <button class="btn-indigo px-4 py-4">
+                    <button class="btn-indigo px-4 py-4" id="success_msg">
                         {{ session('success') }}
                         <svg class="h-5 w-5">
                             <use xlink:href="#close" onclick="removeButton()"></use>
@@ -27,7 +27,7 @@
 
             <div class="flex justify-center w-3/4 mx-auto mb-4">
                 @if (session('error'))
-                    <button class="btn-rose px-4 py-4">
+                    <button class="btn-rose px-4 py-4" id="error_msg">
                         {{ session('error') }}
                         <svg class="h-5 w-5">
                             <use xlink:href="#close" onclick="removeButton()"></use>
@@ -59,8 +59,8 @@
 <script>
     // تابع برای حذف دکمه
     function removeButton() {
-        const successButton = document.querySelector('.btn-indigo');
-        const errorButton = document.querySelector('.btn-rose');
+        const successButton = document.getElementById('success_msg');
+        const errorButton = document.getElementById('error_msg');
 
         if (successButton) {
             successButton.remove();

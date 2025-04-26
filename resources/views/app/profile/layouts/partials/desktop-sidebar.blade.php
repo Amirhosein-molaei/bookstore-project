@@ -32,8 +32,8 @@
                        </a>
                    </li>
                    <li>
-                       <a href="./profile-orders.html"
-                           class="profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
+                       <a href="{{ route('user-profile.orders') }}"
+                           class="profile-menu {{ Route::currentRouteName() == 'user-profile.orders' ? 'profile-menu-active' : '' }} flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
                            <div class="flex items-center gap-x-4">
                                <svg class="h-6 w-6">
                                    <use xlink:href="#order" />

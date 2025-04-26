@@ -17,6 +17,7 @@ use App\Services\ImageUploadService;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Ticket\TicketCategory;
 use App\Http\Requests\Home\storeTicketRequest;
+use App\Models\Market\Order;
 
 class UserProfileController extends Controller
 {
@@ -147,5 +148,20 @@ class UserProfileController extends Controller
         $user = User::find(Auth::id());
         $favoriteProducts = $user->favoriteProducts()->get();
         return view('app.profile.favorite-products', compact('favoriteProducts'));
+    }
+
+    public function orders()
+    {
+        $finishedOrders = Order::where('user_id', Auth::id())->where('order_status', 1)->get();
+        $canceledOrders = Order::where('user_id', Auth::id())->where('order_status', 2)->get();
+        $pendingOrders = Order::where('user_id', Auth::id())->where('order_status', 0)->get();
+
+
+        return view('app.profile.orders', compact(['finishedOrders', 'canceledOrders', 'pendingOrders']));
+    }
+
+    public function orderDetails(Order $order)
+    {
+        return view('app.profile.order-details', compact('order'));
     }
 }

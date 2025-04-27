@@ -9,35 +9,25 @@ use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
-    public function index()
+    public function index($filter = null)
     {
-        $products = Product::all();
-        return view('app.shop', compact('products'));
+        $query = Product::query(); // ابتدا تمام محصولات رو می‌گیریم
+        $sort = $filter ?? 'all';
+        if ($filter === 'available') {
+            $query->where('marketable', 0);
+        } elseif ($filter === 'with-picture') {
+            $query->where('marketable', 0)
+                ->whereNotNull('image')
+                ->where('image', '!=', '');
+        } elseif ($filter === 'most-expensive') {
+            $query->where('marketable', 0)
+                ->orderByRaw('COALESCE(discounted_price, price) DESC');
+        } elseif ($filter === 'cheapest') {
+            $query->where('marketable', 0)
+                ->orderByRaw('COALESCE(discounted_price, price) ASC');
+        }
+    
+        $products = $query->paginate(12);       
+        return view('app.shop', compact('products','sort'));
     }
-    public function availableProduct()
-    {
-        $products = Product::where('marketable', 0)->get();
-        return view('app.shop', compact('products'));
-    }
-    public function withPictureProduct()
-    {
-        $products = Product::where('marketable', 0)
-            ->whereNotNull('image')
-            ->where('image', '!=', '')
-            ->get();
-        return view('app.shop', compact('products'));
-    }
-    public function mostExpensiveProduct()
-    {
-        $products = Product::where('marketable', 0)
-            ->orderByRaw('COALESCE(discounted_price, price) DESC')
-            ->get();
-        return view('app.shop', compact('products'));
-    }
-    public function cheapestProduct()
-    {
-        $products = Product::where('marketable', 0)
-        ->orderByRaw('COALESCE(discounted_price, price) ASC')
-        ->get();        return view('app.shop', compact('products'));
-    }
-}
+}    

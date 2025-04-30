@@ -48,4 +48,13 @@ class Blog extends Model
                 ->orWhere('body', 'like', '%'.$searchTerm.'%');
         });
     }
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+    }
+
+    public function allComments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

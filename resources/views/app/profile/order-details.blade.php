@@ -222,7 +222,7 @@
                                     </div>
                                     <!-- Download Link -->
                                     <div class="flex items-center gap-x-2 xs:justify-center">
-                                        <form method="post" action="" 
+                                        <form method="post" action="{{ URL::temporarySignedRoute('product.download', now()->addMinutes(30), ['product' => $item->product]) }}" 
                                             class="h-10 w-24 rounded-lg border sm:w-28">
                                             @csrf
                                             <button type="submit" class="btn btn-indigo w-full h-full">

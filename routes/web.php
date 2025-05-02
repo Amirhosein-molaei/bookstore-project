@@ -156,7 +156,7 @@ Route::middleware('auth')->group(function(){
     Route::post('product/comment/dislike/{comment}',[HomeProductController::class,'dislikeComment'])->name('product.comment.dislike');
 
     // download product
-    Route::post('/product/{product}/download', [HomeProductController::class, 'downloadFiles'])->name('product.download');
+    Route::post('/product/{product}/download', [HomeProductController::class, 'download'])->name('product.download')->middleware('signed');
 });
 
 // shop

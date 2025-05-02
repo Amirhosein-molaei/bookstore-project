@@ -78,4 +78,15 @@ class User extends Authenticatable
     {
         return $this->morphedByMany(Writer::class, 'favoriteable', 'favorites');
     }
+
+    public function hasPurchasedProduct($productId)
+    {
+        return $this->orders()
+            ->where('order_status', 1) 
+            ->whereHas('orderItems', function ($query) use ($productId) {
+                $query->where('product_id', $productId);
+            })
+            ->exists();
+    }
+
 }

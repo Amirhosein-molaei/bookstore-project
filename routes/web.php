@@ -31,7 +31,7 @@ use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Home\HomeFaqController;
-
+use App\Http\Controllers\Home\WalletController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -172,6 +172,10 @@ Route::get(uri: '/faq', action: [HomeFaqController::class, 'index'])->name('faq'
 // profile
 Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(function(){
     Route::get('/', [UserProfileController::class, 'index']);
+
+    Route::get('/wallet', [WalletController::class, 'show'])->name('wallet');
+    Route::post('/wallet/deposit', [WalletController::class, 'deposit'])->name('wallet.deposit');
+
     Route::get('/tickets', [UserProfileController::class, 'showTicket'])->name('tickets');
     Route::post('/send-ticket', [UserProfileController::class, 'sendTicket'])->name('ticket.send');
     Route::get('/edit', [UserProfileController::class, 'edit'])->name('edit');

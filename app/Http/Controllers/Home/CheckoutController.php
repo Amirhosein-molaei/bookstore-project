@@ -10,6 +10,8 @@ use App\Http\Controllers\Home;
 use App\Models\Market\OrderItem;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Home\submitOrderRequest;
+use App\Models\User\Wallet;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
@@ -17,8 +19,10 @@ class CheckoutController extends Controller
     public function show()
     {
         $cart = Cart::where('user_id', Auth::id())->where('status', 0)->with('items.product')->first();
+        
+        $wallet = Wallet::where('user_id', Auth::id())->first();
 
-        return view('app.checkout', compact('cart'));
+        return view('app.checkout', compact('cart', 'wallet'));
     }
 
     public function applyDiscount(Request $request)
@@ -60,18 +64,30 @@ class CheckoutController extends Controller
         $cart->update([
             'copan_id' => null,
             'discount_status' => 0,
+            'total_price' => $cart->total_price + $cart->total_off_price,
             'total_off_price' => 0
         ]);
 
         return redirect()->back()->with('success', 'کد تخفیف با موفقیت حذف شد');
     }
 
-    public function submit(Request $request)
+    public function submit(submitOrderRequest $request)
     {
+        $inputs = $request->validated();
+        
         $cart = Cart::where('user_id', Auth::id())->where('status', 0)->with('items.product')->first();
         
         if (!$cart or $cart->items->count() == 0) {
             return redirect()->route('home');
+        }
+        
+        if ($inputs['total_price'] != $cart->total_price) {
+            return back()->with('error', 'عدم تطابق مبلغ!');
+        }
+        
+        $wallet = Wallet::where('user_id', Auth::id())->first();
+        if ($wallet->balance < $inputs['total_price']) {
+            return back()->with('error', 'موجودی کیف پول کافی نمیباشد');
         }
         
         $productsTotalDiscount = 0;
@@ -81,7 +97,6 @@ class CheckoutController extends Controller
         
         try {
             DB::beginTransaction();
-            // dd($productsTotalDiscount);
 
             $order = Order::create([
                 'user_id' => Auth::id(),
@@ -90,10 +105,16 @@ class CheckoutController extends Controller
                 'order_final_amount' => $cart->total_price - $cart->total_off_price,
                 'order_discount_amount' => $productsTotalDiscount,
                 'order_total_discount' => $cart->total_off_price + $productsTotalDiscount,
-                'order_status' => 0,
-                'payment_type' => 0,
-                'payment_status' => 0,
+                'order_status' => $inputs['payment_type'] == 0 ? 1 : 0,
+                'payment_type' => $inputs['payment_type'],
+                'payment_status' => $inputs['payment_type'] == 0 ? 1 : 0,
             ]);
+
+            // withdraw from wallet
+            if ($order->payment_type == 0) {
+                $wallet->balance -= $order->order_final_amount;
+                $wallet->save();
+            }
 
             foreach ($cart->items as $item) {
                 OrderItem::create([
@@ -105,12 +126,12 @@ class CheckoutController extends Controller
                     'status' => 0
                 ]);
             }
+
             $cart->update(['status' => 1]);
             DB::commit();
-            return redirect()->route('app.home')->with('success', 'سفارش شما با موفقیت ثبت شد. محصولات خریداری شده در پنل کاربری قابل مشاهده و دانلود هستند.');
+            return to_route('app.home')->with('success', 'سفارش شما با موفقیت ثبت شد. محصولات خریداری شده در پنل کاربری قابل مشاهده و دانلود هستند.');
 
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             DB::rollBack();
             redirect()->back()->with('error', 'خطایی پیش آمد');
         }

@@ -3,7 +3,7 @@
        <div dir="ltr" class="max-h-[calc(90vh_-_100px)] overflow-y-auto p-4 xl:p-6">
            <div dir="rtl">
                <!-- Head -->
-               <div class="mb-2 flex items-center justify-between border-b pb-6 dark:border-white/10">
+               <div class="mb-2 border-b pb-6 dark:border-white/10">
                    <div class="flex items-center gap-x-4">
                        <div>
                            <img src="{{ asset('assets/images/user.png') }}" class="h-12 w-12 rounded-full"
@@ -16,7 +16,14 @@
                            </div>
                        </div>
                    </div>
-
+                   <div class="flex justify-between align-items-center mt-4">
+                        <p>
+                            <svg class="h-6 w-6">
+                                <use xlink:href="#credit" />
+                            </svg>
+                        </p>
+                        <p>{{ number_format(Auth::user()->wallet->balance) }} تومان</p>
+                   </div>
                </div>
 
                <ul class="space-y-1">
@@ -32,8 +39,19 @@
                        </a>
                    </li>
                    <li>
+                       <a href="{{ route('user-profile.wallet') }}"
+                           class="profile-menu {{ Route::currentRouteName() == 'user-profile.wallet' ? 'profile-menu-active' : '' }} flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
+                           <div class="flex items-center gap-x-4">
+                               <svg class="h-6 w-6">
+                                   <use xlink:href="#credit" />
+                               </svg>
+                               <div>کیف پول</div>
+                           </div>
+                       </a>
+                   </li>
+                   <li>
                        <a href="{{ route('user-profile.orders') }}"
-                           class="profile-menu {{ Route::currentRouteName() == 'user-profile.orders' ? 'profile-menu-active' : '' }} flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
+                           class="profile-menu {{ Route::currentRouteName() == 'user-profile.orders' ? 'profile-menu-active' : '' }} {{ Route::currentRouteName() == 'user-profile.order-details' ? 'profile-menu-active' : '' }} flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
                            <div class="flex items-center gap-x-4">
                                <svg class="h-6 w-6">
                                    <use xlink:href="#order" />

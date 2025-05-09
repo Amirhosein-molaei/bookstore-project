@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <!-- breadCrumb -->
-        <div class="col-span-12 mb-2 rounded-lg bg-muted lg:mb-6">
+        <div class="col-span-12 mb-2 rounded-lg bg-muted lg:mb-6 mt-16">
             <ol class="grid grid-cols-2 overflow-hidden rounded-lg">
                 <li
                     class="flex flex-col items-center justify-center gap-2 p-4 text-xs text-primary opacity-50 sm:text-sm md:text-base">
@@ -79,62 +79,140 @@
                     </div>
                 @endif
 
-                <!-- Order final price -->
-                <div class="flex items-center justify-between gap-x-2 py-6">
-                    <div class="text-sm text-text/90 lg:text-base">
-                        مبلغ قابل پرداخت
+                <form  action="{{ route('checkout.submit') }}" method="post">
+                    @csrf
+                    <!-- Order final price -->
+                    <div class="flex items-center justify-between gap-x-2 py-6">
+                        <div class="text-sm text-text/90 lg:text-base">
+                            مبلغ قابل پرداخت
+                        </div>
+
+                        <div class="text-sm text-primary lg:text-base">
+                            <span class="font-bold">{{ number_format($cart->total_price) }}</span>
+                            <span class="text-xs lg:text-sm">تومان</span>
+                        </div>
                     </div>
 
-                    <div class="text-sm text-primary lg:text-base">
-                        <span class="font-bold">{{ number_format($cart->total_price) }}</span>
-                        <span class="text-xs lg:text-sm">تومان</span>
+                    <input type="hidden" name="total_price" value="{{ $cart->total_price }}" />
+
+                    <!-- Payment type -->
+                    <div class="flex items-center justify-between gap-x-2 py-6">
+                        <div class="text-sm text-text/90 lg:text-base">
+                            روش پرداخت
+                        </div>
                     </div>
-                </div>
 
-                <div class="flex items-center justify-between gap-x-2 py-6">
-                    <div class="text-sm text-text/90 lg:text-base">
-                        درگاه پرداخت
-                    </div>
-                </div>
-                <!-- Payment gateway -->
+                    <fieldset class="flex flex-wrap items-center justify-evenly gap-4 space-y-2">
+                        <legend class="sr-only">درگاه</legend>
 
-                <fieldset class="flex flex-wrap items-center justify-evenly gap-4 space-y-2">
-                    <legend class="sr-only">Gateway</legend>
-                    <!-- gateway item -->
+                        <div>
+                            <input type="radio" name="payment_type" value="0" id="wallet" class="peer hidden" />
 
-                    <div>
-                        <input type="radio" name="gateway" value="gateway-1" id="gateway-1" class="peer hidden" />
+                            <label for="wallet"
+                                class="relative block cursor-pointer rounded-lg border p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
+                                <div class="flex items-center gap-x-4">
+                                    <p class="text-text/90">کیف پول</p>
+                                    <svg class="h-6 w-6">
+                                        <use xlink:href="#credit" />
+                                    </svg>
+                                </div>
+                            </label>
+                        </div>
 
-                        <label for="gateway-1"
-                            class="relative block cursor-pointer rounded-lg border p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                            <div class="flex items-center gap-x-4">
-                                <img src="./assets/images/others/zarinpal.png" class="w-8 rounded-lg" alt="" />
-                                <p class="text-text/90">زرین پال</p>
+                        <div>
+                            <input type="radio" name="payment_type" value="1" id="online" class="peer hidden" />
+
+                            <label for="online"
+                                class="relative block cursor-pointer rounded-lg border p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
+                                <div class="flex items-center gap-x-4">
+                                    <p class="text-text/90">پرداخت آنلاین</p>
+
+                                </div>
+                            </label>
+                        </div>
+
+                    </fieldset>
+                    <p class="text-red-500 dark:text-red-400 mb-2">
+                        @error('payment_type')
+                            {{ $message }}
+                        @enderror
+                    </p>
+                    <p class="text-sm mt-2 text-gray-400">موجودی کیف پول {{ number_format($wallet->balance) }} تومان</p>
+
+                    <div id="payment_gateways" class="hidden">
+                        <div class="flex items-center justify-between gap-x-2 py-6">
+                            <div class="text-sm text-text/90 lg:text-base">
+                                درگاه پرداخت
                             </div>
-                        </label>
-                    </div>
+                        </div>
+                        <!-- Payment gateway -->
 
-                    <div>
-                        <input type="radio" name="gateway" value="gateway-2" id="gateway-2" class="peer hidden" />
+                        <fieldset class="flex flex-wrap items-center justify-evenly gap-4 space-y-2">
+                            <legend class="sr-only">درگاه</legend>
+                            <!-- gateway item -->
 
-                        <label for="gateway-2"
-                            class="relative block cursor-pointer rounded-lg border p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                            <div class="flex items-center gap-x-4">
-                                <img src="./assets/images/others/saman.png" class="w-8 rounded-lg" alt="" />
-                                <p class="text-text/90">بانک سامان</p>
+                            <div>
+                                <input type="radio" name="payment_gateway" value="zarinPall" id="gateway-1" class="peer hidden" />
+
+                                <label for="gateway-1"
+                                    class="relative block cursor-pointer rounded-lg border p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
+                                    <div class="flex items-center gap-x-4">
+                                        <img src="./assets/images/others/zarinpal.png" class="w-8 rounded-lg"
+                                            alt="" />
+                                        <p class="text-text/90">زرین پال</p>
+                                    </div>
+                                </label>
                             </div>
-                        </label>
+
+                            <div>
+                                <input type="radio" name="payment_gateway" value="saman" id="gateway-2" class="peer hidden" />
+
+                                <label for="gateway-2"
+                                    class="relative block cursor-pointer rounded-lg border p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
+                                    <div class="flex items-center gap-x-4">
+                                        <img src="./assets/images/others/saman.png" class="w-8 rounded-lg"
+                                            alt="" />
+                                        <p class="text-text/90">بانک سامان</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </fieldset>
+                        <p class="text-red-500 dark:text-red-400">
+                            @error('payment_gateway')
+                                {{ $message }}
+                            @enderror
+                        </p>
                     </div>
-                </fieldset>
+                    <button type="submit" class="btn-primary py-4 w-full mt-6"> پرداخت </button>
+                </form>
             </div>
             <div>
                 <form action="{{ route('checkout.submit') }}" method="post">
                     @csrf
                     <input type="hidden" name="gateway" value="gateway-1" />
-                    <input type="hidden" name="total_price" value="{{ number_format($cart->total_price) }}" />
-                    <button type="submit" class="btn-primary py-4 w-full"> پرداخت </button>
                 </form>
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    @parent
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const paymentMethodRadios = document.querySelectorAll('input[name="payment_type"]');
+            const paymentGatewaysSection = document.getElementById("payment_gateways");
+
+            paymentMethodRadios.forEach(radio => {
+                radio.addEventListener("change", function() {
+                    if (this.value === "1") {
+                        paymentGatewaysSection.style.display =
+                            "block"; // نمایش بخش درگاه‌های پرداخت
+                    } else {
+                        paymentGatewaysSection.style.display =
+                            "none"; // مخفی کردن بخش درگاه‌های پرداخت
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

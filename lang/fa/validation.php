@@ -209,6 +209,8 @@ return [
         'subject' => 'عنوان',
         'amount_type' => 'نوع تخفیف',
         'discount_percentage' => 'درصد تخفیف',
-        'disscount_expires_at' => 'تاریخ اتمام تخفیف'
+        'disscount_expires_at' => 'تاریخ اتمام تخفیف',
+        'payment_type' => 'روش پرداخت',
+        'payment_gateway' => 'درگاه پرداخت'
     ],
 ];

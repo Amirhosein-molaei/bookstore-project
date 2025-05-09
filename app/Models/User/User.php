@@ -3,7 +3,6 @@
 namespace App\Models\User;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Favorite;
 use App\Models\Content\Writer;
 use App\Models\Market\Order;
 use App\Models\Market\Product;
@@ -60,6 +59,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
+
     public function ticketAdmin()
     {
         return $this->hasOne(TicketAdmin::class);
@@ -79,4 +83,15 @@ class User extends Authenticatable
     {
         return $this->morphedByMany(Writer::class, 'favoriteable', 'favorites');
     }
+
+    public function hasPurchasedProduct($productId)
+    {
+        return $this->orders()
+            ->where('order_status', 1) 
+            ->whereHas('orderItems', function ($query) use ($productId) {
+                $query->where('product_id', $productId);
+            })
+            ->exists();
+    }
+
 }

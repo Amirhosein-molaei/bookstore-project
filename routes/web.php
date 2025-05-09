@@ -31,7 +31,7 @@ use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Home\HomeFaqController;
-
+use App\Http\Controllers\Home\WalletController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -155,6 +155,9 @@ Route::middleware('auth')->group(function(){
     Route::post('product/comment/{product}/answer', [HomeProductController::class, 'answerComment'])->name('product.comment.answer');
     Route::post('product/comment/like/{comment}',[HomeProductController::class,'likeComment'])->name('product.comment.like');
     Route::post('product/comment/dislike/{comment}',[HomeProductController::class,'dislikeComment'])->name('product.comment.dislike');
+
+    // download product
+    Route::post('/product/{product}/download', [HomeProductController::class, 'download'])->name('product.download')->middleware('signed');
 });
 
 // shop
@@ -170,16 +173,19 @@ Route::get(uri: '/faq', action: [HomeFaqController::class, 'index'])->name('faq'
 // profile
 Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(function(){
     Route::get('/', [UserProfileController::class, 'index']);
-    Route::get('/ticket', [UserProfileController::class, 'showTicket'])->name('ticket');
-    Route::get('/favorit-writers', [UserProfileController::class, 'favoritWriters'])->name('favorit-writers');
 
+    Route::get('/wallet', [WalletController::class, 'show'])->name('wallet');
+    Route::post('/wallet/deposit', [WalletController::class, 'deposit'])->name('wallet.deposit');
+
+    Route::get('/tickets', [UserProfileController::class, 'showTicket'])->name('tickets');
+    Route::post('/send-ticket', [UserProfileController::class, 'sendTicket'])->name('ticket.send');
+    Route::get('/edit', [UserProfileController::class, 'edit'])->name('edit');
+    Route::put('update-name', [UserProfileController::class, 'updateName'])->name('update-name');
+    Route::put('update-email', [UserProfileController::class, 'updateEmail'])->name('update-email');
+    Route::put('update-mobile', [UserProfileController::class, 'updateMobile'])->name('update-mobile');
+    Route::get('/favorite-products', [UserProfileController::class, 'favoriteProducts'])->name('product-favorite');
+    Route::delete('/favorite-products/empty', [FavoriteController::class, 'removeAllFavoriteProducts'])->name('product-favorite.empty');
+    Route::delete('/favorite-products/{product}/remove', [FavoriteController::class, 'removeFavoriteProduct'])->name('product-favorite.remove');
+    Route::get('/orders', [UserProfileController::class, 'orders'])->name('orders');
+    Route::get('/orders/{order}', [UserProfileController::class, 'orderDetails'])->name('order-details');
 });
-    
-    // add writer to favorites
-    Route::post('writer/favorite/{writerId}',[FavoriteController::class, 'addWriter'])->name('writer.favorite'); 
-
-// delete favoritWriter from userProfile
-
-Route::delete('/writers/favorite/{writer}', [FavoriteController::class, 'destroyFavoritWriter'])->name('writers.favorite.destroy');
-Route::delete('/writers/favorite', [FavoriteController::class, 'destroyAllFavoritWriter'])->name('writers.favorite.destroy-all');
-

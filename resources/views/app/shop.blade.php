@@ -250,57 +250,46 @@
                 <div class="col-span-12 space-y-4 md:col-span-8 lg:col-span-9">
                     <!-- Desktop Sort Section -->
                     <div class="hidden md:block">
-                        <div
-                            class="flex h-14 items-center gap-x-2 rounded-lg bg-muted px-2 text-text/90 shadow-base lg:px-4">
-                            <!-- Title -->
-                            <div class="flex items-center gap-x-2 text-sm lg:text-base">
-                                <svg class="h-6 w-6">
-                                    <use xlink:href="#sort" />
-                                </svg>
-                                <p>مرتب سازی بر اساس</p>
-                            </div>
-                            <!-- Sort Buttons -->
-                            <a href="{{ route('shop') }}">
-                                <button
-                                    class="sort-button-active rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-                                    همه کالاها
-                                </button>
-                            </a>
-
-                            <form class="form-controll" action="{{ route('shop.available-product') }}" method="get">
-                                @csrf
-                                <button type="submit"
-                                    class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-                                    کالاهای موجود
-                                </button>
-                            </form>
-
-                            <form class="form-controll" action="{{ route('shop.with-picture-product') }}"
-                                method="get">
-                                @csrf
-                                <button class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-                                    کالاهای عکس دار
-                                </button>
-                            </form>
-
-                            <form class="form-controll" action="{{ route('shop.most-expensive-product') }}"
-                                method="get">
-                                @csrf
-                                <button class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-                                    گران ترین
-                                </button>
-                            </form>
-
-                            <form class="form-controll" action="{{ route('shop.cheapest-product') }}" method="get">
-                                @csrf
-                                <button class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-                                    ارزان ترین
-                                </button>
-                            </form>
-
-
+                    <div class="flex h-14 items-center gap-x-2 rounded-lg bg-muted px-2 text-text/90 shadow-base lg:px-4">
+                        <!-- Title -->
+                        <div class="flex items-center gap-x-2 text-sm lg:text-base">
+                            <svg class="h-6 w-6">
+                                <use xlink:href="#sort" />
+                            </svg>
+                            <p>مرتب‌سازی بر اساس</p>
                         </div>
+                        <!-- Sort Buttons -->
+                        <a href="{{ route('shop.index') }}">
+                            <button class="btn {{ $sort === 'all' ? 'btn-primary' : 'btn-outline-primary' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                                همه کالاها
+                            </button>
+                        </a>
+                        <form action="{{ route('shop.index', 'available') }}" method="get">
+                            @csrf
+                            <button type="submit" class="btn {{ $sort === 'available' ? 'btn-primary' : 'btn-outline-primary' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                                کالاهای موجود
+                            </button>
+                        </form>
+                        <form action="{{ route('shop.index', 'with-picture') }}" method="get">
+                            @csrf
+                            <button type="submit" class="btn {{ $sort === 'with-picture' ? 'btn-primary' : 'btn-outline-primary' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                                کالاهای عکس‌دار
+                            </button>
+                        </form>
+                        <form action="{{ route('shop.index', 'most-expensive') }}" method="get">
+                            @csrf
+                            <button type="submit" class="btn {{ $sort === 'most-expensive' ? 'btn-primary' : 'btn-outline-primary' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                                گران‌ترین
+                            </button>
+                        </form>
+                        <form action="{{ route('shop.index', 'cheapest') }}" method="get">
+                            @csrf
+                            <button type="submit" class="btn {{ $sort === 'cheapest' ? 'btn-primary' : 'btn-outline-primary' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                                ارزان‌ترین
+                            </button>
+                        </form>
                     </div>
+                </div>
 
                     <!-- Products Grid -->
                     <div
@@ -401,6 +390,7 @@
     </main>
 
 @endsection
+
 @section('scripts')
     @parent
     

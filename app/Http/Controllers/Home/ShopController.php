@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
-    public function index(Request $request, $categorySlug = null)
+    public function index(Request $request, $filter = null, $categorySlug = null)
     {
         $minPrice = $request->min_price ?? 0;
         $maxPrice = $request->max_price ?? PHP_INT_MAX;
@@ -45,33 +45,26 @@ class ShopController extends Controller
                 ->paginate(12)
                 ->withQueryString();
         }
+  
+        $sort = $filter ?? 'all';
+  
+        if ($filter === 'available') {
+            $products->where('marketable', 0);
+          
+        } elseif ($filter === 'with-picture') {
+            $products->where('marketable', 0)
+                ->whereNotNull('image')
+                ->where('image', '!=', '');
+          
+        } elseif ($filter === 'most-expensive') {
+            $products->where('marketable', 0)
+                ->orderByRaw('COALESCE(discounted_price, price) DESC');
+          
+        } elseif ($filter === 'cheapest') {
+            $products->where('marketable', 0)
+                ->orderByRaw('COALESCE(discounted_price, price) ASC');
+        }
         
-        return view('app.shop', compact('products'));
+        return view('app.shop', compact(['products','sort']));
     }
-    public function availableProduct()
-    {
-        $products = Product::where('marketable', 0)->get();
-        return view('app.shop', compact('products'));
-    }
-    public function withPictureProduct()
-    {
-        $products = Product::where('marketable', 0)
-            ->whereNotNull('image')
-            ->where('image', '!=', '')
-            ->get();
-        return view('app.shop', compact('products'));
-    }
-    public function mostExpensiveProduct()
-    {
-        $products = Product::where('marketable', 0)
-            ->orderByRaw('COALESCE(discounted_price, price) DESC')
-            ->get();
-        return view('app.shop', compact('products'));
-    }
-    public function cheapestProduct()
-    {
-        $products = Product::where('marketable', 0)
-        ->orderByRaw('COALESCE(discounted_price, price) ASC')
-        ->get();        return view('app.shop', compact('products'));
-    }
-}
+}    

@@ -12,11 +12,11 @@
 
         @include('app.layouts.partials.header')
 
-        <main class="flex-grow bg-background pb-14 mt-6">
+        <main class="flex-grow bg-background pb-14 mt-6 xs:pt-36">
 
             <div class="flex justify-center w-3/4 mx-auto mb-4">
                 @if (session('success'))
-                    <button class="btn-indigo px-4 py-4">
+                    <button class="btn-indigo px-4 py-4" id="success-msg">
                         {{ session('success') }}
                         <svg class="h-5 w-5">
                             <use xlink:href="#close" onclick="removeButton()"></use>
@@ -27,7 +27,7 @@
 
             <div class="flex justify-center w-3/4 mx-auto mb-4">
                 @if (session('error'))
-                    <button class="btn-rose px-4 py-4">
+                    <button class="btn-rose px-4 py-4" id="error-msg">
                         {{ session('error') }}
                         <svg class="h-5 w-5">
                             <use xlink:href="#close" onclick="removeButton()"></use>
@@ -43,16 +43,13 @@
     </div>
     @include('app.layouts.scripts')
 
-    @include('alerts.sweetalert.error')
-    @include('alerts.sweetalert.success')
-
 
 </body>
 <script>
     // تابع برای حذف دکمه
     function removeButton() {
-        const successButton = document.querySelector('.btn-indigo');
-        const errorButton = document.querySelector('.btn-rose');
+        const successButton = document.getElementById('success-msg');
+        const errorButton = document.getElementById('error-msg');
 
         if (successButton) {
             successButton.remove();

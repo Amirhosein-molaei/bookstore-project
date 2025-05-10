@@ -2,6 +2,7 @@
 
 namespace App\Models\Market;
 
+use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,5 +16,10 @@ class Order extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

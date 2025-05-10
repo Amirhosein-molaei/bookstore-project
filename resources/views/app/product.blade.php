@@ -177,7 +177,11 @@
                                             <div class="min-w-fit text-text/60">
                                                 انتشارات:
                                             </div>
-                                            <div class="text-text/90">{{ $product->publisher->name }}</div>
+                                            <div class="text-text/90">
+                                                <a href="{{ route('publisher', $product->publisher) }}" class="btn-indigo-nobg">
+                                                    {{ $product->publisher->name }}
+                                                </a>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>

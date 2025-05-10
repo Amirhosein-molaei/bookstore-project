@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User\User;
+use App\Models\User\Wallet;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -58,6 +59,8 @@ class RegisteredUserController extends Controller
             'mobile' => $mobile,
             'password' => Hash::make($request->password),
         ]);
+
+        Wallet::create(['user_id' => $user->id]);
 
         event(new Registered($user));
         return redirect()->route('login')->with('success', $user->name . ' عزیز، به بوک خونه خوش آمدید:)');

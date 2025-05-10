@@ -64,8 +64,8 @@ class FavoriteController extends Controller
 	public function destroyFavoritWriter(Writer $writer)
 	{
 		$user = Auth::user();
-		$favorit=Favorite::where('user_id',$user->id)->where("favoriteable_type", Writer::class)
-		->where("favoriteable_id", $writer->id)->first();
+		$favorit = Favorite::where('user_id', $user->id)->where("favoriteable_type", Writer::class)
+			->where("favoriteable_id", $writer->id)->first();
 
 		$favorit->delete();
 
@@ -73,14 +73,13 @@ class FavoriteController extends Controller
 	}
 	public function destroyAllFavoritWriter(Request $request)
 	{
-		$user = auth()->user();
-		$favorites=Favorite::where('user_id',$user->id)->where("favoriteable_type", Writer::class)
-		->get();
-		foreach($favorites as $favorite)
-		{
+		$user = Auth::user();
+		$favorites = Favorite::where('user_id', $user->id)->where("favoriteable_type", Writer::class)
+			->get();
+		foreach ($favorites as $favorite) {
 			$favorite->delete();
 		}
-	
+
 		return redirect()->back()->with('swal-success', 'نویسنده ها با موفقیت حذف شدند!');
 	}
 
@@ -88,10 +87,10 @@ class FavoriteController extends Controller
 	{
 		$user = User::find(Auth::id());
 		$user->favoriteProducts()->detach($product->id);
-		
+
 		return redirect()->back()->with('success', 'محصول مورد نظر از لیست علاقمندی ها حذف شد.');
 	}
-	
+
 	public function removeAllFavoriteProducts()
 	{
 		$user = User::find(Auth::id());

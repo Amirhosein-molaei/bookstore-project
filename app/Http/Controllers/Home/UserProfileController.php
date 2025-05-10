@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Home;
 
+use Illuminate\Http\Request;
+use App\Models\Ticket\Ticket;
+use App\Models\User\Favorite;
+use App\Models\Content\Writer;
+use App\Http\Controllers\Controller;
 use Nette\Utils\Random;
 use App\Models\User\Otp;
 use App\Models\User\User;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Models\Ticket\Ticket;
 use Illuminate\Validation\Rule;
 use App\Services\Sms\SmsService;
 use App\Models\Ticket\TicketFile;
 use App\Models\Ticket\TicketAdmin;
-use App\Http\Controllers\Controller;
 use App\Services\ImageUploadService;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Ticket\TicketCategory;
@@ -47,6 +49,16 @@ class UserProfileController extends Controller
         return view('app.profile.ticket', compact(['unreviewedTickets', 'reviewedTickets', 'ticketCategories']));
     }
 
+    public function favoritWriters()
+    {
+        $user = Auth::user();
+        $favoriteWriters = $user->favoriteWriters()
+            ->wherePivotNull('deleted_at')
+            ->get();
+        return view('app.profile.favorit-writer', compact('favoriteWriters'));
+    }
+
+
     public function sendTicket(storeTicketRequest $request)
     {
         $inputs = $request->validated();
@@ -54,13 +66,13 @@ class UserProfileController extends Controller
 
         $inputs['reference_id'] = $ticketAdmin->id;
         $inputs['user_id'] = Auth::id();
-        
+
         if ($request->file('image')) {
             unset($inputs['image']);
         }
         $ticket = Ticket::create($inputs);
-        
-        if($request->file('image')) {
+
+        if ($request->file('image')) {
             $file_size = $request->file('image')->getSize();
             $file_type = $request->file('image')->getMimeType();
 

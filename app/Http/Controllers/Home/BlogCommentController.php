@@ -19,7 +19,7 @@ class BlogCommentController extends Controller
         $comment = new Comment();
         $comment->body = $validated['body'];
         $comment->user_id = Auth::id();
-        $comment->status = 1; // وضعیت تایید شده
+        $comment->status = 1; // seen (not approved yet)
 
         $blog->comments()->save($comment);
 
@@ -28,30 +28,52 @@ class BlogCommentController extends Controller
 
     public function like(Comment $comment)
     {
+        $user = Auth::user();
+
+        $existingLike = $comment->likes()->where('user_id', $user->id)->first();
+
+        if ($existingLike) {
+            if ($existingLike->status == 1) {
+                return redirect()->back()->with('error', 'شما قبلاً این کامنت را لایک کرده‌اید.');
+            } elseif ($existingLike->status == 2) {
+                $existingLike->delete();
+                $comment->decrement('dislikes');
+            }
+        }
+
+        $comment->likes()->create([
+            'user_id' => $user->id,
+            'status' => 1,
+        ]);
         $comment->increment('likes');
-        return back();
+
+        return redirect()->back();
     }
 
     public function dislike(Comment $comment)
     {
-        $comment->increment('dislikes');
-        return back();
-    }
+        $user = Auth::user(); // کاربر فعلی
 
-    public function reply(Request $request, Blog $blog, Comment $comment)
-    {
-        $validated = $request->validate([
-            'body' => 'required|string|max:1000',
+        // چک کردن اینکه آیا کاربر قبلاً این کامنت رو لایک یا دیس‌لایک کرده
+        $existingLike = $comment->likes()->where('user_id', $user->id)->first();
+
+        if ($existingLike) {
+            if ($existingLike->status == 2) {
+                return redirect()->back()->with('error', 'شما قبلاً این کامنت را دیس‌لایک کرده‌اید.');
+            } elseif ($existingLike->status == 1) {
+                // اگه قبلاً لایک کرده، لایک رو حذف کن و دیس‌لایک کن
+                $existingLike->delete();
+                $comment->decrement('likes');
+            }
+        }
+
+        $comment->likes()->create([
+            'user_id' => $user->id,
+            'status' => 2,
         ]);
+        $comment->increment('dislikes');
 
-        $reply = new Comment();
-        $reply->body = $validated['body'];
-        $reply->user_id = Auth::id();
-        $reply->parent_id = $comment->id;
-        $reply->status = 1; // وضعیت تایید شده
-
-        $blog->comments()->save($reply);
-
-        return back()->with('success', 'پاسخ شما با موفقیت ثبت شد.');
+        return redirect()->back();
     }
-    }
+
+}

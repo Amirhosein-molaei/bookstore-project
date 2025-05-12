@@ -12,7 +12,7 @@
 
         @include('app.layouts.partials.header')
 
-        <main class="flex-grow bg-background pb-14 mt-6">
+        <main class="flex-grow bg-background pb-14 mt-6 xs:pt-36">
 
             <div class="flex justify-center w-3/4 mx-auto mb-4">
                 @if (session('success'))

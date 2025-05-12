@@ -121,27 +121,16 @@ Route::get('/publisher/{publisher}', [HomeController::class, 'publisher'])->name
 Route::get('/blogs', [\App\Http\Controllers\Home\BlogController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{blog}', [\App\Http\Controllers\Home\BlogController::class, 'show'])->name('blogs.show');
 
-// روت‌های مربوط به کامنت‌های بلاگ
-Route::prefix('blog')->group(function () {
-    // ثبت کامنت جدید
+// routes for blog-comments
+Route::prefix('blog')->middleware('auth')->group(function () {
     Route::post('/{blog}/comment', [BlogCommentController::class, 'store'])
-        ->name('blog.comment.store')
-        ->middleware('auth');
+        ->name('blog.comment.store');
 
-    // لایک کردن کامنت
     Route::post('/comment/{comment}/like', [BlogCommentController::class, 'like'])
-        ->name('blog.comment.like')
-        ->middleware('auth');
+        ->name('blog.comment.like');
 
-    // دیسلایک کردن کامنت
     Route::post('/comment/{comment}/dislike', [BlogCommentController::class, 'dislike'])
-        ->name('blog.comment.dislike')
-        ->middleware('auth');
-
-    // پاسخ به کامنت
-    Route::post('/{blog}/comment/{comment}/reply', [BlogCommentController::class, 'reply'])
-        ->name('blog.comment.reply')
-        ->middleware('auth');
+        ->name('blog.comment.dislike');
 });
 
 Route::get('/writers', [\App\Http\Controllers\Home\WriterController::class, 'index'])->name('writers.index');

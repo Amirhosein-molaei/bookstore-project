@@ -12,8 +12,18 @@ class OrderItem extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'product_object' => 'array',
+    ];
+    
+
     public function order()
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

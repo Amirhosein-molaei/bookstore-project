@@ -8,6 +8,9 @@ use App\Models\Content\Comment;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Home\StoreCommentRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
+use ZipArchive;
 
 class ProductController extends Controller
 {
@@ -29,19 +32,67 @@ class ProductController extends Controller
         return view('app.product', compact('product', 'relatedProducts', 'commentCount', 'productFiles', 'comments', 'commentAnswers', 'recentlyViewds'));
     }
 
-    public function addToRecentlyViewedProducts($productId) {
+    public function addToRecentlyViewedProducts($productId)
+    {
         $recentProducts = session()->get('recently_viewed_products', []);
-    
+
         if (!in_array($productId, $recentProducts)) {
             $recentProducts[] = $productId;
         }
-    
+
         session()->put('recently_viewed_products', $recentProducts);
     }
 
-    public function getRecentlyViewedProducts() {
+    public function getRecentlyViewedProducts()
+    {
         $products = session()->get('recently_viewed_products', []);
         return array_slice($products, -10);
+    }
+
+    public function download(Request $request, Product $product)
+    {
+        if (!$request->hasValidSignature()) {
+            abort(404);
+        }
+        $user = Auth::user();
+
+        if (!$user->hasPurchasedProduct($product->id)) {
+            abort(404);
+        }
+
+        $files = $product->files()->get();
+
+        // if product has more than 1 file we'll make a zip file anf put all files inside it and if it doesn't 
+        // we'll simply return the file as a force-dowanload response
+        
+        if ($files->count() > 1) {
+
+            $zipFileName =  str_replace(' ', '_', $product->title) . '.zip';
+            $zipPath = storage_path('app/' . $zipFileName);
+
+            // making zip file proccess
+            $zip = new ZipArchive;
+            if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+
+                foreach ($files as $file) {
+                    if (Storage::exists($file->path)) {
+                        $zip->addFile(  storage_path('app/private/' . $file->path), $file->name);
+                    }
+                }
+                $zip->close();
+
+            } else {
+                return back()->with('error', 'خطا در دانلود فایل');
+            }
+
+            return response()->download($zipPath)->deleteFileAfterSend();
+
+        } else {
+            if (Storage::exists($files[0]->path)) {
+                return response()->download(storage_path('app/private/' . $files[0]->path), $files[0]->name);
+            } 
+        }
+
     }
 
     public function sendComment(StoreCommentRequest $request, Product $product)

@@ -232,7 +232,7 @@
                                 <ul class="space-y-1 p-2">
                                     <li>
                                         <a class="flex items-center justify-between gap-x-2 rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
-                                            href="./profile-dashboard.html">
+                                            href="{{ route('user-profile.') }}">
                                             <span class="flex items-center gap-x-4">
                                                 <span class="min-w-fit">
                                                     <img alt="profile" class="h-8 w-8 rounded-full"

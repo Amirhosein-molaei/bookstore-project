@@ -39,9 +39,9 @@
                                 <!-- Title -->
                                 <div class="mb-6 flex items-center justify-between">
                                     <h3 class="xl:text-lg">فیلتر ها</h3>
-                                    <button class="btn-primary-nobg py-2 text-sm">
+                                    <a class="btn-primary-nobg py-2 text-sm" href="{{ route('shop') }}">
                                         حذف همه
-                                    </button>
+                                    </a>
                                 </div>
                                 <ul class="space-y-6">
                                     <!-- Search -->
@@ -56,8 +56,7 @@
                                         <div>
                                             <p class="mb-4">محدوده قیمت</p>
                                             <div class="space-y-4">
-                                                <form id="priceFilter"
-                                                    action="{{ route('shop', request()->categorySlug ?? '') }}"
+                                                <form id="priceFilter" action="{{ route('shop', request()->query()) }}"
                                                     method="get">
 
                                                     <label for="min_price"
@@ -144,7 +143,7 @@
 
                                                                             <li class="mr-4">
                                                                                 <a class="flex items-center gap-x-2 rounded-lg px-4 py-2 {{ $category->slug == request()->category ? 'text-primary' : '' }}"
-                                                                                    href="{{ route('shop',  [$category->slug, 'min_price' => request()->min_price, 'max_price' => request()->max_price]) }}">
+                                                                                    href="{{ route('shop', ['category' => $category->slug] + request()->query()) }}">
                                                                                     <span> همه کتاب ها </span>
                                                                                 </a>
                                                                             </li>
@@ -152,8 +151,9 @@
                                                                             @foreach ($category->subCategories as $subCategory)
                                                                                 <li class="mr-4">
                                                                                     <a class="flex items-center gap-x-2 rounded-lg px-4 py-2 {{ $subCategory->slug == request()->category ? 'text-primary' : '' }}"
-                                                                                        href="{{ route('shop',  [$subCategory->slug, 'min_price' => request()->min_price, 'max_price' => request()->max_price]) }}">
-                                                                                        <span> {{ $subCategory->name }}
+                                                                                        href="{{ route('shop', ['category' => $subCategory->slug] + request()->query()) }}">
+                                                                                        <span>
+                                                                                            {{ $subCategory->name }}
                                                                                         </span>
                                                                                     </a>
                                                                                 </li>
@@ -163,7 +163,7 @@
                                                                 </div>
                                                             @else
                                                                 <a class="flex items-center gap-x-2 rounded-lg px-4 py-2 {{ $category->slug == request()->category ? 'text-primary' : '' }}"
-                                                                    href="{{ route('shop', ['categorySlug' => $category->slug, 'min_price' => request()->min_price, 'max_price' => request()->max_price]) }}">
+                                                                    href="{{ route('shop', ['category' => $category->slug] + request()->query()) }}">
                                                                     <span> {{ $category->name }} </span>
                                                                 </a>
                                                             @endif
@@ -257,48 +257,33 @@
                                 <svg class="h-6 w-6">
                                     <use xlink:href="#sort" />
                                 </svg>
-                                <p>مرتب سازی بر اساس</p>
+                                <p>مرتب‌سازی بر اساس</p>
                             </div>
                             <!-- Sort Buttons -->
-                            <a href="{{ route('shop') }}">
-                                <button
-                                    class="sort-button-active rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-                                    همه کالاها
-                                </button>
+                            <a href="{{ route('shop', ['filter' => 'all'] + request()->query()) }}"
+                                class="btn {{ $sort === 'all' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                                همه کالاها
                             </a>
 
-                            <form class="form-controll" action="{{ route('shop.available-product') }}" method="get">
-                                @csrf
-                                <button type="submit"
-                                    class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-                                    کالاهای موجود
-                                </button>
-                            </form>
+                            <a href="{{ route('shop', ['filter' => 'available'] + request()->query()) }}"
+                                class="btn {{ $sort === 'available' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                                کالاهای موجود
+                            </a>
 
-                            <form class="form-controll" action="{{ route('shop.with-picture-product') }}"
-                                method="get">
-                                @csrf
-                                <button class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-                                    کالاهای عکس دار
-                                </button>
-                            </form>
+                            <a href="{{ route('shop', ['filter' => 'with-picture'] + request()->query()) }}"
+                                class="btn {{ $sort === 'with-picture' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                                کالاهای عکس‌دار
+                            </a>
 
-                            <form class="form-controll" action="{{ route('shop.most-expensive-product') }}"
-                                method="get">
-                                @csrf
-                                <button class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-                                    گران ترین
-                                </button>
-                            </form>
+                            <a href="{{ route('shop', ['filter' => 'most-expensive'] + request()->query()) }}"
+                                class="btn {{ $sort === 'most-expensive' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                                گران‌ترین
+                            </a>
 
-                            <form class="form-controll" action="{{ route('shop.cheapest-product') }}" method="get">
-                                @csrf
-                                <button class="rounded-lg px-1 py-2 text-sm hover:bg-background hover: lg:px-4">
-                                    ارزان ترین
-                                </button>
-                            </form>
-
-
+                            <a href="{{ route('shop', ['filter' => 'cheapest'] + request()->query()) }}"
+                                class="btn {{ $sort === 'cheapest' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                                ارزان‌ترین
+                            </a>
                         </div>
                     </div>
 
@@ -315,7 +300,8 @@
                                     <!-- image -->
                                     <div class="mb-2 md:mb-5" draggable="false">
                                         <a href="{{ route('product', $product) }}">
-                                            <img alt="" style="height: 296px" class="mx-auto w-32 rounded-lg md:w-auto"
+                                            <img alt="" style="height: 296px"
+                                                class="mx-auto w-32 rounded-lg md:w-auto"
                                                 src="{{ asset($product->image) }}" />
                                         </a>
                                     </div>
@@ -401,20 +387,21 @@
     </main>
 
 @endsection
+
 @section('scripts')
     @parent
-    
+
     <script>
         document.getElementById('priceFilter').addEventListener('submit', function(event) {
             event.preventDefault(); // جلوگیری از ارسال فرم به صورت پیش‌فرض
-    
+
             // دریافت query string فعلی از URL
             const currentQuery = new URLSearchParams(window.location.search);
-    
+
             // دریافت مقادیر ورودی‌ها
             const fromValue = document.getElementById('min_price').value;
             const toValue = document.getElementById('max_price').value;
-    
+
             // اضافه کردن مقادیر جدید به query string
             if (fromValue) {
                 currentQuery.set('min_price', fromValue);
@@ -422,14 +409,14 @@
             if (toValue) {
                 currentQuery.set('max_price', toValue);
             }
-    
+
             // ساخت query string نهایی
             const queryString = `?${currentQuery.toString()}`;
-    
+
             // افزودن query string به action فرم
             this.action += queryString;
             // console.log(this.action);
-            
+
             // ارسال فرم
             this.submit();
         });

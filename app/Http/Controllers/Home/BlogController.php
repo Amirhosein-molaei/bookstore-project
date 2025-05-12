@@ -12,33 +12,23 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $sort = $request->get('sort', 'latest');
-        $categoryId = $request->get('category');
         $searchTerm = $request->get('search');
-
-        $categories = ProductCategory::with('children.children')
-            ->whereNull('parent_id')
-            ->get();
 
         $blogs = Blog::query()
             ->when($searchTerm, function($query) use ($searchTerm) {
                 $query->search($searchTerm);
-            })
-            ->when($categoryId, function($query) use ($categoryId) {
-                $query->whereHas('categories', function($q) use ($categoryId) {
-                    $q->where('categories.id', $categoryId);
-                });
-            })
-            ->sortBy($sort)
-            ->paginate(12);
+            })->sortBy($sort)->paginate(12);
 
 
-        return view('app.blog.index', compact('blogs', 'sort', 'categories', 'searchTerm'));
+        return view('app.blog.index', compact('blogs', 'sort', 'searchTerm'));
     }
     public function show(Blog $blog )
     {
         $blog->load(['user']);
-        $blogs=Blog::latest()->paginate(3);
-        return view('app.blog.details',compact('blog','blogs'));
+        $comments = $blog->comments()->whereNull('parent_id')->where('status', 2)->orderByDesc('created_at')->paginate(10);
+        $blogs = Blog::latest()->paginate(3);
+
+        return view('app.blog.details',compact(['blog', 'comments', 'blogs']));
 
     }
 

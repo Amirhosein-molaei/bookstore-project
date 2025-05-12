@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\Market\ProductFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Home\HomeFaqController;
+use App\Http\Controllers\Home\BlogCommentController;
 use App\Http\Controllers\Home\WalletController;
 
 Route::get('/dashboard', function () {
@@ -119,6 +120,19 @@ Route::get('/publisher/{publisher}', [HomeController::class, 'publisher'])->name
 
 Route::get('/blogs', [\App\Http\Controllers\Home\BlogController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{blog}', [\App\Http\Controllers\Home\BlogController::class, 'show'])->name('blogs.show');
+
+// routes for blog-comments
+Route::prefix('blog')->middleware('auth')->group(function () {
+    Route::post('/{blog}/comment', [BlogCommentController::class, 'store'])
+        ->name('blog.comment.store');
+
+    Route::post('/comment/{comment}/like', [BlogCommentController::class, 'like'])
+        ->name('blog.comment.like');
+
+    Route::post('/comment/{comment}/dislike', [BlogCommentController::class, 'dislike'])
+        ->name('blog.comment.dislike');
+});
+
 Route::get('/writers', [\App\Http\Controllers\Home\WriterController::class, 'index'])->name('writers.index');
 Route::get('/writers/{id}/details', function($id) {
     $writer = \App\Models\Content\Writer::findOrFail($id);
@@ -134,8 +148,10 @@ Route::get('/writers/{id}/details', function($id) {
     ]);
 })->name('writers.details');
 
+
+
 Route::middleware('auth')->group(function(){
-  
+
   //cart
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
     Route::get('/cart/empty', [CartController::class, 'emptyCart'])->name('cart.empty');
@@ -148,9 +164,9 @@ Route::middleware('auth')->group(function(){
     Route::post('/checkout/submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/fail', [CheckoutController::class, 'fail'])->name('checkout.fail');
-    
+
     // add to favorite and comment
-    Route::post('product/favorite/{product}',[FavoriteController::class, 'addProduct'])->name('product.favorite'); 
+    Route::post('product/favorite/{product}',[FavoriteController::class, 'addProduct'])->name('product.favorite');
     Route::post('product/comment/{product}',[HomeProductController::class,'sendComment'])->name('product.comment');
     Route::post('product/comment/{product}/answer', [HomeProductController::class, 'answerComment'])->name('product.comment.answer');
     Route::post('product/comment/like/{comment}',[HomeProductController::class,'likeComment'])->name('product.comment.like');
@@ -189,3 +205,11 @@ Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(
     Route::get('/orders', [UserProfileController::class, 'orders'])->name('orders');
     Route::get('/orders/{order}', [UserProfileController::class, 'orderDetails'])->name('order-details');
 });
+
+// add writer to favorites
+Route::post('writer/favorite/{writerId}',[FavoriteController::class, 'addWriter'])->name('writer.favorite');
+
+// delete favoritWriter from userProfile
+Route::delete('/writers/favorite/{writer}', [FavoriteController::class, 'destroyFavoritWriter'])->name('writers.favorite.destroy');
+Route::delete('/writers/favorite', [FavoriteController::class, 'destroyAllFavoritWriter'])->name('writers.favorite.destroy-all');
+

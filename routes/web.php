@@ -179,6 +179,9 @@ Route::middleware('auth')->group(function(){
     Route::post('/product/{product}/download', [HomeProductController::class, 'download'])->name('product.download')->middleware('signed');
 });
 
+//search
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+
 // shop
 Route::get(uri: '/shop', action: [ShopController::class, 'index'])->name('shop');
 

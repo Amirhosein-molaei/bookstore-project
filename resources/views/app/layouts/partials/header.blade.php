@@ -21,7 +21,7 @@
                     </div>
                     <!-- Search -->
                     <div class="relative max-w-xl flex-1" id="desktopHeaderSearchBase">
-                        <div id="desktopHeaderSearchWrapper"
+                        <form action="{{ route('search') }}" id="desktopHeaderSearchWrapper"
                             class="flex items-center justify-between rounded-lg border-b-transparent bg-background px-2 dark:border-white/10 dark:border-b-transparent">
                             <div>
                                 <svg class="h-6 w-6">
@@ -31,9 +31,9 @@
                             <label class="sr-only">desktop header search</label>
                             <input id="desktopHeaderSearch"
                                 class="flex grow rounded-lg border-none bg-background px-2 py-3 text-text/90 outline-none placeholder:text-sm placeholder:text-text/60 focus:ring-0 placeholder:"
-                                placeholder="جستجو کنید ..." type="text" />
-                        </div>
-                        <div id="desktopHeaderSearchResult"
+                                placeholder="جستجو کنید ..." type="text" name="search"/>
+                        </form>
+                        {{-- <div id="desktopHeaderSearchResult"
                             class="absolute inset-x-0 top-full hidden w-full overflow-hidden rounded-b-lg border border-t-transparent bg-muted dark:border-white/10 dark:border-t-transparent">
                             <div class="max-h-[450px] overflow-y-auto py-5">
                                 <!-- Result -->
@@ -211,7 +211,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <!-- Cart, Theme, Account -->
                     <div class="flex gap-x-4">

@@ -55,4 +55,17 @@ class HomeController extends Controller
 
         return view('app.publisher', compact(['publisher', 'textualHotDeals', 'audioHotDeals', 'mostSelledProducts', 'mostViewedProducts', 'newProducts']));
     }
+
+    public function search()
+    {
+        $search = request('search');
+        if ($search != '') {
+            $matchProducts = Product::where('title', 'like', "%{$search}%")->get();
+            $matchBlogs = Blog::where('title', 'like', "%{$search}%")->get();
+            return view('app.search-result', compact(['matchProducts', 'matchBlogs', 'search']));
+        } else {
+            return view('app.home');
+        }
+
+    }
 }

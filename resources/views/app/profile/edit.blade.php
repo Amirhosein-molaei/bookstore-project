@@ -103,7 +103,7 @@
                                     <div class="text-text/90">کلمه عبور</div>
 
                                     <div class="mr-2 select-none text-text/60">
-                                        <input type="password" value="password" class="select-none bg-transparent"
+                                        <input type="password" value="{{Auth::user()->password ?? 'ثبت نشده'}}" class="select-none bg-transparent"
                                             disabled />
                                     </div>
                                 </div>

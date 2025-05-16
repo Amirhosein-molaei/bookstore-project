@@ -8,11 +8,13 @@ use App\Models\Content\Banner;
 use App\Models\Content\Blog;
 use App\Models\Content\Publisher;
 use App\Models\Market\Product;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        Auth::loginUsingId(6);
         $mosteSelledProducts = Product::where('sold_number', '>', 0)->orderByDesc('sold_number')->limit(10)->get();
 
         $sliders = Slider::where('status', 1)->orderBy('position')->get();

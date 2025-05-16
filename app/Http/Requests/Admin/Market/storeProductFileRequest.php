@@ -21,8 +21,9 @@ class storeProductFileRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->file('file')->getMimeType());
         return [
-            'file' => 'required|file|mimes:pdf,zip,rar'
+            'file' => 'required|file|mimes:pdf,zip,rar,audio/mpeg,mpga,mp3,wav,mp4'
         ];
     }
 }

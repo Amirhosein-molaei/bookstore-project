@@ -37,13 +37,13 @@ class TicketController extends Controller
         $inputs = $request->validated();
         $parentTicket = Ticket::find($inputs['parent_id']);
 
-        $TicketAdmin = TicketAdmin::where('user_id', 7)->first();
+        $TicketAdmin = TicketAdmin::where('user_id', Auth::id())->first();
 
         $inputs['subject'] = $parentTicket->subject;
         $inputs['category_id'] = $parentTicket->category_id;
         $inputs['parent_id'] = $parentTicket->id;
         $inputs['reference_id'] = $TicketAdmin->id;
-        $inputs['user_id'] = 7;
+        $inputs['user_id'] = Auth::id();
         
         Ticket::create($inputs);
         return to_route(route: 'admin.ticket.ticket.index')->with('swal-success', 'پاسخ با موفقیت ثبت شد');

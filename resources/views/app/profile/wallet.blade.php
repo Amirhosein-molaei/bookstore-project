@@ -70,11 +70,11 @@
                                     <label for="deposite" class="relative block rounded-lg border shadow-base">
                                         <input type="text" id="amount" name="amount"
                                             class="peer w-full rounded-lg border-none bg-transparent px-4 py-3 placeholder-transparent focus:outline-none focus:ring-0"
-                                            placeholder="مبلغ" />
+                                            placeholder="مبلغ (تومان)" />
 
                                         <span
                                             class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/60 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
-                                            مبلغ
+                                            مبلغ (تومان)
                                         </span>
                                     </label>
                                     <div class="my-2 h-6"></div>

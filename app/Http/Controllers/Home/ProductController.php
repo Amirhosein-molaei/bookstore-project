@@ -17,6 +17,7 @@ class ProductController extends Controller
 {
     public function show(Product $product)
     {
+        $product->increment('view_count');
         $relatedProducts = Product::where('product_category_id', $product->category->id)->whereNot('id', $product->id)->limit(10)->get();
 
         $commentCount = $product->comments()->where('status', 2)->count();
@@ -106,8 +107,13 @@ class ProductController extends Controller
         $inputs['commentable_id'] = $product->id;
         $inputs['status'] = 0;
         $inputs['has_bought'] = $user->hasPurchasedProduct($product->id) ? 1 : 0;
-    
+        
         $comment = Comment::create($inputs);
+
+        if ($inputs['has_bought'] == 1 and $inputs['suggested'] == 1) {
+            $product->increment('suggested_count');
+        }
+
         return redirect()->back()->with('success', 'دیدگاه شما ثبت شد و پس از تایید نمایش داده میشود.');
     }
 
@@ -169,9 +175,6 @@ class ProductController extends Controller
         }
 
         $comment = Comment::findOrFail($request->comment_id);
-        if ($comment->parent_id != null) {
-            return redirect()->back()->with('error', 'شما تنها مجاز به پاسخگویی کامنت اصلی هستید.');
-        }
 
         $request->validate([
             'body' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',

@@ -56,27 +56,36 @@
                                             <div class="space-y-4">
                                                 <form id="priceFilter" action="{{ route('shop', request()->query()) }}"
                                                     method="get">
+                                                    {{-- prevent of loosing category and sort by submiting the form --}}
 
+                                                    @if (request('category'))
+                                                        <input type="hidden" name="category" value="{{ request('category') }}">
+                                                    @endif
+
+                                                    @if (request('filter'))
+                                                        <input type="hidden" name="filter" value="{{ request('filter') }}">
+                                                    @endif
+                                                    
                                                     <label for="min_price"
                                                         class="relative block rounded-lg border shadow-base mb-2">
                                                         <input type="number" id="min_price" dir="auto" name="min_price"
                                                             class="peer w-full rounded-lg border-none bg-transparent p-2 text-left placeholder-transparent focus:outline-none focus:ring-0"
-                                                            placeholder="از" value="{{ request('min_price') }}">
+                                                            placeholder="از (تومان)" value="{{ request('min_price') }}">
 
                                                         <span
                                                             class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
-                                                            از
+                                                            از (تومان)
                                                         </span>
                                                     </label>
                                                     <label for="max_price"
                                                         class="relative block rounded-lg border shadow-base">
                                                         <input type="number" id="max_price" dir="auto" name="max_price"
                                                             class="peer w-full rounded-lg border-none bg-transparent p-2 text-left placeholder-transparent focus:outline-none focus:ring-0"
-                                                            placeholder="تا" value="{{ request('max_price') }}">
+                                                            placeholder="تا (تومان)" value="{{ request('max_price') }}">
 
                                                         <span
                                                             class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
-                                                            تا
+                                                            تا (تومان)
                                                         </span>
                                                     </label>
                                                     <button type="submit" class="btn-primary w-full px-2 py-1 mt-4">

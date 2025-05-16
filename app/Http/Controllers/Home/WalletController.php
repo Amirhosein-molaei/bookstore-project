@@ -28,7 +28,7 @@ class WalletController extends Controller
         $wallet->balance += $request->input('amount');
         $wallet->save();
 
-        return back()->with('success', 'کیف پول شما شارژ شد');
+        return view('app.payment-success', compact('wallet'));
     }
 
 }

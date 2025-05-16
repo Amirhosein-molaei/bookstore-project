@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Home\HomeFaqController;
 use App\Http\Controllers\Home\BlogCommentController;
+use App\Http\Controllers\Home\MenusController;
 use App\Http\Controllers\Home\WalletController;
 use App\Http\Controllers\Home\WriterController as HomeWriterController;
 
@@ -182,7 +183,9 @@ Route::middleware('auth')->group(function(){
 Route::get(uri: '/shop', action: [ShopController::class, 'index'])->name('shop');
 
 // Faq
-Route::get(uri: '/faq', action: [HomeFaqController::class, 'index'])->name('faq');
+Route::get(uri: '/faq', action: [MenusController::class, 'faq'])->name('faq');
+// about-us
+Route::get('/about-us', [MenusController::class, 'aboutUs'])->name('about-us');
 
 // profile
 Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(function(){

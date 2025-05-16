@@ -13,7 +13,11 @@
                     </svg>
                 </div>
                 <h1 class="mb-8 text-center text-base text-primary md:text-lg lg:text-xl">
-                    پرداخت سفارش {{$order->id}} موفق بود!
+                    @if (isset($wallet))
+                        شارژ کیف پول موفقیت آمیز بود
+                    @else
+                        پرداخت سفارش {{ $order->id }} موفق بود!
+                    @endif
                 </h1>
             </div>
 
@@ -22,17 +26,24 @@
                     <p class="font-medium md:text-lg">جرئیات پرداخت</p>
                     <div class="flex items-center gap-x-4">
                         <p class="text-text/90">
-                            تاریخ : <span> {{ Jalalian::forge($order->created_at)->format('%B %d، %Y') }}</span>
+                            @if (isset($wallet))
+                                تاریخ : <span> {{ Jalalian::forge($wallet->updated_at)->format('%B %d، %Y') }}</span>
+                            @else
+                                تاریخ : <span> {{ Jalalian::forge($order->created_at)->format('%B %d، %Y') }}</span>
+                            @endif
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="flex gap-x-4">
+            <div class=" {{ isset($wallet) ? '' : 'flex' }} gap-x-4">
                 <div class="w-full">
-                    <a href="{{ route('user-profile.order-details', $order) }}" class="btn-primary py-3"> پیگیری سفارش </a>
+                    @if (isset($order))
+                        <a href="{{ route('user-profile.order-details', $order) }}" class="btn-primary py-3"> پیگیری سفارش
+                        </a>
+                    @endif
                 </div>
                 <div class="w-full">
-                    <a href="{{ back() }}" class="btn-secondary py-3"> برگشت </a>
+                    <a href="{{ route('app.home') }}" class="btn-secondary py-3"> خانه </a>
                 </div>
             </div>
         </div>

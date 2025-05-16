@@ -12,6 +12,8 @@ class Order extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+    
+    protected $cascadeDeletes = ['orderItems'];
 
     public function orderItems()
     {

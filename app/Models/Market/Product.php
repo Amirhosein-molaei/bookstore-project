@@ -20,6 +20,8 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
+    protected $cascadeDeletes = ['comments', 'files', 'cartItems'];
+    
     public function sluggable(): array
     {
         return [

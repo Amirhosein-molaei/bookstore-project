@@ -177,9 +177,15 @@ class UserProfileController extends Controller
 
     public function orders()
     {
-        $finishedOrders = Order::where('user_id', Auth::id())->where('order_status', 1)->get();
-        $canceledOrders = Order::where('user_id', Auth::id())->where('order_status', 2)->get();
-        $pendingOrders = Order::where('user_id', Auth::id())->where('order_status', 0)->get();
+        $finishedOrders = Order::where('user_id', Auth::id())->where('order_status', 1)
+            ->orderByDesc('created_at')->get();
+            
+        $canceledOrders = Order::where('user_id', Auth::id())->where('order_status', 2)
+            ->orderByDesc('created_at')->get();
+            
+        $pendingOrders = Order::where('user_id', Auth::id())->where('order_status', 0)
+            ->orderByDesc('created_at')->get();
+            
 
 
         return view('app.profile.orders', compact(['finishedOrders', 'canceledOrders', 'pendingOrders']));

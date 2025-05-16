@@ -11,8 +11,10 @@ use App\Models\Market\OrderItem;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Home\submitOrderRequest;
+use App\Mail\orderDoneMail;
 use App\Models\User\Wallet;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -77,7 +79,7 @@ class CheckoutController extends Controller
         $cart = Cart::where('user_id', Auth::id())->where('status', 0)->with('items.product')->first();
         
         if (!$cart or $cart->items->count() == 0) {
-            return redirect()->route('home');
+            return redirect()->route('app.home');
         }
         
         if ($inputs['total_price'] != $cart->total_price) {
@@ -126,10 +128,15 @@ class CheckoutController extends Controller
                     'total_price' => $item->product->price,
                     'status' => 0
                 ]);
+
+                $item->product->increment('sold_number');
             }
 
             $cart->update(['status' => 1]);
             DB::commit();
+            
+            Mail::to(Auth::user())->send(new orderDoneMail($order));
+
             return view('app.payment-success', compact('order'));
 
         } catch (\Throwable $th) {

@@ -4,3 +4,5 @@
 <title>
     @yield('title', 'عنوان صفحه')
 </title>
+  <!-- افزودن Chart.js از طریق CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

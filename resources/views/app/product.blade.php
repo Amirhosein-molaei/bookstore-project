@@ -22,7 +22,8 @@
                             </span>
                         </li>
                         <li class="flex items-center gap-x-2">
-                            <a href="{{ route('shop', ['category'=>$product->category->parent ? $product->category->parent->slug : $product->category->slug]) }}" class="text-sm text-text/90 hover: hover:">
+                            <a href="{{ route('shop', ['category' => $product->category->parent ? $product->category->parent->slug : $product->category->slug]) }}"
+                                class="text-sm text-text/90 hover: hover:">
                                 {{ $product->category->parent ? $product->category->parent->name : $product->category->name }}
                             </a>
                             <span class="text-text/90">
@@ -33,7 +34,8 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('shop', ['category'=>$product->category->slug]) }}" class="text-sm text-text/90 hover: hover:">
+                            <a href="{{ route('shop', ['category' => $product->category->slug]) }}"
+                                class="text-sm text-text/90 hover: hover:">
                                 {{ $product->category->parent ? $product->category->name : '' }}
                             </a>
                         </li>
@@ -151,16 +153,24 @@
                                     <div>
                                         <a href="#"> {{ $commentCount }} دیدگاه </a>
                                     </div>
+                                    <span class="h-4 w-px rounded-full bg-background dark:bg-muted/10"></span>
+                                    <div>
+                                        <a href="#"> {{ $product->view_count }} بار بازدید </a>
+                                    </div>
                                 </div>
-                                <!-- users suggestion -->
-                                <div class="mb-4 flex gap-x-2">
-                                    <svg class="h-4 w-4 text-primary">
-                                        <use xlink:href="#like" />
-                                    </svg>
-                                    <p class="text-sm font-light text-text/60">
-                                        80% از خریداران، خرید این کالا را پیشنهاد کرده‌اند
-                                    </p>
-                                </div>
+                                @if ($product->sold_number > 0 and $product->suggested_count > 0)
+                                    <!-- users suggestion -->
+                                    <div class="mb-4 flex gap-x-2">
+                                        <svg class="h-4 w-4 text-primary">
+                                            <use xlink:href="#like" />
+                                        </svg>
+                                        <p class="text-sm font-light text-text/60">
+                                            {{ round(($product->suggested_count * 100) / $product->sold_number, 1) }}% از
+                                            خریداران، خرید این کالا را پیشنهاد کرده‌اند
+                                        </p>
+                                    </div>
+                                @endif
+
 
                                 <!-- Property -->
                                 <div>
@@ -180,7 +190,8 @@
                                         <li class="flex gap-x-2 flex-wrap items-center">
                                             <div class="min-w-fit text-text/60">نویسنده :</div>
                                             <div class="text-text/90 btn-pink-nobg">
-                                                <a href="{{ route('writer-books', $product->writer) }}" >{{ $product->writer->name }}</a>
+                                                <a
+                                                    href="{{ route('writer-books', $product->writer) }}">{{ $product->writer->name }}</a>
                                             </div>
                                             @auth
                                                 <div>
@@ -235,39 +246,57 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <!-- verified text -->
-                                    {{-- <div
-                                        class="mb-6 flex items-center gap-x-2 rounded-lg bg-primary/10 p-4 text-sm text-primary /5">
-                                        <svg class="h-6 w-6">
-                                            <use xlink:href="#verified" />
-                                        </svg>
-                                        تضمین سلامت فیزیکی و اصالت کالا
-                                    </div> --}}
+                                    @if ($product->sold_number > 0)
+                                        <!-- verified text -->
+                                        <div
+                                            class="mb-6 flex items-center gap-x-2 rounded-lg bg-primary/10 p-4 text-sm text-primary /5">
+                                            <svg class="h-6 w-6">
+                                                <use xlink:href="#order" />
+                                            </svg>
+                                            {{ $product->sold_number }} نفر این محصول را خریداری کرده اند
+                                        </div>
+                                    @endif
                                     <!-- price -->
                                     <div class="mb-6 flex items-center justify-end gap-x-1 text-primary">
                                         <span class="text-xl font-bold">
+                                            @if ($product->discounted_price)
+                                                <del class="text-sm text-text/60 decoration-warning md:text-base">
+                                                    {{ number_format($product->price) }}
+                                                </del>
+                                            @endif
                                             {{ $product->discounted_price ? number_format($product->discounted_price) : number_format($product->price) }}
                                         </span>
                                         <span>تومان</span>
                                     </div>
                                     <!-- add to cart -->
                                     <div class="mb-6">
-                                        @if ($cart !== null and $cart->hasProduct($product->id))
+                                        @if (Auth::check() and Auth::user()->hasPurchasedProduct($product->id))
                                             <form
-                                                action="{{ route('cart.remove', $product->cartItems->where('product_id', $product->id)->first()) }}"
+                                                action="{{ URL::signedRoute('product.download', ['product' => $product]) }}"
                                                 method="post">
                                                 @csrf
-                                                <button type="submit" class="btn-red w-full py-3">
-                                                    حذف از سبد خرید
+                                                <button type="submit" class="btn-indigo w-full py-3">
+                                                    دانلود
                                                 </button>
                                             </form>
                                         @else
-                                            <form action="{{ route('cart.add', $product) }}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn-primary w-full py-3">
-                                                    افزودن به سبد خرید
-                                                </button>
-                                            </form>
+                                            @if ($cart !== null and $cart->hasProduct($product->id))
+                                                <form
+                                                    action="{{ route('cart.remove', $product->cartItems->where('product_id', $product->id)->first()) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn-red w-full py-3">
+                                                        حذف از سبد خرید
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('cart.add', $product) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn-primary w-full py-3">
+                                                        افزودن به سبد خرید
+                                                    </button>
+                                                </form>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>
@@ -288,7 +317,8 @@
                     </svg>
                 </div>
                 <div class="flex items-center gap-x-1 text-sm font-light text-primary sm:text-base md:text-base">
-                    <a href="{{ route('shop', ['category'=>$product->category->parent ? $product->category->parent->slug : $product->category->slug]) }}">
+                    <a
+                        href="{{ route('shop', ['category' => $product->category->parent ? $product->category->parent->slug : $product->category->slug]) }}">
                         {{ $product->category->parent ? $product->category->parent->name : $product->category->name }} </a>
                     <svg class="h-5 w-5">
                         <use xlink:href="#chevron-left" />
@@ -470,14 +500,15 @@
                                             <a href="{{ route('product', $relatedProduct) }}">
                                                 <img alt="{{ $relatedProduct->title }}"
                                                     class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($relatedProduct->image) }}" style="height: 260px;"/>
+                                                    src="{{ asset($relatedProduct->image) }}" style="height: 260px;" />
                                             </a>
                                         </div>
                                         <!-- rate -->
                                         @if ($relatedProduct->rate > 0)
                                             <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
-                                                <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
-                                                    <span class="star text-white">★</span>{{$relatedProduct->rate}}
+                                                <p
+                                                    class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                    <span class="star text-white">★</span>{{ $relatedProduct->rate }}
                                                 </p>
                                             </div>
                                         @endif
@@ -542,14 +573,16 @@
                                                 <a href="{{ route('product', $recentlyViewd) }}">
                                                     <img alt="{{ $recentlyViewd->title }}"
                                                         class="mx-auto w-32 rounded-lg md:w-auto"
-                                                        src="{{ asset($recentlyViewd->image) }}" style="height: 260px;"/>
+                                                        src="{{ asset($recentlyViewd->image) }}"
+                                                        style="height: 260px;" />
                                                 </a>
                                             </div>
                                             <!-- rate -->
                                             @if ($recentlyViewd->rate > 0)
                                                 <div class="absolute right-0 top-0 mt-2 mb-8 mr-2">
-                                                    <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
-                                                        <span class="star text-white">★</span>{{$recentlyViewd->rate}}
+                                                    <p
+                                                        class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                        <span class="star text-white">★</span>{{ $recentlyViewd->rate }}
                                                     </p>
                                                 </div>
                                             @endif
@@ -909,7 +942,8 @@
                                                         <div class="text-sm text-text/60">{{ $comment->user->name }}
                                                         </div>
                                                         @if ($comment->has_bought)
-                                                            <span class="h-3 w-px rounded-full bg-background dark:bg-muted/10"></span>
+                                                            <span
+                                                                class="h-3 w-px rounded-full bg-background dark:bg-muted/10"></span>
                                                             <div class="text-sm text-text/60 text-indigo-500">
                                                                 خریدار
                                                             </div>
@@ -981,20 +1015,54 @@
                                                 @if ($comment->answers->count() > 0)
                                                     <ul class="pl-6 border-l dark:border-white/10">
                                                         @foreach ($comment->answers->where('status', 2) as $answer)
-                                                            <li class="py-4">
+                                                            <li class="py-2">
                                                                 <div class="py-4 pr-8 border-r dark:border-white/10">
-                                                                    <h5 class="mb-4 leading-relaxed xl:text-lg">
-                                                                        {{ $answer->body }}</h5>
+                                                                    <div class="flex justify-between">
+                                                                        <h5 class="mb-4 leading-relaxed xl:text-lg">
+                                                                            {{ $answer->body }}</h5>
+                                                                        <button data-comment-id="{{ $answer->id }}"
+                                                                            class="btn-secondary-nobg reply-btn"
+                                                                            type="button">
+                                                                            پاسخ
+                                                                            <svg class="w-5 h-5">
+                                                                                <use xlink:href="#chevron-left" />
+                                                                            </svg>
+                                                                        </button>
+                                                                    </div>
                                                                     <div
                                                                         class="mb-6 flex items-center gap-x-4 border-b pb-6">
                                                                         <div
                                                                             class="flex items-center gap-x-2 text-text/60">
-                                                                            {{ Jalalian::forge($comment->created_at)->format('%B %d، %Y') }} -
+                                                                            {{ Jalalian::forge($comment->created_at)->format('%B %d، %Y') }}
+                                                                            -
                                                                             {{ $answer->user->name }}
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </li>
+                                                            @if ($answer->answers->count() > 0)
+                                                                <ul class="pl-6 border-l dark:border-white/10">
+                                                                    @foreach ($answer->answers->where('status', 2) as $answer)
+                                                                        <li class="py-2">
+                                                                            <div
+                                                                                class="py-4 dark:border-white/10" style="padding-right: 5rem">
+                                                                                <h5 class="mb-4 leading-relaxed xl:text-lg">
+                                                                                    {{ $answer->body }}
+                                                                                </h5>
+                                                                                <div
+                                                                                    class="mb-6 flex items-center gap-x-4 border-b pb-6">
+                                                                                    <div
+                                                                                        class="flex items-center gap-x-2 text-text/60">
+                                                                                        {{ Jalalian::forge($comment->created_at)->format('%B %d، %Y') }}
+                                                                                        -
+                                                                                        {{ $answer->user->name }}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif
                                                         @endforeach
                                                     </ul>
                                                 @endif

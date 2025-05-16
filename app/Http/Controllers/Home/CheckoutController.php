@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Home\submitOrderRequest;
 use App\Mail\orderDoneMail;
+use App\Models\Market\Payment;
 use App\Models\User\Wallet;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -117,6 +118,15 @@ class CheckoutController extends Controller
             if ($order->payment_type == 0) {
                 $wallet->balance -= $order->order_final_amount;
                 $wallet->save();
+            } else {
+                Payment::create([
+                    'amount' => $order->order_final_amount,
+                    'user_id' => Auth::id(),
+                    'type' => $order->payment_type,
+                    'gateway' => $inputs['payment_gateway'],
+                    'transaction_id' => random_int(10000, 99999),
+                    'tracking_code' => random_int(10000, 99999),
+                ]);
             }
 
             foreach ($cart->items as $item) {

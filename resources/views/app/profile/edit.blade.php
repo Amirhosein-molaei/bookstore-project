@@ -208,7 +208,7 @@
                     </div>
                     <div class="flex items-center justify-end gap-x-4">
                         <button class="btn-primary w-full px-4 py-2 xs:w-fit" type="submit">
-                            ارسال کد تایید
+                            ویرایش
                         </button>
                     </div>
                 </form>

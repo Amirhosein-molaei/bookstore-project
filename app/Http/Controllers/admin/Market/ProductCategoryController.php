@@ -15,7 +15,7 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        $categories = ProductCategory::paginate(10);
+        $categories = ProductCategory::get();
         return view('admin.market.product-category.index', compact('categories'));
     }
 
@@ -53,7 +53,7 @@ class ProductCategoryController extends Controller
     {
         $parents = ProductCategory::where('parent_id', null)->get()->except($productCategory->id);
 
-        return view('admin.market.product-category.edit', compact('productCategory','parents'));
+        return view('admin.market.product-category.edit', compact('productCategory', 'parents'));
     }
 
     /**

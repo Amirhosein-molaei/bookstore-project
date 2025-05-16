@@ -1,45 +1,10 @@
 @extends('app.layouts.master')
+@section('title', 'نویسندگان')
 @section('scripts')
 @parent
 <!-- <script>
     const csrf = '{{ csrf_token() }}';
 </script> -->
-
-<script>
-    function toggleFavorite(writerId) {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-    fetch(`/writer/favorite/${writerId}`, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        }
-    })
-    .then(response => {
-        if (response.ok) return response.json();
-        return response.text().then(text => { throw new Error(text) });
-    })
-    .then(data => {
-        // پیام موفقیت
-        Swal.fire({
-            icon: 'success',
-            title: 'موفق',
-            text: data.message || 'عملیات با موفقیت انجام شد!',
-        });
-    })
-    .catch(error => {
-        console.error(error);
-        Swal.fire({
-            icon: 'error',
-            title: 'خطا',
-            text: 'در انجام عملیات مشکلی پیش آمد!',
-        });
-    });
-}
-
-</script>
 
 <script>
     function loadWriterDetails(writerId) {
@@ -81,14 +46,6 @@
                                 <p>${data.description}</p>
                             </div>
                         </div>
-              
-                    @if (auth()->check())
-                    
-                <button onclick="toggleFavorite(${writerId})" class="btn-indigo px-4 py-2">اضافه / حذف به علاقه‌مندی‌ها</button>
-
-                    @endif
-
-                    
                     </div>
                     <div class="py-6" id="specs">
                         <div class="relative mb-16 w-fit text-xl font-medium">
@@ -101,7 +58,7 @@
                                     <div class="col-span-1 text-text/60">نام</div>
                                     <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                                         <ul class="space-y-4">
-                                            <li>${data.name}</li>
+                                            <li>${data.name !== null ? data.name : '-'}</li>
                                         </ul>
                                     </div>
                                 </li>
@@ -109,7 +66,7 @@
                                     <div class="col-span-1 text-text/60">نام انگلیسی</div>
                                     <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                                         <ul class="space-y-4">
-                                            <li>${data.english_name}</li>
+                                            <li>${data.english_name !== null ? data.english_name : '-'}</li>
                                         </ul>
                                     </div>
                                 </li>
@@ -117,7 +74,7 @@
                                     <div class="col-span-1 text-text/60">ملیت</div>
                                     <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                                         <ul class="space-y-4">
-                                            <li>${data.nationality}</li>
+                                            <li>${data.nationality !== null ? data.nationality : '-'}</li>
                                         </ul>
                                     </div>
                                 </li>
@@ -125,7 +82,7 @@
                                     <div class="col-span-1 text-text/60">تاریخ تولد</div>
                                     <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                                         <ul class="space-y-4">
-                                            <li>${data.birth_year}</li>
+                                            <li>${data.birth_year !== null ? data.birth_year : '-'}</li>
                                         </ul>
                                     </div>
                                 </li>
@@ -133,7 +90,7 @@
                                     <div class="col-span-1 text-text/60">تاریخ وفات</div>
                                     <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                                         <ul class="space-y-4">
-                                            <li>${data.death_year}</li>
+                                            <li>${data.death_year !== null ? data.death_year : '-'}</li>
                                         </ul>
                                     </div>
                                 </li>

@@ -35,7 +35,7 @@ class ShopController extends Controller
                 $query->whereIn('product_category_id', $categoryIds);
                 
             } else {
-                $query->whereIn('product_category_id', $category->id);
+                $query->where('product_category_id', $category->id);
             }
             
         }

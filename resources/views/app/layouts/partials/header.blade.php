@@ -250,7 +250,7 @@
 
                                     <li>
                                         <a class="flex items-center justify-between rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
-                                            href="./profile-orders.html">
+                                            href="{{ route('user-profile.orders') }}">
                                             <span class="flex items-center gap-x-2">
                                                 <svg class="h-6 w-6">
                                                     <use xlink:href="#order" />
@@ -261,7 +261,7 @@
                                     </li>
                                     <li>
                                         <a class="flex items-center justify-between rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
-                                            href="./profile-favorite.html">
+                                            href="{{ route('user-profile.product-favorite') }}">
                                             <span class="flex items-center gap-x-2">
                                                 <svg class="h-6 w-6">
                                                     <use xlink:href="#heart" />
@@ -270,24 +270,26 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a class="flex items-center justify-between rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
-                                            href="./profile-notification.html">
-                                            <span class="flex items-center gap-x-2">
-                                                <svg class="h-6 w-6">
-                                                    <use xlink:href="#notification" />
-                                                </svg>
-                                                <span> پیام ها </span>
-                                            </span>
+                                    @if (Auth::user()->is_admin)
+                                        <li>
+                                            <a class="flex items-center justify-between rounded-lg p-4 hover:text-primary dark:hover:text-emerald-400"
+                                                href="{{ route('admin.') }}">
+                                                <span class="flex items-center gap-x-2">
+                                                    <svg class="h-6 w-6">
+                                                        <use xlink:href="#notification" />
+                                                    </svg>
+                                                    <span> پنل ادمین </span>
+                                                </span>
 
-                                            <span class="relative flex h-5 w-5">
-                                                <span
-                                                    class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-                                                <span
-                                                    class="relative inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-btn text-sm text-white">2</span>
-                                            </span>
-                                        </a>
-                                    </li>
+                                                {{-- <span class="relative flex h-5 w-5">
+                                                    <span
+                                                        class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                                                    <span
+                                                        class="relative inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-btn text-sm text-white">2</span>
+                                                </span> --}}
+                                            </a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <div class="my-2 h-px w-full rounded-full bg-border"></div>
                                     </li>
@@ -500,7 +502,7 @@
                                                 @foreach ($categories->where('parent_id', null) as $category)
                                                     <li>
                                                         <a class="flex py-4 pr-4 hover:text-primary"
-                                                            href="./shop.html" data-category-id="{{ $category->id }}">
+                                                            href="{{ route('shop', ['category'=>$category->slug]) }}" data-category-id="{{ $category->id }}">
                                                             {{ $category->name }}
                                                         </a>
                                                     </li>
@@ -517,7 +519,7 @@
                                                         <!-- Head: Show all link -->
                                                         <div class="mb-4">
                                                             <a class="flex items-center gap-x-1 py-2 text-sm text-primary"
-                                                                href="./shop.html">
+                                                                href="{{ route('shop', ['category'=>$category->slug]) }}">
                                                                 <div>مشاهده همه کتاب های {{ $category->name }}</div>
                                                                 <svg class="h-5 w-5">
                                                                     <use xlink:href="#chevron-left"></use>
@@ -530,7 +532,7 @@
                                                             @foreach ($category->subCategories as $subCategory)
                                                                 <div class="space-y-2">
                                                                     <a class="flex items-center gap-x-2 hover:text-primary"
-                                                                        href="./shop.html">
+                                                                        href="{{ route('shop', ['category'=>$subCategory->slug]) }}">
                                                                         <span
                                                                             class="h-5 w-0.5 rounded-full bg-primary dark:bg-primary"></span>
                                                                         <div>{{ $subCategory->name }}</div>
@@ -542,7 +544,7 @@
                                                                         @foreach ($subCategory->subCategories ?? [] as $subCategory)
                                                                             <li>
                                                                                 <a class="block py-2 text-sm text-text/90 hover:text-primary"
-                                                                                    href="./shop.html">
+                                                                                    href="{{ route('shop', ['category'=>$subCategory->slug]) }}">
                                                                                     {{ $subCategory->name }}
                                                                                 </a>
                                                                             </li>
@@ -560,7 +562,7 @@
                             </div>
                         </ul>
                         <ul class="group relative z-10" id="header-desktop-indicator">
-                            <a href="{{'blogs'}}"
+                            <a href="{{ route('blogs.index') }}"
                                class="flex cursor-pointer items-center gap-x-2 p-2 pt-0">بلاگ ها
                             </a>
 

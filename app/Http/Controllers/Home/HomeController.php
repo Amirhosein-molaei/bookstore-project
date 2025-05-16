@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Home;
 
 use App\Models\Content\Slider;
 use App\Http\Controllers\Controller;
+use App\Models\Content\Banner;
+use App\Models\Content\Blog;
 use App\Models\Content\Publisher;
 use App\Models\Market\Product;
 
@@ -21,7 +23,10 @@ class HomeController extends Controller
             ->get();
 
         $sliders = Slider::where('status', 1)->orderBy('position')->get();
+
         $mostViewProducts = Product::mostViewed()->get();
+
+        $banners = Banner::where('is_selected', 1)->limit(2)->get();
 
         $hotDeals = Product::where('hot_deal', 1)
             ->where('status', 0)->where('marketable', 0)->limit(10)->get();
@@ -30,7 +35,9 @@ class HomeController extends Controller
             ->where('status', 0)->where('marketable', 0)
             ->orderByDesc('suggested_count')->limit(10)->get();
 
-        return view('app.home', compact(['sliders', 'mosteSelledProducts', 'hotDeals', 'suggesteds','mostViewProducts']));
+        $latestBlogs = Blog::orderByDesc('created_at')->limit(8)->get();
+
+        return view('app.home', compact(['sliders', 'banners', 'mosteSelledProducts', 'hotDeals', 'latestBlogs', 'suggesteds','mostViewProducts']));
     }
 
     public function publisher(Publisher $publisher)

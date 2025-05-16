@@ -22,7 +22,7 @@
                             </span>
                         </li>
                         <li class="flex items-center gap-x-2">
-                            <a href="#" class="text-sm text-text/90 hover: hover:">
+                            <a href="{{ route('shop', ['category'=>$product->category->parent ? $product->category->parent->slug : $product->category->slug]) }}" class="text-sm text-text/90 hover: hover:">
                                 {{ $product->category->parent ? $product->category->parent->name : $product->category->name }}
                             </a>
                             <span class="text-text/90">
@@ -33,7 +33,7 @@
                         </li>
 
                         <li>
-                            <a href="#" class="text-sm text-text/90 hover: hover:">
+                            <a href="{{ route('shop', ['category'=>$product->category->slug]) }}" class="text-sm text-text/90 hover: hover:">
                                 {{ $product->category->parent ? $product->category->name : '' }}
                             </a>
                         </li>
@@ -51,21 +51,29 @@
                                     <!-- add to favorite -->
                                     @if (Auth::check())
                                         <div>
-                                            <form style="margin-bottom: 0"
-                                                action="{{ route('product.favorite', $product) }}" method="post">
-                                                @csrf
-                                                <button data-tooltip-target="add-to-favorite" type="submit">
-                                                    @if ($product->isFavorited())
+                                            @if (!$product->isFavorited())
+                                                <form style="margin-bottom: 0"
+                                                    action="{{ route('product.favorite', $product) }}" method="post">
+                                                    @csrf
+                                                    <button data-tooltip-target="add-to-favorite" type="submit">
                                                         <svg class="h-6 w-6 text-primary">
                                                             <use xlink:href="#heart" />
                                                         </svg>
-                                                    @else
-                                                        <svg class="h-6 w-6">
-                                                            <use xlink:href="#heart" />
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form style="margin-bottom: 0"
+                                                    action="{{ route('user-profile.product-favorite.remove', $product) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button data-tooltip-target="add-to-favorite" type="submit">
+                                                        <svg class="h-6 w-6 text-primary">
+                                                            <use xlink:href="#heart-off" />
                                                         </svg>
-                                                    @endif
-                                                </button>
-                                            </form>
+                                                    </button>
+                                                </form>
+                                            @endif
                                             <div id="add-to-favorite" role="tooltip"
                                                 class="tooltip invisible absolute z-10 inline-block rounded-lg bg-zinc-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-zinc-800">
                                                 افزودن به علاقه‌مندی ها
@@ -132,11 +140,11 @@
                             <div class="col-span-1">
                                 <!-- comments & SKU -->
                                 <div class="mb-4 flex items-center gap-x-4 text-sm font-light text-primary">
-                                    @if ($product->comments->count() > 0)
+                                    @if ($product->rate > 0)
                                         <div>
-                                            <a href="#"> امتیاز
-                                                {{ round($product->Comments->where('parent_id', null)->sum('rate') / $product->comments->where('parent_id', null)->count(), 1) }}
-                                                از 5</a>
+                                            <span> امتیاز
+                                                {{ $product->rate }}
+                                                از 5</span>
                                         </div>
                                     @endif
                                     <span class="h-4 w-px rounded-full bg-background dark:bg-muted/10"></span>
@@ -169,16 +177,45 @@
                                                 @endif
                                             </div>
                                         </li>
-                                        <li class="flex gap-x-2">
+                                        <li class="flex gap-x-2 flex-wrap items-center">
                                             <div class="min-w-fit text-text/60">نویسنده :</div>
-                                            <div class="text-text/90">{{ $product->writer->name }}</div>
+                                            <div class="text-text/90 btn-pink-nobg">
+                                                <a href="{{ route('writer-books', $product->writer) }}" >{{ $product->writer->name }}</a>
+                                            </div>
+                                            @auth
+                                                <div>
+                                                    @if (Auth::user()->hasFollowedWriter($product->writer))
+                                                        <form method="post" style="margin-bottom: auto"
+                                                            action="{{ route('writers.favorite.destroy', $product->writer->id) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" data-tooltip-target="add-to-favorite">
+                                                                <svg class="h-6 w-6 text-primary">
+                                                                    <use xlink:href="#heart-off" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form method="post" style="margin-bottom: auto"
+                                                            action="{{ route('writer.favorite', $product->writer->id) }}">
+                                                            @csrf
+                                                            <button type="submit" data-tooltip-target="add-to-favorite">
+                                                                <svg class="h-6 w-6 text-primary">
+                                                                    <use xlink:href="#heart" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </div>
+                                            @endauth
                                         </li>
                                         <li class="flex gap-x-2">
                                             <div class="min-w-fit text-text/60">
                                                 انتشارات:
                                             </div>
                                             <div class="text-text/90">
-                                                <a href="{{ route('publisher', $product->publisher) }}" class="btn-indigo-nobg">
+                                                <a href="{{ route('publisher', $product->publisher) }}"
+                                                    class="btn-indigo-nobg">
                                                     {{ $product->publisher->name }}
                                                 </a>
                                             </div>
@@ -251,7 +288,7 @@
                     </svg>
                 </div>
                 <div class="flex items-center gap-x-1 text-sm font-light text-primary sm:text-base md:text-base">
-                    <a href="./index.html">
+                    <a href="{{ route('shop', ['category'=>$product->category->parent ? $product->category->parent->slug : $product->category->slug]) }}">
                         {{ $product->category->parent ? $product->category->parent->name : $product->category->name }} </a>
                     <svg class="h-5 w-5">
                         <use xlink:href="#chevron-left" />
@@ -433,9 +470,17 @@
                                             <a href="{{ route('product', $relatedProduct) }}">
                                                 <img alt="{{ $relatedProduct->title }}"
                                                     class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($relatedProduct->image) }}" />
+                                                    src="{{ asset($relatedProduct->image) }}" style="height: 260px;"/>
                                             </a>
                                         </div>
+                                        <!-- rate -->
+                                        @if ($relatedProduct->rate > 0)
+                                            <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
+                                                <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                    <span class="star text-white">★</span>{{$relatedProduct->rate}}
+                                                </p>
+                                            </div>
+                                        @endif
                                         <!-- title -->
                                         <div class="mb-2">
                                             <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
@@ -497,9 +542,17 @@
                                                 <a href="{{ route('product', $recentlyViewd) }}">
                                                     <img alt="{{ $recentlyViewd->title }}"
                                                         class="mx-auto w-32 rounded-lg md:w-auto"
-                                                        src="{{ asset($recentlyViewd->image) }}" />
+                                                        src="{{ asset($recentlyViewd->image) }}" style="height: 260px;"/>
                                                 </a>
                                             </div>
+                                            <!-- rate -->
+                                            @if ($recentlyViewd->rate > 0)
+                                                <div class="absolute right-0 top-0 mt-2 mb-8 mr-2">
+                                                    <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                        <span class="star text-white">★</span>{{$recentlyViewd->rate}}
+                                                    </p>
+                                                </div>
+                                            @endif
                                             <!-- title -->
                                             <div class="mb-2">
                                                 <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
@@ -520,7 +573,7 @@
                                                         @if ($recentlyViewd->discount_percentage)
                                                             <p
                                                                 class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
-                                                                {{ $recentlyViewd->discount_percentage }}
+                                                                {{ $recentlyViewd->discount_percentage }}%
                                                             </p>
                                                         @endif
                                                     </div>
@@ -672,14 +725,10 @@
                                 </div>
                             </li>
                             <li class="grid grid-cols-3 gap-x-2 lg:grid-cols-5">
-                                <div class="col-span-1 text-text/60"> فایل های محصول</div>
+                                <div class="col-span-1 text-text/60"> حجم فایل :</div>
                                 <div class="col-span-2 pb-4 text-text/90 lg:col-span-4">
                                     <ul class="space-y-4">
-                                        @foreach ($productFiles as $productFile)
-                                            <li> {{ $productFile->name }}</li>
-                                        @endforeach
-
-
+                                        <li> {{ number_format(round($productFiles->sum('size') / 1024)) }} کیلوبایت</li>
                                     </ul>
                                 </div>
                             </li>
@@ -766,6 +815,9 @@
                                                 </fieldset>
                                             </div>
                                             <div class="col-span-2">
+                                                <div class="mb-2 text-sm text-text/60">
+                                                    امتیاز شما به این محصول (اختیاری)
+                                                </div>
                                                 <div class="rating" id="rating">
                                                     <span class="star" data-value="1">★</span>
                                                     <span class="star" data-value="2">★</span>
@@ -856,6 +908,12 @@
                                                             class="h-3 w-px rounded-full bg-background dark:bg-muted/10"></span>
                                                         <div class="text-sm text-text/60">{{ $comment->user->name }}
                                                         </div>
+                                                        @if ($comment->has_bought)
+                                                            <span class="h-3 w-px rounded-full bg-background dark:bg-muted/10"></span>
+                                                            <div class="text-sm text-text/60 text-indigo-500">
+                                                                خریدار
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                     <div class="flex justify-end items-center flex-grow">
                                                         @for ($i = 0; $i < $comment->rate; $i++)
@@ -922,7 +980,7 @@
                                                 <!-- Answers -->
                                                 @if ($comment->answers->count() > 0)
                                                     <ul class="pl-6 border-l dark:border-white/10">
-                                                        @foreach ($comment->answers as $answer)
+                                                        @foreach ($comment->answers->where('status', 2) as $answer)
                                                             <li class="py-4">
                                                                 <div class="py-4 pr-8 border-r dark:border-white/10">
                                                                     <h5 class="mb-4 leading-relaxed xl:text-lg">
@@ -931,7 +989,7 @@
                                                                         class="mb-6 flex items-center gap-x-4 border-b pb-6">
                                                                         <div
                                                                             class="flex items-center gap-x-2 text-text/60">
-                                                                            {{ jdate($answer->created_at) }} -
+                                                                            {{ Jalalian::forge($comment->created_at)->format('%B %d، %Y') }} -
                                                                             {{ $answer->user->name }}
                                                                         </div>
                                                                     </div>

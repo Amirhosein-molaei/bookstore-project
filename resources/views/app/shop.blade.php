@@ -2,8 +2,6 @@
 @section('title', 'صفحه فروشگاه')
 
 @section('content')
-
-    <main class="flex-grow bg-background pb-14 pt-36 xs:pt-36">
         <div class="container relative">
             <!-- Mobile Options Section -->
             <div class="mb-6 flex items-center justify-center gap-x-4 md:hidden">
@@ -63,7 +61,7 @@
                                                         class="relative block rounded-lg border shadow-base mb-2">
                                                         <input type="number" id="min_price" dir="auto" name="min_price"
                                                             class="peer w-full rounded-lg border-none bg-transparent p-2 text-left placeholder-transparent focus:outline-none focus:ring-0"
-                                                            placeholder="از" value="{{ request()->min_price }}">
+                                                            placeholder="از" value="{{ request('min_price') }}">
 
                                                         <span
                                                             class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
@@ -74,7 +72,7 @@
                                                         class="relative block rounded-lg border shadow-base">
                                                         <input type="number" id="max_price" dir="auto" name="max_price"
                                                             class="peer w-full rounded-lg border-none bg-transparent p-2 text-left placeholder-transparent focus:outline-none focus:ring-0"
-                                                            placeholder="تا" value="{{ request()->max_price }}">
+                                                            placeholder="تا" value="{{ request('max_price') }}">
 
                                                         <span
                                                             class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/90 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
@@ -305,6 +303,14 @@
                                                 src="{{ asset($product->image) }}" />
                                         </a>
                                     </div>
+                                    <!-- rate -->
+                                    @if ($product->rate > 0)
+                                        <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
+                                            <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                <span class="star text-white">★</span>{{$product->rate}}
+                                            </p>
+                                        </div>
+                                    @endif
                                     <!-- title -->
                                     <div class="mb-1">
                                         <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
@@ -384,7 +390,6 @@
             </div>
         </div>
         </div>
-    </main>
 
 @endsection
 

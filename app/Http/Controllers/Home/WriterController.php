@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\Content\Writer;
+use App\Models\Market\Product;
 use Illuminate\Http\Request;
 
 class WriterController extends Controller
@@ -16,7 +17,11 @@ class WriterController extends Controller
 
     }
    
-     
+    public function writerBooks(Writer $writer)  {
+        $products = $writer->products()->get();
+
+        return view('app.writers.writer-books', compact(['products', 'writer']));
+    }
 
 
 }

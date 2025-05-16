@@ -23,6 +23,7 @@ class updateBlogRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255|min:5|regex:/^[ا-یa-zA-Z0-9\-?؟۰-۹ء-ي., ]+$/u',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg,webp',
             'body' => 'required|string'
         ];
     }

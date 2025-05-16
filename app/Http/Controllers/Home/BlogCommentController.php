@@ -23,7 +23,7 @@ class BlogCommentController extends Controller
 
         $blog->comments()->save($comment);
 
-        return back()->with('success', 'دیدگاه شما با موفقیت ثبت شد.');
+        return back()->with('success', 'دیدگاه شما با موفقیت ثبت شد و پس از تایید نمایش داده خواهد شد.');
     }
 
     public function like(Comment $comment)

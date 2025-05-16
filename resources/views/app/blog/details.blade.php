@@ -147,7 +147,7 @@
                                                         <h5 class="mb-4 leading-relaxed xl:text-lg">
                                                             {{ $comment->body }}
                                                         </h5>
-                                                        
+
                                                     </div>
 
                                                     <div class="flex items-center justify-between gap-x-8">
@@ -188,27 +188,7 @@
                                                         <!-- end like & dislike -->
                                                     </div>
                                                 </div>
-                                                <!-- Answers -->
-                                                @if ($comment->answers->count() > 0)
-                                                    <ul class="pl-6 border-l dark:border-white/10">
-                                                        @foreach ($comment->answers as $answer)
-                                                            <li class="py-4">
-                                                                <div class="py-4 pr-8 border-r dark:border-white/10">
-                                                                    <h5 class="mb-4 leading-relaxed xl:text-lg">
-                                                                        {{ $answer->body }}</h5>
-                                                                    <div
-                                                                        class="mb-6 flex items-center gap-x-4 border-b pb-6">
-                                                                        <div
-                                                                            class="flex items-center gap-x-2 text-text/60">
-                                                                            {{ jdate($answer->created_at) }} -
-                                                                            {{ $answer->user->name }}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
+                                                
                                             </li>
                                         @empty
                                             <li class="py-4">
@@ -237,10 +217,30 @@
                     <div class="mb-8 rounded-lg bg-muted px-2 py-3 shadow-base xl:px-4">
                         <p class="mb-4 text-center text-sm font-medium xl:text-base">مطالب مرتبط</p>
                         <ul class="space-y-8">
+                            @foreach ($latestBlogs as $blog)
+                                <li>
+                                    <a href="{{ route('blogs.show', $blog) }}">
+                                        <div class="flex gap-x-2 xl:gap-x-4">
+                                            <div class="min-w-fit">
+                                                <img src="{{ asset($blog->image) }}" alt="{{$blog->title}}"
+                                                    class="w-25 rounded-xl xl:w-32">
+                                            </div>
+                                            <div class="flex flex-col gap-y-2">
+                                                <p class="line-clamp-2 text-sm text-text/90 xl:text-base">
+                                                    {{$blog->title}}
+                                                </p>
+                                                <p class="text-xs text-text/60 xl:text-sm">
+                                                    {{ Jalalian::forge($blog->created_at)->format('%B %d، %Y') }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endforeach
 
                             <li>
                                 <a href="{{ route('blogs.index') }}" class="btn-primary py-2">
-                                    مشاهده همه
+                                    مشاهده همه 
                                 </a>
                             </li>
                         </ul>
@@ -251,4 +251,3 @@
 
     </div>
 @endsection
-

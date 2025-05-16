@@ -151,7 +151,7 @@
                     <div class="mb-6 flex flex-col gap-4 md:flex-row flex-wrap">
                         <div class="flex justify-between gap-x-2 lg:justify-start">
                             <div class="text-sm text-text/60 md:text-base">
-                                مبلغ مرسوله
+                                مبلغ سفارش
                             </div>
                             <div class="text-primary">
                                 <span class="font-bold md:text-lg">{{ number_format($order->order_final_amount) }}</span>

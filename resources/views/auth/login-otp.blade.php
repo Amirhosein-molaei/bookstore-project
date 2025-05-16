@@ -34,7 +34,7 @@
                         <!-- نوع ورود -->
                         <label for="login_type" class="relative block rounded-lg border shadow-base p-2">
                             <select name="login_type" id="login_type"
-                                class="peer w-full rounded-lg border-none bg-transparent p-4 text-right focus:outline-none focus:ring-0"
+                                class="peer w-full rounded-lg border-none bg-transparent p-2 text-right focus:outline-none focus:ring-0"
                                 required>
                                 <option value="password">ورود با رمز ثابت</option>
                                 <option value="otp" selected>ورود با رمز یکبار مصرف</option>

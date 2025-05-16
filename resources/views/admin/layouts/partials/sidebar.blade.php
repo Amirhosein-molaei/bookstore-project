@@ -2,7 +2,7 @@
     <section class="sidebar-container">
         <section class="sidebar-wrapper">
 
-            <a href="{{route('admin.')}}" class="sidebar-link">
+            <a href="{{ route('admin.') }}" class="sidebar-link">
                 <i class="fas fa-home"></i>
                 <span>خانه</span>
             </a>
@@ -14,9 +14,9 @@
                 <span>نویسندگان</span>
             </a>
 
-            <a href="{{route('admin.content.menu.index')}}" class="sidebar-link">
+            <a href="{{ route('admin.content.menu.index') }}" class="sidebar-link">
                 <i class="fas fa-bars"></i>
-                <span>منو ها  </span>
+                <span>منو ها </span>
             </a>
             <a href="{{ route('admin.content.tag.index') }}" class="sidebar-link">
                 <i class="fas fa-tag"></i>
@@ -31,41 +31,41 @@
                 <span>بلاگ ها</span>
             </a>
 
-            <a href="{{route('admin.content.faq.index')}}" class="sidebar-link">
+            <a href="{{ route('admin.content.faq.index') }}" class="sidebar-link">
                 <i class="fas fa-question"></i>
-                <span> سوالات متداول  </span>
+                <span> سوالات متداول </span>
             </a>
-            <a href="{{route('admin.content.publisher.index')}}" class="sidebar-link">
+            <a href="{{ route('admin.content.publisher.index') }}" class="sidebar-link">
                 <i class="fas fa-pen"></i>
-                <span>  ناشران  </span>
+                <span> ناشران </span>
             </a>
 
-            <a href="{{route('admin.content.slide.index')}}" class="sidebar-link">
+            <a href="{{ route('admin.content.slide.index') }}" class="sidebar-link">
                 <i class="fas fa-oil-can"></i>
-                <span>اسلاید ها  </span>
+                <span>اسلاید ها </span>
             </a>
 
             </a>
-            <a href="{{route('admin.content.comment.index')}}" class="sidebar-link">
+            <a href="{{ route('admin.content.comment.index') }}" class="sidebar-link">
                 <i class="fas fa-comment"></i>
-                <span>  نظرات  </span>
+                <span> نظرات </span>
             </a>
-            
-            
-            
-            
+
+
+
+
 
             <section class="sidebar-part-title">بخش فروشگاه</section>
 
-            <a href="{{route('admin.market.product-category.index')}}" class="sidebar-link">
+            <a href="{{ route('admin.market.product-category.index') }}" class="sidebar-link">
                 <i class="fas fa-shopping-bag"></i>
                 <span>دسته بندی محصولات</span>
             </a>
-            <a href="{{route('admin.market.product.index')}}" class="sidebar-link">
+            <a href="{{ route('admin.market.product.index') }}" class="sidebar-link">
                 <i class="fas fa-book-open"></i>
                 <span>محصولات</span>
             </a>
-            <a href="{{route('admin.market.copan.index')}}" class="sidebar-link">
+            <a href="{{ route('admin.market.copan.index') }}" class="sidebar-link">
                 <i class="fas fa-percent"></i>
                 <span>تخفیف ها</span>
             </a>
@@ -73,12 +73,12 @@
                 <i class="fas fa-key"></i>
                 <span>پرداخت ها</span>
             </a>
-            
+
 
             <section class="sidebar-part-title">بخش تیکت ها</section>
-            <a href="{{route('admin.ticket.ticket-file.index')}}" class="sidebar-link">
+            <a href="{{ route('admin.ticket.ticket-file.index') }}" class="sidebar-link">
                 <i class="fas fa-object-group"></i>
-                <span>  فایل تیکت ها</span>
+                <span> فایل تیکت ها</span>
             </a>
 
             <a href="{{ route('admin.ticket.ticket-category.index') }}" class="sidebar-link">
@@ -92,22 +92,23 @@
             </a>
 
 
+            @if (Auth::user()->is_superAdmin)
+                <section class="sidebar-part-title">بخش کاربران</section>
 
-            <section class="sidebar-part-title">بخش کاربران</section>
-
-            <a href="{{ route('admin.user.')}}" class="sidebar-link">
-                <i class="fas fa-users"></i>
-                <span>لیست کاربران</span>
-            </a>
+                <a href="{{ route('admin.user.') }}" class="sidebar-link">
+                    <i class="fas fa-users"></i>
+                    <span>لیست کاربران</span>
+                </a>
 
 
 
-            <section class="sidebar-part-title">بخش تنظیمات</section>
+                <section class="sidebar-part-title">بخش تنظیمات</section>
 
-            <a href="{{ route('admin.setting.')}}" class="sidebar-link">
-                <i class="fas fa-cogs"></i>
-                <span>مدیریت تنظیمات</span>
-            </a>
+                <a href="{{ route('admin.setting.') }}" class="sidebar-link">
+                    <i class="fas fa-cogs"></i>
+                    <span>مدیریت تنظیمات</span>
+                </a>
+            @endif
 
 
 

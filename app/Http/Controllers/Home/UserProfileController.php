@@ -25,7 +25,15 @@ class UserProfileController extends Controller
 {
     public function index()
     {
-        return view("app.profile.profile-dashboard");
+        $user = User::find(Auth::id());
+
+        $finishedOrders = Order::where('user_id', Auth::id())->where('order_status', 1)->get();
+        $canceledOrders = Order::where('user_id', Auth::id())->where('order_status', 2)->get();
+        $pendingOrders = Order::where('user_id', Auth::id())->where('order_status', 0)->get();
+
+        $latestOrder = Order::orderByDesc('created_at')->first();
+
+        return view("app.profile.profile-dashboard", compact(['user', 'finishedOrders', 'canceledOrders', 'pendingOrders', 'latestOrder']));
     }
 
     public function showTicket()
@@ -51,10 +59,8 @@ class UserProfileController extends Controller
 
     public function favoritWriters()
     {
-        $user = Auth::user();
-        $favoriteWriters = $user->favoriteWriters()
-            ->wherePivotNull('deleted_at')
-            ->get();
+        $user = User::find(Auth::id());
+        $favoriteWriters = $user->favoriteWriters()->get();
         return view('app.profile.favorit-writer', compact('favoriteWriters'));
     }
 
@@ -158,8 +164,15 @@ class UserProfileController extends Controller
     public function favoriteProducts()
     {
         $user = User::find(Auth::id());
-        $favoriteProducts = $user->favoriteProducts()->get();
+        $favoriteProducts = $user->favoriteProducts()->paginate(4);
         return view('app.profile.favorite-products', compact('favoriteProducts'));
+    }
+    
+    public function favoriteWriters()
+    {
+        $user = User::find(Auth::id());
+        $favoriteWriters = $user->favoriteWriters()->paginate(4);
+        return view('app.profile.favorite-writers', compact('favoriteWriters'));
     }
 
     public function orders()

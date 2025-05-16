@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Home\HomeFaqController;
 use App\Http\Controllers\Home\BlogCommentController;
 use App\Http\Controllers\Home\WalletController;
+use App\Http\Controllers\Home\WriterController as HomeWriterController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -133,7 +134,8 @@ Route::prefix('blog')->middleware('auth')->group(function () {
         ->name('blog.comment.dislike');
 });
 
-Route::get('/writers', [\App\Http\Controllers\Home\WriterController::class, 'index'])->name('writers.index');
+Route::get('/writers', [HomeWriterController::class, 'index'])->name(name: 'writers.index');
+Route::get('/writer-books/{writer}', [HomeWriterController::class, 'writerBooks'])->name('writer-books');
 Route::get('/writers/{id}/details', function($id) {
     $writer = \App\Models\Content\Writer::findOrFail($id);
 
@@ -178,10 +180,6 @@ Route::middleware('auth')->group(function(){
 
 // shop
 Route::get(uri: '/shop', action: [ShopController::class, 'index'])->name('shop');
-Route::get(uri: '/shop/available-product', action: [ShopController::class, 'availableProduct'])->name('shop.available-product');
-Route::get(uri: '/shop/with-picture-product', action: [ShopController::class, 'withPictureProduct'])->name('shop.with-picture-product');
-Route::get(uri: '/shop/most-expensive-product', action: [ShopController::class, 'mostExpensiveProduct'])->name('shop.most-expensive-product');
-Route::get(uri: '/shop/cheapest-product', action: [ShopController::class, 'cheapestProduct'])->name('shop.cheapest-product');
 
 // Faq
 Route::get(uri: '/faq', action: [HomeFaqController::class, 'index'])->name('faq');
@@ -200,6 +198,7 @@ Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(
     Route::put('update-email', [UserProfileController::class, 'updateEmail'])->name('update-email');
     Route::put('update-mobile', [UserProfileController::class, 'updateMobile'])->name('update-mobile');
     Route::get('/favorite-products', [UserProfileController::class, 'favoriteProducts'])->name('product-favorite');
+    Route::get('/favorite-writers', [UserProfileController::class, 'favoriteWriters'])->name('favorite-writers');
     Route::delete('/favorite-products/empty', [FavoriteController::class, 'removeAllFavoriteProducts'])->name('product-favorite.empty');
     Route::delete('/favorite-products/{product}/remove', [FavoriteController::class, 'removeFavoriteProduct'])->name('product-favorite.remove');
     Route::get('/orders', [UserProfileController::class, 'orders'])->name('orders');

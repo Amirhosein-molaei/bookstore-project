@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
 use App\Models\Content\Comment;
+use App\Models\Market\Product;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -31,12 +32,29 @@ class CommentController extends Controller
         if ($comment->status == 1 or $comment->status == 3) {
             // approving a comment for first time or re-approving a rejected comment
             $comment->update(['status' => 2]);
-            return to_route('admin.content.comment.index')->with('swal-success', 'نظر تایید شد');
+
+            // change comment's parent status to apprved. and also update product's rate
+            if ($comment->parent != null and $comment->parent->status != 2) {
+                // check the same thing for parent's parent
+                // **hint: comment can have a grand parent in our scenario
+                if ($comment->parent->parent != null and $comment->parent->parent->status != 2) {
+                    $grandParent = $comment->parent->parent;
+                    $grandParent->update(['status' => 2]);
+                    $this->updateProductRate($comment->parent->parent->commentable);
+                }
+                $comment->parent()->update(['status' => 2]);
+                $this->updateProductRate($comment->parent->commentable);
+            }
+            
+            if ($comment->parent_id == null and $comment->commentable_type == Product::class) {
+                $this->updateProductRate($comment->commentable);
+            }
+            return back()->with('swal-success', 'نظر تایید شد');
 
         } elseif ($comment->status == 2) {
-            
             $comment->update(['status' => 3]);
             // when comment's status changes to seen, it's answers should do the same
+            
             foreach ($comment->answers as $answer) {
                 $answer->update(['status' => 3]);
                 // status for second answers will be changed like first answers to seen
@@ -44,26 +62,11 @@ class CommentController extends Controller
                     $secondAnswer->update(['status' => 3]);
                 }
             }
-            return to_route('admin.content.comment.index')->with('swal-success', 'نظر و پاسخ های آن رد تایید شدند!');
+            return back()->with('swal-success', 'نظر و پاسخ های آن رد تایید شدند!');
         }
         
     }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
+    
     /**
      * Display the specified resource.
      */
@@ -72,27 +75,13 @@ class CommentController extends Controller
         return view('admin.content.comment.show', compact('comment'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function updateProductRate(Product $product)
     {
-        //
-    }
+        $comments = $product->comments()->where('status', 2)->whereNot('rate', 0)->whereNull('parent_id')->get();
+        if ($comments->count() > 0) {
+            $rate = round($comments->sum('rate') / $comments->count(), 1);
+            $product->update(['rate' => $rate]);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

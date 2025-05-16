@@ -21,7 +21,7 @@
                 </section>
                 <section class="body-content">
 
-                    <form class="row g-3" action="{{route('admin.content.blog.update',$blog)}}" method="POST">
+                    <form class="row g-3" action="{{route('admin.content.blog.update',$blog)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="col-12 mb-2">
@@ -37,6 +37,16 @@
                                 <label for="body">توضیحات</label>
                                 <textarea name="body" id="body" class="form-control" rows="5" required>{{ old('body', $blog->body) }}</textarea>
                             </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label>تصویر</label>
+                            <br>
+                            <img src="{{ asset($blog->image) }}" alt="">
+                            <br>
+                            <input type="file" class="form-control-file" name="image">
+                            @error('image')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-success">ثبت</button>

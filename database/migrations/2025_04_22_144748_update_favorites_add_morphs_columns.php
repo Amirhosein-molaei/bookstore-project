@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('favorites', function (Blueprint $table) {
-            $table->dropColumn(['favoriteable_id', 'favoriteable_type']); // حذف قدیمی‌ها
-            $table->morphs('favoriteable'); // اضافه کردن morphs استاندارد
+            $table->dropColumn(['favoriteable_id', 'favoriteable_type']); 
+            $table->unsignedBigInteger('favoriteable_id')->after('user_id');
+            $table->string('favoriteable_type')->after('favoriteable_id');
         });
     }
 
@@ -23,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('favorites', function (Blueprint $table) {
-            //
+            $table->dropColumn(['favoriteable_id', 'favoriteable_type']);
         });
     }
 };

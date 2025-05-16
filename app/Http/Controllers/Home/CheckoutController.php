@@ -74,7 +74,6 @@ class CheckoutController extends Controller
     public function submit(submitOrderRequest $request)
     {
         $inputs = $request->validated();
-        
         $cart = Cart::where('user_id', Auth::id())->where('status', 0)->with('items.product')->first();
         
         if (!$cart or $cart->items->count() == 0) {
@@ -85,11 +84,13 @@ class CheckoutController extends Controller
             return back()->with('error', 'عدم تطابق مبلغ!');
         }
         
+        // check if wallet has enough money
         $wallet = Wallet::where('user_id', Auth::id())->first();
-        if ($wallet->balance < $inputs['total_price']) {
+        if ($wallet->balance < $inputs['total_price'] and $inputs['payment_type'] == 0) {
             return back()->with('error', 'موجودی کیف پول کافی نمیباشد');
         }
         
+        // sum of discount from products
         $productsTotalDiscount = 0;
         foreach ($cart->items as $item) {
             $productsTotalDiscount += $item->product->discounted_price ? $item->product->price - $item->product->discounted_price : 0;
@@ -105,9 +106,9 @@ class CheckoutController extends Controller
                 'order_final_amount' => $cart->total_price - $cart->total_off_price,
                 'order_discount_amount' => $productsTotalDiscount,
                 'order_total_discount' => $cart->total_off_price + $productsTotalDiscount,
-                'order_status' => $inputs['payment_type'] == 0 ? 1 : 0,
+                'order_status' => 1,
                 'payment_type' => $inputs['payment_type'],
-                'payment_status' => $inputs['payment_type'] == 0 ? 1 : 0,
+                'payment_status' => 1,
             ]);
 
             // withdraw from wallet
@@ -129,7 +130,7 @@ class CheckoutController extends Controller
 
             $cart->update(['status' => 1]);
             DB::commit();
-            return to_route('app.home')->with('success', 'سفارش شما با موفقیت ثبت شد. محصولات خریداری شده در پنل کاربری قابل مشاهده و دانلود هستند.');
+            return view('app.payment-success', compact('order'));
 
         } catch (\Throwable $th) {
             DB::rollBack();

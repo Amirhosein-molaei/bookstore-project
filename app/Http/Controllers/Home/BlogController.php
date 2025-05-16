@@ -26,9 +26,9 @@ class BlogController extends Controller
     {
         $blog->load(['user']);
         $comments = $blog->comments()->whereNull('parent_id')->where('status', 2)->orderByDesc('created_at')->paginate(10);
-        $blogs = Blog::latest()->paginate(3);
+        $latestBlogs = Blog::latest()->limit(4)->get();
 
-        return view('app.blog.details',compact(['blog', 'comments', 'blogs']));
+        return view('app.blog.details',compact(['blog', 'comments', 'latestBlogs']));
 
     }
 

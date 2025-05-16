@@ -8,6 +8,7 @@ use App\Models\Content\Comment;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Home\StoreCommentRequest;
+use App\Models\User\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use ZipArchive;
@@ -29,7 +30,7 @@ class ProductController extends Controller
 
         $recentlyViewds = Product::whereIn('id', $this->getRecentlyViewedProducts())->get();
 
-        return view('app.product', compact('product', 'relatedProducts', 'commentCount', 'productFiles', 'comments', 'commentAnswers', 'recentlyViewds'));
+        return view('app.product', compact(['product', 'relatedProducts', 'commentCount', 'productFiles', 'comments', 'commentAnswers', 'recentlyViewds']));
     }
 
     public function addToRecentlyViewedProducts($productId)
@@ -54,7 +55,7 @@ class ProductController extends Controller
         if (!$request->hasValidSignature()) {
             abort(404);
         }
-        $user = Auth::user();
+        $user = User::findOrFail(Auth::id());
 
         if (!$user->hasPurchasedProduct($product->id)) {
             abort(404);
@@ -97,14 +98,15 @@ class ProductController extends Controller
 
     public function sendComment(StoreCommentRequest $request, Product $product)
     {
-        $user = Auth::user();
-        $inputs = $request->all();
+        $user = User::find(Auth::id());
+        $inputs = $request->validated();
         $inputs['user_id'] = $user->id;
         $inputs['parent_id'] = null;
         $inputs['commentable_type'] = 'App\Models\Market\Product';
         $inputs['commentable_id'] = $product->id;
         $inputs['status'] = 0;
-
+        $inputs['has_bought'] = $user->hasPurchasedProduct($product->id) ? 1 : 0;
+    
         $comment = Comment::create($inputs);
         return redirect()->back()->with('success', 'دیدگاه شما ثبت شد و پس از تایید نمایش داده میشود.');
     }

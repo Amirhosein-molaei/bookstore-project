@@ -1,5 +1,5 @@
 @extends('app.profile.layouts.master')
-@section('title', 'محصولات محبوب من')
+@section('title', 'علاقمندی ها')
 
 @section('content')
     <!-- content -->
@@ -62,36 +62,7 @@
                     @endforeach
                 </div>
                 <!-- Pagination -->
-                <div class="flex items-center justify-center gap-x-4 md:justify-end">
-                    <!-- Previous page-->
-                    <a class="pagination-button flex items-center justify-center" href="#">
-                        <svg class="h-6 w-6">
-                            <use xlink:href="#chevron-right"></use>
-                        </svg>
-                    </a>
-
-                    <!-- Pages -->
-                    <div class="flex items-center gap-x-2">
-                        <a class="pagination-button pagination-button-active" href="#">
-                            1
-                        </a>
-                        <p class="text-sm text-text/60">...</p>
-
-                        <a class="pagination-button" href="#"> 3 </a>
-                        <a class="pagination-button" href="#"> 4 </a>
-
-                        <p class="text-sm text-text/60">...</p>
-
-                        <a class="pagination-button" href="#"> 10 </a>
-                    </div>
-                    <!-- Next page-->
-                    <a class="flex h-8 w-8 items-center justify-center rounded-full bg-muted transition-all duration-200 hover:bg-primary hover:text-white hover:dark:bg-emerald-600"
-                        href="#">
-                        <svg class="h-6 w-6">
-                            <use xlink:href="#chevron-left"></use>
-                        </svg>
-                    </a>
-                </div>
+                {{$favoriteProducts->links()}}
             </div>
         </div>
     @else

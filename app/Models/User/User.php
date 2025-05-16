@@ -81,7 +81,7 @@ class User extends Authenticatable
 
     public function favoriteWriters()
     {
-        return $this->morphedByMany(Writer::class, 'favoriteable', 'favorites');
+        return $this->morphedByMany(Writer::class, 'favoriteable', 'favorites')->whereNull('favorites.deleted_at');
     }
 
     public function hasPurchasedProduct($productId)
@@ -91,6 +91,14 @@ class User extends Authenticatable
             ->whereHas('orderItems', function ($query) use ($productId) {
                 $query->where('product_id', $productId);
             })
+            ->exists();
+    }
+
+    public function hasFollowedWriter(Writer $writer): bool
+    {
+        return Favorite::where('user_id', $this->id)
+            ->where('favoriteable_id', $writer->id)
+            ->where('favoriteable_type', Writer::class)
             ->exists();
     }
 

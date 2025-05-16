@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Content\storeBlogRequest;
 use App\Http\Requests\Admin\Content\updateBlogRequest;
 use App\Models\Content\Blog;
 use App\Services\ImageUploadService;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -33,12 +34,12 @@ class BlogController extends Controller
     public function store(storeBlogRequest $request ,ImageUploadService $imageUploadService)
     {
         $inputs = $request->validated();
-        $inputs['user_id'] = 1;
+        $inputs['user_id'] = Auth::id();
 
         if($request->hasFile('image'))
         {
-
             $result=$imageUploadService->uploadImage($request->file('image'));
+
             if ($result === false) {
                 return back()->with('swal-error', 'خطا در آپلود فایل');
             }
@@ -64,9 +65,24 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(updateBlogRequest $request, Blog $blog)
+    public function update(updateBlogRequest $request, Blog $blog, ImageUploadService $imageUploadService)
     {
         $inputs = $request->validated();
+
+        if($request->hasFile('image')) {
+            if(!empty($blog->image)) {
+                $imageUploadService->removeImage($blog->image);
+            }
+            $result = $imageUploadService->uploadImage($request->file('image'));
+
+            if($result === false)
+            {
+                return back()->with('swal-error', 'خطا در آپلود فایل');
+
+            }
+            $inputs['image']=$result;
+    
+        }
 
         $blog->update($inputs);
 

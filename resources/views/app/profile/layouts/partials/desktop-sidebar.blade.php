@@ -74,11 +74,11 @@
                    </li>
 
                    <li>
-                       <a href="./profile-favorite.html"
-                           class="profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
+                       <a href="{{ route('user-profile.favorite-writers') }}"
+                           class="profile-menu {{ Route::currentRouteName() == 'user-profile.favorite-writers' ? 'profile-menu-active' : '' }} flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
                            <div class="flex items-center gap-x-4">
                                <svg class="h-6 w-6">
-                                   <use xlink:href="#heart" />
+                                   <use xlink:href="#user" />
                                </svg>
                                <div>نویسندگان محبوب</div>
                            </div>
@@ -93,34 +93,6 @@
                                    <use xlink:href="#notification" />
                                </svg>
                                <div> تیکت ها</div>
-                           </div>
-                       </a>
-                   </li>
-
-
-                   <li>
-                       <a href="./profile-recent.html"
-                           class="profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
-                           <div class="flex items-center gap-x-4">
-                               <svg class="h-6 w-6">
-                                   <use xlink:href="#recent" />
-                               </svg>
-                               <div>بازدید های اخیر</div>
-                           </div>
-                       </a>
-                   </li>
-                   <li>
-                       <a href="./profile-notification.html"
-                           class="profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4">
-                           <div class="flex items-center gap-x-4">
-                               <svg class="h-6 w-6">
-                                   <use xlink:href="#notification" />
-                               </svg>
-                               <div>پیام ها</div>
-                           </div>
-                           <div
-                               class="flex h-6 w-6 items-center justify-center rounded-lg bg-primary text-sm font-bold text-white dark:bg-emerald-600">
-                               10
                            </div>
                        </a>
                    </li>

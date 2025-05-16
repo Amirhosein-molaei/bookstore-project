@@ -1,4 +1,5 @@
 @extends('app.layouts.master')
+@use('Morilog\Jalali\Jalalian')
 @section('title', 'صفحه اصلی')
 
 @section('content')
@@ -13,7 +14,7 @@
                         <div class="swiper-wrapper">
                             @foreach ($sliders->where('position', 1) as $slider)
                                 <div class="swiper-slide">
-                                    <a href="#">
+                                    <a href="{{ url($slider->url) }}">
                                         <img alt="" class="max-h-[450px]" src="{{ asset($slider->image) }}"
                                             style="width: 100%" />
                                     </a>
@@ -29,14 +30,14 @@
                     <div class="flex h-full flex-row justify-between gap-x-2 lg:flex-col">
                         @foreach ($sliders->where('position', 2) as $slider)
                             <div>
-                                <a href="#">
+                                <a href="{{ url($slider->url) }}">
                                     <img alt="" class="rounded-lg shadow-base" src="{{ asset($slider->image) }}" />
                                 </a>
                             </div>
                         @endforeach
                         @foreach ($sliders->where('position', 3) as $slider)
                             <div>
-                                <a href="#">
+                                <a href="{{ url($slider->url) }}">
                                     <img alt="" class="rounded-lg shadow-base" src="{{ asset($slider->image) }}" />
                                 </a>
                             </div>
@@ -75,9 +76,17 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $suggested) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($suggested->image) }}" />
+                                                    src="{{ asset($suggested->image) }}" style="height: 260px" />
                                             </a>
                                         </div>
+                                        <!-- rate -->
+                                        @if ($suggested->rate > 0)
+                                            <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
+                                                <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                    <span class="star text-white">★</span>{{$suggested->rate}}
+                                                </p>
+                                            </div>
+                                        @endif
                                         <!-- title -->
                                         <div class="mb-2">
                                             <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
@@ -91,7 +100,7 @@
                                             @if ($suggested->discounted_price)
                                                 <div class="h-5 text-left">
                                                     <del class="text-sm text-text/60 decoration-warning md:text-base">
-                                                        {{ $suggested->price }}
+                                                        {{ number_format($suggested->price) }}
                                                     </del>
                                                 </div>
                                             @endif
@@ -106,7 +115,7 @@
                                                 @endif
                                                 <!-- New price -->
                                                 <div class="text-sm font-bold text-primary md:text-base">
-                                                    {{ $suggested->discounted_price ? $suggested->discounted_price : $suggested->price }}
+                                                    {{ $suggested->discounted_price ? number_format($suggested->discounted_price) : number_format($suggested->price) }}
                                                     <span class="text-xs font-light md:text-sm">تومان</span>
                                                 </div>
                                             </div>
@@ -154,9 +163,17 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $hotDeal) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($hotDeal->image) }}" />
+                                                    src="{{ asset($hotDeal->image) }}" style="height: 260px"/>
                                             </a>
                                         </div>
+                                        <!-- rate -->
+                                        @if ($hotDeal->rate > 0)
+                                            <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
+                                                <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                    <span class="star text-white">★</span>{{$hotDeal->rate}}
+                                                </p>
+                                            </div>
+                                        @endif
                                         <!-- title -->
                                         <div class="mb-2">
                                             <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
@@ -170,7 +187,7 @@
                                             @if ($hotDeal->discounted_price)
                                                 <div class="h-5 text-left">
                                                     <del class="text-sm text-text/60 decoration-warning md:text-base">
-                                                        {{ $hotDeal->price }}
+                                                        {{ number_format($hotDeal->price) }}
                                                     </del>
                                                 </div>
                                             @endif
@@ -185,7 +202,7 @@
                                                 @endif
                                                 <!-- New price -->
                                                 <div class="text-sm font-bold text-primary md:text-base">
-                                                    {{ $hotDeal->discounted_price ? $hotDeal->discounted_price : $hotDeal->price }}
+                                                    {{ $hotDeal->discounted_price ? number_format($hotDeal->discounted_price) : number_format($hotDeal->price) }}
                                                     <span class="text-xs font-light md:text-sm">تومان</span>
                                                 </div>
                                             </div>
@@ -233,9 +250,17 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $hotDeal) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($hotDeal->image) }}" />
+                                                    src="{{ asset($hotDeal->image) }}" style="height: 260px"/>
                                             </a>
                                         </div>
+                                        <!-- rate -->
+                                        @if ($hotDeal->rate > 0)
+                                            <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
+                                                <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                    <span class="star text-white">★</span>{{$hotDeal->rate}}
+                                                </p>
+                                            </div>
+                                        @endif
                                         <!-- title -->
                                         <div class="mb-2">
                                             <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
@@ -249,7 +274,7 @@
                                             @if ($hotDeal->discounted_price)
                                                 <div class="h-5 text-left">
                                                     <del class="text-sm text-text/60 decoration-warning md:text-base">
-                                                        {{ $hotDeal->price }}
+                                                        {{ number_format($hotDeal->price) }}
                                                     </del>
                                                 </div>
                                             @endif
@@ -264,7 +289,7 @@
                                                 @endif
                                                 <!-- New price -->
                                                 <div class="text-sm font-bold text-primary md:text-base">
-                                                    {{ $hotDeal->discounted_price ? $hotDeal->discounted_price : $hotDeal->price }}
+                                                    {{ $hotDeal->discounted_price ? number_format($hotDeal->discounted_price) : number_format($hotDeal->price) }}
                                                     <span class="text-xs font-light md:text-sm">تومان</span>
                                                 </div>
                                             </div>
@@ -285,19 +310,18 @@
         <section class="mb-8">
             <div class="container relative">
                 <div class="flex w-full flex-col justify-between gap-4 md:flex-row">
-                    <a href="#">
-                        <img alt="" class="rounded-base" src="./assets/images/banners/category-right.jpg" />
-                    </a>
-                    <a href="#">
-                        <img alt="" class="rounded-base" src="./assets/images/banners/category-left.jpg" />
-                    </a>
+                    @foreach ($banners as $banner)
+                        <a href="#">
+                            <img alt="" class="rounded-base" src="{{ asset($banner->image) }}" />
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </section>
         <!-- Category Banners section End -->
 
         <!-- Category section Start -->
-        <section class="mb-8">
+        {{-- <section class="mb-8">
             <div class="container relative">
                 <div class="flex flex-wrap items-center justify-center gap-8 lg:justify-between">
                     <!-- Category -->
@@ -370,7 +394,7 @@
                     </a>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- Category section End -->
 
 
@@ -401,46 +425,56 @@
                     <div class="swiper-wrapper">
                         @foreach ($mosteSelledProducts as $mosteSelledProduct)
                             <div class="swiper-slide">
-
                                 <div
                                     class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
                                     <!-- Product Card -->
-
                                     <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-
                                         <!-- image -->
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $mosteSelledProduct) }}">
-                                                <img alt="{{ $mosteSelledProduct->title }}"
-                                                    class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($mosteSelledProduct->image) }}" />
+                                                <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
+                                                    src="{{ asset($mosteSelledProduct->image) }}" style="height: 260px"/>
                                             </a>
                                         </div>
+                                        <!-- rate -->
+                                        @if ($mosteSelledProduct->rate > 0)
+                                            <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
+                                                <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                    <span class="star text-white">★</span>{{$mosteSelledProduct->rate}}
+                                                </p>
+                                            </div>
+                                        @endif
                                         <!-- title -->
                                         <div class="mb-2">
                                             <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                                href="./product-detail.html">
+                                                href="{{ route('product', $mosteSelledProduct) }}">
                                                 {{ $mosteSelledProduct->title }}
                                             </a>
                                         </div>
                                         <!-- Prices -->
                                         <div class="flex flex-col">
                                             <!-- Old price -->
-                                            <div class="h-5 text-left">
+                                            @if ($mosteSelledProduct->discounted_price)
+                                                <div class="h-5 text-left">
+                                                    <del class="text-sm text-text/60 decoration-warning md:text-base">
+                                                        {{ number_format($mosteSelledProduct->price) }}
+                                                    </del>
+                                                </div>
+                                            @endif
+                                            <div class="flex items-center justify-between">
                                                 @if ($mosteSelledProduct->discounted_price)
-                                                    <del
-                                                        class="text-sm text-text/60 decoration-warning md:text-base">{{ $mosteSelledProduct->price }}</del>
-                                                    <span class="text-xs font-light md-text-sm">تومان</span>
+                                                    <div>
+                                                        <p
+                                                            class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
+                                                            {{ $mosteSelledProduct->discount_percentage }}%
+                                                        </p>
+                                                    </div>
                                                 @endif
-                                            </div>
-
-                                        </div>
-                                        <div class="flex items-center justify-between">
-                                            <div></div>
-                                            <!-- New price -->
-                                            <div class="text-sm font-bold text-primary md:text-base">
-                                                {{ $mosteSelledProduct->discounted_price }}
-                                                <span class="text-xs font-light md:text-sm">تومان</span>
+                                                <!-- New price -->
+                                                <div class="text-sm font-bold text-primary md:text-base">
+                                                    {{ $mosteSelledProduct->discounted_price ? number_format($mosteSelledProduct->discounted_price) : number_format($mosteSelledProduct->price) }}
+                                                    <span class="text-xs font-light md:text-sm">تومان</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -459,7 +493,7 @@
         </section>
         <!-- most saled Products section End -->
 
-        <!-- Newest Products section Start -->
+        <!-- most viewd Products section Start -->
         <section class="mb-8">
             <div class="container relative">
                 <!-- Section Header -->
@@ -488,27 +522,48 @@
                                     <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
                                         <!-- image -->
                                         <div class="mb-2 md:mb-5" draggable="false">
-                                            <a href="./product-detail.html">
+                                            <a href="{{ route('product', $mostViewProduct) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($mostViewProduct->image) }}" />
+                                                    src="{{ asset($mostViewProduct->image) }}" style="height: 260px"/>
                                             </a>
                                         </div>
+                                        <!-- rate -->
+                                        @if ($mostViewProduct->rate > 0)
+                                            <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
+                                                <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                    <span class="star text-white">★</span>{{$mostViewProduct->rate}}
+                                                </p>
+                                            </div>
+                                        @endif
                                         <!-- title -->
                                         <div class="mb-2">
                                             <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                                href="./product-detail.html">
+                                                href="{{ route('product', $mostViewProduct) }}">
                                                 {{ $mostViewProduct->title }}
                                             </a>
                                         </div>
                                         <!-- Prices -->
                                         <div class="flex flex-col">
                                             <!-- Old price -->
-                                            <div class="h-5 text-left"></div>
+                                            @if ($mostViewProduct->discounted_price)
+                                                <div class="h-5 text-left">
+                                                    <del class="text-sm text-text/60 decoration-warning md:text-base">
+                                                        {{ number_format($mostViewProduct->price) }}
+                                                    </del>
+                                                </div>
+                                            @endif
                                             <div class="flex items-center justify-between">
-                                                <div></div>
+                                                @if ($mostViewProduct->discounted_price)
+                                                    <div>
+                                                        <p
+                                                            class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
+                                                            {{ $mostViewProduct->discount_percentage }}%
+                                                        </p>
+                                                    </div>
+                                                @endif
                                                 <!-- New price -->
                                                 <div class="text-sm font-bold text-primary md:text-base">
-                                                    {{ number_format($mostViewProduct->price) }}
+                                                    {{ $mostViewProduct->discounted_price ? number_format($mostViewProduct->discounted_price) : number_format($mostViewProduct->price) }}
                                                     <span class="text-xs font-light md:text-sm">تومان</span>
                                                 </div>
                                             </div>
@@ -543,118 +598,36 @@
                 <!-- Section Content -->
                 <div class="swiper blog-slider p-px">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
+                        @foreach ($latestBlogs as $blog)
+                          <div class="swiper-slide">
                             <div
                                 class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
                                 <!-- Blog Card -->
                                 <div>
-                                    <a href="./blog-detail.html">
+                                    <a href="{{ route('blogs.show', $blog) }}">
                                         <div class="relative rounded-xl bg-muted p-2 shadow-base">
                                             <!-- image -->
                                             <div class="mb-2 md:mb-5" draggable="false">
-                                                <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
-                                                    src="./assets/images/blog/blog1.jpg" />
+                                                <img alt="blog" class="mx-auto w-100 rounded-lg rounded-bl-3xl"
+                                                    src="{{ asset($blog->image) }}" style="height: 130px" />
                                             </div>
                                             <!-- title -->
                                             <div class="mb-2">
                                                 <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
-                                                    مزایا و معایب گوشی‌های سری گلکسی S21
+                                                    {{ $blog->title }}
                                                 </p>
                                             </div>
                                             <div class="flex justify-end">
                                                 <p class="text-xs text-primary xs:text-sm">
-                                                    29 / شهریور / 1403
+                                                    {{ Jalalian::forge($blog->created_at)->format('%B %d، %Y') }}
                                                 </p>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div
-                                class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                                <!-- Blog Card -->
-                                <div>
-                                    <a href="./blog-detail.html">
-                                        <div class="relative rounded-xl bg-muted p-2 shadow-base">
-                                            <!-- image -->
-                                            <div class="mb-2 md:mb-5" draggable="false">
-                                                <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
-                                                    src="./assets/images/blog/blog1.jpg" />
-                                            </div>
-                                            <!-- title -->
-                                            <div class="mb-2">
-                                                <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
-                                                    مزایا و معایب گوشی‌های سری گلکسی S21
-                                                </p>
-                                            </div>
-                                            <div class="flex justify-end">
-                                                <p class="text-xs text-primary xs:text-sm">
-                                                    29 / شهریور / 1403
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div
-                                class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                                <!-- Blog Card -->
-                                <div>
-                                    <a href="./blog-detail.html">
-                                        <div class="relative rounded-xl bg-muted p-2 shadow-base">
-                                            <!-- image -->
-                                            <div class="mb-2 md:mb-5" draggable="false">
-                                                <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
-                                                    src="./assets/images/blog/blog1.jpg" />
-                                            </div>
-                                            <!-- title -->
-                                            <div class="mb-2">
-                                                <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
-                                                    مزایا و معایب گوشی‌های سری گلکسی S21
-                                                </p>
-                                            </div>
-                                            <div class="flex justify-end">
-                                                <p class="text-xs text-primary xs:text-sm">
-                                                    29 / شهریور / 1403
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div
-                                class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                                <!-- Blog Card -->
-                                <div>
-                                    <a href="./blog-detail.html">
-                                        <div class="relative rounded-xl bg-muted p-2 shadow-base">
-                                            <!-- image -->
-                                            <div class="mb-2 md:mb-5" draggable="false">
-                                                <img alt="blog" class="mx-auto w-auto rounded-lg rounded-bl-3xl"
-                                                    src="./assets/images/blog/blog1.jpg" />
-                                            </div>
-                                            <!-- title -->
-                                            <div class="mb-2">
-                                                <p class="line-clamp-2 h-10 text-sm md:h-12 md:text-base">
-                                                    مزایا و معایب گوشی‌های سری گلکسی S21
-                                                </p>
-                                            </div>
-                                            <div class="flex justify-end">
-                                                <p class="text-xs text-primary xs:text-sm">
-                                                    29 / شهریور / 1403
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        </div>  
+                        @endforeach
                     </div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>

@@ -7,4 +7,3 @@
 
 @include('app.layouts.styles')
 
-<!-- @include('app.layouts.scripts') -->

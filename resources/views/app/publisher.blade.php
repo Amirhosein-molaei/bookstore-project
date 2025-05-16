@@ -43,9 +43,17 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $hotDeal) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($hotDeal->image) }}" />
+                                                    src="{{ asset($hotDeal->image) }}" style="height: 260px;"/>
                                             </a>
                                         </div>
+                                        <!-- rate -->
+                                        @if ($hotDeal->rate > 0)
+                                            <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
+                                                <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                    <span class="star text-white">★</span>{{$mostViewProduct->rate}}
+                                                </p>
+                                            </div>
+                                        @endif
                                         <!-- title -->
                                         <div class="mb-2">
                                             <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
@@ -99,7 +107,7 @@
                     <h3 class="font-medium md:text-lg lg:text-xl">
                         داغ ترین های صوتی
                     </h3>
-                    <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="./shop.html">
+                    <a class="flex items-center gap-x-2 py-2 text-sm text-primary lg:text-base" href="{{ route('shop') }}">
                         مشاهده همه
                         <span>
                             <svg class="h-5 w-5 lg:h-6 lg:w-6">
@@ -122,9 +130,17 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $hotDeal) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($hotDeal->image) }}" />
+                                                    src="{{ asset($hotDeal->image) }}" style="height: 260px;"/>
                                             </a>
                                         </div>
+                                        <!-- rate -->
+                                        @if ($hotDeal->rate > 0)
+                                            <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
+                                                <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                    <span class="star text-white">★</span>{{$mostViewProduct->rate}}
+                                                </p>
+                                            </div>
+                                        @endif
                                         <!-- title -->
                                         <div class="mb-2">
                                             <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
@@ -206,9 +222,17 @@
                                     <div class="mb-2 md:mb-5" draggable="false">
                                         <a href="{{ route('product', $mostSelledProduct) }}">
                                             <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                src="{{ asset($mostSelledProduct->image) }}" />
+                                                src="{{ asset($mostSelledProduct->image) }}" style="height: 260px;"/>
                                         </a>
                                     </div>
+                                    <!-- rate -->
+                                    @if ($mostSelledProduct->rate > 0)
+                                        <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
+                                            <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                <span class="star text-white">★</span>{{$mostSelledProduct->rate}}
+                                            </p>
+                                        </div>
+                                    @endif
                                     <!-- title -->
                                     <div class="mb-2">
                                         <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
@@ -293,9 +317,17 @@
                                     <div class="mb-2 md:mb-5" draggable="false">
                                         <a href="{{ route('product', $newProduct) }}">
                                             <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                src="{{ asset($newProduct->image) }}" />
+                                                src="{{ asset($newProduct->image) }}" style="height: 260px;"/>
                                         </a>
                                     </div>
+                                    <!-- rate -->
+                                    @if ($newProduct->rate > 0)
+                                        <div class="absolute right-0 top-0 mt-2 mb-2 mr-2">
+                                            <p class="w-12 rounded-full btn-yellow py-px text-center text-sm text-white">
+                                                <span class="star text-white">★</span>{{$newProduct->rate}}
+                                            </p>
+                                        </div>
+                                    @endif
                                     <!-- title -->
                                     <div class="mb-2">
                                         <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"

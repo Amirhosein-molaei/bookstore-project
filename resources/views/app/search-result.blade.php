@@ -12,7 +12,7 @@
     </section>
 
 
-    @if ($matchProducts->where('type', 0)->count() > 0)
+    @if ($matchProducts->count() > 0)
         <!-- textual Products section Start -->
         <section class="mb-8">
             <div class="container relative">
@@ -34,7 +34,7 @@
 
                 <div class="swiper product-slider p-px">
                     <div class="swiper-wrapper">
-                        @foreach ($matchProducts->where('type', 0) as $product)
+                        @foreach ($matchProducts as $product)
                             <div class="swiper-slide">
                                 <div
                                     class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
@@ -103,7 +103,7 @@
         <!-- textual Products section End -->
     @endif
 
-    @if ($matchBlogs->where('type', 1)->count() > 0)
+    @if ($matchBlogs->count() > 0)
         <!-- Blog section Start -->
         <section class="mb-6">
             <div class="container relative">

@@ -21,7 +21,7 @@
                     </svg>
                 </a>
             </div>
-            @if ($order->payment_status)
+            @if ($order->order_status == 1 or $order->order_status == 2)
                 <div class="mb-8">
                     <div class="rounded-lg border shadow-base">
                         <div class="p-4">
@@ -207,29 +207,35 @@
                                     <!-- Detail -->
                                     <div class="row-span-2 space-y-4 xs:col-span-2 sm:col-span-3 xl:col-span-5">
                                         <!-- Title -->
-                                        <a class="line-clamp-2 text-sm md:text-base" href="{{ route('product', $item->product) }}">
+                                        <a class="line-clamp-2 text-sm md:text-base"
+                                            href="{{ route('product', $item->product) }}">
                                             {{ $item->product->title }}
                                         </a>
-                                        
+
                                         <div
                                             class="flex flex-col items-start gap-x-2 text-red-500 dark:text-red-400 xs:flex-row xs:items-center">
                                             <div class="text-xs xs:text-sm">تخفیف</div>
                                             <div class="text-red-500 dark:text-red-400">
-                                                <span class="text-sm font-bold">{{ number_format($item->product->price - $item->product->discounted_price) }}</span>
+                                                <span
+                                                    class="text-sm font-bold">{{ number_format($item->product->price - $item->product->discounted_price) }}</span>
                                                 <span class="text-xs xs:text-sm">تومان</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Download Link -->
                                     <div class="flex items-center gap-x-2 xs:justify-center">
-                                        <form method="post" action="{{ URL::temporarySignedRoute('product.download', now()->addMinutes(30), ['product' => $item->product]) }}" 
-                                            class="h-10 w-24 rounded-lg border sm:w-28">
-                                            @csrf
-                                            <button type="submit" class="btn btn-indigo w-full h-full">
-                                                دانلود
-                                            </button>
-                                        </form>
+                                        @if ($order->order_status == 1)
+                                            <!-- Download Link -->
+                                            <form method="post"
+                                                action="{{ URL::temporarySignedRoute('product.download', now()->addMinutes(30), ['product' => $item->product]) }}"
+                                                class="h-10 w-24 rounded-lg border sm:w-28">
+                                                @csrf
+                                                <button type="submit" class="btn btn-indigo w-full h-full">
+                                                    دانلود
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
+
                                     <!-- Price -->
                                     <div class="row-span-2 xs:col-span-2 sm:col-span-3 xl:col-span-5">
                                         <div class="text-primary xs:col-span-2 sm:col-span-3 lg:text-lg xl:col-span-5">

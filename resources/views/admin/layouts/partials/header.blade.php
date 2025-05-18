@@ -275,13 +275,13 @@
                 <span class="ml-3 ml-md-5 position-relative">
                     <span id="header-profile-toggle" class="pointer">
                         <img class="header-avatar" src=" {{ asset('admin-assets/assets/images/avatar-2.jpg') }}" alt="">
-                        <span class="header-username">کامران محمدی</span>
+                        <span class="header-username">{{ Auth::user()->name }}</span>
                         <i class="fas fa-angle-down"></i>
                     </span>
                     <section id="header-profile" class="header-profile rounded">
                         <section class="list-group rounded">
-                            <a href="#" class="list-group-item list-group-item-action header-profile-link">
-                                <i class="fas fa-cog"></i>تنظیمات
+                            <a href="{{ route('app.home') }}" target="_blank" class="list-group-item list-group-item-action header-profile-link">
+                                <i class="fas fa-cog"></i>صفحه اصلی سایت
                             </a>
                             <a href="#" class="list-group-item list-group-item-action header-profile-link">
                                 <i class="fas fa-user"></i>کاربر

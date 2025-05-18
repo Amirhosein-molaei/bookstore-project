@@ -73,6 +73,10 @@
                 <i class="fas fa-key"></i>
                 <span>پرداخت ها</span>
             </a>
+            <a href="{{ route('admin.market.order.index') }}" class="sidebar-link">
+                <i class="fas fa-money-bill"></i>
+                <span>تاریخچه سفارشات</span>
+            </a>
 
 
             <section class="sidebar-part-title">بخش تیکت ها</section>

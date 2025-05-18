@@ -8,6 +8,7 @@ use App\Models\Content\Comment;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Home\StoreCommentRequest;
+use App\Models\Market\Order;
 use App\Models\User\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
@@ -56,7 +57,13 @@ class ProductController extends Controller
         if (!$request->hasValidSignature()) {
             abort(404);
         }
+
         $user = User::findOrFail(Auth::id());
+
+        // for changing downloaded status and adding download_date to order 
+        $order = $user->orders()->whereHas('orderItems', function($query) use ($product){
+            $query->where('product_id', $product->id);
+        })->first();
 
         if (!$user->hasPurchasedProduct($product->id)) {
             abort(404);
@@ -87,10 +94,22 @@ class ProductController extends Controller
                 return back()->with('error', 'خطا در دانلود فایل');
             }
 
+            if (!$order->downloaded) {
+                $order->downloaded = 1;
+                $order->download_date = now();
+                $order->save();
+            }
+            
             return response()->download($zipPath)->deleteFileAfterSend();
 
         } else {
             if (Storage::exists($files[0]->path)) {
+                if (!$order->downloaded) {
+                    $order->downloaded = 1;
+                    $order->download_date = now();
+                    $order->save();
+                }
+
                 return response()->download(storage_path('app/private/' . $files[0]->path), $files[0]->name);
             } 
         }

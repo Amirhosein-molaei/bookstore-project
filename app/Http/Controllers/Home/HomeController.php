@@ -8,6 +8,7 @@ use App\Models\Content\Banner;
 use App\Models\Content\Blog;
 use App\Models\Content\Publisher;
 use App\Models\Market\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -58,8 +59,12 @@ class HomeController extends Controller
         return view('app.publisher', compact(['publisher', 'textualHotDeals', 'audioHotDeals', 'mostSelledProducts', 'mostViewedProducts', 'newProducts']));
     }
 
-    public function search()
+    public function search(Request $request)
     {
+        $request->validate([
+            'search' => 'min:2|max:50|string|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u'
+        ]);
+        
         $search = request('search');
         if ($search != '') {
             $matchProducts = Product::where('title', 'like', "%{$search}%")->get();

@@ -190,7 +190,7 @@
                                             @foreach ($order->orderItems as $item)
                                                 <div class="swiper-slide">
                                                     <a class="flex items-center gap-x-2 rounded-lg border p-2"
-                                                        href="{{ route('product', $item->product) }}">
+                                                        href="{{ route('product', $item->product->slug) }}">
                                                         <img alt="" class="w-20 h-20 rounded"
                                                             src="{{ asset($item->product->image) }}" />
                                                         <p class="line-clamp-2 text-sm">

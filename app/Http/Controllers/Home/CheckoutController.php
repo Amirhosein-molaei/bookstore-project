@@ -6,11 +6,9 @@ use App\Models\Market\Cart;
 use App\Models\Market\Copan;
 use App\Models\Market\Order;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Home;
 use App\Models\Market\OrderItem;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Home\submitOrderRequest;
 use App\Mail\orderDoneMail;
 use App\Models\Market\Payment;
 use App\Models\User\Wallet;
@@ -74,23 +72,26 @@ class CheckoutController extends Controller
         return redirect()->back()->with('success', 'کد تخفیف با موفقیت حذف شد');
     }
 
-    public function submit(submitOrderRequest $request)
+    public function submit(Request $request)
     {
-        $inputs = $request->validated();
         $cart = Cart::where('user_id', Auth::id())->where('status', 0)->with('items.product')->first();
+        if ($cart->total_price > 0) {
+            $request->validate([
+                'payment_type' => 'required|in:0,1',
+                'payment_gateway' => 'required_if:payment_type,1|in:zarinPall,saman'
+            ]);
+        }
         
         if (!$cart or $cart->items->count() == 0) {
             return redirect()->route('app.home');
         }
         
-        if ($inputs['total_price'] != $cart->total_price) {
-            return back()->with('error', 'عدم تطابق مبلغ!');
-        }
-        
         // check if wallet has enough money
-        $wallet = Wallet::where('user_id', Auth::id())->first();
-        if ($wallet->balance < $inputs['total_price'] and $inputs['payment_type'] == 0) {
-            return back()->with('error', 'موجودی کیف پول کافی نمیباشد');
+        if ($cart->total_price > 0) {
+            $wallet = Wallet::where('user_id', Auth::id())->first();
+            if ($wallet->balance < $cart->total_price and $request->payment_type == 0) {
+                return back()->with('error', 'موجودی کیف پول کافی نمیباشد');
+            }
         }
         
         // sum of discount from products
@@ -106,34 +107,36 @@ class CheckoutController extends Controller
                 'user_id' => Auth::id(),
                 'cart_id' => $cart->id,
                 'copan_id' => $cart->copan_id,
-                'order_final_amount' => $cart->total_price - $cart->total_off_price,
+                'order_final_amount' => $cart->total_price,
                 'order_discount_amount' => $productsTotalDiscount,
                 'order_total_discount' => $cart->total_off_price + $productsTotalDiscount,
                 'order_status' => 1,
-                'payment_type' => $inputs['payment_type'],
+                'payment_type' => $request->payment_type ?? 0,
                 'payment_status' => 1,
             ]);
 
-            // withdraw from wallet
-            if ($order->payment_type == 0) {
-                $wallet->balance -= $order->order_final_amount;
-                $wallet->save();
-            } else {
-                Payment::create([
-                    'amount' => $order->order_final_amount,
-                    'user_id' => Auth::id(),
-                    'type' => $order->payment_type,
-                    'gateway' => $inputs['payment_gateway'],
-                    'transaction_id' => random_int(10000, 99999),
-                    'tracking_code' => random_int(10000, 99999),
-                ]);
+            if ($cart->total_price > 0) {
+                // withdraw from wallet
+                if ($order->payment_type == 0) {
+                    $wallet->balance -= $order->order_final_amount;
+                    $wallet->save();
+                    Payment::create([
+                        'amount' => $order->order_final_amount,
+                        'user_id' => Auth::id(),
+                        'status' => $order->payment_type == 0 ? 3 : 1,
+                        'type' => $order->payment_type,
+                        'gateway' => $request->payment_gateway,
+                        'transaction_id' => random_int(10000, 99999),
+                        'tracking_code' => random_int(10000, 99999),
+                    ]);
+                }
             }
 
             foreach ($cart->items as $item) {
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
-                    'product_object' => json_encode($item->product),
+                    'product_object' => $item->product,
                     'price' => $item->product->price,
                     'total_price' => $item->product->price,
                     'status' => 0
@@ -151,7 +154,7 @@ class CheckoutController extends Controller
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            redirect()->back()->with('error', 'خطایی پیش آمد');
+            redirect()->back()->with('error', 'خطایی پیش آمد' . $th->getMessage());
         }
     }
 }

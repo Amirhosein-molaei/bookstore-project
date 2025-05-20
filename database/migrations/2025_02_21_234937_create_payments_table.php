@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('amount');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(1)->comment('0-> payment-fail, 1->payment-ok, 2->walet-deposit, 3->wallet->withdraw');
             $table->tinyInteger('type')->default(1)->comment('0 => by wallet, 1 => by gateway');
             $table->string('gateway')->nullable();
             $table->string('transaction_id')->nullable();

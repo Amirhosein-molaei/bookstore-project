@@ -199,7 +199,7 @@
                                     class="grid grid-cols-2 items-center justify-start gap-2 xs:grid-cols-3 xs:gap-6 sm:grid-cols-4 xl:grid-cols-6">
                                     <!-- Image -->
                                     <div class="row-span-2 min-w-fit xs:mx-auto">
-                                        <a href="{{ route('product', $item->product) }}">
+                                        <a href="{{ route('product', $item->product->slug) }}">
                                             <img alt="" class="w-25 rounded-lg sm:w-28"
                                                 src="{{ asset($item->product->image) }}">
                                         </a>
@@ -208,7 +208,7 @@
                                     <div class="row-span-2 space-y-4 xs:col-span-2 sm:col-span-3 xl:col-span-5">
                                         <!-- Title -->
                                         <a class="line-clamp-2 text-sm md:text-base"
-                                            href="{{ route('product', $item->product) }}">
+                                            href="{{ route('product', $item->product->slug) }}">
                                             {{ $item->product->title }}
                                         </a>
 
@@ -217,7 +217,7 @@
                                             <div class="text-xs xs:text-sm">تخفیف</div>
                                             <div class="text-red-500 dark:text-red-400">
                                                 <span
-                                                    class="text-sm font-bold">{{ number_format($item->product->price - $item->product->discounted_price) }}</span>
+                                                    class="text-sm font-bold">{{ number_format($item->product_object['price'] - $item->product_object['discounted_price']) }}</span>
                                                 <span class="text-xs xs:text-sm">تومان</span>
                                             </div>
                                         </div>
@@ -239,7 +239,7 @@
                                     <!-- Price -->
                                     <div class="row-span-2 xs:col-span-2 sm:col-span-3 xl:col-span-5">
                                         <div class="text-primary xs:col-span-2 sm:col-span-3 lg:text-lg xl:col-span-5">
-                                            <span class="font-bold">{{ number_format($item->price) }}</span>
+                                            <span class="font-bold">{{ number_format($item->product_object['price']) }}</span>
                                             <span class="text-sm lg:text-base">تومان</span>
                                         </div>
                                     </div>

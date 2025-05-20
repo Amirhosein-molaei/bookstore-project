@@ -35,10 +35,13 @@
                     </div>
                 </div>
             </div>
-            <div class=" {{ isset($wallet) ? '' : 'flex' }} gap-x-4">
-                <div class="w-full">
+            <div class="flex gap-x-4">
+                <div class="w-full ">
                     @if (isset($order))
                         <a href="{{ route('user-profile.order-details', $order) }}" class="btn-primary py-3"> پیگیری سفارش
+                        </a>
+                    @else
+                        <a href="{{ route('user-profile.wallet') }}" class="btn-primary py-3"> کیف پول
                         </a>
                     @endif
                 </div>

@@ -22,7 +22,7 @@ class Order extends Model
 
     public function copan()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Copan::class);
     }
 
     public function user()

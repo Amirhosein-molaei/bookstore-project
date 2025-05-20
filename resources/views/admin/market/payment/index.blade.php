@@ -40,14 +40,16 @@ use Morilog\Jalali\Jalalian;
                 <tr>
                     <th>{{ $loop->iteration }}</th>
                     <td>{{ number_format($payment->amount) }}</td>
-                    <td>{{ $payment->user->mobile }}</td>
+                    <td>{{ $payment->user->name }}</td>
                     <td>
                         @if ($payment->status == 0)
-                        در انتظار پرداخت
+                            در انتظار پرداخت
                         @elseif ($payment->status == 1)
-                        پرداخت شده
-                        @else
-                        پرداخت نشده
+                            پرداخت شده
+                        @elseif ($payment->status == 2)
+                            شارژ کیف پول
+                        @elseif ($payment->status == 3)
+                            برداشت از کیف پول
                         @endif
                     </td>
                     <td>{{ $payment->type == 1 ? 'آنلاین' : 'کیف پول' }}</td>

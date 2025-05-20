@@ -67,7 +67,7 @@
                                             @if ($hotDeal->discounted_price)
                                                 <div class="h-5 text-left">
                                                     <del class="text-sm text-text/60 decoration-warning md:text-base">
-                                                        {{ $hotDeal->price }}
+                                                        {{ number_format($hotDeal->price) }}
                                                     </del>
                                                 </div>
                                             @endif
@@ -82,7 +82,7 @@
                                                 @endif
                                                 <!-- New price -->
                                                 <div class="text-sm font-bold text-primary md:text-base">
-                                                    {{ $hotDeal->discounted_price ? $hotDeal->discounted_price : $hotDeal->price }}
+                                                    {{ $hotDeal->discounted_price ? number_format($hotDeal->discounted_price) : number_format($hotDeal->price) }}
                                                     <span class="text-xs font-light md:text-sm">تومان</span>
                                                 </div>
                                             </div>
@@ -154,7 +154,7 @@
                                             @if ($hotDeal->discounted_price)
                                                 <div class="h-5 text-left">
                                                     <del class="text-sm text-text/60 decoration-warning md:text-base">
-                                                        {{ $hotDeal->price }}
+                                                        {{ number_format($hotDeal->price) }}
                                                     </del>
                                                 </div>
                                             @endif
@@ -169,7 +169,7 @@
                                                 @endif
                                                 <!-- New price -->
                                                 <div class="text-sm font-bold text-primary md:text-base">
-                                                    {{ $hotDeal->discounted_price ? $hotDeal->discounted_price : $hotDeal->price }}
+                                                    {{ $hotDeal->discounted_price ? number_format($hotDeal->discounted_price) : number_format($hotDeal->price) }}
                                                     <span class="text-xs font-light md:text-sm">تومان</span>
                                                 </div>
                                             </div>
@@ -246,7 +246,7 @@
                                         @if ($mostSelledProduct->discounted_price)
                                             <div class="h-5 text-left">
                                                 <del class="text-sm text-text/60 decoration-warning md:text-base">
-                                                    {{ $mostSelledProduct->price }}
+                                                    {{ number_format($mostSelledProduct->price) }}
                                                 </del>
                                             </div>
                                         @endif
@@ -261,7 +261,7 @@
                                             @endif
                                             <!-- New price -->
                                             <div class="text-sm font-bold text-primary md:text-base">
-                                                {{ $mostSelledProduct->discounted_price ? $mostSelledProduct->discounted_price : $mostSelledProduct->price }}
+                                                {{ $mostSelledProduct->discounted_price ? number_format($mostSelledProduct->discounted_price) : number_format($mostSelledProduct->price) }}
                                                 <span class="text-xs font-light md:text-sm">تومان</span>
                                             </div>
                                         </div>
@@ -341,7 +341,7 @@
                                         @if ($newProduct->discounted_price)
                                             <div class="h-5 text-left">
                                                 <del class="text-sm text-text/60 decoration-warning md:text-base">
-                                                    {{ $newProduct->price }}
+                                                    {{ number_format($newProduct->price) }}
                                                 </del>
                                             </div>
                                         @endif
@@ -356,7 +356,7 @@
                                             @endif
                                             <!-- New price -->
                                             <div class="text-sm font-bold text-primary md:text-base">
-                                                {{ $newProduct->discounted_price ? $newProduct->discounted_price : $newProduct->price }}
+                                                {{ $newProduct->discounted_price ? number_format($newProduct->discounted_price) : number_format($newProduct->price) }}
                                                 <span class="text-xs font-light md:text-sm">تومان</span>
                                             </div>
                                         </div>

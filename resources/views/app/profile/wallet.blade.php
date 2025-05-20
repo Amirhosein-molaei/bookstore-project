@@ -1,4 +1,5 @@
 @extends('app.profile.layouts.master')
+@use('Morilog\Jalali\Jalalian')
 @section('title', 'کیف پول')
 
 @section('content')
@@ -64,7 +65,8 @@
                                     </button>
                                 </div>
                             </div>
-                            <form action="{{ route('user-profile.wallet.deposit') }}" class="space-y-6 px-4 py-5 sm:p-6" method="post">
+                            <form action="{{ route('user-profile.wallet.deposit') }}" class="space-y-6 px-4 py-5 sm:p-6"
+                                method="post">
                                 @csrf
                                 <div>
                                     <label for="deposite" class="relative block rounded-lg border shadow-base">
@@ -89,6 +91,47 @@
                     </div>
                 </div>
             </div>
+            @if ($payments->count() > 0)
+                    <h1 class="relative mb-4 w-fit text-xl font-medium" style="margin-top: 30px">
+                        تاریخچه تراکنش های کیف پول
+                        <span class="absolute right-0 top-10 h-[3px] w-full rounded-full bg-primary">
+                        </span>
+                    </h1>
+                    <div class="overflow-x-auto w-full">
+                        <table class="table min-w-full border-separate border-spacing-y-4 space-y-6 text-sm">
+                            <thead class="bg-background dark:bg-zinc-800">
+                                <tr class="text-right">
+                                    <th class="p-3 whitespace-nowrap">ردیف</th>
+                                    <th class="p-3 whitespace-nowrap">تاریخ</th>
+                                    <th class="p-3 whitespace-nowrap">میزان</th>
+                                    <th class="p-3 whitespace-nowrap">نوع</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($payments as $payment)
+                                    <tr class="bg-background dark:bg-zinc-800">
+                                        <td class="p-3">
+                                            {{$loop->iteration}}
+                                        </td>
+                                        <td class="p-3 text-text/90 whitespace-nowrap">
+                                            {{ Jalalian::forge($payment->created_at)->format('%B %d، %Y') }}
+                                        </td>
+                                        <td class="p-3 whitespace-nowrap">
+                                            <div class="text-primary">
+                                                <span class="font-bold">{{ number_format($payment->amount) }}</span>
+                                                <span class="text-sm">تومان</span>
+                                            </div>
+                                        </td>
+                                        <td class="p-3 whitespace-nowrap">
+                                            <span class="btn-{{$payment->status == 2 ? 'primary' : 'red'}} py-1 px-4"> {{$payment->status == 2 ? 'واریزی' : 'برداشت'}} </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
         </div>
     </div>
 @endsection

@@ -31,14 +31,14 @@
                             <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
                                 <!-- image -->
                                 <div class="mb-2 md:mb-5" draggable="false">
-                                    <a href="{{ route('product', $product) }}">
+                                    <a href="{{ route('product', $product->slug) }}">
                                         <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
                                             src="{{ asset($product->image) }}" style="height: 278px" />
                                     </a>
                                 </div>
                                 <!-- title -->
                                 <div class="mb-2">
-                                    <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base" href="{{ route('product', $product) }}">
+                                    <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base" href="{{ route('product', $product->slug) }}">
                                         {{ $product->title }}
                                     </a>
                                 </div>

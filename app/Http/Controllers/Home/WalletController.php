@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Controller;
-use App\Models\Market\Order;
 use App\Models\User\Wallet;
+use Illuminate\Support\Str;
+use App\Models\Market\Order;
 use Illuminate\Http\Request;
+use App\Models\Market\Payment;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class WalletController extends Controller
@@ -14,7 +17,8 @@ class WalletController extends Controller
     public function show()
     {
         $wallet = Wallet::where('user_id', Auth::id())->first();
-        return view('app.profile.wallet', compact('wallet'));
+        $payments = Payment::where('user_id', $wallet->user_id)->whereIn('status', [2,3])->orderByDesc('created_at')->get();
+        return view('app.profile.wallet', compact(['wallet', 'payments']));
     }
 
 
@@ -25,9 +29,26 @@ class WalletController extends Controller
         ]);
 
         $wallet = Wallet::where('user_id', Auth::id())->first();
-        $wallet->balance += $request->input('amount');
-        $wallet->save();
+        try {
+            DB::beginTransaction();
+            
+            $wallet->balance += $request->input('amount');
+            $wallet->save();
 
+            Payment::create([
+                'amount' => $request->amount,
+                'user_id' => Auth::id(),
+                'status' => 2,
+                'gateway' => 'zarinPall',
+                'transaction_id' => random_int(10000, 99999),
+                'transaction_code' => Str::random()
+            ]);
+
+            DB::commit();
+
+        } catch (\Throwable $th) {
+            return back()->with('error', 'مشکلی پیش آمد. لطفا مجددا تلاش کنید');
+        }
         return view('app.payment-success', compact('wallet'));
     }
 

@@ -117,50 +117,6 @@ class UserProfileController extends Controller
         return to_route('user-profile.edit')->with('success', 'نام کاربری شما با موفقیت تغییر یافت.');
     }
 
-    public function updateEmail(Request $request)
-    {
-        $request->validate([
-            'email' => ['required', 'string', 'email', Rule::unique(User::class)->ignore(Auth::id())]
-        ]);
-
-        User::find(Auth::id())->update([
-            'email' => $request->input('email'),
-            'email_verified_at' => null,
-            'activated' => 0
-        ]);
-
-        $request->user()->sendEmailVerificationNotification();
-
-        return to_route('user-profile.edit')->with('success', 'ایمیل فعال سازی ارسال شد.');
-    }
-
-    public function updateMobile(Request $request)
-    {
-        $request->validate([
-            'mobile' => ['required', 'string', 'regex:/^(09[0-9]{9})$/', Rule::unique(User::class)->ignore(Auth::id())]
-        ]);
-
-        User::find(Auth::id())->update([
-            'mobile' => $request->input('mobile'),
-            // 'mobile_verified_at' => null,
-            // 'activated' => 0
-        ]);
-
-        // $otpCode = random_int(1000, 9999);
-        // Otp::create([
-        //     'token' => Str::random(32),
-        //     'user_id' => Auth::id(),
-        //     'otp_code' => $otpCode,
-        //     'used' => 0,
-        //     'attempts' => 0,
-        //     'expires_at' => now()->addMinutes(3)->toDateTimeString()
-        // ]);
-
-        // $smsService->sendSmsOtp($request->input('mobile'), $otpCode);
-
-        return to_route('user-profile.edit')->with('success', 'شماره همراه شما با موفقیت تغییر یافت.');
-    }
-
     public function favoriteProducts()
     {
         $user = User::find(Auth::id());

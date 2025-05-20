@@ -31,68 +31,6 @@
                     </button>
                 </div>
 
-
-                <!-- phone number  -->
-                <div class="col-span-2 sm:col-span-1">
-                    <button class="w-full" type="button" data-modal-target="phoneNumber-modal"
-                        data-modal-toggle="phoneNumber-modal">
-                        <div class="relative rounded-lg border p-4 hover:border-border/50">
-                            {{-- @if (Auth::user()->mobile_verified_at !== null)
-                                <div
-                                    class="absolute inset-x-0 -bottom-2.5 mx-auto w-fit rounded-full bg-muted px-3 text-sm font-medium text-primary">
-                                    تایید شده
-                                </div>
-                            @else
-                                <div
-                                    class="absolute inset-x-0 -bottom-2.5 mx-auto w-fit rounded-full bg-muted px-3 text-sm font-medium text-red-500 dark:text-red-400">
-                                    تایید نشده
-                                </div>
-                            @endif --}}
-                            <div class="flex justify-between">
-                                <div class="flex flex-col items-start gap-y-2">
-                                    <div class="text-text/90">شماره موبایل</div>
-
-                                    <div class="mr-2 text-text/60">{{ Auth::user()->mobile ?? 'ثبت نشده' }}</div>
-                                </div>
-                                <svg class="h-6 w-6 text-primary">
-                                    <use xlink:href="#edit" />
-                                </svg>
-                            </div>
-                        </div>
-                    </button>
-                </div>
-
-                <!-- email   -->
-                <div class="col-span-2 sm:col-span-1">
-                    <button class="w-full" type="button" data-modal-target="email-modal" data-modal-toggle="email-modal">
-                        <div class="relative rounded-lg border p-4 hover:border-border/50">
-                            @if (Auth::user()->email_verified_at !== null)
-                                <div
-                                    class="absolute inset-x-0 -bottom-2.5 mx-auto w-fit rounded-full bg-muted px-3 text-sm font-medium text-primary">
-                                    تایید شده
-                                </div>
-                            @else
-                                <div
-                                    class="absolute inset-x-0 -bottom-2.5 mx-auto w-fit rounded-full bg-muted px-3 text-sm font-medium text-red-500 dark:text-red-400">
-                                    تایید نشده
-                                </div>
-                            @endif
-                            <div class="flex justify-between">
-                                <div class="flex flex-col items-start gap-y-2">
-                                    <div class="text-text/90">ایمیل</div>
-
-                                    <div class="mr-2 text-text/60">
-                                        {{ Auth::user()->email ?? 'ثبت نشده' }}
-                                    </div>
-                                </div>
-                                <svg class="h-6 w-6 text-primary">
-                                    <use xlink:href="#edit" />
-                                </svg>
-                            </div>
-                        </div>
-                    </button>
-                </div>
-
                 <!-- password   -->
                 <div class="col-span-2 sm:col-span-1">
                     <button class="w-full" type="button" data-modal-target="password-modal"
@@ -103,7 +41,7 @@
                                     <div class="text-text/90">کلمه عبور</div>
 
                                     <div class="mr-2 select-none text-text/60">
-                                        <input type="password" value="{{Auth::user()->password ?? 'ثبت نشده'}}" class="select-none bg-transparent"
+                                        <input type="password" value="{{Str::limit(Auth::user()->password, 8) ?? 'ثبت نشده'}}" class="select-none bg-transparent"
                                             disabled />
                                     </div>
                                 </div>
@@ -163,102 +101,6 @@
                     <div class="flex items-center justify-end gap-x-4">
                         <button class="btn-primary w-full px-4 py-2 xs:w-24" type="submit">
                             ویرایش
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- phone mumber modal -->
-    <div id="phoneNumber-modal" tabindex="-1" aria-hidden="true"
-        class="main-scroll fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0">
-        <div class="relative max-h-full w-full max-w-md">
-            <div class="divide-y overflow-hidden rounded-lg bg-muted shadow ring-1 ring-gray-100 dark:ring-white/5">
-                <div class="px-4 py-5 sm:px-6">
-                    <div class="flex items-center justify-between">
-                        <h3 class="md:text-lg">تغییر شماره موبایل</h3>
-
-                        <button class=" " data-modal-hide="phoneNumber-modal" type="button">
-                            <svg class="h-5 w-5">
-                                <use xlink:href="#close"></use>
-                            </svg>
-
-                            <span class="sr-only">Close Modal</span>
-                        </button>
-                    </div>
-                </div>
-                <form action="{{ route('user-profile.update-mobile') }}" method="POST"
-                    class="space-y-6 px-4 py-5 sm:p-6">
-                    @csrf
-                    @method('PUT')
-
-                    <div>
-                        <label for="mobile" class="relative block rounded-lg border shadow-base">
-                            <input type="text" id="mobile" name="mobile" dir="auto"
-                                class="peer w-full rounded-lg border-none bg-transparent px-4 py-3 text-left placeholder-transparent focus:outline-none focus:ring-0"
-                                placeholder="شماره موبایل" value="{{ Auth::user()->mobile }}" />
-
-                            <span
-                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/60 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
-                                شماره موبایل
-                            </span>
-                        </label>
-                        <div class="my-2 h-6 text-red-500 dark:text-red-400"></div>
-                    </div>
-                    <div class="flex items-center justify-end gap-x-4">
-                        <button class="btn-primary w-full px-4 py-2 xs:w-fit" type="submit">
-                            ویرایش
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- email modal -->
-    <div id="email-modal" tabindex="-1" aria-hidden="true"
-        class="main-scroll fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0">
-        <div class="relative max-h-full w-full max-w-md">
-            <div class="divide-y overflow-hidden rounded-lg bg-muted shadow ring-1 ring-gray-100 dark:ring-white/5">
-                <div class="px-4 py-5 sm:px-6">
-                    <div class="flex items-center justify-between">
-                        <h3 class="md:text-lg">تغییر ایمیل</h3>
-
-                        <button class=" " data-modal-hide="email-modal" type="button">
-                            <svg class="h-5 w-5">
-                                <use xlink:href="#close"></use>
-                            </svg>
-
-                            <span class="sr-only">Close Modal</span>
-                        </button>
-                    </div>
-                </div>
-                <form action="{{ route('user-profile.update-email') }}" method="POST"
-                    class="space-y-6 px-4 py-5 sm:p-6">
-                    <div>
-                        @csrf
-                        @method('PUT')
-
-                        <label for="email" class="relative block rounded-lg border shadow-base">
-                            <input type="text" id="email" name="email" dir="auto"
-                                class="peer w-full rounded-lg border-none bg-transparent px-4 py-3 text-left placeholder-transparent focus:outline-none focus:ring-0"
-                                placeholder=" ایمیل" value="{{ Auth::user()->email }}" />
-
-                            <span
-                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-muted px-2 py-0.5 text-sm text-text/60 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm">
-                                ایمیل
-                            </span>
-                        </label>
-                        @error('email')
-                            <div class="my-2 h-6 text-red-500 dark:text-red-400">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="flex items-center justify-end gap-x-4">
-                        <button class="btn-primary w-full px-4 py-2 xs:w-fit" type="submit">
-                            ارسال ایمیل فعال سازی
                         </button>
                     </div>
                 </form>

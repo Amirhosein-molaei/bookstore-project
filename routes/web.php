@@ -203,8 +203,6 @@ Route::prefix('user-profile')->name('user-profile.')->middleware('auth')->group(
     Route::post('/send-ticket', [UserProfileController::class, 'sendTicket'])->name('ticket.send');
     Route::get('/edit', [UserProfileController::class, 'edit'])->name('edit');
     Route::put('update-name', [UserProfileController::class, 'updateName'])->name('update-name');
-    Route::put('update-email', [UserProfileController::class, 'updateEmail'])->name('update-email');
-    Route::put('update-mobile', [UserProfileController::class, 'updateMobile'])->name('update-mobile');
     Route::get('/favorite-products', [UserProfileController::class, 'favoriteProducts'])->name('product-favorite');
     Route::get('/favorite-writers', [UserProfileController::class, 'favoriteWriters'])->name('favorite-writers');
     Route::delete('/favorite-products/empty', [FavoriteController::class, 'removeAllFavoriteProducts'])->name('product-favorite.empty');

@@ -16,8 +16,9 @@ use ZipArchive;
 
 class ProductController extends Controller
 {
-    public function show(Product $product)
+    public function show($productSlug)
     {
+        $product = Product::where('slug', $productSlug)->first();
         $product->increment('view_count');
         $relatedProducts = Product::where('product_category_id', $product->category->id)->whereNot('id', $product->id)->limit(10)->get();
 

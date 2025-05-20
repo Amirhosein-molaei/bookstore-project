@@ -142,7 +142,7 @@
                         <div class="col-md-6 mb-2">
                             <label for="product_category_id" class="form-label">دسته بندی</label>
                             <select name="product_category_id" id="product_category_id" class="form-control" required>
-                                @foreach ($categories as $category)
+                                @foreach ($categories->whereNull('parent_id') as $category)
                                     <optgroup label="{{ $category->name }}" class="font-bold">
                                         @if ($category->subCategories->count() == 0)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>

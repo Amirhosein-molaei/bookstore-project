@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class TicketCategory extends Model
 {
     use SoftDeletes;
-    protected $guarded = [];
+    protected $guarded = ['id'];
     public function tickets()
     {
         return $this->hasMany(Ticket::class);

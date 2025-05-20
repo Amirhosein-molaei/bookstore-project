@@ -35,8 +35,7 @@ class ProductController extends Controller
         $publishers = Publisher::all();
         $writers = Writer::all();
         $tags = Tag::where('status', 0)->get();
-        $categories = ProductCategory::where('parent_id', null)->get();
-        return view('admin.market.product.create', compact('publishers', 'writers', 'tags', 'categories'));
+        return view('admin.market.product.create', compact('publishers', 'writers', 'tags'));
     }
 
     /**

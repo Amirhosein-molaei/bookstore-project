@@ -23,7 +23,7 @@
             <div class="mx-auto max-w-[450px] rounded-xl bg-muted p-5 shadow-base md:p-10">
                 <!-- Logo -->
                 <a href="{{ url('/') }}">
-                    <img src="{{ asset('assets/images/logo.svg') }}" class="mx-auto mb-10 w-40" alt="لوگو" />
+                    <img src="{{ asset($setting->logo ?? 'assets/images/logo.svg') }}" class="mx-auto mb-10 w-40" alt="لوگو" />
                 </a>
                 <h1 class="mb-10 text-center text-lg">ورود | ثبت نام</h1>
                 <p class="mb-5 text-center text-sm text-text/90">نوع ورود خود را انتخاب کنید.</p>

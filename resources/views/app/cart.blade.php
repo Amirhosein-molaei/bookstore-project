@@ -57,7 +57,7 @@
                                         class="grid grid-cols-2 items-center justify-start gap-2 xs:grid-cols-3 xs:gap-6 sm:grid-cols-4 xl:grid-cols-6">
                                         <!-- Image -->
                                         <div class="relative row-span-2 min-w-fit xs:mx-auto">
-                                            <a href="{{ route('product', $item->product) }}">
+                                            <a href="{{ route('product', $item->product->slug) }}">
                                                 <img alt="" class="w-25 rounded-lg sm:w-28"
                                                     src="{{ asset($item->product->image ?? 'assets/images/products/default-img.jpg') }}" />
                                             </a>
@@ -77,7 +77,7 @@
                                         <div class="row-span-2 space-y-4 xs:col-span-2 sm:col-span-3 xl:col-span-5">
                                             <!-- Title -->
                                             <a class="line-clamp-2 text-sm xs:text-base"
-                                                href="{{ route('product', $item->product) }}">
+                                                href="{{ route('product', $item->product->slug) }}">
                                                 {{ $item->product->title }}
                                             </a>
                                             <!-- Book Writer -->

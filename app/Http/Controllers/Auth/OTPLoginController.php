@@ -16,12 +16,12 @@ class OTPLoginController extends Controller
 {
     public function loginUser(Request $request)
     {
-      $request->validate([
+        $request->validate([
             'identifier' => [
                 'required',
                 'regex:/^(09[0-9]{9}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/'
             ],
-            
+
             'login_type' => ['required', 'in:password,otp'],
             'password' => ['required_if:loginType,password'],
         ]);
@@ -30,12 +30,11 @@ class OTPLoginController extends Controller
         $loginType = $request->input('login_type');
 
 
-        // پیدا کردن کاربر
         $user = User::where('email', $identifier)
             ->orWhere('mobile', $identifier)
             ->first();
         if (!$user) {
-            return redirect()->back()->with('error', '    کاربری با این مشخصات پیدا نشد.');
+            return redirect()->back()->with('error', 'کاربری با این مشخصات پیدا نشد.');
         }
 
         if ($loginType === 'password') {
@@ -44,11 +43,10 @@ class OTPLoginController extends Controller
                 filter_var($identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile' => $identifier,
                 'password' => $request->input('password'),
             ];
-
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate(); // بازتولید سشن برای امنیت
-               $user->update(['activated'=>1]);
-                return redirect()->intended(route('app.home', absolute: false));
+                $user->update(['activated' => 1]);
+                return to_route('app.home')->with('success',  'ورود موفقیت آمیز بود');
             } else {
                 return redirect()->back()->with('error', '  اطلاعات ورود نامعتبر');
             }
@@ -56,16 +54,16 @@ class OTPLoginController extends Controller
 
             $oldOtp = Otp::where('user_id', $user->id)->first();
 
-                if ($oldOtp && $oldOtp->created_at->diffInMinutes(now()) < 3) {
-                    return back()->with('error', 'لطفاً 3 دقیقه صبر کنید و سپس مجدداً درخواست کد دهید.');
-                }
+            if ($oldOtp && $oldOtp->created_at->diffInMinutes(now()) < 3) {
+                return back()->with('error', 'لطفاً 3 دقیقه صبر کنید و سپس مجدداً درخواست کد دهید.');
+            }
 
             $oldOtp ? $oldOtp->delete() : "";
-            // ورود با رمز یکبار مصرف
-            $code = rand(1000, 9999); // یه کد 4 رقمی
-            $expires_at = now()->addMinutes(3)->toDateTimeString(); // انقضا بعد از 3 دقیقه
+
+            $code = rand(1000, 9999);
+            $expires_at = now()->addMinutes(3)->toDateTimeString();
             $token = Str::random(32);
-            // ذخیره OTP
+
             $otp = Otp::create([
                 'token' => $token,
                 'user_id' => $user->id,
@@ -75,16 +73,14 @@ class OTPLoginController extends Controller
                 'expires_at' => $expires_at
             ]);
 
-            // ارسال OTP
+            // send otp by mail or sms
             if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
-                // ارسال ایمیل
                 try {
                     Mail::to($user->email)->send(new otpMail($otp));
                 } catch (\Throwable $th) {
                     return redirect()->back()->with('error', 'ارسال ایمیل با خطا مواجه شد. لطفا دوباره اقدام کنید' . $th->getMessage());
                 }
             } else {
-                // ارسال پیامک
                 try {
                     $smsService = new SmsService();
                     $smsService->sendSmsOtp($identifier, $otp->otp_code);
@@ -92,8 +88,6 @@ class OTPLoginController extends Controller
                     return redirect()->back()->with('error', 'خطا در ارسال کد' . $e->getMessage());
                 }
             }
-
-            // انتقال به صفحه وارد کردن OTP
 
             return redirect()->route('otp.verify.form', ['token' => $token])->with('success', 'کد تایید برای شما ارسال شد');
         }
@@ -139,7 +133,7 @@ class OTPLoginController extends Controller
         $otp->update(['used' => 1]);
 
         $user = $otp->user;
-        $user->update(['activated'=>1]);
+        $user->update(['activated' => 1]);
 
         Auth::login($user);
 

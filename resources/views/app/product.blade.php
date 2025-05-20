@@ -101,7 +101,7 @@
                                             id="copy-social-share-link">
                                             <ul class="space-y-2 p-2">
                                                 <li>
-                                                    <button type="button" data-link="{{ route('product', $product) }}"
+                                                    <button type="button" data-link="{{ route('product', $product->slug) }}"
                                                         onclick="copyToClipboardSocialShareDesktop(this)"
                                                         class="flex w-full items-center justify-between rounded-lg px-4 py-3 text-sky-500 hover:bg-sky-500/10 dark:text-sky-400 dark:hover:bg-sky-400/10">
                                                         <div class="flex items-center gap-x-2">
@@ -365,7 +365,7 @@
                             <!-- share on social -->
                             <div class="relative">
                                 <button type="button" onclick="copyToClipboardSocialShareMobile(this)"
-                                    data-link="{{ route('product', $product) }}">
+                                    data-link="{{ route('product', $product->slug) }}">
                                     <svg class="h-6 w-6">
                                         <use xlink:href="#social-share" />
                                     </svg>
@@ -497,7 +497,7 @@
                                     <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
                                         <!-- image -->
                                         <div class="mb-2 md:mb-5" draggable="false">
-                                            <a href="{{ route('product', $relatedProduct) }}">
+                                            <a href="{{ route('product', $relatedProduct->slug) }}">
                                                 <img alt="{{ $relatedProduct->title }}"
                                                     class="mx-auto w-32 rounded-lg md:w-auto"
                                                     src="{{ asset($relatedProduct->image) }}" style="height: 260px;" />
@@ -515,7 +515,7 @@
                                         <!-- title -->
                                         <div class="mb-2">
                                             <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                                href="{{ route('product', $relatedProduct) }}">
+                                                href="{{ route('product', $relatedProduct->slug) }}">
                                                 {{ $relatedProduct->title }}
                                             </a>
                                         </div>
@@ -570,7 +570,7 @@
                                         <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
                                             <!-- image -->
                                             <div class="mb-2 md:mb-5" draggable="false">
-                                                <a href="{{ route('product', $recentlyViewd) }}">
+                                                <a href="{{ route('product', $recentlyViewd->slug) }}">
                                                     <img alt="{{ $recentlyViewd->title }}"
                                                         class="mx-auto w-32 rounded-lg md:w-auto"
                                                         src="{{ asset($recentlyViewd->image) }}"
@@ -589,7 +589,7 @@
                                             <!-- title -->
                                             <div class="mb-2">
                                                 <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                                    href="{{ route('product', $recentlyViewd) }}">
+                                                    href="{{ route('product', $recentlyViewd->slug) }}">
                                                     {{ $recentlyViewd->title }}
                                                 </a>
                                             </div>

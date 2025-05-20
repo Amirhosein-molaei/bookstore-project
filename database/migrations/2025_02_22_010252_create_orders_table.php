@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('payment_id')->constrained('payments')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('copan_id')->constrained('copans')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('payment_id')->nullable()->constrained('payments')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('copan_id')->nullable()->constrained('copans')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('cart_id')->constrained('carts')->onDelete('cascade')->onUpdate('cascade');
-            $table->text('payment_object');
+            $table->text('payment_object')->nullable();
             $table->tinyInteger('payment_type')->comment('0 => by wallet, 1 => by gateway');
             $table->tinyInteger('payment_status')->comment('0 => pending, 1 => ok, 2 => failed');
             $table->tinyInteger('downloaded')->default(0)->comment('0 ->no , 1 -> yes');

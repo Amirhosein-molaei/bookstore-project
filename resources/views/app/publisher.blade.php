@@ -41,7 +41,7 @@
                                     <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
                                         <!-- image -->
                                         <div class="mb-2 md:mb-5" draggable="false">
-                                            <a href="{{ route('product', $hotDeal) }}">
+                                            <a href="{{ route('product', $hotDeal->slug) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
                                                     src="{{ asset($hotDeal->image) }}" style="height: 260px;"/>
                                             </a>
@@ -57,7 +57,7 @@
                                         <!-- title -->
                                         <div class="mb-2">
                                             <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                                href="{{ route('product', $hotDeal) }}">
+                                                href="{{ route('product', $hotDeal->slug) }}">
                                                 {{ $hotDeal->title }}
                                             </a>
                                         </div>
@@ -128,7 +128,7 @@
                                     <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
                                         <!-- image -->
                                         <div class="mb-2 md:mb-5" draggable="false">
-                                            <a href="{{ route('product', $hotDeal) }}">
+                                            <a href="{{ route('product', $hotDeal->slug) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
                                                     src="{{ asset($hotDeal->image) }}" style="height: 260px;"/>
                                             </a>
@@ -144,7 +144,7 @@
                                         <!-- title -->
                                         <div class="mb-2">
                                             <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                                href="{{ route('product', $hotDeal) }}">
+                                                href="{{ route('product', $hotDeal->slug) }}">
                                                 {{ $hotDeal->title }}
                                             </a>
                                         </div>
@@ -220,7 +220,7 @@
                                 <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
                                     <!-- image -->
                                     <div class="mb-2 md:mb-5" draggable="false">
-                                        <a href="{{ route('product', $mostSelledProduct) }}">
+                                        <a href="{{ route('product', $mostSelledProduct->slug) }}">
                                             <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
                                                 src="{{ asset($mostSelledProduct->image) }}" style="height: 260px;"/>
                                         </a>
@@ -236,7 +236,7 @@
                                     <!-- title -->
                                     <div class="mb-2">
                                         <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                            href="{{ route('product', $mostSelledProduct) }}">
+                                            href="{{ route('product', $mostSelledProduct->slug) }}">
                                             {{ $mostSelledProduct->title }}
                                         </a>
                                     </div>
@@ -315,7 +315,7 @@
                                 <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
                                     <!-- image -->
                                     <div class="mb-2 md:mb-5" draggable="false">
-                                        <a href="{{ route('product', $newProduct) }}">
+                                        <a href="{{ route('product', $newProduct->slug) }}">
                                             <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
                                                 src="{{ asset($newProduct->image ?? 'assets/images/products/default-img.jpg') }}" style="height: 260px;"/>
                                         </a>
@@ -331,7 +331,7 @@
                                     <!-- title -->
                                     <div class="mb-2">
                                         <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base"
-                                            href="{{ route('product', $newProduct) }}">
+                                            href="{{ route('product', $newProduct->slug) }}">
                                             {{ $newProduct->title }}
                                         </a>
                                     </div>

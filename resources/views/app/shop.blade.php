@@ -292,7 +292,7 @@
 
                                     <!-- image -->
                                     <div class="mb-2 md:mb-5" draggable="false">
-                                        <a href="{{ route('product', $product) }}">
+                                        <a href="{{ route('product', $product->slug) }}">
                                             <img alt="" style="height: 296px"
                                                 class="mx-auto w-32 rounded-lg md:w-auto"
                                                 src="{{ asset($product->image ?? 'assets/images/products/default-img.jpg') }}" />

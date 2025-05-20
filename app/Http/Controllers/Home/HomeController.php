@@ -38,8 +38,10 @@ class HomeController extends Controller
         return view('app.home', compact(['sliders', 'banners', 'mosteSelledProducts', 'hotDeals', 'latestBlogs', 'suggesteds','mostViewProducts', 'latestProducts']));
     }
 
-    public function publisher(Publisher $publisher)
+    public function publisher($publisherSlug)
     {
+        $publisher = Publisher::where('slug', $publisherSlug)->first();
+        
         $textualHotDeals = $publisher->products()->where('hot_deal', 1)->where('type', 0)->get();
         $audioHotDeals = $publisher->products()->where('hot_deal', 1)->where('type', 1)->get();
 

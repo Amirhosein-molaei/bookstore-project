@@ -17,7 +17,8 @@ class WriterController extends Controller
 
     }
    
-    public function writerBooks(Writer $writer)  {
+    public function writerBooks($writerSlug)  {
+        $writer = Writer::where('slug', $writerSlug)->first();
         $products = $writer->products()->get();
 
         return view('app.writers.writer-books', compact(['products', 'writer']));

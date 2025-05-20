@@ -120,7 +120,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 // Home
 Route::get('/',[HomeController::class,'index'])->name('app.home');
 Route::get('/product/{product}', [HomeProductController::class, 'show'])->name('product');
-Route::get('/publisher/{publisher}', [HomeController::class, 'publisher'])->name('publisher');
+Route::get('/publishers/{publisherSlug}', [HomeController::class, 'publisher'])->name('publisher');
 
 Route::get('/blogs', [\App\Http\Controllers\Home\BlogController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{blog}', [\App\Http\Controllers\Home\BlogController::class, 'show'])->name('blogs.show');
@@ -138,7 +138,7 @@ Route::prefix('blog')->middleware('auth')->group(function () {
 });
 
 Route::get('/writers', [HomeWriterController::class, 'index'])->name(name: 'writers.index');
-Route::get('/writer-books/{writer}', [HomeWriterController::class, 'writerBooks'])->name('writer-books');
+Route::get('/writer-books/{writerSlug}', [HomeWriterController::class, 'writerBooks'])->name('writer-books');
 Route::get('/writers/{id}/details', function($id) {
     $writer = \App\Models\Content\Writer::findOrFail($id);
 

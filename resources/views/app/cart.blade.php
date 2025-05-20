@@ -59,7 +59,7 @@
                                         <div class="relative row-span-2 min-w-fit xs:mx-auto">
                                             <a href="{{ route('product', $item->product) }}">
                                                 <img alt="" class="w-25 rounded-lg sm:w-28"
-                                                    src="{{ asset($item->product->image) }}" />
+                                                    src="{{ asset($item->product->image ?? 'assets/images/products/default-img.jpg') }}" />
                                             </a>
 
                                             <form action="{{ route('cart.remove', $item) }}" method="post">

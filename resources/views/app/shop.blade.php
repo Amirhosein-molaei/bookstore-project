@@ -234,20 +234,6 @@
                                             </div>
                                         </label>
                                     </li>
-                                    <!-- Special -->
-                                    <li>
-                                        <label class="flex cursor-pointer items-center justify-between py-3"
-                                            for="onlySpecialDesktop">
-                                            <div class=" ">فقط محصولات ویژه</div>
-                                            <div class="relative inline-flex cursor-pointer items-center">
-                                                <input class="peer sr-only" id="onlySpecialDesktop" type="checkbox" />
-
-                                                <div
-                                                    class="peer h-6 w-11 rounded-full bg-background after:absolute after:left-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-muted after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-focus:ring-emerald-500 dark:bg-zinc-800 after: peer-checked: peer-focus:dark:ring-emerald-400">
-                                                </div>
-                                            </div>
-                                        </label>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -267,28 +253,28 @@
                                 <p>مرتب‌سازی بر اساس</p>
                             </div>
                             <!-- Sort Buttons -->
-                            <a href="{{ route('shop', ['filter' => 'all'] + request()->query()) }}"
-                                class="btn {{ $sort === 'all' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                            <a href="{{ route('shop', ['filter' => '0'] + request()->query()) }}"
+                                class="btn {{ $sort === '0' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
                                 همه کالاها
                             </a>
 
-                            <a href="{{ route('shop', ['filter' => 'available'] + request()->query()) }}"
-                                class="btn {{ $sort === 'available' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                            <a href="{{ route('shop', ['filter' => '1'] + request()->query()) }}"
+                                class="btn {{ $sort === '1' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
                                 کالاهای موجود
                             </a>
 
-                            <a href="{{ route('shop', ['filter' => 'with-picture'] + request()->query()) }}"
-                                class="btn {{ $sort === 'with-picture' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                            <a href="{{ route('shop', ['filter' => '2'] + request()->query()) }}"
+                                class="btn {{ $sort === '2' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
                                 کالاهای عکس‌دار
                             </a>
 
-                            <a href="{{ route('shop', ['filter' => 'most-expensive'] + request()->query()) }}"
-                                class="btn {{ $sort === 'most-expensive' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                            <a href="{{ route('shop', ['filter' => '3'] + request()->query()) }}"
+                                class="btn {{ $sort === '3' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
                                 گران‌ترین
                             </a>
 
-                            <a href="{{ route('shop', ['filter' => 'cheapest'] + request()->query()) }}"
-                                class="btn {{ $sort === 'cheapest' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
+                            <a href="{{ route('shop', ['filter' => '4'] + request()->query()) }}"
+                                class="btn {{ $sort === '4' ? 'sort-button-active' : '' }} rounded-lg px-1 py-2 text-sm lg:px-4">
                                 ارزان‌ترین
                             </a>
                         </div>
@@ -309,7 +295,7 @@
                                         <a href="{{ route('product', $product) }}">
                                             <img alt="" style="height: 296px"
                                                 class="mx-auto w-32 rounded-lg md:w-auto"
-                                                src="{{ asset($product->image) }}" />
+                                                src="{{ asset($product->image ?? 'assets/images/products/default-img.jpg') }}" />
                                         </a>
                                     </div>
                                     <!-- rate -->

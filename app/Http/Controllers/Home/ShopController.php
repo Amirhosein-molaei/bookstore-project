@@ -46,22 +46,22 @@ class ShopController extends Controller
               ->orWhereBetween('discounted_price', [$minPrice, $maxPrice]);
         });  
   
-        $sort = $filter ?? 'all';
+        $sort = $filter ?? '0';
   
         // top nav filter (sorting match books)
-        if ($filter === 'available') {
+        if ($filter === '1') {
             $query->where('marketable', 0);
           
-        } elseif ($filter === 'with-picture') {     
+        } elseif ($filter === '2') {     
             $query->where('marketable', 0)
                 ->whereNotNull('image')
                 ->where('image', '!=', '');
           
-        } elseif ($filter === 'most-expensive') {
+        } elseif ($filter === '3') {
             $query->where('marketable', 0)
                 ->orderByRaw('COALESCE(discounted_price, price) DESC');
           
-        } elseif ($filter === 'cheapest') {
+        } elseif ($filter === '4') {
             $query->where('marketable', 0)
                 ->orderByRaw('COALESCE(discounted_price, price) ASC');
         }

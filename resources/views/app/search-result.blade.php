@@ -44,7 +44,7 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $product) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($product->image) }}" style="height: 260px;"/>
+                                                    src="{{ asset($product->image ?? 'assets/images/products/default-img.jpg') }}" style="height: 260px;"/>
 
                                             </a>
                                         </div>

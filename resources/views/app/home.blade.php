@@ -76,7 +76,7 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $product) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($product->image) }}" style="height: 260px" />
+                                                    src="{{ asset($product->image ?? 'assets/images/products/default-img.jpg') }}" style="height: 260px" />
                                             </a>
                                         </div>
                                         <!-- rate -->
@@ -161,7 +161,7 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $suggested) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($suggested->image) }}" style="height: 260px" />
+                                                    src="{{ asset($suggested->image ?? 'assets/images/products/default-img.jpg') }}" style="height: 260px" />
                                             </a>
                                         </div>
                                         <!-- rate -->
@@ -248,7 +248,7 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $hotDeal) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($hotDeal->image) }}" style="height: 260px"/>
+                                                    src="{{ asset($hotDeal->image ?? 'assets/images/products/default-img.jpg') }}" style="height: 260px"/>
                                             </a>
                                         </div>
                                         <!-- rate -->
@@ -335,7 +335,7 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $hotDeal) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($hotDeal->image) }}" style="height: 260px"/>
+                                                    src="{{ asset($hotDeal->image ?? 'assets/images/products/default-img.jpg') }}" style="height: 260px"/>
                                             </a>
                                         </div>
                                         <!-- rate -->
@@ -403,84 +403,6 @@
                 </div>
             </div>
         </section>
-        <!-- Category Banners section End -->
-
-        <!-- Category section Start -->
-        {{-- <section class="mb-8">
-            <div class="container relative">
-                <div class="flex flex-wrap items-center justify-center gap-8 lg:justify-between">
-                    <!-- Category -->
-
-                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                        href="./shop.html">
-                        <div
-                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                            <img alt="" class="relative h-25 w-25 rounded-full"
-                                src="./assets/images/categories/c1.jpg" />
-                        </div>
-                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                            جوراب مردانه
-                        </p>
-                    </a>
-                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                        href="./shop.html">
-                        <div
-                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                            <img alt="" class="relative h-25 w-25 rounded-full"
-                                src="./assets/images/categories/c3.jpg" />
-                        </div>
-                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                            کفش ورزشی مردانه
-                        </p>
-                    </a>
-                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                        href="./shop.html">
-                        <div
-                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                            <img alt="" class="relative h-25 w-25 rounded-full"
-                                src="./assets/images/categories/c6.jpg" />
-                        </div>
-                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                            کیف مردانه
-                        </p>
-                    </a>
-                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                        href="./shop.html">
-                        <div
-                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                            <img alt="" class="relative h-25 w-25 rounded-full"
-                                src="./assets/images/categories/c2.jpg" />
-                        </div>
-                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                            جوراب زنانه
-                        </p>
-                    </a>
-                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                        href="./shop.html">
-                        <div
-                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                            <img alt="" class="relative h-25 w-25 rounded-full"
-                                src="./assets/images/categories/c4.jpg" />
-                        </div>
-                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                            کفش ورزشی زنانه
-                        </p>
-                    </a>
-                    <a class="relative flex w-25 flex-col items-center justify-between gap-y-1.5 sm:w-auto sm:gap-y-2.5"
-                        href="./shop.html">
-                        <div
-                            class="border-gradient group relative rounded-full p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-full">
-                            <img alt="" class="relative h-25 w-25 rounded-full"
-                                src="./assets/images/categories/c5.jpg" />
-                        </div>
-                        <p class="line-clamp-2 h-10 text-center text-sm sm:text-base">
-                            کیف زنانه
-                        </p>
-                    </a>
-                </div>
-            </div>
-        </section> --}}
-        <!-- Category section End -->
 
 
         <!-- Special Products section Start -->
@@ -518,7 +440,7 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $mosteSelledProduct) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($mosteSelledProduct->image) }}" style="height: 260px"/>
+                                                    src="{{ asset($mosteSelledProduct->image ?? 'assets/images/products/default-img.jpg') }}" style="height: 260px"/>
                                             </a>
                                         </div>
                                         <!-- rate -->
@@ -609,7 +531,7 @@
                                         <div class="mb-2 md:mb-5" draggable="false">
                                             <a href="{{ route('product', $mostViewProduct) }}">
                                                 <img alt="" class="mx-auto w-32 rounded-lg md:w-auto"
-                                                    src="{{ asset($mostViewProduct->image) }}" style="height: 260px"/>
+                                                    src="{{ asset($mostViewProduct->image ?? 'assets/images/products/default-img.jpg') }}" style="height: 260px"/>
                                             </a>
                                         </div>
                                         <!-- rate -->

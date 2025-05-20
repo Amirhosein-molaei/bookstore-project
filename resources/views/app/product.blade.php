@@ -121,7 +121,7 @@
                             </div>
                             <!-- Main image -->
                             <div>
-                                <img src="{{ asset($product->image) }}" alt="" class="mx-auto" loading="lazy" />
+                                <img src="{{ asset($product->image ?? 'assets/images/products/default-img.jpg') }}" alt="" class="mx-auto" loading="lazy" />
                             </div>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                                             <div class="min-w-fit text-text/60">نویسنده :</div>
                                             <div class="text-text/90 btn-pink-nobg">
                                                 <a
-                                                    href="{{ route('writer-books', $product->writer) }}">{{ $product->writer->name }}</a>
+                                                    href="{{ route('writer-books', $product->writer->slug) }}">{{ $product->writer->name }}</a>
                                             </div>
                                             @auth
                                                 <div>
@@ -225,7 +225,7 @@
                                                 انتشارات:
                                             </div>
                                             <div class="text-text/90">
-                                                <a href="{{ route('publisher', $product->publisher) }}"
+                                                <a href="{{ route('publisher', $product->publisher->slug) }}"
                                                     class="btn-indigo-nobg">
                                                     {{ $product->publisher->name }}
                                                 </a>
@@ -754,6 +754,20 @@
                                 <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                                     <ul class="space-y-4">
                                         <li>{{ $product->publisher->name }}</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="grid grid-cols-3 gap-x-2 lg:grid-cols-5">
+                                <div class="col-span-1 text-text/60">
+                                    برچسب ها :
+                                </div>
+                                <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
+                                    <ul class="space-y-4">
+                                        <li>
+                                            @foreach ($product->tags as $tag)
+                                                {{ '#' . $tag->name . ' ' }}
+                                            @endforeach
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

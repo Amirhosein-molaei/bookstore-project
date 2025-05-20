@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5e7a1717fb011136a7a52a446aee353",
+    "content-hash": "76727eff6fd12fd626a2eb194718555c",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -6294,6 +6294,76 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "willvincent/laravel-rateable",
+            "version": "3.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/willvincent/laravel-rateable.git",
+                "reference": "7fe69fd2bbe5b4888b265c25d5140c09a309cbcd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/willvincent/laravel-rateable/zipball/7fe69fd2bbe5b4888b265c25d5140c09a309cbcd",
+                "reference": "7fe69fd2bbe5b4888b265c25d5140c09a309cbcd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^8.53 || ^9 || ^10 || ^11 || ^12",
+                "illuminate/support": "^8 || ^9 || ^10 || ^11 || ^12",
+                "php": "^8.1 || ^8.2 || ^8.3 || ^8.4"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.23 || ^7 || ^8 || ^9 || ^10",
+                "phpunit/phpunit": "^9.5 || ^10.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "willvincent\\Rateable\\RateableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "willvincent\\Rateable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Will Vincent",
+                    "email": "tcindie@gmail.com",
+                    "homepage": "https://willvincent.com"
+                }
+            ],
+            "description": "Allows multiple models to be rated with a fivestar like system.",
+            "homepage": "https://github.com/willvincent/laravel-rateable",
+            "keywords": [
+                "Rating",
+                "fivestar",
+                "laravel",
+                "laravel 8",
+                "laravel 9",
+                "rateable",
+                "vote"
+            ],
+            "support": {
+                "issues": "https://github.com/willvincent/laravel-rateable/issues",
+                "source": "https://github.com/willvincent/laravel-rateable/tree/3.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/willvincent",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-02-03T22:43:31+00:00"
         }
     ],
     "packages-dev": [

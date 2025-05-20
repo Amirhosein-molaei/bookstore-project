@@ -126,11 +126,17 @@ class ProductController extends Controller
         $inputs['commentable_type'] = 'App\Models\Market\Product';
         $inputs['commentable_id'] = $product->id;
         $inputs['status'] = 0;
+        
+        //prevent user from rating again
+        if ($product->comments()->where('user_id', Auth::id())->where('rate', '>', 0)->exists()) {
+            $inputs['rate'] = 0;
+        }
+        
         $inputs['has_bought'] = $user->hasPurchasedProduct($product->id) ? 1 : 0;
         
         $comment = Comment::create($inputs);
 
-        if ($inputs['has_bought'] == 1 and $inputs['suggested'] == 1) {
+        if ($inputs['has_bought'] == 1 and $inputs['suggested'] == 1 and !$user->hasSuggestedProduct($product)) {
             $product->increment('suggested_count');
         }
 

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->tinyInteger('type')->comment('0->textual , 1->Audio');
             $table->integer('page_count')->nullable();
             $table->integer('release_year');
-            $table->integer('rate')->nullable();
             $table->foreignId('product_category_id')->constrained('product_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('writer_id')->constrained('writers')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('publisher_id')->constrained('publishers')->onDelete('cascade')->onUpdate('cascade');

@@ -10,6 +10,7 @@ use App\Models\Ticket\TicketAdmin;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -100,6 +101,11 @@ class User extends Authenticatable
             ->where('favoriteable_id', $writer->id)
             ->where('favoriteable_type', Writer::class)
             ->exists();
+    }
+
+    public function hasSuggestedProduct(Product $product)
+    {
+        return $product->comments()->where('user_id', Auth::id())->where('status', 2)->where('suggested', 1)->exists();
     }
 
 }
